@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book an Appointment — ME Shield Financial Services</title>
+  <meta name="description" content="Schedule a free consultation with ME Shield Financial Services for insurance, tax, or paralegal services in Florida."/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .book-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* Appointment type cards */
+    .appt-type {
+      background: var(--white);
+      border: 2px solid rgba(201,168,76,.15);
+      border-radius: 10px;
+      padding: 22px 24px;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .appt-type:hover { border-color: var(--gold); box-shadow: var(--shadow); }
+    .appt-type.selected {
+      border-color: var(--gold);
+      background: rgba(201,168,76,.05);
+      box-shadow: 0 0 0 3px rgba(201,168,76,.15);
+    }
+    .appt-type-icon {
+      width: 44px; height: 44px;
+      background: var(--navy);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .appt-type-body strong {
+      display: block;
+      color: var(--navy);
+      font-size: .97rem;
+      margin-bottom: 3px;
+    }
+    .appt-type-body span {
+      font-size: .83rem;
+      color: var(--text-light);
+    }
+    .appt-radio { margin-left: auto; align-self: center; accent-color: var(--gold); width: 18px; height: 18px; }
+
+    /* Calendar placeholder */
+    .calendar-box {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(201,168,76,.15);
+      overflow: hidden;
+    }
+    .calendar-header {
+      background: var(--navy);
+      padding: 24px 28px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .calendar-header h3 { color: var(--white); font-size: 1.1rem; }
+    .cal-nav { display: flex; gap: 8px; }
+    .cal-nav button {
+      background: rgba(255,255,255,.1);
+      border: none;
+      color: var(--white);
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background .2s;
+    }
+    .cal-nav button:hover { background: rgba(201,168,76,.3); }
+
+    .calendar-grid-header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      background: rgba(201,168,76,.06);
+      border-bottom: 1px solid rgba(201,168,76,.1);
+    }
+    .cal-day-name {
+      text-align: center;
+      padding: 10px 0;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      color: var(--text-light);
+      text-transform: uppercase;
+    }
+    .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      padding: 8px;
+      gap: 4px;
+    }
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: all .15s;
+      color: var(--text-mid);
+      font-weight: 500;
+    }
+    .cal-day:hover:not(.empty):not(.past) { background: rgba(201,168,76,.15); color: var(--navy); }
+    .cal-day.today { background: var(--navy); color: var(--white); font-weight: 700; }
+    .cal-day.selected { background: var(--gold); color: var(--navy); font-weight: 700; }
+    .cal-day.past { color: #ccc; cursor: default; }
+    .cal-day.empty { cursor: default; }
+    .cal-day.available::after {
+      content: '';
+      display: block;
+      width: 4px; height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: absolute;
+      bottom: 4px;
+    }
+    .cal-day { position: relative; }
+
+    /* Time slots */
+    .time-panel {
+      border-top: 1px solid rgba(201,168,76,.12);
+      padding: 20px 24px;
+    }
+    .time-panel h4 { color: var(--navy); margin-bottom: 14px; font-size: .95rem; }
+    .time-slots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .time-slot {
+      padding: 10px 8px;
+      border: 1.5px solid rgba(201,168,76,.2);
+      border-radius: 6px;
+      text-align: center;
+      font-size: .83rem;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .time-slot:hover { border-color: var(--gold); background: rgba(201,168,76,.08); }
+    .time-slot.selected { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+    .time-slot.unavailable { color: #ccc; border-color: #eee; cursor: default; background: #fafafa; }
+
+    /* Confirm panel */
+    .confirm-panel {
+      border-top: 1px solid rgba(201,168,76,.12);
+      padding: 20px 24px;
+      background: rgba(201,168,76,.04);
+    }
+    .confirm-summary {
+      background: var(--navy);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+    .confirm-summary p { color: rgba(255,255,255,.75); font-size: .88rem; margin: 4px 0; }
+    .confirm-summary strong { color: var(--gold); }
+
+    /* Placeholder overlay */
+    .placeholder-overlay {
+      position: absolute; inset: 0;
+      background: rgba(11,28,58,.88);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 32px;
+      border-radius: 12px;
+      z-index: 10;
+    }
+    .placeholder-overlay h3 { color: var(--gold); margin-bottom: 10px; }
+    .placeholder-overlay p  { color: rgba(255,255,255,.75); font-size: .92rem; margin-bottom: 20px; }
+    .placeholder-overlay code {
+      display: block;
+      background: rgba(255,255,255,.1);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: .82rem;
+      color: var(--gold-light);
+      margin-bottom: 20px;
+      word-break: break-all;
+    }
+
+    /* Info sidebar */
+    .info-block {
+      background: var(--navy);
+      border-radius: 10px;
+      padding: 28px 26px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+    .info-block h4 { color: var(--gold); margin-bottom: 14px; }
+    .info-row { display: flex; gap: 12px; margin-bottom: 12px; font-size: .9rem; color: rgba(255,255,255,.7); align-items: flex-start; }
+    .info-row:last-child { margin-bottom: 0; }
+    .info-row .ico { flex-shrink: 0; }
+
+    @media (max-width: 820px) {
+      .book-layout { grid-template-columns: 1fr; }
+      .time-slots { grid-template-columns: repeat(4,1fr); }
+    }
+
+
+
+  </style>
+</head>
+<body class="lang-en">
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
+      <div>
+        <div class="nav-logo-text">ME Shield Financial</div>
+        <div class="nav-logo-sub">Services</div>
+      </div>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+      <li class="nav-dropdown">
+        <a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="insurance.html"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li>
+          <li><a href="tax-preparation.html"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li>
+          <li><a href="paralegal-immigration.html"><span data-en>Paralegal &amp; Immigration</span><span data-ht>Paralegal &amp; Imigrasyon</span></a></li>
+          <li><a href="business-filing.html"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li>
+          <li><a href="infinite-banking.html"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li>
+        </ul>
+      </li>
+      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">HT</button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero has-photo" style="background-image:url('https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=1400&q=70');">
+  <div class="container">
+    <h1 data-en>Book an Appointment</h1>
+    <h1 data-ht>Rezève yon Randevou</h1>
+    <p data-en>Free consultation — pick a time that works for you.</p>
+    <p data-ht>Konsiltasyon gratis — chwazi yon lè ki bon pou ou.</p>
+  </div>
+</div>
+
+<section class="section section-white">
+  <div class="container">
+    <div class="book-layout">
+
+      <!-- LEFT: Info + Type -->
+      <div>
+        <div class="info-block reveal">
+          <h4 data-en>What to Expect</h4>
+          <h4 data-ht>Sa Pou Atann</h4>
+          <div class="info-row"><span class="ico">⏱️</span><span data-en>30–45 minute consultation, no charge</span><span data-ht>Konsiltasyon 30–45 minit, gratis</span></div>
+          <div class="info-row"><span class="ico"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg></span><span data-en>Phone, video, or WhatsApp — your choice</span><span data-ht>Telefòn, videyo, oswa WhatsApp — chwa ou</span></div>
+          <div class="info-row"><span class="ico"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-2.95a15.7 15.7 0 0 0-1.38-4.13A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.5 2.53 1.95 3.96h-3.9c.45-1.43 1.12-2.76 1.95-3.96zM4.26 14a8.07 8.07 0 0 1 0-4h3.38a16.3 16.3 0 0 0 0 4H4.26zm.81 2h2.95c.32 1.45.78 2.84 1.38 4.13A8.03 8.03 0 0 1 5.07 16zm2.95-8H5.07a8.03 8.03 0 0 1 4.33-4.13A15.7 15.7 0 0 0 8.02 8zM12 19.96A15.6 15.6 0 0 1 10.05 16h3.9A15.6 15.6 0 0 1 12 19.96zM14.36 14H9.64a14.3 14.3 0 0 1 0-4h4.72a14.3 14.3 0 0 1 0 4zm.25 5.13c.6-1.29 1.06-2.68 1.38-4.13h2.95a8.03 8.03 0 0 1-4.33 4.13zM16.36 14a16.3 16.3 0 0 0 0-4h3.38a8.07 8.07 0 0 1 0 4h-3.38z"/></svg></span><span data-en>Available in English or Haitian Creole</span><span data-ht>Disponib an Anglè oswa Kreyòl Ayisyen</span></div>
+          <div class="info-row"><span class="ico"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M9 2a1 1 0 0 0-1 1v1H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V3a1 1 0 0 0-1-1H9zm1 2h4v2h-4V4zM6 6h2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1h2v14H6V6z"/></svg></span><span data-en>No paperwork needed for the first call</span><span data-ht>Pa bezwen papye pou premye apèl la</span></div>
+        </div>
+
+        <h3 style="color:var(--navy);margin-bottom:16px;" data-en>Select a Service</h3>
+        <h3 style="color:var(--navy);margin-bottom:16px;" data-ht>Chwazi yon Sèvis</h3>
+
+        <div class="appt-type selected" onclick="selectType(this)">
+          <div class="appt-type-icon" style="overflow:hidden;padding:0;"><img src="https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=120&q=70" alt="" style="width:100%;height:100%;object-fit:cover;"/></div>
+          <div class="appt-type-body">
+            <strong data-en>Insurance Consultation</strong>
+            <strong data-ht>Konsiltasyon Asirans</strong>
+            <span data-en>Life, health, property & IBC strategy</span>
+            <span data-ht>Lavi, sante, pwopriyete & estrateji IBC</span>
+          </div>
+          <input type="radio" class="appt-radio" name="appt-type" checked/>
+        </div>
+
+        <div class="appt-type" onclick="selectType(this)">
+          <div class="appt-type-icon" style="overflow:hidden;padding:0;"><img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=120&q=70" alt="" style="width:100%;height:100%;object-fit:cover;"/></div>
+          <div class="appt-type-body">
+            <strong data-en>Tax Preparation</strong>
+            <strong data-ht>Preparasyon Taks</strong>
+            <span data-en>Individual, self-employed, or small business</span>
+            <span data-ht>Endividyèl, travayè endepandan, oswa ti biznis</span>
+          </div>
+          <input type="radio" class="appt-radio" name="appt-type"/>
+        </div>
+
+        <div class="appt-type" onclick="selectType(this)">
+          <div class="appt-type-icon" style="overflow:hidden;padding:0;"><img src="https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=120&q=70" alt="" style="width:100%;height:100%;object-fit:cover;"/></div>
+          <div class="appt-type-body">
+            <strong data-en>Paralegal / Immigration Docs</strong>
+            <strong data-ht>Paralegal / Dokiman Imigrasyon</strong>
+            <span data-en>USCIS forms, DACA, naturalization</span>
+            <span data-ht>Fòm USCIS, DACA, natiralizasyon</span>
+          </div>
+          <input type="radio" class="appt-radio" name="appt-type"/>
+        </div>
+
+        <div class="appt-type" onclick="selectType(this)">
+          <div class="appt-type-icon" style="overflow:hidden;padding:0;"><img src="https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?auto=format&fit=crop&w=120&q=70" alt="" style="width:100%;height:100%;object-fit:cover;"/></div>
+          <div class="appt-type-body">
+            <strong data-en>General / Not Sure Yet</strong>
+            <strong data-ht>Jeneral / Pa Sèten Toujou</strong>
+            <span data-en>I have questions but don't know where to start</span>
+            <span data-ht>Mwen gen kesyon men mwen pa konnen kote pou kòmanse</span>
+          </div>
+          <input type="radio" class="appt-radio" name="appt-type"/>
+        </div>
+
+        <div class="appt-type" onclick="selectType(this)">
+          <div class="appt-type-icon" style="overflow:hidden;padding:0;">
+            <img src="https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=120&q=70" alt="" style="width:100%;height:100%;object-fit:cover;"/>
+          </div>
+          <div class="appt-type-body">
+            <strong data-en>Business Filing</strong>
+            <strong data-ht>Depo Biznis</strong>
+            <span data-en>LLC formation, EIN, DBA, annual reports</span>
+            <span data-ht>Fòmasyon LLC, EIN, DBA, rapò anyèl</span>
+          </div>
+          <input type="radio" class="appt-radio" name="appt-type"/>
+        </div>
+
+        <div class="info-block" style="margin-top:24px;">
+          <h4 data-en>Prefer to reach us directly?</h4>
+          <h4 data-ht>Prefere kontakte nou dirèkteman?</h4>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+            <a href="tel:+14072672652" class="btn btn-gold" style="text-align:center;" data-en><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>Call (407) 267-2652</a>
+            <a href="tel:+14072672652" class="btn btn-gold" style="text-align:center;" data-ht><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>Rele (407) 267-2652</a>
+            <a href="https://wa.me/14072672652" class="btn btn-outline" style="text-align:center;color:var(--gold);" data-en><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-5 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/></svg> WhatsApp Us</a>
+            <a href="https://wa.me/14072672652" class="btn btn-outline" style="text-align:center;color:var(--gold);" data-ht><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-5 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/></svg> WhatsApp Nou</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Calendar widget -->
+      <div style="position:relative;">
+
+        <div class="calendar-box reveal" style="padding:6px;">
+          <div id="my-cal-inline-15min" style="width:100%;height:650px;overflow:scroll;"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "15min", {origin:"https://cal.com"});
+  Cal.ns["15min"]("inline", {
+    elementOrSelector: "#my-cal-inline-15min",
+    config: {"layout":"month_view"},
+    calLink: "me-shield-financial-services/15min",
+  });
+  Cal.ns["15min"]("ui", {"hideEventTypeDetails": false, "layout": "month_view"});
+</script>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <img src="logo.png" alt="ME Shield Financial Services logo" style="height:48px;width:auto;object-fit:contain;"/>
+          <div>
+            <div style="color:var(--white);font-family:var(--font-display);font-weight:700;">ME Shield Financial Services</div>
+            <div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div>
+          </div>
+        </div>
+        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) · Tax &amp; Paralegal (Nationwide) — bilingual service.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) · Taks &amp; Paralegal (Nasyonal) — sèvis bileng.</p>
+        <div style="margin-top:16px;display:flex;gap:10px;">
+          <a href="https://www.facebook.com/profile.php?id=61590568017562" target="_blank" rel="noopener" aria-label="Facebook" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M22.675 0h-21.35C.595 0 0 .595 0 1.326v21.348C0 23.404.595 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.405 24 24 23.404 24 22.674V1.326C24 .595 23.405 0 22.675 0z"/></svg></a>
+          <a href="https://www.instagram.com/meshieldfinancial/" target="_blank" rel="noopener" aria-label="Instagram" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener" aria-label="TikTok" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
+          <a href="https://wa.me/14072672652" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4 data-en>Services</h4><h4 data-ht>Sèvis</h4>
+        <ul>
+          <li><a href="services.html#insurance" data-en>Insurance</a><a href="services.html#insurance" data-ht>Asirans</a></li>
+          <li><a href="services.html#tax" data-en>Tax Prep</a><a href="services.html#tax" data-ht>Taks</a></li>
+          <li><a href="services.html#paralegal" data-en>Paralegal</a><a href="services.html#paralegal" data-ht>Paralegal</a></li>
+          <li><a href="services.html#immigration" data-en>Immigration Docs</a><a href="services.html#immigration" data-ht>Dokiman Imigrasyon</a></li>
+          <li><a href="services.html#business" data-en>Business Filing</a><a href="services.html#business" data-ht>Depo Biznis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Resources</h4><h4 data-ht>Resous</h4>
+        <ul>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="blog.html" data-en>Blog</a><a href="blog.html" data-ht>Blòg</a></li>
+          <li><a href="contact.html" data-en>Contact</a><a href="contact.html" data-ht>Kontakte</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Hours</h4><h4 data-ht>Orè</h4>
+        <ul style="font-size:.88rem;color:rgba(255,255,255,.6);">
+          <li style="list-style:none;color:inherit;" data-en>Mon–Fri: 9am–6pm</li>
+          <li style="list-style:none;color:inherit;" data-ht>Lendi–Vandredi: 9am–6pm</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-en>Sat: By appointment</li>
+          <li style="list-style:none;color:inherit;" data-ht>Samdi: Sou randevou</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC, a Florida-registered limited liability company.</div>
+    <div class="footer-disclaimer" data-en>ME Shield is not a law firm. Paralegal and immigration document appointments are limited to document preparation only and do not constitute legal advice. Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA (“ap fonksyone kòm”) pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield se pa yon kabinè avoka. Randevou paralegal ak dokiman imigrasyon limite a preparasyon dokiman sèlman epi yo pa reprezante konsèy legal. Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP.</div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
+      <span data-en>All rights reserved.</span><span data-ht>Tout dwa rezève.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+
+  function selectType(el) {
+    document.querySelectorAll('.appt-type').forEach(e => { e.classList.remove('selected'); e.querySelector('input').checked = false; });
+    el.classList.add('selected');
+    el.querySelector('input').checked = true;
+  }
+</script>
+</body>
+</html>

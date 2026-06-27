@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ME Shield Financial Services — Insurance · Tax · Paralegal</title>
+  <meta name="description" content="ME Shield Financial Services offers life & health insurance, tax preparation, and paralegal/immigration document services in Florida. Bilingual English and Haitian Creole."/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ── HOME HERO ── */
+    .home-hero {
+      background: var(--navy);
+      padding: 96px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-logo-watermark {
+      position: absolute;
+      top: 50%; right: -60px;
+      transform: translateY(-50%);
+      width: 560px;
+      max-width: 60vw;
+      opacity: .06;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .home-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 75% 50%, rgba(201,168,76,.09) 0%, transparent 65%);
+    }
+    .home-hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+    }
+    .hero-content { position: relative; max-width: 640px; }
+    .hero-content h1 { color: var(--white); margin-bottom: 22px; }
+    .hero-content h1 em { color: var(--gold); font-style: normal; }
+    .hero-content p { color: rgba(255,255,255,.72); font-size: 1.08rem; margin-bottom: 36px; max-width: 520px; }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-stat-row {
+      display: flex;
+      gap: 40px;
+      margin-top: 52px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      flex-wrap: wrap;
+    }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hero-stat-label { font-size: .8rem; color: rgba(255,255,255,.5); letter-spacing: .04em; }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      background: var(--white);
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(201,168,76,.15);
+    }
+    .trust-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .trust-item span.icon { font-size: 1.2rem; }
+
+    /* ── SERVICES STRIP ── */
+    .service-card { text-align: left; }
+    .service-card h3 { color: var(--navy); margin-bottom: 10px; }
+    .service-card p { font-size: .92rem; margin-bottom: 18px; }
+    .service-card a { font-size: .88rem; font-weight: 600; color: var(--gold); }
+
+    /* ── WHY SECTION ── */
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .why-left { padding: 72px 56px 72px 0; }
+    .why-right {
+      background: var(--navy);
+      padding: 72px 0 72px 56px;
+      border-radius: 0 10px 10px 0;
+    }
+    .why-item { display: flex; gap: 16px; margin-bottom: 28px; }
+    .why-item:last-child { margin-bottom: 0; }
+    .why-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: .95rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .why-item h4 { color: var(--navy); margin-bottom: 4px; font-size: 1rem; }
+    .why-item p  { font-size: .9rem; }
+    .why-right .why-item h4 { color: var(--white); }
+    .why-right .why-item p  { color: rgba(255,255,255,.6); }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: var(--gold);
+      padding: 60px 0;
+      text-align: center;
+    }
+    .cta-band h2 { color: var(--navy); font-size: clamp(1.5rem,3vw,2.2rem); }
+    .cta-band p  { color: rgba(11,28,58,.7); margin: 10px 0 28px; font-size: 1.05rem; }
+    .btn-navy { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .btn-navy:hover { background: var(--navy-mid); border-color: var(--navy-mid); color: var(--white); }
+
+    @media (max-width: 820px) {
+      .why-grid { grid-template-columns: 1fr; }
+      .why-left { padding: 48px 24px; }
+      .why-right { padding: 48px 24px; border-radius: 0 0 10px 10px; }
+    }
+
+    /* ── IMAGE SLIDER ── */
+    .img-slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      height: 420px;
+      margin: 0 0 0;
+    }
+    .img-slider-track {
+      display: flex;
+      height: 100%;
+      transition: transform .7s cubic-bezier(.65,0,.35,1);
+    }
+    .img-slide {
+      position: relative;
+      min-width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+    .img-slide::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(11,28,58,.15) 0%, rgba(11,28,58,.85) 100%);
+    }
+    .img-slide-caption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 32px 40px;
+      z-index: 2;
+    }
+    .img-slide-caption .eyebrow-slide {
+      font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .img-slide-caption h3 { color: var(--white); font-size: 1.5rem; margin-bottom: 8px; }
+    .img-slide-caption p  { color: rgba(255,255,255,.78); font-size: .95rem; max-width: 480px; margin-bottom: 0 !important; }
+    .slider-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+      color: var(--white); font-size: 1.2rem; cursor: pointer; z-index: 3;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+      backdrop-filter: blur(2px);
+    }
+    .slider-arrow:hover { background: rgba(201,168,76,.5); }
+    .slider-arrow.prev { left: 18px; }
+    .slider-arrow.next { right: 18px; }
+    .slider-dots {
+      position: absolute; bottom: 18px; right: 40px; z-index: 3;
+      display: flex; gap: 8px;
+    }
+    .slider-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,.4); cursor: pointer; transition: background .2s, width .2s;
+    }
+    .slider-dot.active { background: var(--gold); width: 22px; border-radius: 4px; }
+    @media (max-width: 640px) {
+      .img-slider { height: 360px; }
+      .img-slide-caption { padding: 24px 22px; }
+      .img-slide-caption h3 { font-size: 1.2rem; }
+      .slider-arrow { width: 36px; height: 36px; }
+    }
+
+    .reveal-stagger.is-visible .stagger-item:nth-child(1) { transition-delay: .05s; }
+    .reveal-stagger.is-visible .stagger-item:nth-child(2) { transition-delay: .15s; }
+    .reveal-stagger.is-visible .stagger-item:nth-child(3) { transition-delay: .25s; }
+    .reveal-stagger.is-visible .stagger-item:nth-child(4) { transition-delay: .35s; }
+
+    /* ── 4-CARD SERVICE GRID ── */
+    .grid-4-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    @media (max-width: 980px) { .grid-4-cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .grid-4-cards { grid-template-columns: 1fr; } }
+    /* ── UTILITY BAR ── */
+    .utility-bar {
+      background: var(--navy-mid, #16284f);
+      padding: 8px 0;
+      font-size: .8rem;
+    }
+    .utility-bar-inner {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .utility-left { display: flex; align-items: center; gap: 18px; color: rgba(255,255,255,.7); }
+    .utility-left a { color: rgba(255,255,255,.7); }
+    .utility-promos { display: flex; gap: 18px; flex-wrap: wrap; }
+    .utility-promo { color: var(--gold); font-weight: 700; letter-spacing: .04em; }
+    .utility-promo a { color: var(--white); font-weight: 600; margin-left: 6px; text-decoration: underline; }
+    @media (max-width: 700px) { .utility-promos { display: none; } }
+
+    /* ── POSITIONING SECTION ── */
+    .positioning-section { padding: 80px 0; }
+    .positioning-tagline {
+      font-family: var(--font-display); font-weight: 700; color: var(--navy);
+      font-size: clamp(1.4rem, 2.6vw, 1.9rem); text-align: center; margin-bottom: 36px; max-width: 760px;
+      margin-left: auto; margin-right: auto;
+    }
+    .positioning-tagline em { color: var(--gold); font-style: normal; }
+    .positioning-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
+    .value-checklist { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+    .value-checklist li { display: flex; gap: 12px; align-items: flex-start; font-size: .95rem; color: var(--text-dark); }
+    .value-checklist li::before {
+      content: '✓'; flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--gold); color: var(--navy); font-weight: 700; font-size: .75rem;
+      display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+    .positioning-photo { border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 4/5; }
+    .positioning-photo img { width: 100%; height: 100%; object-fit: cover; }
+    @media (max-width: 820px) { .positioning-grid { grid-template-columns: 1fr; } }
+
+    /* ── DUAL CTA CARDS ── */
+    .dual-cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .dual-cta-card {
+      position: relative; border-radius: 12px; overflow: hidden; min-height: 280px;
+      display: flex; align-items: flex-end; background-size: cover; background-position: center;
+      box-shadow: var(--shadow-lg); text-decoration: none;
+    }
+    .dual-cta-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(11,28,58,.2) 0%, rgba(11,28,58,.92) 100%);
+    }
+    .dual-cta-card-body { position: relative; z-index: 1; padding: 32px; width: 100%; }
+    .dual-cta-card-body h3 { color: var(--white); font-size: 1.3rem; margin-bottom: 14px; }
+    .dual-cta-card .btn { display: inline-block; }
+    @media (max-width: 820px) { .dual-cta-grid { grid-template-columns: 1fr; } }
+
+    /* ── SPOTLIGHT BAND ── */
+    .spotlight-band {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid, #16284f) 100%);
+      border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: .9fr 1.1fr;
+    }
+    .spotlight-photo { background-size: cover; background-position: center; min-height: 320px; }
+    .spotlight-body { padding: 48px 44px; }
+    .spotlight-body h2 { color: var(--white); }
+    .spotlight-body p { color: rgba(255,255,255,.72); }
+    @media (max-width: 820px) { .spotlight-band { grid-template-columns: 1fr; } .spotlight-photo { min-height: 220px; } }
+
+    /* ── PHILOSOPHY QUOTE ── */
+    .philosophy-section { background: var(--offwhite); padding: 80px 0; text-align: center; }
+    .philosophy-quote {
+      font-family: var(--font-display); font-size: clamp(1.3rem,2.4vw,1.7rem); color: var(--navy);
+      max-width: 760px; margin: 0 auto 20px; line-height: 1.4; font-weight: 600;
+    }
+    .philosophy-quote .gold-word { color: var(--gold); }
+    .philosophy-attribution { color: var(--text-light); font-size: .9rem; }
+
+    /* ── PROMISE GRID ── */
+    .promise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .promise-photo { border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 4/3; }
+    .promise-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .promise-list { display: flex; flex-direction: column; gap: 22px; }
+    .promise-item strong { color: var(--gold); font-family: var(--font-display); }
+    .promise-item p { color: var(--text-dark); font-size: .95rem; margin: 4px 0 0; }
+    @media (max-width: 820px) { .promise-grid { grid-template-columns: 1fr; } }
+
+    /* ── FINAL CTA BAND ── */
+    .final-cta-band {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3060 100%);
+      padding: 64px 0; text-align: center; border-radius: 16px; position: relative; overflow: hidden;
+    }
+    .final-cta-band::before {
+      content: ''; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(201,168,76,.15) 0%, transparent 70%);
+    }
+    .final-cta-eyebrow { color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 12px; }
+    .final-cta-band h2 { color: var(--white); margin-bottom: 14px; }
+    .final-cta-band p { color: rgba(255,255,255,.72); max-width: 560px; margin: 0 auto 30px; }
+    .final-cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    .trust-item .icon { display:inline-block; width:28px; height:28px; border-radius:50%; overflow:hidden; vertical-align:middle; margin-right:4px; }
+    .trust-item .icon img { width:100%; height:100%; object-fit:cover; }
+
+  </style>
+</head>
+<body class="lang-en">
+
+<!-- ── UTILITY BAR ── -->
+<div class="utility-bar">
+  <div class="container utility-bar-inner">
+    <div class="utility-left">
+      <span><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652">(407) 267-2652</a></span>
+      <span data-en>Mon–Fri 9am–6pm · Sat by appointment</span>
+      <span data-ht>Lendi–Vandredi 9am–6pm · Samdi sou randevou</span>
+    </div>
+    <div class="utility-promos">
+      <span class="utility-promo" data-en>FREE CONSULTATION<a href="book.html">Book Now</a></span>
+      <span class="utility-promo" data-ht>KONSILTASYON GRATIS<a href="book.html">Rezève</a></span>
+      <span class="utility-promo" data-en>TAX SEASON READY<a href="services.html#tax">Get Started</a></span>
+      <span class="utility-promo" data-ht>SEZON TAKS PARE<a href="services.html#tax">Kòmanse</a></span>
+    </div>
+  </div>
+</div>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
+      <div>
+        <div class="nav-logo-text">ME Shield Financial</div>
+        <div class="nav-logo-sub">Services</div>
+      </div>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+      <li class="nav-dropdown">
+        <a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="insurance.html"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li>
+          <li><a href="tax-preparation.html"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li>
+          <li><a href="paralegal-immigration.html"><span data-en>Paralegal &amp; Immigration</span><span data-ht>Paralegal &amp; Imigrasyon</span></a></li>
+          <li><a href="business-filing.html"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li>
+          <li><a href="infinite-banking.html"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li>
+        </ul>
+      </li>
+      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">HT</button>
+      </div>
+      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
+        <span data-en>Book Free Consult</span>
+        <span data-ht>Rezève Konsiltasyon</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="home-hero">
+  <img class="hero-logo-watermark" src="logo.png" alt=""/>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="hero-content">
+      <h1 data-en>Protecting What <em>Matters Most</em> to Your Family</h1>
+      <h1 data-ht>Pwoteje Sa Ki <em>Pi Enpòtan</em> Pou Fanmi Ou</h1>
+      <p data-en>Insurance, tax preparation, and paralegal services — all under one roof. We serve Florida families and small businesses in English and Haitian Creole.</p>
+      <p data-ht>Asirans, preparasyon taks, ak sèvis paralegal — tout sou yon sèl do. Nou sèvi fanmi Florid ak ti biznis yo an Anglè ak Kreyòl Ayisyen.</p>
+      <div class="hero-ctas">
+        <a href="contact.html" class="btn btn-gold">
+          <span data-en>Get a Free Quote</span>
+          <span data-ht>Jwenn yon Estimasyon Gratis</span>
+        </a>
+        <a href="services.html" class="btn btn-outline">
+          <span data-en>Our Services</span>
+          <span data-ht>Sèvis Nou Yo</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── IMAGE SLIDER ── -->
+<section class="section" style="padding-top:0;margin-top:-56px;position:relative;z-index:5;">
+  <div class="container">
+    <div class="img-slider" id="home-slider">
+      <div class="img-slider-track" id="slider-track">
+        <div class="img-slide" style="background-image:url('https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=1200&q=75');">
+          <div class="img-slide-caption">
+            <div class="eyebrow-slide" data-en>INSURANCE</div>
+            <div class="eyebrow-slide" data-ht>ASIRANS</div>
+            <h3 data-en>Protection Built Around Your Family</h3>
+            <h3 data-ht>Pwoteksyon Bati Akoz Fanmi Ou</h3>
+            <p data-en>Life, health, and property coverage tailored to what your household actually needs.</p>
+            <p data-ht>Kouvèti lavi, sante, ak pwopriyete adapte a sa kay ou reyèlman bezwen.</p>
+          </div>
+        </div>
+        <div class="img-slide" style="background-image:url('https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1200&q=75');">
+          <div class="img-slide-caption">
+            <div class="eyebrow-slide" data-en>TAX PREPARATION</div>
+            <div class="eyebrow-slide" data-ht>PREPARASYON TAKS</div>
+            <h3 data-en>Accurate Returns, Every Deduction Found</h3>
+            <h3 data-ht>Deklarasyon Egzak, Chak Dediksyon Jwenn</h3>
+            <p data-en>IRS PTIN-registered preparation for individuals, self-employed, and small businesses.</p>
+            <p data-ht>Preparasyon anrejistre nan IRS PTIN pou endividyèl, travayè endepandan, ak ti biznis.</p>
+          </div>
+        </div>
+        <div class="img-slide" style="background-image:url('https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=1200&q=75');">
+          <div class="img-slide-caption">
+            <div class="eyebrow-slide" data-en>PARALEGAL &amp; IMMIGRATION</div>
+            <div class="eyebrow-slide" data-ht>PARALEGAL &amp; IMIGRASYON</div>
+            <h3 data-en>Your Paperwork, Handled With Care</h3>
+            <h3 data-ht>Papye Ou, Manyen Avèk Swen</h3>
+            <p data-en>USCIS forms, DACA renewals, and document preparation — clear steps in your language.</p>
+            <p data-ht>Fòm USCIS, renouvèlman DACA, ak preparasyon dokiman — etap klè nan lang ou.</p>
+          </div>
+        </div>
+      </div>
+      <button class="slider-arrow prev" id="slider-prev" aria-label="Previous">‹</button>
+      <button class="slider-arrow next" id="slider-next" aria-label="Next">›</button>
+      <div class="slider-dots" id="slider-dots">
+        <div class="slider-dot active" data-index="0"></div>
+        <div class="slider-dot" data-index="1"></div>
+        <div class="slider-dot" data-index="2"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── POSITIONING STATEMENT ── -->
+<section class="positioning-section section-white reveal">
+  <div class="container">
+    <div class="positioning-tagline" data-en>Community Advocate First. <em>Insurance &amp; Tax Professional Second.</em></div>
+    <div class="positioning-tagline" data-ht>Defansè Kominote Anvan Tout Bagay. <em>Pwofesyonèl Asirans &amp; Taks Dezyèmman.</em></div>
+    <div class="positioning-grid">
+      <div>
+        <p data-en>ME Shield Financial Services was founded on a simple belief: financial protection works best when it comes from someone who's genuinely connected to the community they serve — not a call center, not a distant corporate office. As a bilingual, family-rooted practice serving Florida, we give every client a single, trusted advisor who handles insurance, taxes, and document filing, and explains every step in the language you're most comfortable in.</p>
+        <p data-ht>ME Shield Financial Services te fonde sou yon kwayans senp: pwoteksyon finansye travay pi byen lè li soti nan yon moun ki vrèman konekte ak kominote l ap sèvi — pa yon sant apèl, pa yon biwo korporasyon ki lwen. Kòm yon pratik bileng, ki gen rasin nan fanmi, k ap sèvi Florid, nou bay chak kliyan yon sèl konseye ou ka fè konfyans ki jere asirans, taks, ak depo dokiman, epi ki eksplike chak etap nan lang ou pi alèz.</p>
+        <p data-en>As a solo, family-rooted practice, every client speaks directly with Miguelson — not a call center, not a rotating cast of representatives. That personal continuity is the whole point.</p>
+        <p data-ht>Kòm yon pratik solo, ki gen rasin nan fanmi, chak kliyan pale dirèkteman ak Miguelson — pa yon sant apèl, pa yon seri reprezantan ki chanje. Kontinwite pèsonèl sa a se tout pwen an.</p>
+        <ul class="value-checklist">
+          <li data-en>Personalized strategy based on your actual situation — not a script</li>
+          <li data-ht>Estrateji pèsonalize baze sou vrè sitiyasyon ou — pa yon script</li>
+          <li data-en>Education-first conversations: understand before you decide</li>
+          <li data-ht>Konvèsasyon ki kòmanse ak edikasyon: konprann anvan ou deside</li>
+          <li data-en>Four connected services under one trusted advisor</li>
+          <li data-ht>Kat sèvis konekte anba yon sèl konseye ou ka fè konfyans</li>
+          <li data-en>Available in English or Haitian Creole, always</li>
+          <li data-ht>Disponib an Anglè oswa Kreyòl Ayisyen, toujou</li>
+        </ul>
+      </div>
+      <div class="positioning-photo">
+        <img src="headshot.jpg" alt="Miguelson Etienne, Founder of ME Shield Financial Services"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DUAL PATH CTA ── -->
+<section class="section reveal">
+  <div class="container">
+    <div class="dual-cta-grid">
+      <a href="contact.html" class="dual-cta-card" style="background-image:url('https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=900&q=75');">
+        <div class="dual-cta-card-body">
+          <h3 data-en>I Want to Protect My Family &amp; Finances</h3>
+          <h3 data-ht>Mwen Vle Pwoteje Fanmi &amp; Finans Mwen</h3>
+          <span class="btn btn-gold" data-en>Start Here →</span>
+          <span class="btn btn-gold" data-ht>Kòmanse Isit La →</span>
+        </div>
+      </a>
+      <a href="services.html#paralegal" class="dual-cta-card" style="background-image:url('https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=900&q=75');">
+        <div class="dual-cta-card-body">
+          <h3 data-en>I Need Help With Paperwork &amp; Filing</h3>
+          <h3 data-ht>Mwen Bezwen Èd Ak Papye &amp; Depo</h3>
+          <span class="btn btn-gold" data-en>Start Here →</span>
+          <span class="btn btn-gold" data-ht>Kòmanse Isit La →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES OVERVIEW ── -->
+<section class="section section-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow" data-en>WHAT WE DO</div>
+      <div class="eyebrow" data-ht>SA NOU FÈ</div>
+      <h2 data-en>Four Ways We Protect You</h2>
+      <h2 data-ht>Kat Fason Nou Pwoteje Ou</h2>
+      <span class="gold-rule center"></span>
+      <p data-en>From safeguarding your family's future to maximizing your tax return, navigating immigration paperwork, and keeping your business filings current — ME Shield Financial Services has you covered.</p>
+      <p data-ht>Soti nan pwoteje avni fanmi ou jiska maksimize ranbousman taks ou, navige nan papye imigrasyon, ak kenbe depo biznis ou ajou — ME Shield Financial Services kouvri ou.</p>
+    </div>
+    <div class="grid-4-cards reveal-stagger reveal">
+      <div class="card service-card stagger-item">
+        <div class="card-icon" style="width:64px;height:64px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <img src="https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=160&q=70" alt="Insurance" style="width:100%;height:100%;object-fit:cover;"/>
+        </div>
+        <h3 data-en>Insurance</h3>
+        <h3 data-ht>Asirans</h3>
+        <p data-en>Life, health, and property & casualty insurance tailored to your needs and budget. We shop multiple carriers to find your best fit.</p>
+        <p data-ht>Asirans lavi, sante, ak pwopriyete adapte a bezwen ak bidjè ou. Nou konpare plizyè konpayi pou jwenn pi bon opsyon an.</p>
+        <a href="insurance.html" data-en>Learn more →</a>
+        <a href="insurance.html" data-ht>Aprann plis →</a>
+      </div>
+      <div class="card service-card stagger-item">
+        <div class="card-icon" style="width:64px;height:64px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=160&q=70" alt="Tax Preparation" style="width:100%;height:100%;object-fit:cover;"/>
+        </div>
+        <h3 data-en>Tax Preparation</h3>
+        <h3 data-ht>Preparasyon Taks</h3>
+        <p data-en>Individual and small business tax returns prepared by an IRS-licensed professional. Maximize your refund, stay compliant.</p>
+        <p data-ht>Deklarasyon taks pou endividyèl ak ti biznis, prepare pa yon pwofesyonèl lisansye pa IRS. Maksimize ranbousman ou.</p>
+        <a href="tax-preparation.html" data-en>Learn more →</a>
+        <a href="tax-preparation.html" data-ht>Aprann plis →</a>
+      </div>
+      <div class="card service-card stagger-item">
+        <div class="card-icon" style="width:64px;height:64px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <img src="https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=160&q=70" alt="Paralegal & Immigration" style="width:100%;height:100%;object-fit:cover;"/>
+        </div>
+        <h3 data-en>Paralegal & Immigration</h3>
+        <h3 data-ht>Paralegal & Imigrasyon</h3>
+        <p data-en>Document assistance for USCIS forms and other legal paperwork. We make the process clear and manageable.</p>
+        <p data-ht>Asistans pou fòm USCIS ak lòt papye legal. Nou rann pwosesis la klè ak jèrab.</p>
+        <a href="paralegal-immigration.html" data-en>Learn more →</a>
+        <a href="paralegal-immigration.html" data-ht>Aprann plis →</a>
+      </div>
+      <div class="card service-card stagger-item">
+        <div class="card-icon" style="width:64px;height:64px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <img src="https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=160&q=70" alt="Business Filing" style="width:100%;height:100%;object-fit:cover;"/>
+        </div>
+        <h3 data-en>Business Filing</h3>
+        <h3 data-ht>Depo Biznis</h3>
+        <p data-en>LLC formation, EIN applications, DBA registration, and annual report filing — document prep done right, on time.</p>
+        <p data-ht>Fòmasyon LLC, aplikasyon EIN, enskripsyon DBA, ak depo rapò anyèl — preparasyon dokiman fèt byen, alè.</p>
+        <a href="business-filing.html" data-en>Learn more →</a>
+        <a href="business-filing.html" data-ht>Aprann plis →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SIGNATURE SPOTLIGHT ── -->
+<section class="section">
+  <div class="container">
+    <div class="spotlight-band reveal">
+      <div class="spotlight-photo" style="background-image:url('https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=900&q=75');"></div>
+      <div class="spotlight-body">
+        <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-en>FEATURED STRATEGY</div>
+        <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-ht>ESTRATEJI AN VEDÈT</div>
+        <h2 data-en>Discover the Infinite Banking Concept</h2>
+        <h2 data-ht>Dekouvri Konsèp Bank Enfini A</h2>
+        <p data-en>What if your life insurance policy could also act as your own private bank — letting you borrow against it, build cash value, and pass on a legacy? That's IBC, and it's one of the most powerful strategies most families have never heard of.</p>
+        <p data-ht>Ki sa si polis asirans lavi ou ta ka sèvi tou kòm pwòp bank prive ou — ki pèmèt ou prete kont li, bati valè kach, epi kite yon eritaj? Sa a se IBC, epi se youn nan estrateji ki pi pisan pifò fanmi pa janm tande pale.</p>
+        <a href="infinite-banking.html" target="_blank" rel="noopener" class="btn btn-gold" data-en>Explore Infinite Banking →</a>
+        <a href="infinite-banking.html" target="_blank" rel="noopener" class="btn btn-gold" data-ht>Eksplore Bank Enfini →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY ME SHIELD ── -->
+<section class="section">
+  <div class="container">
+    <div class="why-grid reveal">
+      <div class="why-left">
+        <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-en>WHY CHOOSE US</div>
+        <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-ht>POUKISA CHWAZI NOU</div>
+        <h2 style="color:var(--navy);" data-en>Your Trusted Local Partner</h2>
+        <h2 style="color:var(--navy);" data-ht>Patnè Lokal Ou Ka Fè Konfyans</h2>
+        <span class="gold-rule"></span>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;">
+          <img src="headshot.jpg" alt="Miguelson Etienne, Founder of ME Shield Financial Services" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);flex-shrink:0;"/>
+          <div>
+            <div style="font-family:var(--font-display);font-weight:700;color:var(--navy);font-size:1.02rem;">Miguelson Etienne</div>
+            <div style="font-size:.85rem;color:var(--text-dark);" data-en>Founder &amp; Licensed Advisor</div>
+            <div style="font-size:.85rem;color:var(--text-dark);" data-ht>Fondatè &amp; Konseye Lisansye</div>
+            <div style="font-size:.78rem;color:var(--text-light);margin-top:2px;" data-en>Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP</div>
+            <div style="font-size:.78rem;color:var(--text-light);margin-top:2px;" data-ht>Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">1</div>
+          <div>
+            <h4 data-en>Personalized Attention</h4>
+            <h4 data-ht>Atansyon Pèsonalize</h4>
+            <p data-en>As a boutique solo practice, every client gets direct access to Miguelson — not a call center.</p>
+            <p data-ht>Kòm yon pratik endividyèl, chak kliyan gen aksè dirèk a Miguelson — pa yon sant apèl.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">2</div>
+          <div>
+            <h4 data-en>Bilingual from Day One</h4>
+            <h4 data-ht>Bileng Depi Kòmansman</h4>
+            <p data-en>We serve our Haitian Creole-speaking community with the same professionalism as any English-speaking client.</p>
+            <p data-ht>Nou sèvi kominote Kreyòl nou an ak menm pwofesyonalis pou nenpòt kliyan anglofòn.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">3</div>
+          <div>
+            <h4 data-en>All Under One Roof</h4>
+            <h4 data-ht>Tout Sou Yon Sèl Do</h4>
+            <p data-en>Insurance, taxes, and documents — consolidate your needs with one trusted advisor who knows your full picture.</p>
+            <p data-ht>Asirans, taks, ak dokiman — konsolide bezwen ou ak yon konseye ou ka fè konfyans ki konnen tout sitiyasyon ou.</p>
+          </div>
+        </div>
+      </div>
+      <div class="why-right">
+        <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-en>WHAT CLIENTS SAY</div>
+        <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-ht>SA KLIYAN DI</div>
+        <h2 style="color:var(--white);margin-bottom:28px;" data-en>Built on Trust</h2>
+        <h2 style="color:var(--white);margin-bottom:28px;" data-ht>Bati Sou Konfyans</h2>
+        <div class="testimonial" style="margin-bottom:20px;">
+          <p data-en>"Miguelson explained everything in Creole so my mother could understand. We finally have the right coverage."</p>
+          <p data-ht>"Miguelson eksplike tout bagay an Kreyòl pou manman m' ka konprann. Nou finalman gen bon kouvèti a."</p>
+          <div class="testimonial-name">— Marie-Flore D., Miami</div>
+        </div>
+        <div class="testimonial">
+          <p data-en>"Got a bigger refund than I expected, and he walked me through every line. Great service!"</p>
+          <p data-ht>"Mwen jwenn yon ranbousman pi gwo pase mwen te atann, epi li eksplike m' chak liy. Gwo sèvis!"</p>
+          <div class="testimonial-name">— Jean-Pierre B., Orlando</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHILOSOPHY ── -->
+<section class="philosophy-section reveal">
+  <div class="container">
+    <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;" data-en>OUR PHILOSOPHY</div>
+    <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;" data-ht>FILOZOFI NOU</div>
+    <div class="philosophy-quote" data-en>With ME Shield Financial Services, you're not just a policy number — you're <span class="gold-word">part of the family.</span></div>
+    <div class="philosophy-quote" data-ht>Ak ME Shield Financial Services, ou pa jis yon nimewo polis — ou se <span class="gold-word">yon pati nan fanmi an.</span></div>
+    <div class="philosophy-attribution" data-en>— Miguelson Etienne, Founder</div>
+    <div class="philosophy-attribution" data-ht>— Miguelson Etienne, Fondatè</div>
+  </div>
+</section>
+
+<!-- ── OUR PROMISE ── -->
+<section class="section section-white reveal">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow" data-en>OUR PROMISE</div>
+      <div class="eyebrow" data-ht>PWOMÈS NOU</div>
+      <h2 data-en>Why Families Choose ME Shield Financial Services</h2>
+      <h2 data-ht>Poukisa Fanmi Chwazi ME Shield Financial Services</h2>
+      <span class="gold-rule center"></span>
+    </div>
+    <div class="promise-grid">
+      <div class="promise-photo">
+        <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=700&q=75" alt="Trust and partnership"/>
+      </div>
+      <div class="promise-list">
+        <div class="promise-item">
+          <strong data-en>Clarity.</strong><strong data-ht>Klate.</strong>
+          <p data-en>No jargon, no fine-print surprises — just plain answers in the language you're comfortable in.</p>
+          <p data-ht>Pa gen jagon, pa gen sipriz nan ti lèt — jis repons klè nan lang ou alèz.</p>
+        </div>
+        <div class="promise-item">
+          <strong data-en>Consistency.</strong><strong data-ht>Konsistans.</strong>
+          <p data-en>The same advisor from your first call through every renewal, filing, and follow-up.</p>
+          <p data-ht>Menm konseye depi premye apèl ou jiska chak renouvèlman, depo, ak swivi.</p>
+        </div>
+        <div class="promise-item">
+          <strong data-en>Fair, Transparent Pricing.</strong><strong data-ht>Pri Jis, Transparan.</strong>
+          <p data-en>Flat-rate quotes with no hidden fees — you know the cost before you commit.</p>
+          <p data-ht>Estimasyon pri fiks san frè kache — ou konnen pri a anvan ou angaje.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA BAND ── -->
+<section class="section">
+  <div class="container">
+    <div class="final-cta-band reveal">
+      <div class="final-cta-eyebrow" data-en>MORE THAN INSURANCE — PEACE OF MIND</div>
+      <div class="final-cta-eyebrow" data-ht>PASE ASIRANS — LAPÈ LESPRI</div>
+      <h2 data-en>The Coverage You Need, The Care You Deserve</h2>
+      <h2 data-ht>Kouvèti Ou Bezwen, Swen Ou Merite</h2>
+      <p data-en>Your family's financial future matters. Let's make protection simple, clear, and built around you — in English or Kreyòl Ayisyen.</p>
+      <p data-ht>Avni finansye fanmi ou enpòtan. Annou fè pwoteksyon senp, klè, ak bati alantou ou — an Anglè oswa Kreyòl Ayisyen.</p>
+      <div class="final-cta-buttons">
+        <a href="book.html" class="btn btn-gold" data-en>Book Free Consultation</a>
+        <a href="book.html" class="btn btn-gold" data-ht>Rezève Konsiltasyon Gratis</a>
+        <a href="services.html" class="btn btn-outline" style="color:var(--white);border-color:rgba(255,255,255,.4);" data-en>Browse Services</a>
+        <a href="services.html" class="btn btn-outline" style="color:var(--white);border-color:rgba(255,255,255,.4);" data-ht>Gade Sèvis Yo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <img src="logo.png" alt="ME Shield Financial Services logo" style="height:48px;width:auto;object-fit:contain;"/>
+          <div>
+            <div style="color:var(--white);font-family:var(--font-display);font-weight:700;">ME Shield Financial Services</div>
+            <div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div>
+          </div>
+        </div>
+        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) and tax &amp; paralegal services (nationwide) — in English and Haitian Creole.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) ak sèvis taks &amp; paralegal (nasyonal) — an Anglè ak Kreyòl.</p>
+        <div style="margin-top:20px;font-size:.87rem;">
+          <div><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652" style="color:rgba(255,255,255,.6);">(407) 267-2652</a></div>
+          <div style="margin-top:6px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.3 5.84a.75.75 0 0 0 .94 0L19.74 6H4.2zM4 7.86V18h16V7.86l-7.06 5.65a2.25 2.25 0 0 1-2.82 0L4 7.86z"/></svg><a href="mailto:info@meshieldfinancial.com" style="color:rgba(255,255,255,.6);">info@meshieldfinancial.com</a></div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;">
+          <a href="https://www.facebook.com/profile.php?id=61590568017562" target="_blank" rel="noopener" aria-label="Facebook" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M22.675 0h-21.35C.595 0 0 .595 0 1.326v21.348C0 23.404.595 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.405 24 24 23.404 24 22.674V1.326C24 .595 23.405 0 22.675 0z"/></svg></a>
+          <a href="https://www.instagram.com/meshieldfinancial/" target="_blank" rel="noopener" aria-label="Instagram" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener" aria-label="TikTok" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
+          <a href="https://wa.me/14072672652" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
+        </div>
+        <div class="footer-trust-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3zm0 2.2 6 2.25v4.55c0 4-2.8 7.3-6 8.95-3.2-1.65-6-4.95-6-8.95V6.45l6-2.25z"/></svg> <span data-en>FL Licensed &amp; PTIN Registered</span><span data-ht>Lisansye FL &amp; Anrejistre PTIN</span></div>
+      </div>
+      <div>
+        <h4 data-en>Services</h4>
+        <h4 data-ht>Sèvis</h4>
+        <ul>
+          <li><a href="services.html#insurance" data-en>Insurance</a><a href="services.html#insurance" data-ht>Asirans</a></li>
+          <li><a href="services.html#tax" data-en>Tax Preparation</a><a href="services.html#tax" data-ht>Preparasyon Taks</a></li>
+          <li><a href="services.html#paralegal" data-en>Paralegal</a><a href="services.html#paralegal" data-ht>Paralegal</a></li>
+          <li><a href="services.html#immigration" data-en>Immigration Docs</a><a href="services.html#immigration" data-ht>Dokiman Imigrasyon</a></li>
+          <li><a href="services.html#business" data-en>Business Filing</a><a href="services.html#business" data-ht>Depo Biznis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Company</h4>
+        <h4 data-ht>Konpayi</h4>
+        <ul>
+          <li><a href="about.html" data-en>About Us</a><a href="about.html" data-ht>Sou Nou</a></li>
+          <li><a href="contact.html" data-en>Contact</a><a href="contact.html" data-ht>Kontakte</a></li>
+          <li><a href="contact.html" data-en>Free Consultation</a><a href="contact.html" data-ht>Konsiltasyon Gratis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Contact</h4>
+        <h4 data-ht>Kontakte</h4>
+        <ul style="font-size:.88rem;color:rgba(255,255,255,.6);">
+          <li style="list-style:none;color:inherit;">Florida, USA</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-en>Mon – Fri: 9am – 6pm</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-ht>Lendi – Vandredi: 9am – 6pm</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-en>Sat: By appointment</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-ht>Samdi: Sou randevou</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC, a Florida-registered limited liability company.</div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a Florida-registered company. Insurance products are subject to policy terms and conditions. Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Tax preparation services provided by an IRS PTIN-registered preparer. Paralegal services are document preparation only and do not constitute legal advice.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA (“ap fonksyone kòm”) pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon konpayi anrejistre ann Florid. Pwodui asirans yo sijè a tèm ak kondisyon polis la. Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP. Sèvis preparasyon taks yo bay pa yon preparatè anrejistre nan IRS PTIN. Sèvis paralegal yo se preparasyon dokiman sèlman epi yo pa reprezante konsèy legal.</div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
+      <span data-en>All rights reserved.</span>
+      <span data-ht>Tout dwa rezève.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+  // ── IMAGE SLIDER ──
+  (function() {
+    const track = document.getElementById('slider-track');
+    const dots = document.querySelectorAll('.slider-dot');
+    const slides = document.querySelectorAll('.img-slide');
+    let current = 0;
+    let autoTimer;
+
+    function goTo(i) {
+      current = (i + slides.length) % slides.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
+    }
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+    function startAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(next, 5500);
+    }
+
+    document.getElementById('slider-next').addEventListener('click', () => { next(); startAuto(); });
+    document.getElementById('slider-prev').addEventListener('click', () => { prev(); startAuto(); });
+    dots.forEach(d => d.addEventListener('click', () => { goTo(parseInt(d.dataset.index)); startAuto(); }));
+
+    // Swipe support
+    let touchStartX = 0;
+    const slider = document.getElementById('home-slider');
+    slider.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX, {passive:true});
+    slider.addEventListener('touchend', e => {
+      const diff = e.changedTouches[0].clientX - touchStartX;
+      if (diff > 40) { prev(); startAuto(); }
+      else if (diff < -40) { next(); startAuto(); }
+    }, {passive:true});
+
+    startAuto();
+  })();
+</script>
+</body>
+</html>

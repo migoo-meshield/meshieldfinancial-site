@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Term Life Insurance 101: How Much Coverage Does Your Family Actually Need? — ME Shield Financial Services</title>
+  <meta name="description" content="A simple framework (DIME) for calculating how much term life insurance coverage your family actually needs — with a worked example."/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .article-hero {
+      background-image: url('https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=1400&q=70');
+      background-size: cover;
+      background-position: center;
+      padding: 64px 0 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(11,28,58,.82) 0%, rgba(11,28,58,.94) 100%);
+      z-index: 0;
+    }
+    .article-hero .container { position: relative; z-index: 1; }
+    .article-hero .container { max-width: 760px; }
+    .article-meta { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+    .article-tag {
+      font-size:.72rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase;
+      padding:4px 12px; border-radius:12px; background:rgba(201,168,76,.18); color:var(--gold-light,#e8d5a3);
+    }
+    .article-date { font-size:.82rem; color:rgba(255,255,255,.55); }
+    .article-hero h1 { color:var(--white); font-size:clamp(1.6rem,3.4vw,2.3rem); line-height:1.25; }
+    .article-body { max-width:760px; margin:0 auto; }
+    .article-body p { font-size:1.02rem; line-height:1.75; margin-bottom:20px; color:var(--text-dark); }
+    .article-body h2 { color:var(--navy); font-size:1.35rem; margin:40px 0 16px; }
+    .article-body ul { margin: 0 0 24px 22px; }
+    .article-body li { font-size:1.02rem; line-height:1.7; margin-bottom:10px; color:var(--text-dark); }
+    .article-body strong { color: var(--navy); }
+    .back-link { display:inline-flex; align-items:center; gap:6px; color:var(--gold); font-weight:600; font-size:.9rem; margin-bottom:28px; text-decoration:none; }
+    .article-disclaimer-box {
+      background: var(--offwhite); border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0;
+      padding: 16px 20px; margin: 32px 0; font-size: .88rem; color: var(--text-dark);
+    }
+    .article-cta {
+      background: var(--navy); border-radius: 12px; padding: 36px 32px; text-align:center; margin-top:48px; border:1px solid var(--border);
+    }
+    .article-cta h3 { color: var(--gold); margin-bottom: 8px; }
+    .article-cta p { color: rgba(255,255,255,.7); margin-bottom: 20px; }
+    .author-row { display:flex; align-items:center; gap:12px; margin:28px 0 8px; }
+    .author-row img { width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); }
+    .author-row .name { font-weight:700; color:var(--navy); font-size:.92rem; }
+    .author-row .role { font-size:.8rem; color:var(--text-light); }
+  </style>
+</head>
+<body class="lang-en">
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
+      <div>
+        <div class="nav-logo-text">ME Shield Financial</div>
+        <div class="nav-logo-sub">Services</div>
+      </div>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+      <li><a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a></li>
+      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">KR</button>
+      </div>
+      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
+        <span data-en>Book Free Consult</span>
+        <span data-ht>Rezève Konsiltasyon</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="article-hero">
+  <div class="container">
+    <a href="blog.html" class="back-link" data-en>← Back to Blog</a>
+    <a href="blog.html" class="back-link" data-ht>← Tounen nan Blòg</a>
+    <div class="article-meta">
+      <span class="article-tag" data-en>Insurance & IBC</span>
+      <span class="article-tag" data-ht>Asirans & IBC</span>
+      <span class="article-date">August 2026</span>
+    </div>
+    <h1 data-en>Term Life Insurance 101: How Much Coverage Does Your Family Actually Need?</h1>
+    <h1 data-ht>Asirans Lavi Tèm 101: Konbyen Kouvèti Fanmi Ou Reyèlman Bezwen?</h1>
+  </div>
+</div>
+
+<section class="section section-white">
+  <div class="container">
+    <div class="article-body">
+
+      <div class="author-row">
+        <img src="headshot.jpg" alt="Miguelson Etienne"/>
+        <div>
+          <div class="name">Miguelson Etienne</div>
+          <div class="role" data-en>Founder, ME Shield Financial Services</div>
+          <div class="role" data-ht>Fondatè, ME Shield Financial Services</div>
+        </div>
+      </div>
+
+      <p data-en>"How much life insurance do I actually need?" is one of the most common questions we hear — and one of the easiest to get wrong in both directions. Too little coverage leaves real gaps; too much means overpaying for protection that doesn't match your actual situation.</p>
+      <p data-ht>"Konbyen asirans lavi mwen reyèlman bezwen?" se youn nan kesyon nou tande pi souvan — epi youn nan pi fasil pou mal nan tou de direksyon. Twò piti kouvèti kite vrè vid; twò anpil vle di peye twòp pou pwoteksyon ki pa matche ak vrè sitiyasyon ou.</p>
+      <h2 data-en>Start With What the Payout Actually Needs to Cover</h2>
+      <h2 data-ht>Kòmanse Ak Sa Peman An Reyèlman Bezwen Kouvri</h2>
+      <p data-en>Rather than picking a round number that sounds substantial, work backward from what your family would actually need to replace or pay off if your income disappeared tomorrow.</p>
+      <p data-ht>Olye chwazi yon nimewo won ki sonn sibstansyèl, travay anrè soti nan sa fanmi ou reyèlman ta bezwen ranplase oswa peye si revni ou ta disparèt demen.</p>
+      <h2 data-en>The DIME Method, Explained Simply</h2>
+      <h2 data-ht>Metòd DIME, Eksplike Senpleman</h2>
+      <p data-en>One commonly used framework breaks the calculation into four pieces, easy to remember as DIME:</p>
+      <p data-ht>Yon ankadreman souvan itilize kraze kalkil la an kat moso, fasil pou sonje kòm DIME:</p>
+      <ul>
+        <li data-en><strong>Debt.</strong> Add up everything that would need to be paid off — credit cards, car loans, personal loans, anything beyond the mortgage.</li>
+        <li data-ht><strong>Dèt.</strong> Ajoute tout bagay ki ta bezwen peye — kat kredi, prè machin, prè pèsonèl, nenpòt bagay pi lwen pase ipotèk la.</li>
+        <li data-en><strong>Income.</strong> Multiply your annual income by the number of years your family would need support — commonly 5 to 10 years, depending on circumstances.</li>
+        <li data-ht><strong>Revni.</strong> Miltipliye revni anyèl ou pa kantite ane fanmi ou ta bezwen sipò — souvan 5 a 10 ane, selon sikonstans.</li>
+        <li data-en><strong>Mortgage.</strong> Add the remaining balance on your home loan, so your family isn't forced to move due to the loss of income.</li>
+        <li data-ht><strong>Ipotèk.</strong> Ajoute balans ki rete sou prè kay ou, pou fanmi ou pa fòse demenaje akòz pèt revni.</li>
+        <li data-en><strong>Education.</strong> Estimate the cost of your children's remaining education, if that's a priority for your family.</li>
+        <li data-ht><strong>Edikasyon.</strong> Estime pri edikasyon timoun ou ki rete, si sa se yon priyorite pou fanmi ou.</li>
+      </ul>
+      <p data-en>Add those four numbers together, then subtract existing savings and any current life insurance you already have. What's left is a reasonable starting estimate for additional coverage.</p>
+      <p data-ht>Ajoute kat nimewo sa yo ansanm, epi soustrè epay aktyèl ak nenpòt asirans lavi aktyèl ou deja genyen. Sa ki rete se yon estimasyon depa rezonab pou kouvèti adisyonèl.</p>
+      <h2 data-en>A Quick Example</h2>
+      <h2 data-ht>Yon Egzanp Rapid</h2>
+      <p data-en>Say a parent earns $50,000 a year, has $15,000 in non-mortgage debt, owes $180,000 on their home, and wants to cover 10 years of income replacement plus future education costs estimated at $40,000. That's roughly $15,000 + $500,000 + $180,000 + $40,000 = $735,000 — before subtracting any existing savings or coverage. It's a rough estimate, not a precise figure, but it turns an abstract question into a real number to work from.</p>
+      <p data-ht>Disons yon paran touche $50,000 yon ane, gen $15,000 nan dèt ki pa ipotèk, dwe $180,000 sou kay yo, epi vle kouvri 10 ane ranplasman revni plis depans edikasyon fiti estime a $40,000. Sa se apeprè $15,000 + $500,000 + $180,000 + $40,000 = $735,000 — anvan soustrè nenpòt epay oswa kouvèti aktyèl. Se yon estimasyon brit, pa yon chif presi, men li transfòme yon kesyon abstrè an yon vrè nimewo pou travay apati li.</p>
+      <h2 data-en>Why Term Life Usually Makes Sense for This Calculation</h2>
+      <h2 data-ht>Poukisa Lavi Tèm Abityèlman Fè Sans Pou Kalkil Sa A</h2>
+      <p data-en>Because the DIME method calculates a temporary need — debts get paid off, kids grow up, mortgages get paid down — term life insurance, which covers a fixed period at a lower cost than permanent insurance, is usually the most efficient way to cover this specific gap. Permanent coverage and strategies like Infinite Banking serve a different, longer-term purpose alongside it.</p>
+      <p data-ht>Paske metòd DIME kalkile yon bezwen tanporè — dèt peye, timoun grandi, ipotèk peye desann — asirans lavi tèm, ki kouvri yon peryòd fiks pou pi ba pri pase asirans pèmanan, abityèlman se fason ki pi efikas pou kouvri vid espesifik sa a. Kouvèti pèmanan ak estrateji tankou Bank Enfini sèvi yon objektif diferan, alontèm akote li.</p>
+      <div class="article-disclaimer-box"><span data-en>This article provides a general framework for estimating coverage and is not personalized insurance advice. The right amount and type of coverage depends on your complete financial picture. A licensed insurance professional can help you calculate a number specific to your situation.</span><span data-ht>Atik sa a bay yon ankadreman jeneral pou estime kouvèti epi se pa konsèy asirans pèsonalize. Bon kantite ak kalite kouvèti depann sou tout sitiyasyon finansye ou. Yon pwofesyonèl asirans lisansye ka ede ou kalkile yon nimewo espesifik pou sitiyasyon ou.</span></div>
+      <p data-en>The exact number matters less than getting in the right range. A rough, honest estimate today is far more useful to your family than a perfect calculation you never got around to making.</p>
+      <p data-ht>Nimewo egzak la enpòtan mwens pase rive nan bon ranje a. Yon estimasyon brit, onèt jodi a pi itil pase yon kalkil pafè ou pa janm rive fè.</p>
+
+
+      <div class="article-cta">
+        <h3 data-en>Have Questions About Your Situation?</h3>
+        <h3 data-ht>Ou Gen Kesyon Sou Sitiyasyon Ou?</h3>
+        <p data-en>Every family's situation is different. Book a free consultation and get answers specific to you.</p>
+        <p data-ht>Sitiyasyon chak fanmi diferan. Rezève yon konsiltasyon gratis epi jwenn repons espesifik pou ou.</p>
+        <a href="book.html" class="btn btn-gold" data-en>Book Free Consultation</a>
+        <a href="book.html" class="btn btn-gold" data-ht>Rezève Konsiltasyon Gratis</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <img src="logo.png" alt="ME Shield Financial Services logo" style="height:48px;width:auto;object-fit:contain;"/>
+          <div>
+            <div style="color:var(--white);font-family:var(--font-display);font-weight:700;">ME Shield Financial Services</div>
+            <div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div>
+          </div>
+        </div>
+        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) · Tax &amp; Paralegal (Nationwide) — bilingual service.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) · Taks &amp; Paralegal (Nasyonal) — sèvis bileng.</p>
+        <div style="margin-top:20px;font-size:.87rem;">
+          <div><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652" style="color:rgba(255,255,255,.6);">(407) 267-2652</a></div>
+          <div style="margin-top:6px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.3 5.84a.75.75 0 0 0 .94 0L19.74 6H4.2zM4 7.86V18h16V7.86l-7.06 5.65a2.25 2.25 0 0 1-2.82 0L4 7.86z"/></svg><a href="mailto:info@meshieldfinancial.com" style="color:rgba(255,255,255,.6);">info@meshieldfinancial.com</a></div>
+        </div>
+        
+        <div style="margin-top:16px;display:flex;gap:10px;">
+          <a href="https://www.facebook.com/profile.php?id=61590568017562" target="_blank" rel="noopener" aria-label="Facebook" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M22.675 0h-21.35C.595 0 0 .595 0 1.326v21.348C0 23.404.595 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.405 24 24 23.404 24 22.674V1.326C24 .595 23.405 0 22.675 0z"/></svg></a>
+          <a href="https://www.instagram.com/meshieldfinancial/" target="_blank" rel="noopener" aria-label="Instagram" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener" aria-label="TikTok" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
+          <a href="https://wa.me/114072672652" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4 data-en>Services</h4><h4 data-ht>Sèvis</h4>
+        <ul>
+          <li><a href="services.html#insurance" data-en>Insurance</a><a href="services.html#insurance" data-ht>Asirans</a></li>
+          <li><a href="services.html#tax" data-en>Tax Prep</a><a href="services.html#tax" data-ht>Taks</a></li>
+          <li><a href="services.html#paralegal" data-en>Paralegal</a><a href="services.html#paralegal" data-ht>Paralegal</a></li>
+          <li><a href="services.html#business" data-en>Business Filing</a><a href="services.html#business" data-ht>Depo Biznis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Resources</h4><h4 data-ht>Resous</h4>
+        <ul>
+          <li><a href="blog.html" data-en>Blog</a><a href="blog.html" data-ht>Blòg</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="book.html" data-en>Book Appointment</a><a href="book.html" data-ht>Rezève Randevou</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Company</h4><h4 data-ht>Konpayi</h4>
+        <ul>
+          <li><a href="about.html" data-en>About Us</a><a href="about.html" data-ht>Sou Nou</a></li>
+          <li><a href="contact.html" data-en>Contact</a><a href="contact.html" data-ht>Kontakte</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC, a Florida-registered limited liability company.</div>
+    <div class="footer-disclaimer" data-en>ME Shield is not a law firm. This article is for general education only and is not personalized insurance, tax, or legal advice. Paralegal services are document preparation only.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA (“ap fonksyone kòm”) pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield se pa yon kabinè avoka. Atik sa a se pou edikasyon jeneral sèlman, se pa konsèy asirans, taks, oswa legal pèsonalize. Sèvis paralegal yo se preparasyon dokiman sèlman.</div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
+      <span data-en>All rights reserved.</span><span data-ht>Tout dwa rezève.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

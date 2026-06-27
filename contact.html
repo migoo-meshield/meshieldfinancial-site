@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — ME Shield Financial Services</title>
+  <meta name="description" content="Contact ME Shield Financial Services for a free consultation on insurance, tax preparation, or paralegal services in Florida."/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-form-wrap {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 48px 44px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(201,168,76,.1);
+    }
+    .contact-form-wrap h2 { color: var(--navy); margin-bottom: 6px; }
+    .contact-form-wrap p  { margin-bottom: 28px; }
+
+    .contact-info-card {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 40px 36px;
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .contact-info-card h3 { color: var(--gold); margin-bottom: 20px; }
+    .contact-detail {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+    .contact-detail:last-child { margin-bottom: 0; }
+    .contact-detail .icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .contact-detail strong {
+      display: block;
+      color: var(--white);
+      font-size: .92rem;
+      margin-bottom: 2px;
+    }
+    .contact-detail span {
+      color: rgba(255,255,255,.6);
+      font-size: .88rem;
+    }
+    .contact-detail a {
+      color: var(--gold);
+      font-size: .92rem;
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .hours-item {
+      font-size: .85rem;
+      color: rgba(255,255,255,.65);
+    }
+    .hours-item strong { color: var(--white); font-size: .82rem; }
+
+    .service-select-hint {
+      background: rgba(201,168,76,.08);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-size: .88rem;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .social-link {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,.08);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: background .2s;
+      text-decoration: none;
+    }
+    .social-link:hover { background: rgba(201,168,76,.2); }
+
+    @media (max-width: 820px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 36px; }
+      .contact-form-wrap { padding: 32px 24px; }
+      .hours-grid { grid-template-columns: 1fr; }
+    }
+
+
+
+  </style>
+</head>
+<body class="lang-en">
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
+      <div>
+        <div class="nav-logo-text">ME Shield Financial</div>
+        <div class="nav-logo-sub">Services</div>
+      </div>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+      <li class="nav-dropdown">
+        <a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="insurance.html"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li>
+          <li><a href="tax-preparation.html"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li>
+          <li><a href="paralegal-immigration.html"><span data-en>Paralegal &amp; Immigration</span><span data-ht>Paralegal &amp; Imigrasyon</span></a></li>
+          <li><a href="business-filing.html"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li>
+          <li><a href="infinite-banking.html"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li>
+        </ul>
+      </li>
+      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">HT</button>
+      </div>
+      <a href="tel:+14072672652" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
+        <span data-en><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>Call Now</span>
+        <span data-ht><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>Rele Kounye</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero has-photo" style="background-image:url('https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=1400&q=70');">
+  <div class="container">
+    <h1 data-en>Contact Us</h1>
+    <h1 data-ht>Kontakte Nou</h1>
+    <p data-en>Free consultation — no pressure, no jargon. Just honest guidance.</p>
+    <p data-ht>Konsiltasyon gratis — pa gen presyon, pa gen jagon. Jis konsèy onèt.</p>
+  </div>
+</div>
+
+<section class="section section-white">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- FORM -->
+      <div class="contact-form-wrap reveal">
+        <h2 data-en>Send Us a Message</h2>
+        <h2 data-ht>Voye Yon Mesaj</h2>
+        <p data-en>Fill out the form and we'll get back to you within 1 business day.</p>
+        <p data-ht>Ranpli fòm nan epi nou pral reponn ou nan 1 jou ouvrab.</p>
+
+        <div class="service-select-hint">
+          <strong data-en><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2l2.9 6.8 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7-5.4-4.6 7.1-.6L12 2z"/></svg> Free consultations available for all services</strong>
+          <strong data-ht><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2l2.9 6.8 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7-5.4-4.6 7.1-.6L12 2z"/></svg> Konsiltasyon gratis disponib pou tout sèvis</strong>
+        </div>
+
+        <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:12px 16px;margin-bottom:24px;font-size:.82rem;color:var(--text-dark);">
+          <span data-en><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2 1 21h22L12 2zm0 4.5 7.5 13h-15L12 6.5zM11 10v5h2v-5h-2zm0 6.5v2h2v-2h-2z"/></svg> <strong>Note:</strong> ME Shield is not a law firm. Paralegal and immigration document requests are limited to document preparation only and do not constitute legal advice.</span>
+          <span data-ht><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2 1 21h22L12 2zm0 4.5 7.5 13h-15L12 6.5zM11 10v5h2v-5h-2zm0 6.5v2h2v-2h-2z"/></svg> <strong>Remak:</strong> ME Shield se pa yon kabinè avoka. Demann paralegal ak dokiman imigrasyon limite a preparasyon dokiman sèlman epi yo pa reprezante konsèy legal.</span>
+        </div>
+
+        <div id="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label data-en>First Name *</label>
+              <label data-ht>Prenon *</label>
+              <input type="text" id="fname" placeholder="John" required/>
+            </div>
+            <div class="form-group">
+              <label data-en>Last Name *</label>
+              <label data-ht>Siyati *</label>
+              <input type="text" id="lname" placeholder="Doe" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-en>Email Address *</label>
+            <label data-ht>Adrès Imel *</label>
+            <input type="email" id="email" placeholder="you@example.com" required/>
+          </div>
+          <div class="form-group">
+            <label data-en>Phone Number</label>
+            <label data-ht>Nimewo Telefòn</label>
+            <input type="tel" id="phone" placeholder="(305) 000-0000"/>
+          </div>
+          <div class="form-group">
+            <label data-en>Service Interested In *</label>
+            <label data-ht>Sèvis Ki Enterese Ou *</label>
+            <select id="service" required>
+              <option value="" data-en-text="— Select a service —" data-ht-text="— Chwazi yon sèvis —">— Select a service —</option>
+              <option value="life-insurance" data-en-text="Life Insurance" data-ht-text="Asirans Lavi">Life Insurance</option>
+              <option value="health-insurance" data-en-text="Health Insurance" data-ht-text="Asirans Sante">Health Insurance</option>
+              <option value="pc-insurance" data-en-text="Property &amp; Casualty Insurance" data-ht-text="Asirans Pwopriyete &amp; Aksidan">Property &amp; Casualty Insurance</option>
+              <option value="ibc" data-en-text="Infinite Banking (IBC)" data-ht-text="Bank Enfini (IBC)">Infinite Banking (IBC)</option>
+              <option value="tax" data-en-text="Tax Preparation" data-ht-text="Preparasyon Taks">Tax Preparation</option>
+              <option value="paralegal" data-en-text="Paralegal / Immigration Documents" data-ht-text="Paralegal / Dokiman Imigrasyon">Paralegal / Immigration Documents</option>
+              <option value="business" data-en-text="Business Filing / Formation Documents" data-ht-text="Depo Biznis / Dokiman Fòmasyon">Business Filing / Formation Documents</option>
+              <option value="other" data-en-text="Other / Not Sure" data-ht-text="Lòt / Pa Sèten">Other / Not Sure</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-en>Preferred Language</label>
+            <label data-ht>Lang Prefere</label>
+            <select id="lang-pref">
+              <option value="english" data-en-text="English" data-ht-text="Anglè">English</option>
+              <option value="creole" data-en-text="Haitian Creole / Kreyòl" data-ht-text="Kreyòl Ayisyen">Haitian Creole / Kreyòl</option>
+              <option value="both" data-en-text="Either / Both" data-ht-text="Toulede">Either / Both</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-en>Message</label>
+            <label data-ht>Mesaj</label>
+            <textarea id="message" data-en-placeholder="Tell us a bit about your needs or questions..." data-ht-placeholder="Di nou yon ti bagay sou bezwen oswa kesyon ou yo..."></textarea>
+          </div>
+          <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+            <label for="company_website">Company Website</label>
+            <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off"/>
+          </div>
+          <button class="btn btn-gold" style="width:100%;" onclick="submitForm()">
+            <span data-en>Send Message</span>
+            <span data-ht>Voye Mesaj</span>
+          </button>
+          <div class="alert-success" id="success-msg">
+            <span data-en><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Thank you! We'll be in touch within 1 business day.</span>
+            <span data-ht><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Mèsi! Nou pral kontakte ou nan 1 jou ouvrab.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT INFO -->
+      <div>
+        <div class="contact-info-card reveal">
+          <h3 data-en>Get in Touch</h3>
+          <h3 data-ht>Kontakte Nou</h3>
+
+          <div class="contact-detail">
+            <span class="icon"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg></span>
+            <div>
+              <strong data-en>Phone / WhatsApp</strong>
+              <strong data-ht>Telefòn / WhatsApp</strong>
+              <a href="tel:+14072672652">(407) 267-2652</a>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <span class="icon"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.3 5.84a.75.75 0 0 0 .94 0L19.74 6H4.2zM4 7.86V18h16V7.86l-7.06 5.65a2.25 2.25 0 0 1-2.82 0L4 7.86z"/></svg></span>
+            <div>
+              <strong data-en>Email</strong>
+              <strong data-ht>Imel</strong>
+              <a href="mailto:info@meshieldfinancial.com">info@meshieldfinancial.com</a>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <span class="icon"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span>
+            <div>
+              <strong data-en>Location</strong>
+              <strong data-ht>Kote</strong>
+              <span data-en>Florida, USA · Virtual appointments available statewide</span>
+              <span data-ht>Florid, USA · Randevou vityèl disponib nan tout eta a</span>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <span class="icon"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.2 3.12.8-1.32-4.5-2.7V7z"/></svg></span>
+            <div>
+              <strong data-en>Business Hours</strong>
+              <strong data-ht>Orè Biznis</strong>
+              <div class="hours-grid">
+                <div class="hours-item"><strong data-en>Mon–Fri</strong><strong data-ht>Lendi–Vandredi</strong><br><span data-en>9:00 AM – 6:00 PM</span><span data-ht>9:00 AM – 6:00 PM</span></div>
+                <div class="hours-item"><strong data-en>Saturday</strong><strong data-ht>Samdi</strong><br><span data-en>By appointment</span><span data-ht>Sou randevou</span></div>
+                <div class="hours-item"><strong data-en>Sunday</strong><strong data-ht>Dimanch</strong><br><span data-en>Closed</span><span data-ht>Fèmen</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=61590568017562" class="social-link" title="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M22.675 0h-21.35C.595 0 0 .595 0 1.326v21.348C0 23.404.595 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.405 24 24 23.404 24 22.674V1.326C24 .595 23.405 0 22.675 0z"/></svg></a>
+            <a href="https://www.instagram.com/meshieldfinancial/" class="social-link" title="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            <a href="https://www.tiktok.com/@me.shield.financial.serv" class="social-link" title="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
+            <a href="https://wa.me/14072672652" class="social-link" title="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
+          </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="tel:+14072672652" class="btn btn-gold" style="text-align:center;" data-en><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>Call (407) 267-2652</a>
+          <a href="tel:+14072672652" class="btn btn-gold" style="text-align:center;" data-ht><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>Rele (407) 267-2652</a>
+          <a href="https://wa.me/14072672652" class="btn btn-outline" style="text-align:center;" data-en><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-5 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/></svg> Message on WhatsApp</a>
+          <a href="https://wa.me/14072672652" class="btn btn-outline" style="text-align:center;" data-ht><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M4 4h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-5 4v-4H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/></svg> Mesaj sou WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <img src="logo.png" alt="ME Shield Financial Services logo" style="height:48px;width:auto;object-fit:contain;"/>
+          <div>
+            <div style="color:var(--white);font-family:var(--font-display);font-weight:700;">ME Shield Financial Services</div>
+            <div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div>
+          </div>
+        </div>
+        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) · Tax &amp; Paralegal (Nationwide) — bilingual service.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) · Taks &amp; Paralegal (Nasyonal) — sèvis bileng.</p>
+      </div>
+      <div>
+        <h4 data-en>Services</h4><h4 data-ht>Sèvis</h4>
+        <ul>
+          <li><a href="services.html#insurance" data-en>Insurance</a><a href="services.html#insurance" data-ht>Asirans</a></li>
+          <li><a href="services.html#tax" data-en>Tax Preparation</a><a href="services.html#tax" data-ht>Preparasyon Taks</a></li>
+          <li><a href="services.html#paralegal" data-en>Paralegal</a><a href="services.html#paralegal" data-ht>Paralegal</a></li>
+          <li><a href="services.html#immigration" data-en>Immigration Docs</a><a href="services.html#immigration" data-ht>Dokiman Imigrasyon</a></li>
+          <li><a href="services.html#business" data-en>Business Filing</a><a href="services.html#business" data-ht>Depo Biznis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Company</h4><h4 data-ht>Konpayi</h4>
+        <ul>
+          <li><a href="about.html" data-en>About Us</a><a href="about.html" data-ht>Sou Nou</a></li>
+          <li><a href="contact.html" data-en>Contact</a><a href="contact.html" data-ht>Kontakte</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Contact</h4><h4 data-ht>Kontakte</h4>
+        <ul style="font-size:.88rem;color:rgba(255,255,255,.6);">
+          <li style="list-style:none;color:inherit;"><a href="tel:+14072672652" style="color:rgba(255,255,255,.6);">(407) 267-2652</a></li>
+          <li style="list-style:none;margin-top:6px;color:inherit;"><a href="mailto:info@meshieldfinancial.com" style="color:rgba(255,255,255,.6);">info@meshieldfinancial.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC, a Florida-registered limited liability company.</div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a Florida-registered company. Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Paralegal services are document preparation only and do not constitute legal advice.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA (“ap fonksyone kòm”) pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
+    <div class="footer-disclaimer" data-ht>Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP. Sèvis paralegal yo se preparasyon dokiman sèlman epi yo pa reprezante konsèy legal.</div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
+      <span data-en>All rights reserved.</span><span data-ht>Tout dwa rezève.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+
+  // Update textarea placeholder based on language
+  function updatePlaceholders() {
+    const ta = document.getElementById('message');
+    const lang = localStorage.getItem('me-shield-lang') || 'en';
+    if (ta) ta.placeholder = lang === 'ht' ? ta.dataset.htPlaceholder : ta.dataset.enPlaceholder;
+  }
+
+  // Update dropdown option text based on language (the <option> itself carries
+  // both translations as data attributes — this avoids relying on CSS to hide
+  // options, which mobile browsers' native select pickers often ignore)
+  function updateSelectOptions() {
+    const lang = localStorage.getItem('me-shield-lang') || 'en';
+    document.querySelectorAll('#service option, #lang-pref option').forEach(opt => {
+      const text = lang === 'ht' ? opt.dataset.htText : opt.dataset.enText;
+      if (text) opt.textContent = text;
+    });
+  }
+
+  // Override setLang to also update placeholders and dropdown text
+  const _origSetLang = window.setLang;
+  window.setLang = function(lang, save) {
+    if (_origSetLang) _origSetLang(lang, save);
+    updatePlaceholders();
+    updateSelectOptions();
+  };
+
+  // Your Brevo "Contact Page Form" submission endpoint
+  const BREVO_FORM_ACTION = 'https://d95daacd.sibforms.com/serve/MUIFACd7YFqLXYG0XOA8_c20xGK2g_iaRfVc4T114GY1SYFmI36Nx5vPWVh8K0lot2Sy1KIy1wO82kqSW-co316oWCb2482wlJt9iAF7G8eHchmcRBGIi2rk824Wj6ElpczgC6U0SHVYMzd10EzCXtyCInHIrKkIkuZCUC28WIFyhxFT7DDU7aQL0lIlFmFg3uZIMrfwHuI4GPD6Aw==';
+
+  function showSuccessAndReset() {
+    const msg = document.getElementById('success-msg');
+    msg.style.display = 'block';
+    window.scrollTo({ top: msg.offsetTop - 100, behavior: 'smooth' });
+    ['fname', 'lname', 'email', 'phone', 'message'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('service').value = '';
+    document.getElementById('lang-pref').value = 'english';
+  }
+
+  function submitForm() {
+    const fname = document.getElementById('fname').value.trim();
+    const lname = document.getElementById('lname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const service = document.getElementById('service').value;
+    const langPref = document.getElementById('lang-pref').value;
+    const message = document.getElementById('message').value.trim();
+    const honeypot = document.getElementById('company_website').value;
+
+    if (!fname || !email || !service) {
+      const lang = localStorage.getItem('me-shield-lang') || 'en';
+      alert(lang === 'ht' ? 'Tanpri ranpli tout chan obligatwa yo.' : 'Please fill in all required fields.');
+      return;
+    }
+
+    // Honeypot: invisible to real visitors, but bots tend to fill every field
+    // they find. If it's populated, silently pretend success without sending
+    // anything to Brevo.
+    if (honeypot) {
+      showSuccessAndReset();
+      return;
+    }
+
+    const params = new URLSearchParams();
+    params.append('EMAIL', email);
+    params.append('FIRSTNAME', fname);
+    params.append('LASTNAME', lname);
+    if (phone) {
+      const digits = phone.replace(/\D/g, '');
+      params.append('SMS__COUNTRY_CODE', '+1');
+      params.append('SMS', digits.length === 10 ? '1' + digits : digits);
+    }
+    params.append('SERVICE_INTERESTED', service);
+    params.append('LANG_PREF', langPref);
+    if (message) params.append('MESSAGE', message);
+    params.append('email_address_check', ''); // Brevo's own honeypot — must stay blank
+    params.append('locale', 'en');
+    params.append('html_type', 'simple');
+
+    // mode: 'no-cors' lets this POST land on Brevo's domain without a CORS
+    // preflight. We can't read the response, so we always show success — but
+    // the request itself still reaches Brevo and the contact gets created.
+    fetch(BREVO_FORM_ACTION, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString()
+    }).catch(() => {});
+
+    showSuccessAndReset();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updatePlaceholders();
+    updateSelectOptions();
+  });
+</script>
+</body>
+</html>

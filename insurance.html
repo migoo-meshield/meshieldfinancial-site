@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Insurance Services — ME Shield Financial Services</title>
+  <meta name="description" content="Life, health, and property & casualty insurance for Florida families and small businesses — bilingual, personalized, and built around your real needs."/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .lp-hero {
+      background-image: url('https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=1400&q=70');
+      background-size: cover;
+      background-position: center;
+      padding: 110px 0 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    .lp-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(165deg, rgba(11,28,58,.82) 0%, rgba(11,28,58,.95) 100%);
+      z-index: 0;
+    }
+    .lp-hero .container { position: relative; z-index: 1; max-width: 760px; text-align: center; }
+    .lp-hero h1 { color: var(--white); margin-bottom: 16px; }
+    .lp-hero p.lead { color: rgba(255,255,255,.78); font-size: 1.12rem; max-width: 600px; margin: 0 auto 32px; }
+    .lp-hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    .lp-benefits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .lp-benefit { display: flex; gap: 16px; align-items: flex-start; }
+    .lp-benefit-icon {
+      width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0; overflow: hidden;
+    }
+    .lp-benefit-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .lp-benefit h4 { font-family: var(--font-display); color: var(--navy); font-size: 1.05rem; margin-bottom: 6px; }
+    .lp-benefit p { font-size: .92rem; margin: 0; }
+
+    .lp-process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .lp-step { text-align: center; position: relative; }
+    .lp-step-num {
+      width: 52px; height: 52px; border-radius: 50%; background: var(--navy); color: var(--gold);
+      font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+    }
+    .lp-step h4 { font-size: 1rem; color: var(--navy); margin-bottom: 8px; }
+    .lp-step p { font-size: .88rem; }
+
+    .lp-mini-faq { max-width: 700px; margin: 0 auto; }
+    .lp-mini-faq-item { border-bottom: 1px solid var(--border-soft); padding: 22px 4px; }
+    .lp-mini-faq-item:first-child { border-top: 1px solid var(--border-soft); }
+    .lp-mini-faq-item h4 { font-family: var(--font-display); color: var(--navy); font-size: 1.05rem; margin-bottom: 8px; }
+    .lp-mini-faq-item p { margin: 0; font-size: .94rem; }
+
+    @media (max-width: 820px) {
+      .lp-benefits { grid-template-columns: 1fr; }
+      .lp-process { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="lang-en">
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
+      <div>
+        <div class="nav-logo-text">ME Shield Financial</div>
+        <div class="nav-logo-sub">Services</div>
+      </div>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+      <li><a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a></li>
+      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">KR</button>
+      </div>
+      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
+        <span data-en>Book Free Consult</span>
+        <span data-ht>Rezève Konsiltasyon</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="lp-hero">
+  <div class="container">
+    <div class="hero-badge" style="margin:0 auto 18px;">
+      <span data-en>INSURANCE</span>
+      <span data-ht>ASIRANS</span>
+    </div>
+    <h1 data-en>Protection That Actually Fits Your Family</h1>
+    <h1 data-ht>Pwoteksyon Ki Reyèlman Adapte Ak Fanmi Ou</h1>
+    <p class="lead" data-en>Life, health, and property & casualty insurance — shopped across multiple carriers and explained in plain English or Kreyòl, so you actually understand what you're buying.</p>
+    <p class="lead" data-ht>Asirans lavi, sante, ak pwopriyete — konpare atravè plizyè konpayi epi eksplike an Anglè senp oswa Kreyòl, pou ou reyèlman konprann sa ou achte.</p>
+    <div class="lp-hero-ctas">
+      <a href="book.html" class="btn btn-gold" data-en>Book Free Consultation</a>
+      <a href="book.html" class="btn btn-gold" data-ht>Rezève Konsiltasyon Gratis</a>
+      <a href="infinite-banking.html" target="_blank" rel="noopener" class="btn btn-outline" style="color:var(--white);border-color:rgba(255,255,255,.4);" data-en>Explore Infinite Banking</a>
+      <a href="infinite-banking.html" target="_blank" rel="noopener" class="btn btn-outline" style="color:var(--white);border-color:rgba(255,255,255,.4);" data-ht>Eksplore Bank Enfini</a>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<section class="section section-white">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow" data-en>WHAT'S INCLUDED</div>
+      <div class="eyebrow" data-ht>SA KI ENKLI</div>
+      <h2 data-en>Coverage Built Around You</h2>
+      <h2 data-ht>Kouvèti Bati Alantou Ou</h2>
+      <span class="gold-rule center"></span>
+    </div>
+    <div class="lp-benefits">
+      <div class="lp-benefit">
+        <div class="lp-benefit-icon"><img src="https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=160&q=70" alt=""/></div>
+        <div>
+          <h4 data-en>Life Insurance</h4>
+          <h4 data-ht>Asirans Lavi</h4>
+          <p data-en>Term and whole life policies sized to your family’s actual needs — not a one-size-fits-all quote.</p>
+          <p data-ht>Polis tèm ak lavi antye gradye selon vrè bezwen fanmi ou — pa yon estimasyon yon sèl gwosè.</p>
+        </div>
+      </div>
+      <div class="lp-benefit">
+        <div class="lp-benefit-icon"><img src="https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?auto=format&fit=crop&w=160&q=70" alt=""/></div>
+        <div>
+          <h4 data-en>Health Insurance</h4>
+          <h4 data-ht>Asirans Sante</h4>
+          <p data-en>Marketplace and private health plans, with help understanding subsidies, deductibles, and provider networks.</p>
+          <p data-ht>Plan sante mache ak prive, ak èd pou konprann sibvansyon, dediktib, ak rezo founisè.</p>
+        </div>
+      </div>
+      <div class="lp-benefit">
+        <div class="lp-benefit-icon"><img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=160&q=70" alt=""/></div>
+        <div>
+          <h4 data-en>Property & Casualty</h4>
+          <h4 data-ht>Pwopriyete & Aksidan</h4>
+          <p data-en>Home, auto, and renters coverage compared across carriers to find real value, not just the lowest sticker price.</p>
+          <p data-ht>Kouvèti kay, machin, ak lokatè konpare atravè konpayi pou jwenn vrè valè, pa sèlman pi ba pri.</p>
+        </div>
+      </div>
+      <div class="lp-benefit">
+        <div class="lp-benefit-icon"><img src="https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=160&q=70" alt=""/></div>
+        <div>
+          <h4 data-en>Bilingual, Always</h4>
+          <h4 data-ht>Bileng, Toujou</h4>
+          <p data-en>Every policy, every explanation, every claim question — available in English or Haitian Creole.</p>
+          <p data-ht>Chak polis, chak eksplikasyon, chak kesyon reklamasyon — disponib an Anglè oswa Kreyòl Ayisyen.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow" data-en>HOW IT WORKS</div>
+      <div class="eyebrow" data-ht>KIJAN LI FONKSYONE</div>
+      <h2 data-en>From Quote to Coverage</h2>
+      <h2 data-ht>Soti Nan Estimasyon Rive Nan Kouvèti</h2>
+      <span class="gold-rule center"></span>
+    </div>
+    <div class="lp-process">
+      <div class="lp-step">
+        <div class="lp-step-num">1</div>
+        <h4 data-en>Free Consultation</h4>
+        <h4 data-ht>Konsiltasyon Gratis</h4>
+        <p data-en>We talk through your situation, your budget, and what you actually need protected.</p>
+        <p data-ht>Nou pale sou sitiyasyon ou, bidjè ou, ak sa ou reyèlman bezwen pwoteje.</p>
+      </div>
+      <div class="lp-step">
+        <div class="lp-step-num">2</div>
+        <h4 data-en>We Shop Carriers</h4>
+        <h4 data-ht>Nou Konpare Konpayi</h4>
+        <p data-en>Rather than one quote, we compare options across multiple carriers for the best fit.</p>
+        <p data-ht>Olye yon sèl estimasyon, nou konpare opsyon atravè plizyè konpayi pou pi bon adapte.</p>
+      </div>
+      <div class="lp-step">
+        <div class="lp-step-num">3</div>
+        <h4 data-en>Clear Explanation</h4>
+        <h4 data-ht>Eksplikasyon Klè</h4>
+        <p data-en>No jargon. We walk through exactly what’s covered, what isn’t, and what it costs.</p>
+        <p data-ht>Pa gen jagon. Nou pase atravè egzakteman sa ki kouvri, sa ki pa kouvri, ak konbyen li koute.</p>
+      </div>
+      <div class="lp-step">
+        <div class="lp-step-num">4</div>
+        <h4 data-en>Ongoing Support</h4>
+        <h4 data-ht>Sipò Kontinyèl</h4>
+        <p data-en>When you have a claim or a question later, you call the same advisor — not a call center.</p>
+        <p data-ht>Lè ou gen yon reklamasyon oswa yon kesyon pita, ou rele menm konseye a — pa yon sant apèl.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MINI FAQ -->
+<section class="section section-white">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow" data-en>COMMON QUESTIONS</div>
+      <div class="eyebrow" data-ht>KESYON KOMEN</div>
+      <h2 data-en>Insurance Questions</h2>
+      <h2 data-ht>Kesyon Sou Asirans</h2>
+      <span class="gold-rule center"></span>
+    </div>
+    <div class="lp-mini-faq">
+      <div class="lp-mini-faq-item">
+        <h4 data-en>Do you represent one insurance company or several?</h4>
+        <h4 data-ht>Èske ou reprezante yon sèl konpayi asirans oswa plizyè?</h4>
+        <p data-en>Several. We’re an independent agency, which means we compare options across multiple carriers to find your best fit — rather than being limited to one company’s products.</p>
+        <p data-ht>Plizyè. Nou se yon ajans endepandan, sa vle di nou konpare opsyon atravè plizyè konpayi pou jwenn pi bon adapte pou ou — olye nou limite a pwodui yon sèl konpayi.</p>
+      </div>
+      <div class="lp-mini-faq-item">
+        <h4 data-en>How much does a consultation cost?</h4>
+        <h4 data-ht>Konbyen yon konsiltasyon koute?</h4>
+        <p data-en>Your first consultation is completely free, with no obligation to purchase anything.</p>
+        <p data-ht>Premye konsiltasyon ou a gratis nèt, san okenn obligasyon pou achte anyen.</p>
+      </div>
+      <div class="lp-mini-faq-item">
+        <h4 data-en>Can I switch from my current policy?</h4>
+        <h4 data-ht>Èske mwen ka chanje de polis aktyèl mwen an?</h4>
+        <p data-en>Yes — we can review your existing coverage, compare it against other options, and help you switch if it makes sense, without any coverage gap.</p>
+        <p data-ht>Wi — nou ka revize kouvèti aktyèl ou, konpare l ak lòt opsyon, epi ede ou chanje si sa fè sans, san okenn vid nan kouvèti.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="container">
+    <div class="final-cta-band">
+      <div class="final-cta-eyebrow" data-en>PROTECT WHAT MATTERS</div>
+      <div class="final-cta-eyebrow" data-ht>PWOTEJE SA KI ENPÒTAN</div>
+      <h2 data-en>Let’s Find Your Right Coverage</h2>
+      <h2 data-ht>Annou Jwenn Bon Kouvèti Pou Ou</h2>
+      <p data-en>No pressure, no jargon — just an honest conversation about what your family actually needs.</p>
+      <p data-ht>Pa gen presyon, pa gen jagon — jis yon konvèsasyon onèt sou sa fanmi ou reyèlman bezwen.</p>
+      <div class="final-cta-buttons">
+        <a href="book.html" class="btn btn-gold" data-en>Book Free Consultation</a>
+        <a href="book.html" class="btn btn-gold" data-ht>Rezève Konsiltasyon Gratis</a>
+        <a href="services.html" class="btn btn-outline" style="color:var(--white);border-color:rgba(255,255,255,.4);" data-en>View All Services</a>
+        <a href="services.html" class="btn btn-outline" style="color:var(--white);border-color:rgba(255,255,255,.4);" data-ht>Gade Tout Sèvis Yo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <img src="logo.png" alt="ME Shield Financial Services logo" style="height:48px;width:auto;object-fit:contain;"/>
+          <div>
+            <div style="color:var(--white);font-family:var(--font-display);font-weight:700;">ME Shield Financial Services</div>
+            <div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div>
+          </div>
+        </div>
+        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) · Tax &amp; Paralegal (Nationwide) — bilingual service.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) · Taks &amp; Paralegal (Nasyonal) — sèvis bileng.</p>
+        <div style="margin-top:20px;font-size:.87rem;">
+          <div><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652" style="color:rgba(255,255,255,.6);">(407) 267-2652</a></div>
+          <div style="margin-top:6px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.3 5.84a.75.75 0 0 0 .94 0L19.74 6H4.2zM4 7.86V18h16V7.86l-7.06 5.65a2.25 2.25 0 0 1-2.82 0L4 7.86z"/></svg><a href="mailto:info@meshieldfinancial.com" style="color:rgba(255,255,255,.6);">info@meshieldfinancial.com</a></div>
+        </div>
+        
+        <div style="margin-top:16px;display:flex;gap:10px;">
+          <a href="https://www.facebook.com/profile.php?id=61590568017562" target="_blank" rel="noopener" aria-label="Facebook" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M22.675 0h-21.35C.595 0 0 .595 0 1.326v21.348C0 23.404.595 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.405 24 24 23.404 24 22.674V1.326C24 .595 23.405 0 22.675 0z"/></svg></a>
+          <a href="https://www.instagram.com/meshieldfinancial/" target="_blank" rel="noopener" aria-label="Instagram" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener" aria-label="TikTok" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
+          <a href="https://wa.me/114072672652" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4 data-en>Services</h4><h4 data-ht>Sèvis</h4>
+        <ul>
+          <li><a href="services.html#insurance" data-en>Insurance</a><a href="services.html#insurance" data-ht>Asirans</a></li>
+          <li><a href="services.html#tax" data-en>Tax Prep</a><a href="services.html#tax" data-ht>Taks</a></li>
+          <li><a href="services.html#paralegal" data-en>Paralegal</a><a href="services.html#paralegal" data-ht>Paralegal</a></li>
+          <li><a href="services.html#business" data-en>Business Filing</a><a href="services.html#business" data-ht>Depo Biznis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Resources</h4><h4 data-ht>Resous</h4>
+        <ul>
+          <li><a href="blog.html" data-en>Blog</a><a href="blog.html" data-ht>Blòg</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="book.html" data-en>Book Appointment</a><a href="book.html" data-ht>Rezève Randevou</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Company</h4><h4 data-ht>Konpayi</h4>
+        <ul>
+          <li><a href="about.html" data-en>About Us</a><a href="about.html" data-ht>Sou Nou</a></li>
+          <li><a href="contact.html" data-en>Contact</a><a href="contact.html" data-ht>Kontakte</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC, a Florida-registered limited liability company.</div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a Florida-registered company. Insurance products are subject to policy terms. Paralegal and business filing services are document preparation only and do not constitute legal advice.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA (“ap fonksyone kòm”) pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon konpayi anrejistre ann Florid. Pwodui asirans yo sou kondisyon polis. Sèvis paralegal ak depo biznis yo se preparasyon dokiman sèlman epi yo pa reprezante konsèy legal.</div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
+      <span data-en>All rights reserved.</span><span data-ht>Tout dwa rezève.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

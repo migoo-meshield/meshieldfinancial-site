@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ — ME Shield Financial Services</title>
+  <meta name="description" content="Frequently asked questions about insurance, tax preparation, and paralegal services at ME Shield Financial Services, Florida."/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .faq-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 56px;
+    }
+    .faq-tab {
+      padding: 12px 22px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--border-soft);
+      background: var(--white);
+      color: var(--navy);
+      font-size: .88rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all .25s var(--ease);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .faq-tab:hover { border-color: var(--gold); color: var(--gold); }
+    .faq-tab.active {
+      background: var(--navy);
+      color: var(--gold);
+      border-color: var(--navy);
+    }
+
+    /* FAQ groups */
+    .faq-group {
+      margin-bottom: 56px;
+      scroll-margin-top: 90px;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .faq-group-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+    .faq-group-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .faq-group-icon img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .faq-group-icon-old {
+      width: 44px; height: 44px;
+      background: var(--navy);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .faq-group-header h2 {
+      font-size: 1.3rem;
+      color: var(--navy);
+    }
+
+    /* Accordion */
+    .accordion { display: flex; flex-direction: column; counter-reset: faq-counter; }
+    .accordion-item {
+      background: var(--white);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
+      counter-increment: faq-counter;
+    }
+    .accordion-item:hover {
+      border-color: var(--gold);
+    }
+    .accordion-item.open {
+      border-color: var(--navy);
+      box-shadow: var(--shadow-sm);
+    }
+    .accordion-trigger {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: background .15s;
+      font-family: var(--font-body);
+      color: inherit;
+    }
+    .accordion-trigger::before {
+      content: counter(faq-counter, decimal-leading-zero);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: .95rem;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .accordion-question {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.4;
+      flex: 1;
+    }
+    .accordion-icon {
+      width: 28px; height: 28px;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      flex-shrink: 0;
+      transition: transform .3s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .accordion-item.open .accordion-icon {
+      transform: rotate(135deg);
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--navy);
+    }
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s var(--ease);
+    }
+    .accordion-item.open .accordion-body {
+      max-height: 600px;
+    }
+    .accordion-answer {
+      padding: 0 22px 20px 46px;
+      color: var(--text-mid);
+      font-size: .96rem;
+      line-height: 1.75;
+    }
+    .accordion-answer strong { color: var(--navy); }
+    .accordion-answer a { color: var(--gold); }
+
+    /* CTA within FAQ */
+    .faq-cta {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 40px 36px;
+      text-align: center;
+      margin-top: 40px;
+      border: 1px solid var(--border);
+    }
+    .faq-cta h3 { color: var(--gold); margin-bottom: 10px; }
+    .faq-cta p  { color: rgba(255,255,255,.7); margin-bottom: 24px; }
+
+    @media (max-width: 820px) {
+      .faq-tabs { gap: 8px; }
+      .faq-tab { padding: 10px 16px; font-size: .82rem; }
+    }
+
+
+
+  </style>
+</head>
+<body class="lang-en">
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
+      <div>
+        <div class="nav-logo-text">ME Shield Financial</div>
+        <div class="nav-logo-sub">Services</div>
+      </div>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+      <li class="nav-dropdown">
+        <a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="insurance.html"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li>
+          <li><a href="tax-preparation.html"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li>
+          <li><a href="paralegal-immigration.html"><span data-en>Paralegal &amp; Immigration</span><span data-ht>Paralegal &amp; Imigrasyon</span></a></li>
+          <li><a href="business-filing.html"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li>
+          <li><a href="infinite-banking.html"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li>
+        </ul>
+      </li>
+      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+      <li><a href="faq.html"><span data-en>FAQ</span><span data-ht>FAQ</span></a></li>
+      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">HT</button>
+      </div>
+      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
+        <span data-en>Book Appointment</span>
+        <span data-ht>Rezève Randevou</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero has-photo" style="background-image:url('https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?auto=format&fit=crop&w=1400&q=70');">
+  <div class="container">
+    <h1 data-en>Frequently Asked Questions</h1>
+    <h1 data-ht>Kesyon Ki Poze Souvan</h1>
+    <p data-en>Answers to the most common questions about our services.</p>
+    <p data-ht>Repons pou kesyon ki pi komen sou sèvis nou yo.</p>
+  </div>
+</div>
+
+<section class="section section-white">
+  <div class="container">
+    <div style="max-width:560px;margin:0 auto 48px;position:relative;">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--text-light);"><path d="M10 2a8 8 0 1 0 4.9 14.32l5.39 5.39 1.41-1.42-5.39-5.39A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z"/></svg>
+      <input type="text" id="faq-search" placeholder="Search questions... / Chèche kesyon..." style="width:100%;padding:14px 18px 14px 48px;border-radius:30px;border:1px solid var(--border);font-size:.95rem;font-family:var(--font-body);outline:none;transition:border-color .2s;" oninput="searchFAQ(this.value)"/>
+    </div>
+    <p id="faq-no-results" style="display:none;text-align:center;color:var(--text-light);margin-bottom:32px;">No matching questions found. Try a different search, or <a href="contact.html" style="color:var(--gold);">contact us directly</a>.</p>
+
+    <div class="faq-tabs" id="faq-tabs">
+      <button class="faq-tab active" data-cat="general" onclick="showCategory('general')"><span data-en>General</span><span data-ht>Jeneral</span></button>
+      <button class="faq-tab" data-cat="insurance" onclick="showCategory('insurance')"><span data-en>Insurance</span><span data-ht>Asirans</span></button>
+      <button class="faq-tab" data-cat="tax" onclick="showCategory('tax')"><span data-en>Tax Prep</span><span data-ht>Taks</span></button>
+      <button class="faq-tab" data-cat="paralegal" onclick="showCategory('paralegal')"><span data-en>Paralegal</span><span data-ht>Paralegal</span></button>
+      <button class="faq-tab" data-cat="business" onclick="showCategory('business')"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></button>
+      <button class="faq-tab" data-cat="billing" onclick="showCategory('billing')"><span data-en>Fees &amp; Payment</span><span data-ht>Frè &amp; Peman</span></button>
+    </div>
+
+    <div>
+
+        <!-- GENERAL -->
+        <div class="faq-group" id="general">
+          <div class="faq-group-header">
+            <div class="faq-group-icon"><img src="https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?auto=format&fit=crop&w=120&q=70" alt=""/></div>
+            <h2 data-en>General Questions</h2>
+            <h2 data-ht>Kesyon Jeneral</h2>
+          </div>
+          <div class="accordion">
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Where is ME Shield Group located?</span>
+                <span class="accordion-question" data-ht>Kote ME Shield Group ye?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>We are a Florida-based practice serving clients statewide. Most consultations are available <strong>virtually via phone, video call, or WhatsApp</strong> — so you can work with us from anywhere in Florida. In-person appointments may be available by special arrangement.</p>
+                  <p data-ht>Nou se yon pratik ki baze ann Florid ki sèvi kliyan nan tout eta a. Pifò konsiltasyon yo disponib <strong>vityèlman pa telefòn, apèl vidyo, oswa WhatsApp</strong> — pou ou ka travay avèk nou nenpòt kote ann Florid. Randevou an pèsòn ka disponib pa aranjman espesyal.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Do you serve clients in Haitian Creole?</span>
+                <span class="accordion-question" data-ht>Èske ou sèvi kliyan an Kreyòl Ayisyen?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>Absolutely. <strong>Bilingual service in English and Haitian Creole is a core part of who we are.</strong> You can communicate with us, receive documents, and get explanations entirely in Kreyòl if that's your preference.</p>
+                  <p data-ht>Absoliman. <strong>Sèvis bileng an Anglè ak Kreyòl Ayisyen se yon pati fondamantal de ki nou ye.</strong> Ou ka kominike avèk nou, resevwa dokiman, ak jwenn eksplikasyon nèt an Kreyòl si se preferans ou.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Is the initial consultation really free?</span>
+                <span class="accordion-question" data-ht>Èske konsiltasyon inisyal la vrèman gratis?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>Yes — your first consultation is completely free with no obligation. We want to understand your situation and make sure we're the right fit before you commit to anything.</p>
+                  <p data-ht>Wi — premye konsiltasyon ou a gratis nèt san okenn obligasyon. Nou vle konprann sitiyasyon ou epi asire ke nou se bon mach anvan ou angaje nan anyen.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Can I get help with all three services at once?</span>
+                <span class="accordion-question" data-ht>Èske mwen ka jwenn èd ak twa sèvis yo ansanm?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>Yes! That's actually one of our biggest advantages. Because insurance, tax, and legal documents are all handled by the same advisor, we can <strong>see your full financial picture</strong> and give you more coordinated, effective guidance.</p>
+                  <p data-ht>Wi! Sa a se youn nan pi gwo avantaj nou yo. Paske asirans, taks, ak dokiman legal yo tout jere pa menm konseye a, nou ka <strong>wè tout sitiyasyon finansyè ou</strong> epi ba ou konsèy ki pi kòdone ak efikas.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- INSURANCE -->
+        <div class="faq-group" id="insurance">
+          <div class="faq-group-header">
+            <div class="faq-group-icon"><img src="https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=120&q=70" alt=""/></div>
+            <h2 data-en>Insurance Questions</h2>
+            <h2 data-ht>Kesyon Asirans</h2>
+          </div>
+          <div class="accordion">
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>What's the difference between term and whole life insurance?</span>
+                <span class="accordion-question" data-ht>Kisa diferans ki genyen ant asirans lavi tèm ak lavi antye?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en><strong>Term life</strong> covers you for a set period (10, 20, or 30 years) and is generally the most affordable option. It's ideal for income replacement while raising a family or paying off a mortgage.<br><br><strong>Whole life</strong> covers you permanently and builds cash value over time — making it a powerful financial tool as well as protection. It's the foundation of the <a href="services.html#insurance">Infinite Banking Concept (IBC)</a>.</p>
+                  <p data-ht><strong>Lavi tèm</strong> kouvri ou pou yon peryòd defini (10, 20, oswa 30 an) epi li se jeneralman opsyon ki pi abòdab la. Li ideal pou ranplasman revni pandan w ap elve yon fanmi oswa peye yon prè kay.<br><br><strong>Lavi antye</strong> kouvri ou pou tout tan epi li bati valè kach avèk tan — sa ki fè li yon zouti finansyè pisan ansanm ak pwoteksyon. Se fondasyon <a href="services.html#insurance">Konsèp Bank Enfini (IBC)</a> a.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>What is the Infinite Banking Concept (IBC)?</span>
+                <span class="accordion-question" data-ht>Kisa Konsèp Bank Enfini (IBC) a ye?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>IBC is a strategy where you use a <strong>dividend-paying whole life insurance policy as your own personal bank</strong>. You build cash value, borrow against it tax-free for purchases or investments, and repay yourself — keeping your money growing while you use it. It's a powerful wealth-building tool used by many business owners.</p>
+                  <p data-ht>IBC se yon estrateji kote ou itilize yon <strong>polis asirans lavi antye ki peye dividann kòm bank pèsonèl ou pwòp</strong>. Ou bati valè kach, priye kont li san taks pou acha oswa envestisman, epi ou ranbouse tèt ou — kenbe lajan ou ap grandi pandan ou itilize li. Se yon zouti pisan pou bati richès ke anpil pwopriyetè biznis itilize.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Can I get health insurance if I'm self-employed?</span>
+                <span class="accordion-question" data-ht>Èske mwen ka jwenn asirans sante si mwen travay pou tèt mwen?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>Yes. Self-employed individuals can enroll in health insurance through the <strong>ACA Marketplace</strong>. Depending on your income, you may qualify for subsidies that significantly lower your monthly premium. We help you navigate enrollment and find the right plan.</p>
+                  <p data-ht>Wi. Moun ki travay pou tèt yo ka enskri nan asirans sante pa <strong>Mache ACA</strong> a. Depan sou revni ou, ou ka kalifye pou sibvansyon ki bese prèm mansyèl ou konsiderableman. Nou ede ou navige enskripsyon an epi jwenn bon plan an.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Do you work with a specific insurance company?</span>
+                <span class="accordion-question" data-ht>Èske ou travay ak yon konpayi asirans espesifik?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>No — as an <strong>independent agent</strong>, we are not tied to any single carrier. This means we shop the market across multiple companies to find the best coverage and price for your specific needs. Our loyalty is to you, not a brand.</p>
+                  <p data-ht>Non — kòm <strong>ajan endepandan</strong>, nou pa mare ak okenn konpayi. Sa vle di nou fouye mache a nan plizyè konpayi pou jwenn pi bon kouvèti ak pri pou bezwen espesifik ou. Fidelite nou se pou ou, pa pou yon mak.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TAX -->
+        <div class="faq-group" id="tax">
+          <div class="faq-group-header">
+            <div class="faq-group-icon"><img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=120&q=70" alt=""/></div>
+            <h2 data-en>Tax Preparation Questions</h2>
+            <h2 data-ht>Kesyon Preparasyon Taks</h2>
+          </div>
+          <div class="accordion">
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>What documents do I need to bring for tax prep?</span>
+                <span class="accordion-question" data-ht>Ki dokiman mwen bezwen pote pou preparasyon taks?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>At a minimum, bring: <strong>W-2 or 1099 forms</strong>, your Social Security Number (or ITIN), your prior-year tax return (if available), and your bank account info for direct deposit. If you're self-employed, also bring records of income and business expenses. We'll guide you through everything in your consultation.</p>
+                  <p data-ht>Omwen, pote: <strong>fòm W-2 oswa 1099</strong>, Nimewo Sekirite Sosyal ou (oswa ITIN), deklarasyon taks ane anvan ou (si disponib), ak enfòmasyon kont bank ou pou depozit dirèk. Si ou travay pou tèt ou, pote tou dosye revni ak depans biznis. Nou pral gide ou nan tout bagay nan konsiltasyon ou.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Can you help me if I don't have a Social Security Number?</span>
+                <span class="accordion-question" data-ht>Èske ou ka ede mwen si mwen pa gen Nimewo Sekirite Sosyal?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>Yes. We assist clients with <strong>ITIN (Individual Taxpayer Identification Number) applications</strong>. An ITIN allows you to file taxes, open a bank account, and build financial history — even without a Social Security Number.</p>
+                  <p data-ht>Wi. Nou ede kliyan ak <strong>aplikasyon ITIN (Nimewo Idantifikasyon Kontribyab Endividyèl)</strong>. Yon ITIN pèmèt ou deklare taks, louvri yon kont bank, epi bati istwa finansyè — menm san Nimewo Sekirite Sosyal.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Can you file taxes for prior years?</span>
+                <span class="accordion-question" data-ht>Èske ou ka deklare taks pou ane anvan yo?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>Yes. We can prepare and file <strong>prior-year returns and amendments</strong>. If you missed a year or filed incorrectly, it's better to correct it proactively. The IRS generally allows up to 3 years to claim a refund.</p>
+                  <p data-ht>Wi. Nou ka prepare epi deklare <strong>deklarasyon ak amandman ane anvan</strong>. Si ou rate yon ane oswa ou te deklare mal, li pi bon pou korije sa proaktivman. IRS a jeneralman pèmèt jiska 3 an pou reklame yon ranbousman.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Do you prepare taxes for small businesses?</span>
+                <span class="accordion-question" data-ht>Èske ou prepare taks pou ti biznis?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>Yes. We handle tax returns for <strong>sole proprietors, LLCs, and small businesses</strong> including Schedule C filings. If you're a small business owner, we can also help identify deductions you may be missing.</p>
+                  <p data-ht>Wi. Nou jere deklarasyon taks pou <strong>sèl pwopriyetè, LLC, ak ti biznis</strong> ki gen ladan deklarasyon Orè C. Si ou se yon pwopriyetè ti biznis, nou ka ede ou tou idantifye dediksyon ou ka rate.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PARALEGAL -->
+        <div class="faq-group" id="paralegal">
+          <div class="faq-group-header">
+            <div class="faq-group-icon"><img src="https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=120&q=70" alt=""/></div>
+            <h2 data-en>Paralegal & Immigration Questions</h2>
+            <h2 data-ht>Kesyon Paralegal & Imigrasyon</h2>
+          </div>
+          <div class="accordion">
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Are you a lawyer? Can you give legal advice?</span>
+                <span class="accordion-question" data-ht>Èske ou se yon avoka? Èske ou ka bay konsèy legal?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en><strong>No — we are not attorneys and do not provide legal advice.</strong> We provide document preparation services only, helping you accurately complete and organize USCIS forms and other legal documents. For complex legal situations, we will refer you to a licensed immigration attorney.</p>
+                  <p data-ht><strong>Non — nou pa avoka epi nou pa bay konsèy legal.</strong> Nou bay sèvis preparasyon dokiman sèlman, ede ou konplete ak òganize fòm USCIS ak lòt dokiman legal avèk presizyon. Pou sitiyasyon legal konplèks, nou pral refere ou a yon avoka imigrasyon lisansye.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Which USCIS forms can you help with?</span>
+                <span class="accordion-question" data-ht>Ki fòm USCIS ou ka ede mwen avèk?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>We commonly assist with: <strong>I-485</strong> (Adjustment of Status), <strong>I-130</strong> (Petition for Alien Relative), <strong>I-765</strong> (Employment Authorization), <strong>I-131</strong> (Travel Document), <strong>N-400</strong> (Naturalization), <strong>I-90</strong> (Green Card Renewal), and <strong>DACA renewals</strong>. Contact us if you need help with a form not listed.</p>
+                  <p data-ht>Nou koumanse ede ak: <strong>I-485</strong> (Ajisteman Estati), <strong>I-130</strong> (Petisyon pou Relatif Etranje), <strong>I-765</strong> (Otorizasyon Travay), <strong>I-131</strong> (Dokiman Vwayaj), <strong>N-400</strong> (Natiralizasyon), <strong>I-90</strong> (Renouvèlman Kat Vèt), ak <strong>renouvèlman DACA</strong>. Kontakte nou si ou bezwen èd ak yon fòm ki pa nan lis la.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>How long does immigration document prep take?</span>
+                <span class="accordion-question" data-ht>Konbyen tan preparasyon dokiman imigrasyon pran?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>It depends on the complexity of the form and how quickly you provide the required supporting documents. Simple forms may take <strong>3–5 business days</strong>; more complex packages may take 1–2 weeks. We will give you a clear timeline at your consultation.</p>
+                  <p data-ht>Sa depan sou konpleksite fòm nan ak vitès ou bay dokiman sipò obligatwa yo. Fòm senp ka pran <strong>3–5 jou ouvrab</strong>; pakè ki pi konplèks ka pran 1–2 semèn. Nou pral ba ou yon kalandriye klè nan konsiltasyon ou.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- BUSINESS FILING -->
+        <div class="faq-group" id="business">
+          <div class="faq-group-header">
+            <div class="faq-group-icon"><img src="https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=120&q=70" alt=""/></div>
+            <h2 data-en>Business Filing</h2>
+            <h2 data-ht>Depo Biznis</h2>
+          </div>
+          <div class="accordion">
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Can you help me form an LLC?</span>
+                <span class="accordion-question" data-ht>Èske ou ka ede m fòme yon LLC?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>Yes — we prepare and file Articles of Organization with the Florida Division of Corporations, along with related paperwork like EIN applications and registered agent designation. We are not attorneys, so we don't advise on which business structure is legally best for you; for that decision, we recommend consulting a licensed attorney or CPA first.</p>
+                  <p data-ht>Wi — nou prepare ak depoze Atik Òganizasyon ak Divizyon Konpayi Florid, ansanm ak papye ki gen rapò tankou aplikasyon EIN ak designasyon ajan anrejistre. Nou pa avoka, alò nou pa konseye sou ki estriktire biznis ki pi bon legalman pou ou; pou desizyon sa a, nou rekòmande konsilte yon avoka oswa CPA lisansye anvan.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>What's the difference between an LLC filing and legal advice?</span>
+                <span class="accordion-question" data-ht>Ki diferans ant depo LLC ak konsèy legal?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en><strong>Document filing</strong> means accurately completing and submitting the forms your business needs — Articles of Organization, EIN applications, DBA registration, annual reports. <strong>Legal advice</strong> means recommending a specific business structure, drafting custom contracts, or resolving disputes — and that requires a licensed attorney. We handle the former and refer out the latter.</p>
+                  <p data-ht><strong>Depo dokiman</strong> vle di konplete ak soumèt avèk presizyon fòm biznis ou bezwen yo — Atik Òganizasyon, aplikasyon EIN, enskripsyon DBA, rapò anyèl. <strong>Konsèy legal</strong> vle di rekòmande yon estriktire biznis espesifik, ekri kontra pèsonalize, oswa rezoud konfli — epi sa mande yon avoka lisansye. Nou jere premye a epi nou refere dezyèm la.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>Do you handle Annual Report filings too?</span>
+                <span class="accordion-question" data-ht>Èske ou jere depo Rapò Anyèl yo tou?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>Yes — Florida LLCs and corporations must file an Annual Report each year to stay active. We can prepare and submit it for you, and remind you before your deadline so your business doesn't get administratively dissolved.</p>
+                  <p data-ht>Wi — LLC ak konpayi Florid yo dwe depoze yon Rapò Anyèl chak ane pou rete aktif. Nou ka prepare ak soumèt li pou ou, epi fè ou sonje anvan dat limit ou pou biznis ou pa dissoud administrativman.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- FEES -->
+        <div class="faq-group" id="billing">
+          <div class="faq-group-header">
+            <div class="faq-group-icon"><img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=120&q=70" alt=""/></div>
+            <h2 data-en>Fees & Payment</h2>
+            <h2 data-ht>Frè & Peman</h2>
+          </div>
+          <div class="accordion">
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>How much do your services cost?</span>
+                <span class="accordion-question" data-ht>Konbyen sèvis ou yo koute?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>Pricing varies by service and complexity. <strong>Insurance premiums</strong> depend on your coverage needs and the carrier. <strong>Tax preparation</strong> is flat-rate based on the complexity of your return. <strong>Paralegal services</strong> are priced per form/package. Contact us for a precise quote — the initial consultation is always free.</p>
+                  <p data-ht>Pri varye selon sèvis ak konpleksite. <strong>Prèm asirans</strong> depan sou bezwen kouvèti ou ak konpayi a. <strong>Preparasyon taks</strong> se yon tarif fiks baze sou konpleksite deklarasyon ou. <strong>Sèvis paralegal</strong> yo gen pri pa fòm/pakè. Kontakte nou pou yon estimasyon presiz — konsiltasyon inisyal la toujou gratis.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleFAQ(this)">
+                <span class="accordion-question" data-en>What payment methods do you accept?</span>
+                <span class="accordion-question" data-ht>Ki mòd peman ou aksepte?</span>
+                <span class="accordion-icon">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-answer">
+                  <p data-en>We accept <strong>cash, Zelle, CashApp, and major credit/debit cards</strong>. Payment plans may be available for paralegal services — ask at your consultation.</p>
+                  <p data-ht>Nou aksepte <strong>lajan kach, Zelle, CashApp, ak kat kredi/debi prensipal</strong>. Plan peman ka disponib pou sèvis paralegal — mande nan konsiltasyon ou.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- BOTTOM CTA -->
+        <div class="faq-cta">
+          <h3 data-en>Still have questions?</h3>
+          <h3 data-ht>Toujou gen kesyon?</h3>
+          <p data-en>Book a free consultation and get answers specific to your situation — in English or Kreyòl.</p>
+          <p data-ht>Rezève yon konsiltasyon gratis epi jwenn repons espesifik pou sitiyasyon ou — an Anglè oswa Kreyòl.</p>
+          <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+            <a href="book.html" class="btn btn-gold" data-en>Book Free Consultation</a>
+            <a href="book.html" class="btn btn-gold" data-ht>Rezève Konsiltasyon Gratis</a>
+            <a href="contact.html" class="btn btn-outline" style="color:var(--gold);border-color:var(--gold);" data-en>Send a Message</a>
+            <a href="contact.html" class="btn btn-outline" style="color:var(--gold);border-color:var(--gold);" data-ht>Voye yon Mesaj</a>
+          </div>
+        </div>
+
+      </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <img src="logo.png" alt="ME Shield Financial Services logo" style="height:48px;width:auto;object-fit:contain;"/>
+          <div>
+            <div style="color:var(--white);font-family:var(--font-display);font-weight:700;">ME Shield Financial Services</div>
+            <div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div>
+          </div>
+        </div>
+        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) · Tax &amp; Paralegal (Nationwide) — bilingual service.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) · Taks &amp; Paralegal (Nasyonal) — sèvis bileng.</p>
+        <div style="margin-top:20px;font-size:.87rem;">
+          <div><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652" style="color:rgba(255,255,255,.6);">(407) 267-2652</a></div>
+          <div style="margin-top:6px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.3 5.84a.75.75 0 0 0 .94 0L19.74 6H4.2zM4 7.86V18h16V7.86l-7.06 5.65a2.25 2.25 0 0 1-2.82 0L4 7.86z"/></svg><a href="mailto:info@meshieldfinancial.com" style="color:rgba(255,255,255,.6);">info@meshieldfinancial.com</a></div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;">
+          <a href="https://www.facebook.com/profile.php?id=61590568017562" target="_blank" rel="noopener" aria-label="Facebook" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M22.675 0h-21.35C.595 0 0 .595 0 1.326v21.348C0 23.404.595 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.405 24 24 23.404 24 22.674V1.326C24 .595 23.405 0 22.675 0z"/></svg></a>
+          <a href="https://www.instagram.com/meshieldfinancial/" target="_blank" rel="noopener" aria-label="Instagram" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener" aria-label="TikTok" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
+          <a href="https://wa.me/14072672652" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4 data-en>Services</h4><h4 data-ht>Sèvis</h4>
+        <ul>
+          <li><a href="services.html#insurance" data-en>Insurance</a><a href="services.html#insurance" data-ht>Asirans</a></li>
+          <li><a href="services.html#tax" data-en>Tax Preparation</a><a href="services.html#tax" data-ht>Preparasyon Taks</a></li>
+          <li><a href="services.html#paralegal" data-en>Paralegal</a><a href="services.html#paralegal" data-ht>Paralegal</a></li>
+          <li><a href="services.html#immigration" data-en>Immigration Docs</a><a href="services.html#immigration" data-ht>Dokiman Imigrasyon</a></li>
+          <li><a href="services.html#business" data-en>Business Filing</a><a href="services.html#business" data-ht>Depo Biznis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Resources</h4><h4 data-ht>Resous</h4>
+        <ul>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="blog.html" data-en>Blog</a><a href="blog.html" data-ht>Blòg</a></li>
+          <li><a href="book.html" data-en>Book Appointment</a><a href="book.html" data-ht>Rezève Randevou</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Hours</h4><h4 data-ht>Orè</h4>
+        <ul style="font-size:.88rem;color:rgba(255,255,255,.6);">
+          <li style="list-style:none;color:inherit;" data-en>Mon–Fri: 9am–6pm</li>
+          <li style="list-style:none;color:inherit;" data-ht>Lendi–Vandredi: 9am–6pm</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-en>Sat: By appointment</li>
+          <li style="list-style:none;color:inherit;" data-ht>Samdi: Sou randevou</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC, a Florida-registered limited liability company.</div>
+    <div class="footer-disclaimer" data-en>Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Paralegal services are document preparation only and do not constitute legal advice.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA (“ap fonksyone kòm”) pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
+    <div class="footer-disclaimer" data-ht>Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP. Sèvis paralegal yo se preparasyon dokiman sèlman epi yo pa reprezante konsèy legal.</div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
+      <span data-en>All rights reserved.</span><span data-ht>Tout dwa rezève.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+
+  function toggleFAQ(btn) {
+    const item = btn.closest('.accordion-item');
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.accordion-item.open').forEach(el => el.classList.remove('open'));
+    // Open this one if it was closed
+    if (!isOpen) item.classList.add('open');
+  }
+
+  let activeCategory = 'general';
+
+  function showCategory(cat) {
+    activeCategory = cat;
+    document.querySelectorAll('.faq-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
+    document.querySelectorAll('.faq-group').forEach(g => g.style.display = (g.id === cat) ? '' : 'none');
+    document.getElementById('faq-search').value = '';
+    document.getElementById('faq-no-results').style.display = 'none';
+    // Close any open question when switching categories
+    document.querySelectorAll('.accordion-item.open').forEach(el => el.classList.remove('open'));
+  }
+
+  function searchFAQ(query) {
+    const q = query.trim().toLowerCase();
+
+    if (q === '') {
+      // Restore normal tab view
+      showCategory(activeCategory);
+      return;
+    }
+
+    // While searching, look across every category at once
+    let visibleCount = 0;
+    document.querySelectorAll('.faq-group').forEach(group => {
+      group.style.display = '';
+      let groupHasMatch = false;
+      group.querySelectorAll('.accordion-item').forEach(item => {
+        const matches = item.textContent.toLowerCase().includes(q);
+        item.style.display = matches ? '' : 'none';
+        if (matches) { groupHasMatch = true; visibleCount++; }
+      });
+      group.style.display = groupHasMatch ? '' : 'none';
+    });
+    document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('faq-no-results').style.display = (visibleCount === 0) ? 'block' : 'none';
+  }
+
+  // Initialize: show only the first category on page load
+  document.addEventListener('DOMContentLoaded', () => showCategory('general'));
+</script>
+</body>
+</html>
