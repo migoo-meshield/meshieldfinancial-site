@@ -7,49 +7,63 @@
 <title>Internal Portal — ME Shield Financial Services</title>
 <link rel="stylesheet" href="style.css"/>
 <!--
-  QUICK EDIT CHECKLIST — only one item left:
-  1. REPLACE_DRIVE_OPERATING_AGREEMENT -> Drive link to the signed Operating Agreement
-     (Content Library, Scripts & Forms, CRM Workbook, and Business Plan are already linked
-     to the real files created in your meshieldservices@gmail.com Drive.)
+  QUICK EDIT CHECKLIST:
+  1. REPLACE_DRIVE_OPERATING_AGREEMENT -> paste your Google Drive link to the signed Operating Agreement
+  2. Logo background: logo.png must be in the same folder as this file (already used in header too)
 -->
 <style>
-  body { font-family: var(--font-body, 'Inter', system-ui, sans-serif); background: var(--navy, #0b1d3a); margin: 0; }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  body {
+    font-family: var(--font-body,'Inter',system-ui,sans-serif);
+    background: var(--navy,#0b1d3a);
+    margin: 0;
+    position: relative;
+  }
+  /* ── Subtle watermark logo behind content ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url('logo.png') center center / 480px auto no-repeat;
+    opacity: .04;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 
-  .portal-header { padding: 28px 0; border-bottom: 1px solid rgba(201,168,76,.18); }
+  .portal-header { padding: 28px 0; border-bottom: 1px solid rgba(201,168,76,.18); position: relative; z-index: 1; }
   .portal-header-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
   .portal-brand { display: flex; align-items: center; gap: 12px; }
   .portal-brand img { height: 40px; width: auto; }
-  .portal-brand-text { color: #fff; font-family: var(--font-display, 'Playfair Display', Georgia, serif); font-weight: 700; font-size: 1.1rem; }
-  .portal-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3); border-radius: var(--radius-pill, 999px); padding: 7px 16px; font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--gold, #C9A84C); }
+  .portal-brand-text { color: #fff; font-family: var(--font-display,'Playfair Display',Georgia,serif); font-weight: 700; font-size: 1.1rem; }
+  .portal-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3); border-radius: 999px; padding: 7px 16px; font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--gold,#C9A84C); }
 
   .portal-main { padding: 56px 0 80px; }
-  .portal-greeting h1 { color: #fff; font-family: var(--font-display, 'Playfair Display', Georgia, serif); font-size: clamp(1.8rem, 4vw, 2.4rem); margin: 0 0 8px; }
+  .portal-greeting h1 { color: #fff; font-family: var(--font-display,'Playfair Display',Georgia,serif); font-size: clamp(1.8rem,4vw,2.4rem); margin: 0 0 8px; }
   .portal-greeting p { color: rgba(255,255,255,.6); margin: 0 0 44px; font-size: .98rem; }
 
   .portal-section { margin-bottom: 44px; }
-  .portal-section-label { color: var(--gold, #C9A84C); font-size: .74rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 16px; display: flex; align-items: center; gap: 10px; }
+  .portal-section-label { color: var(--gold,#C9A84C); font-size: .74rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 16px; display: flex; align-items: center; gap: 10px; }
   .portal-section-label::after { content: ''; flex: 1; height: 1px; background: rgba(201,168,76,.18); }
 
-  .portal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  @media (max-width: 760px) { .portal-grid { grid-template-columns: repeat(2, 1fr); } }
+  .portal-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  @media (max-width: 760px) { .portal-grid { grid-template-columns: repeat(2,1fr); } }
   @media (max-width: 480px) { .portal-grid { grid-template-columns: 1fr; } }
 
-  .portal-card { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 16px; text-decoration: none; transition: border-color .2s, background .2s, transform .2s; }
+  .portal-card { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 16px; text-decoration: none; transition: border-color .2s,background .2s,transform .2s; }
   .portal-card:hover { border-color: rgba(201,168,76,.45); background: rgba(255,255,255,.07); transform: translateY(-1px); }
-  .portal-card:focus-visible { outline: 2px solid var(--gold, #C9A84C); outline-offset: 2px; }
+  .portal-card:focus-visible { outline: 2px solid var(--gold,#C9A84C); outline-offset: 2px; }
   .portal-card-icon { flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px; background: rgba(201,168,76,.14); display: flex; align-items: center; justify-content: center; font-size: 1.15rem; }
   .portal-card-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
   .portal-card-title { color: #fff; font-weight: 600; font-size: .92rem; }
   .portal-card-desc { color: rgba(255,255,255,.5); font-size: .78rem; }
 
   .portal-note { background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.22); border-radius: 14px; padding: 18px 20px; color: rgba(255,255,255,.78); font-size: .85rem; line-height: 1.6; }
-  .portal-note strong { color: var(--gold, #C9A84C); }
+  .portal-note strong { color: var(--gold,#C9A84C); }
 
   .portal-team-note { color: rgba(255,255,255,.65); font-size: .88rem; line-height: 1.7; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 18px 20px; }
   .portal-team-note ul { margin: 8px 0 0; padding-left: 20px; }
 
-  .portal-footer { padding: 28px 0 40px; color: rgba(255,255,255,.35); font-size: .78rem; text-align: center; }
+  .portal-footer { padding: 28px 0 40px; color: rgba(255,255,255,.35); font-size: .78rem; text-align: center; position: relative; z-index: 1; }
 </style>
 </head>
 <body>
@@ -72,14 +86,13 @@
       <p>Every tool you log into, in one gated place. Links only — client files and data stay in Drive.</p>
     </div>
 
+    <!-- ══ DAILY TOOLS ══ -->
     <div class="portal-section">
       <p class="portal-section-label">Daily Tools</p>
       <div class="portal-grid">
         <a class="portal-card" href="https://mail.google.com" target="_blank" rel="noopener">
           <span class="portal-card-icon">✉️</span>
           <span class="portal-card-body"><span class="portal-card-title">Gmail</span><span class="portal-card-desc">meshieldservices@gmail.com</span></span>
-          <a class="portal-card" href="https://app.brevo.com" target="_blank" rel="noopener"><span class="portal-card-icon">📧</span><span class="portal-card-body"><span class="portal-card-title">Brevo</span><span class="portal-card-desc">Leads, automations &amp; email</span></span></a>
-
         </a>
         <a class="portal-card" href="https://drive.google.com" target="_blank" rel="noopener">
           <span class="portal-card-icon">📁</span>
@@ -97,13 +110,22 @@
           <span class="portal-card-icon">☁️</span>
           <span class="portal-card-body"><span class="portal-card-title">Cloudflare</span><span class="portal-card-desc">Site, DNS & analytics</span></span>
         </a>
+        <a class="portal-card" href="https://app.slack.com" target="_blank" rel="noopener">
+          <span class="portal-card-icon">💬</span>
+          <span class="portal-card-body"><span class="portal-card-title">Slack</span><span class="portal-card-desc">Team messaging</span></span>
+        </a>
         <a class="portal-card" href="https://rpr.irs.gov" target="_blank" rel="noopener">
           <span class="portal-card-icon">🏛️</span>
           <span class="portal-card-body"><span class="portal-card-title">IRS Tax Pro</span><span class="portal-card-desc">PTIN & e-Services</span></span>
         </a>
+        <a class="portal-card" href="https://www.paypal.com/signin" target="_blank" rel="noopener">
+          <span class="portal-card-icon">💰</span>
+          <span class="portal-card-body"><span class="portal-card-title">PayPal</span><span class="portal-card-desc">Payments & invoicing</span></span>
+        </a>
       </div>
     </div>
 
+    <!-- ══ MARKETING & SOCIAL ══ -->
     <div class="portal-section">
       <p class="portal-section-label">Marketing & Social</p>
       <div class="portal-grid">
@@ -127,6 +149,14 @@
           <span class="portal-card-icon">💬</span>
           <span class="portal-card-body"><span class="portal-card-title">WhatsApp Business</span><span class="portal-card-desc">Client chat</span></span>
         </a>
+        <a class="portal-card" href="https://nextdoor.com/dashboard" target="_blank" rel="noopener">
+          <span class="portal-card-icon">🏘️</span>
+          <span class="portal-card-body"><span class="portal-card-title">Nextdoor</span><span class="portal-card-desc">Neighborhood business posts</span></span>
+        </a>
+        <a class="portal-card" href="https://www.adobe.com/express" target="_blank" rel="noopener">
+          <span class="portal-card-icon">🎨</span>
+          <span class="portal-card-body"><span class="portal-card-title">Adobe Express</span><span class="portal-card-desc">Graphics & content design</span></span>
+        </a>
         <a class="portal-card" href="https://buffer.com/app" target="_blank" rel="noopener">
           <span class="portal-card-icon">🗓️</span>
           <span class="portal-card-body"><span class="portal-card-title">Buffer</span><span class="portal-card-desc">Post scheduler</span></span>
@@ -134,6 +164,7 @@
       </div>
     </div>
 
+    <!-- ══ BANKING ══ -->
     <div class="portal-section">
       <p class="portal-section-label">Banking</p>
       <div class="portal-grid">
@@ -145,9 +176,37 @@
           <span class="portal-card-icon">💳</span>
           <span class="portal-card-body"><span class="portal-card-title">Lili</span><span class="portal-card-desc">Cash deposits + credit building</span></span>
         </a>
+        <a class="portal-card" href="https://www.paypal.com/signin" target="_blank" rel="noopener">
+          <span class="portal-card-icon">💰</span>
+          <span class="portal-card-body"><span class="portal-card-title">PayPal</span><span class="portal-card-desc">Payments & invoicing</span></span>
+        </a>
       </div>
     </div>
 
+    <!-- ══ INSURANCE AGENT PORTALS ══ -->
+    <div class="portal-section">
+      <p class="portal-section-label">Insurance Agent Portals</p>
+      <div class="portal-grid">
+        <a class="portal-card" href="https://gateway.geico.com/quote" target="_blank" rel="noopener">
+          <span class="portal-card-icon">🦎</span>
+          <span class="portal-card-body"><span class="portal-card-title">GEICO Gateway</span><span class="portal-card-desc">Agent quoting portal</span></span>
+        </a>
+        <a class="portal-card" href="https://workbench.ameritas.com/login" target="_blank" rel="noopener">
+          <span class="portal-card-icon">📋</span>
+          <span class="portal-card-body"><span class="portal-card-title">Ameritas Workbench</span><span class="portal-card-desc">Agent portal</span></span>
+        </a>
+        <a class="portal-card" href="https://www.nationallife.com/agent" target="_blank" rel="noopener">
+          <span class="portal-card-icon">🏛️</span>
+          <span class="portal-card-body"><span class="portal-card-title">National Life Group</span><span class="portal-card-desc">Agent portal</span></span>
+        </a>
+        <a class="portal-card" href="https://portal.firstconnectinsurance.com/signin?email=miguelsonetienne19%40gmail.com&process=team-member-sign-up" target="_blank" rel="noopener">
+          <span class="portal-card-icon">🔗</span>
+          <span class="portal-card-body"><span class="portal-card-title">First Connect</span><span class="portal-card-desc">Agent portal</span></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ══ COMPLIANCE & LICENSING ══ -->
     <div class="portal-section">
       <p class="portal-section-label">Compliance & Licensing</p>
       <div class="portal-grid">
@@ -165,7 +224,11 @@
         </a>
         <a class="portal-card" href="https://nipr.com" target="_blank" rel="noopener">
           <span class="portal-card-icon">📋</span>
-          <span class="portal-card-body"><span class="portal-card-title">NIPR</span><span class="portal-card-desc">Producer licensing</span></span>
+          <span class="portal-card-body"><span class="portal-card-title">NIPR</span><span class="portal-card-desc">Producer licensing hub</span></span>
+        </a>
+        <a class="portal-card" href="https://pdb.flds.com" target="_blank" rel="noopener">
+          <span class="portal-card-icon">🔍</span>
+          <span class="portal-card-body"><span class="portal-card-title">DICE / FLDS</span><span class="portal-card-desc">License lookup & verification</span></span>
         </a>
         <a class="portal-card" href="https://rpr.irs.gov" target="_blank" rel="noopener">
           <span class="portal-card-icon">🔁</span>
@@ -178,6 +241,7 @@
       </div>
     </div>
 
+    <!-- ══ CONTENT & TEMPLATES ══ -->
     <div class="portal-section">
       <p class="portal-section-label">Content & Templates</p>
       <div class="portal-grid">
@@ -191,17 +255,49 @@
         </a>
         <a class="portal-card" href="https://drive.google.com/drive/folders/1lR1HMBVDe1sYQXDZygOmWv7Q_nMkglxD" target="_blank" rel="noopener">
           <span class="portal-card-icon">📈</span>
-          <span class="portal-card-body"><span class="portal-card-title">CRM Workbook</span><span class="portal-card-desc">5 linked Sheets — Dashboard, Insurance, Tax Prep, etc.</span></span>
+          <span class="portal-card-body"><span class="portal-card-title">CRM Workbook</span><span class="portal-card-desc">5 linked Sheets — Insurance, Tax, Paralegal</span></span>
         </a>
       </div>
     </div>
 
+    <!-- ══ EDUCATION & LEARNING ══ -->
+    <div class="portal-section">
+      <p class="portal-section-label">Education & Learning</p>
+      <div class="portal-grid">
+        <a class="portal-card" href="https://www.netacad.com" target="_blank" rel="noopener">
+          <span class="portal-card-icon">🎓</span>
+          <span class="portal-card-body"><span class="portal-card-title">Cisco NetAcad</span><span class="portal-card-desc">CCNA & cybersecurity</span></span>
+        </a>
+        <a class="portal-card" href="https://academy.openai.com" target="_blank" rel="noopener">
+          <span class="portal-card-icon">🤖</span>
+          <span class="portal-card-body"><span class="portal-card-title">OpenAI Academy</span><span class="portal-card-desc">AI & prompt engineering</span></span>
+        </a>
+        <a class="portal-card" href="https://www.codecademy.com" target="_blank" rel="noopener">
+          <span class="portal-card-icon">💻</span>
+          <span class="portal-card-body"><span class="portal-card-title">Codecademy</span><span class="portal-card-desc">Coding practice</span></span>
+        </a>
+        <a class="portal-card" href="https://www.coursera.org" target="_blank" rel="noopener">
+          <span class="portal-card-icon">📚</span>
+          <span class="portal-card-body"><span class="portal-card-title">Coursera</span><span class="portal-card-desc">Professional certifications</span></span>
+        </a>
+        <a class="portal-card" href="https://www.itulearning.com" target="_blank" rel="noopener">
+          <span class="portal-card-icon">🌐</span>
+          <span class="portal-card-body"><span class="portal-card-title">ITU Learning</span><span class="portal-card-desc">IT & telecom courses</span></span>
+        </a>
+        <a class="portal-card" href="https://learning.sba.gov" target="_blank" rel="noopener">
+          <span class="portal-card-icon">🏢</span>
+          <span class="portal-card-body"><span class="portal-card-title">SBA Learning</span><span class="portal-card-desc">Small business training</span></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ══ REFERENCE ══ -->
     <div class="portal-section">
       <p class="portal-section-label">Reference</p>
       <div class="portal-grid">
         <a class="portal-card" href="REPLACE_DRIVE_OPERATING_AGREEMENT" target="_blank" rel="noopener">
           <span class="portal-card-icon">📜</span>
-          <span class="portal-card-body"><span class="portal-card-title">Operating Agreement</span><span class="portal-card-desc">LLC governance</span></span>
+          <span class="portal-card-body"><span class="portal-card-title">Operating Agreement</span><span class="portal-card-desc">LLC governance — paste Drive link above</span></span>
         </a>
         <a class="portal-card" href="https://docs.google.com/document/d/10bHQiw0lmD3g_5UzY4czmRz1RJi-htN3poYxn4EZqtU/edit" target="_blank" rel="noopener">
           <span class="portal-card-icon">📊</span>
@@ -214,6 +310,7 @@
       </div>
     </div>
 
+    <!-- ══ TEAM & GOVERNANCE ══ -->
     <div class="portal-section">
       <p class="portal-section-label">Team & Governance</p>
       <div class="portal-team-note">
