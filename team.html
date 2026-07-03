@@ -4,342 +4,704 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="robots" content="noindex, nofollow"/>
-<title>Internal Portal — ME Shield Financial Services</title>
-<link rel="stylesheet" href="style.css"/>
-<!--
-  QUICK EDIT CHECKLIST:
-  1. REPLACE_DRIVE_OPERATING_AGREEMENT -> paste your Google Drive link to the signed Operating Agreement
-  2. Logo background: logo.png must be in the same folder as this file (already used in header too)
--->
+<title>ME Shield — Internal Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-  body {
-    font-family: var(--font-body,'Inter',system-ui,sans-serif);
-    background: var(--navy,#0b1d3a);
-    margin: 0;
-    position: relative;
-  }
-  /* ── Subtle watermark logo behind content ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: url('logo.png') center center / 480px auto no-repeat;
-    opacity: .04;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-  .portal-header { padding: 28px 0; border-bottom: 1px solid rgba(201,168,76,.18); position: relative; z-index: 1; }
-  .portal-header-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-  .portal-brand { display: flex; align-items: center; gap: 12px; }
-  .portal-brand img { height: 40px; width: auto; }
-  .portal-brand-text { color: #fff; font-family: var(--font-display,'Playfair Display',Georgia,serif); font-weight: 700; font-size: 1.1rem; }
-  .portal-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3); border-radius: 999px; padding: 7px 16px; font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--gold,#C9A84C); }
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:#060f1e;
+  min-height:100vh;
+  color:#fff;
+  overflow-x:hidden;
+}
 
-  .portal-main { padding: 56px 0 80px; }
-  .portal-greeting h1 { color: #fff; font-family: var(--font-display,'Playfair Display',Georgia,serif); font-size: clamp(1.8rem,4vw,2.4rem); margin: 0 0 8px; }
-  .portal-greeting p { color: rgba(255,255,255,.6); margin: 0 0 44px; font-size: .98rem; }
+/* Animated gradient bg */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 10%, rgba(201,168,76,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 90% 90%, rgba(30,74,140,.25) 0%, transparent 60%),
+    linear-gradient(160deg,#060f1e 0%,#0b1d3a 60%,#060f1e 100%);
+  z-index:0;
+  animation:bgPulse 12s ease-in-out infinite alternate;
+}
+@keyframes bgPulse{
+  0%{opacity:1;}
+  100%{opacity:.85;}
+}
 
-  .portal-section { margin-bottom: 44px; }
-  .portal-section-label { color: var(--gold,#C9A84C); font-size: .74rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 16px; display: flex; align-items: center; gap: 10px; }
-  .portal-section-label::after { content: ''; flex: 1; height: 1px; background: rgba(201,168,76,.18); }
+/* Logo watermark */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:url('logo.png') center center/480px auto no-repeat;
+  opacity:.03;
+  pointer-events:none;
+  z-index:0;
+}
 
-  .portal-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-  @media (max-width: 760px) { .portal-grid { grid-template-columns: repeat(2,1fr); } }
-  @media (max-width: 480px) { .portal-grid { grid-template-columns: 1fr; } }
+/* Glass utility */
+.glass{
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+}
 
-  .portal-card { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 16px; text-decoration: none; transition: border-color .2s,background .2s,transform .2s; }
-  .portal-card:hover { border-color: rgba(201,168,76,.45); background: rgba(255,255,255,.07); transform: translateY(-1px); }
-  .portal-card:focus-visible { outline: 2px solid var(--gold,#C9A84C); outline-offset: 2px; }
-  .portal-card-icon { flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px; background: rgba(201,168,76,.14); display: flex; align-items: center; justify-content: center; font-size: 1.15rem; }
-  .portal-card-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-  .portal-card-title { color: #fff; font-weight: 600; font-size: .92rem; }
-  .portal-card-desc { color: rgba(255,255,255,.5); font-size: .78rem; }
+/* ── HEADER ── */
+.portal-header{
+  position:sticky;top:0;z-index:200;
+  padding:16px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(6,15,30,.85);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.header-brand{display:flex;align-items:center;gap:12px;}
+.header-brand img{height:34px;width:auto;}
+.header-brand-name{font-size:.9rem;font-weight:700;color:#fff;line-height:1.2;}
+.header-brand-sub{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.35);margin-top:1px;}
+.header-right{display:flex;align-items:center;gap:12px;}
+.header-status{display:flex;align-items:center;gap:6px;font-size:.7rem;color:rgba(255,255,255,.4);}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.header-badge{
+  background:rgba(201,168,76,.12);
+  border:1px solid rgba(201,168,76,.28);
+  color:#C9A84C;
+  font-size:.65rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:6px 14px;border-radius:50px;
+}
 
-  .portal-note { background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.22); border-radius: 14px; padding: 18px 20px; color: rgba(255,255,255,.78); font-size: .85rem; line-height: 1.6; }
-  .portal-note strong { color: var(--gold,#C9A84C); }
+/* ── MAIN ── */
+.portal-main{
+  padding:24px;
+  max-width:1100px;
+  margin:0 auto;
+  position:relative;z-index:1;
+}
 
-  .portal-team-note { color: rgba(255,255,255,.65); font-size: .88rem; line-height: 1.7; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 18px 20px; }
-  .portal-team-note ul { margin: 8px 0 0; padding-left: 20px; }
+/* Greeting */
+.greeting{margin-bottom:22px;}
+.greeting h1{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(1.5rem,4vw,2.1rem);
+  font-weight:700;color:#fff;
+  margin-bottom:4px;
+}
+.greeting h1 em{font-style:italic;color:#C9A84C;}
+.greeting-sub{font-size:.78rem;color:rgba(255,255,255,.35);}
 
-  .portal-footer { padding: 28px 0 40px; color: rgba(255,255,255,.35); font-size: .78rem; text-align: center; position: relative; z-index: 1; }
+/* ── WIDGET GRID ── */
+.widget-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:12px;
+}
+.widget-row-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:28px;
+}
+@media(max-width:768px){
+  .widget-row{grid-template-columns:repeat(2,1fr);}
+  .widget-row-2{grid-template-columns:1fr;}
+}
+@media(max-width:400px){
+  .widget-row{grid-template-columns:1fr 1fr;}
+}
+
+/* Widget shared */
+.widget{padding:18px 20px;border-radius:18px;}
+.widget-label{
+  font-size:.62rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.12em;
+  color:rgba(255,255,255,.3);
+  margin-bottom:10px;
+}
+
+/* Clock widget */
+.widget-clock{
+  background:linear-gradient(135deg,rgba(201,168,76,.14),rgba(201,168,76,.04));
+  border:1px solid rgba(201,168,76,.22);
+  border-radius:18px;
+  padding:18px 20px;
+}
+.clock-time{
+  font-size:2.1rem;font-weight:800;
+  color:#C9A84C;letter-spacing:-.02em;line-height:1;
+}
+.clock-ampm{font-size:.85rem;font-weight:600;color:rgba(201,168,76,.55);margin-left:4px;}
+.clock-date{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:6px;line-height:1.5;}
+.clock-tz{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.22);margin-top:2px;}
+
+/* Weather widget */
+.widget-weather{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+.weather-top{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.weather-emoji{font-size:2rem;line-height:1;}
+.weather-temp{font-size:1.9rem;font-weight:800;color:#fff;line-height:1;}
+.weather-desc{font-size:.72rem;color:rgba(255,255,255,.5);text-transform:capitalize;margin-top:2px;}
+.weather-loc{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.22);margin-top:4px;}
+.weather-loading{font-size:.75rem;color:rgba(255,255,255,.25);font-style:italic;}
+
+/* Stats widget */
+.widget-stats{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+.stat-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:7px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.stat-row:last-child{border-bottom:none;}
+.stat-name{font-size:.74rem;color:rgba(255,255,255,.5);}
+.stat-val{font-size:.85rem;font-weight:700;color:#C9A84C;}
+.stat-live{color:#4ade80!important;}
+
+/* Notes widget */
+.widget-notes{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+.notes-area{
+  width:100%;height:110px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  padding:10px 12px;
+  color:rgba(255,255,255,.8);
+  font-size:.8rem;line-height:1.6;
+  resize:none;font-family:inherit;outline:none;
+  transition:border-color .2s;
+}
+.notes-area:focus{border-color:rgba(201,168,76,.4);}
+.notes-area::placeholder{color:rgba(255,255,255,.18);}
+.notes-status{font-size:.62rem;color:rgba(255,255,255,.22);text-align:right;margin-top:6px;}
+
+/* Activity widget */
+.widget-activity{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+.activity-item{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:7px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.activity-item:last-child{border-bottom:none;}
+.activity-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#C9A84C;flex-shrink:0;margin-top:5px;
+}
+.activity-dot.dim{background:rgba(255,255,255,.2);}
+.activity-text{font-size:.72rem;color:rgba(255,255,255,.55);line-height:1.4;flex:1;}
+.activity-time{font-size:.62rem;color:rgba(255,255,255,.22);flex-shrink:0;white-space:nowrap;}
+
+/* ── TAB NAV ── */
+.tab-nav{
+  display:flex;gap:6px;
+  overflow-x:auto;padding-bottom:2px;
+  margin-bottom:20px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{
+  flex-shrink:0;
+  padding:9px 18px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.03);
+  color:rgba(255,255,255,.45);
+  font-size:.75rem;font-weight:600;
+  cursor:pointer;
+  transition:all .2s;
+  white-space:nowrap;
+  font-family:inherit;
+}
+.tab-btn:hover{background:rgba(255,255,255,.07);color:#fff;}
+.tab-btn.active{background:#C9A84C;color:#0b1d3a;border-color:#C9A84C;font-weight:800;}
+
+/* ── TAB PANELS ── */
+.tab-panel{display:none;animation:fadeIn .25s ease;}
+.tab-panel.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+/* ── LINK GRID ── */
+.link-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+@media(max-width:760px){.link-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:400px){.link-grid{grid-template-columns:1fr;}}
+
+.link-card{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  text-decoration:none;
+  transition:all .2s;
+}
+.link-card:hover{
+  background:rgba(201,168,76,.08);
+  border-color:rgba(201,168,76,.28);
+  transform:translateY(-2px);
+  box-shadow:0 8px 30px rgba(0,0,0,.28);
+}
+.link-icon{
+  width:40px;height:40px;border-radius:11px;
+  background:rgba(201,168,76,.1);
+  border:1px solid rgba(201,168,76,.14);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.05rem;flex-shrink:0;
+}
+.link-title{font-size:.85rem;font-weight:600;color:#fff;margin-bottom:2px;}
+.link-desc{font-size:.7rem;color:rgba(255,255,255,.38);}
+
+/* Static info card */
+.info-card{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-radius:14px;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+}
+.info-icon{
+  width:40px;height:40px;border-radius:11px;
+  background:rgba(255,255,255,.05);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.05rem;flex-shrink:0;
+}
+.info-title{font-size:.85rem;font-weight:600;color:rgba(255,255,255,.4);margin-bottom:2px;}
+.info-desc{font-size:.7rem;color:rgba(255,255,255,.25);}
+
+/* Section label inside panel */
+.panel-label{
+  font-size:.62rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.14em;
+  color:rgba(201,168,76,.6);
+  margin:20px 0 12px;
+  display:flex;align-items:center;gap:10px;
+}
+.panel-label::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.12);}
+
+/* Team box */
+.team-box{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;
+  padding:18px 20px;
+  font-size:.8rem;
+  color:rgba(255,255,255,.5);
+  line-height:1.8;
+}
+.team-box ul{margin:8px 0 0;padding-left:18px;}
+
+/* Notice */
+.portal-notice{
+  background:rgba(201,168,76,.07);
+  border:1px solid rgba(201,168,76,.18);
+  border-radius:12px;
+  padding:14px 18px;
+  font-size:.76rem;color:rgba(255,255,255,.5);
+  line-height:1.65;margin-top:16px;
+}
+.portal-notice strong{color:#C9A84C;}
+
+/* Footer */
+.portal-footer{
+  text-align:center;padding:20px 24px 32px;
+  color:rgba(255,255,255,.18);font-size:.7rem;
+  position:relative;z-index:1;
+}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header class="portal-header">
-  <div class="container portal-header-inner">
-    <div class="portal-brand">
-      <img src="logo.png" alt="ME Shield Financial Services"/>
-      <span class="portal-brand-text">ME Shield Financial Services</span>
+  <div class="header-brand">
+    <img src="logo.png" alt="ME Shield"/>
+    <div>
+      <div class="header-brand-name">ME Shield Financial Services</div>
+      <div class="header-brand-sub">Internal Portal</div>
     </div>
-    <span class="portal-badge">🔒 Internal Portal</span>
+  </div>
+  <div class="header-right">
+    <div class="header-status">
+      <span class="status-dot"></span>
+      <span>Site Live</span>
+    </div>
+    <div class="header-badge">Private</div>
   </div>
 </header>
 
 <main class="portal-main">
-  <div class="container">
 
-    <div class="portal-greeting">
-      <h1>Welcome back, Migoo.</h1>
-      <p>Every tool you log into, in one gated place. Links only — client files and data stay in Drive.</p>
-    </div>
+  <!-- GREETING -->
+  <div class="greeting">
+    <h1>Good <em id="greet-word">morning</em>, Migoo.</h1>
+    <div class="greeting-sub" id="greet-sub">Loading...</div>
+  </div>
 
-    <!-- ══ DAILY TOOLS ══ -->
-    <div class="portal-section">
-      <p class="portal-section-label">Daily Tools</p>
-      <div class="portal-grid">
-        <a class="portal-card" href="https://mail.google.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">✉️</span>
-          <span class="portal-card-body"><span class="portal-card-title">Gmail</span><span class="portal-card-desc">meshieldservices@gmail.com</span></span>
-        </a>
-        <a class="portal-card" href="https://drive.google.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📁</span>
-          <span class="portal-card-body"><span class="portal-card-title">Google Drive</span><span class="portal-card-desc">meshieldservices@gmail.com</span></span>
-        </a>
-        <a class="portal-card" href="https://app.hubspot.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📇</span>
-          <span class="portal-card-body"><span class="portal-card-title">HubSpot CRM</span><span class="portal-card-desc">Leads & pipeline</span></span>
-        </a>
-        <a class="portal-card" href="https://app.cal.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📅</span>
-          <span class="portal-card-body"><span class="portal-card-title">Cal.com</span><span class="portal-card-desc">Scheduling</span></span>
-        </a>
-        <a class="portal-card" href="https://dash.cloudflare.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">☁️</span>
-          <span class="portal-card-body"><span class="portal-card-title">Cloudflare</span><span class="portal-card-desc">Site, DNS & analytics</span></span>
-        </a>
-        <a class="portal-card" href="https://app.slack.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">💬</span>
-          <span class="portal-card-body"><span class="portal-card-title">Slack</span><span class="portal-card-desc">Team messaging</span></span>
-        </a>
-        <a class="portal-card" href="https://github.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🐙</span>
-          <span class="portal-card-body"><span class="portal-card-title">GitHub</span><span class="portal-card-desc">Site code & deployments</span></span>
-        </a>
-        <a class="portal-card" href="https://rpr.irs.gov" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🏛️</span>
-          <span class="portal-card-body"><span class="portal-card-title">IRS Tax Pro</span><span class="portal-card-desc">PTIN & e-Services</span></span>
-        </a>
-        <a class="portal-card" href="https://www.paypal.com/signin" target="_blank" rel="noopener">
-          <span class="portal-card-icon">💰</span>
-          <span class="portal-card-body"><span class="portal-card-title">PayPal</span><span class="portal-card-desc">Payments & invoicing</span></span>
-        </a>
+  <!-- WIDGET ROW 1: Clock · Weather · Stats -->
+  <div class="widget-row">
+
+    <div class="widget widget-clock">
+      <div class="widget-label">Local Time</div>
+      <div>
+        <span class="clock-time" id="clk-time">--:--</span>
+        <span class="clock-ampm" id="clk-ampm">--</span>
       </div>
+      <div class="clock-date" id="clk-date">Loading date...</div>
+      <div class="clock-tz">Eastern Time · Florida</div>
     </div>
 
-    <!-- ══ MARKETING & SOCIAL ══ -->
-    <div class="portal-section">
-      <p class="portal-section-label">Marketing & Social</p>
-      <div class="portal-grid">
-        <a class="portal-card" href="https://business.facebook.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📊</span>
-          <span class="portal-card-body"><span class="portal-card-title">Meta Business Suite</span><span class="portal-card-desc">Ads, Pages & inbox</span></span>
-        </a>
-        <a class="portal-card" href="https://www.instagram.com/meshieldfinancial?igsh=eThlYml3dW5xMnlx&utm_source=qr" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📸</span>
-          <span class="portal-card-body"><span class="portal-card-title">Instagram</span><span class="portal-card-desc">@meshieldfinancial</span></span>
-        </a>
-        <a class="portal-card" href="https://www.facebook.com/share/19BzPKJNXE/?mibextid=wwXIfr" target="_blank" rel="noopener">
-          <span class="portal-card-icon">👍</span>
-          <span class="portal-card-body"><span class="portal-card-title">Facebook Page</span><span class="portal-card-desc">Public page</span></span>
-        </a>
-        <a class="portal-card" href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🎵</span>
-          <span class="portal-card-body"><span class="portal-card-title">TikTok</span><span class="portal-card-desc">@me.shield.financial.serv</span></span>
-        </a>
-        <a class="portal-card" href="https://wa.me/message/JUQP57VLU3T2B1" target="_blank" rel="noopener">
-          <span class="portal-card-icon">💬</span>
-          <span class="portal-card-body"><span class="portal-card-title">WhatsApp Business</span><span class="portal-card-desc">Client chat</span></span>
-        </a>
-        <a class="portal-card" href="https://nextdoor.com/dashboard" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🏘️</span>
-          <span class="portal-card-body"><span class="portal-card-title">Nextdoor</span><span class="portal-card-desc">Neighborhood business posts</span></span>
-        </a>
-        <a class="portal-card" href="https://www.adobe.com/express" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🎨</span>
-          <span class="portal-card-body"><span class="portal-card-title">Adobe Express</span><span class="portal-card-desc">Graphics & content design</span></span>
-        </a>
-        <a class="portal-card" href="https://buffer.com/app" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🗓️</span>
-          <span class="portal-card-body"><span class="portal-card-title">Buffer</span><span class="portal-card-desc">Post scheduler</span></span>
-        </a>
+    <div class="widget widget-weather">
+      <div class="widget-label">Weather · Apopka FL</div>
+      <div class="weather-top">
+        <div class="weather-emoji" id="wx-icon">⏳</div>
+        <div class="weather-temp" id="wx-temp"><span class="weather-loading">Loading...</span></div>
       </div>
+      <div class="weather-desc" id="wx-desc"></div>
+      <div class="weather-loc">Apopka, FL · 28.67°N 81.51°W</div>
     </div>
 
-    <!-- ══ BANKING ══ -->
-    <div class="portal-section">
-      <p class="portal-section-label">Banking</p>
-      <div class="portal-grid">
-        <a class="portal-card" href="https://mercury.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🏦</span>
-          <span class="portal-card-body"><span class="portal-card-title">Mercury</span><span class="portal-card-desc">Primary account + IO card</span></span>
-        </a>
-        <a class="portal-card" href="https://lili.co" target="_blank" rel="noopener">
-          <span class="portal-card-icon">💳</span>
-          <span class="portal-card-body"><span class="portal-card-title">Lili</span><span class="portal-card-desc">Cash deposits + credit building</span></span>
-        </a>
-        <a class="portal-card" href="https://www.paypal.com/signin" target="_blank" rel="noopener">
-          <span class="portal-card-icon">💰</span>
-          <span class="portal-card-body"><span class="portal-card-title">PayPal</span><span class="portal-card-desc">Payments & invoicing</span></span>
-        </a>
+    <div class="widget widget-stats">
+      <div class="widget-label">Quick Stats</div>
+      <div class="stat-row">
+        <span class="stat-name">Blog Articles</span>
+        <span class="stat-val">13</span>
       </div>
-    </div>
-
-    <!-- ══ INSURANCE AGENT PORTALS ══ -->
-    <div class="portal-section">
-      <p class="portal-section-label">Insurance Agent Portals</p>
-      <div class="portal-grid">
-        <a class="portal-card" href="https://gateway.geico.com/quote" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🦎</span>
-          <span class="portal-card-body"><span class="portal-card-title">GEICO Gateway</span><span class="portal-card-desc">Agent quoting portal</span></span>
-        </a>
-        <a class="portal-card" href="https://workbench.ameritas.com/login" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📋</span>
-          <span class="portal-card-body"><span class="portal-card-title">Ameritas Workbench</span><span class="portal-card-desc">Agent portal</span></span>
-        </a>
-        <a class="portal-card" href="https://www.nationallife.com/agent" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🏛️</span>
-          <span class="portal-card-body"><span class="portal-card-title">National Life Group</span><span class="portal-card-desc">Agent portal</span></span>
-        </a>
-        <a class="portal-card" href="https://portal.firstconnectinsurance.com/signin?email=miguelsonetienne19%40gmail.com&process=team-member-sign-up" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🔗</span>
-          <span class="portal-card-body"><span class="portal-card-title">First Connect</span><span class="portal-card-desc">Agent portal</span></span>
-        </a>
+      <div class="stat-row">
+        <span class="stat-name">Newsletter Subs</span>
+        <span class="stat-val">5</span>
       </div>
-    </div>
-
-    <!-- ══ COMPLIANCE & LICENSING ══ -->
-    <div class="portal-section">
-      <p class="portal-section-label">Compliance & Licensing</p>
-      <div class="portal-grid">
-        <a class="portal-card" href="https://www.myfloridacfo.com/division/agents" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🪪</span>
-          <span class="portal-card-body"><span class="portal-card-title">Florida DOI</span><span class="portal-card-desc">FL license</span></span>
-        </a>
-        <a class="portal-card" href="https://www.mass.gov/orgs/division-of-insurance" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🪪</span>
-          <span class="portal-card-body"><span class="portal-card-title">Massachusetts DOI</span><span class="portal-card-desc">MA license</span></span>
-        </a>
-        <a class="portal-card" href="https://www.nj.gov/dobi" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🪪</span>
-          <span class="portal-card-body"><span class="portal-card-title">New Jersey DOBI</span><span class="portal-card-desc">NJ license</span></span>
-        </a>
-        <a class="portal-card" href="https://nipr.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📋</span>
-          <span class="portal-card-body"><span class="portal-card-title">NIPR</span><span class="portal-card-desc">Producer licensing hub</span></span>
-        </a>
-        <a class="portal-card" href="https://dice.fldfs.com/public/pb_index.aspx" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🔍</span>
-          <span class="portal-card-body"><span class="portal-card-title">DICE / FLDS</span><span class="portal-card-desc">License lookup & verification</span></span>
-        </a>
-        <a class="portal-card" href="https://rpr.irs.gov" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🔁</span>
-          <span class="portal-card-body"><span class="portal-card-title">PTIN Renewal</span><span class="portal-card-desc">Annual IRS renewal</span></span>
-        </a>
-        <div class="portal-card" style="cursor:default;">
-          <span class="portal-card-icon">🛡️</span>
-          <span class="portal-card-body"><span class="portal-card-title">E&O Insurance</span><span class="portal-card-desc">Held via JWANAIX GROUP — contact agency for documents</span></span>
-        </div>
+      <div class="stat-row">
+        <span class="stat-name">Active Licenses</span>
+        <span class="stat-val">FL · MA · NJ</span>
       </div>
-    </div>
-
-    <!-- ══ CONTENT & TEMPLATES ══ -->
-    <div class="portal-section">
-      <p class="portal-section-label">Content & Templates</p>
-      <div class="portal-grid">
-        <a class="portal-card" href="https://drive.google.com/drive/folders/10tDMp7sDTftMMgaPF1uFo9uPARgtjFtJ" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🖼️</span>
-          <span class="portal-card-body"><span class="portal-card-title">Content Library</span><span class="portal-card-desc">Social graphics & decks</span></span>
-        </a>
-        <a class="portal-card" href="https://drive.google.com/drive/folders/15mKBcsyteZwox4NdjscLDIiYCZgywcvE" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📝</span>
-          <span class="portal-card-body"><span class="portal-card-title">Forms & Scripts</span><span class="portal-card-desc">Intake forms, sales scripts</span></span>
-        </a>
-        <a class="portal-card" href="https://drive.google.com/drive/folders/1lR1HMBVDe1sYQXDZygOmWv7Q_nMkglxD" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📈</span>
-          <span class="portal-card-body"><span class="portal-card-title">CRM Workbook</span><span class="portal-card-desc">5 linked Sheets — Insurance, Tax, Paralegal</span></span>
-        </a>
+      <div class="stat-row">
+        <span class="stat-name">Website</span>
+        <span class="stat-val stat-live">● Live</span>
       </div>
-    </div>
-
-    <!-- ══ EDUCATION & LEARNING ══ -->
-    <div class="portal-section">
-      <p class="portal-section-label">Education & Learning</p>
-      <div class="portal-grid">
-        <a class="portal-card" href="https://www.netacad.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🎓</span>
-          <span class="portal-card-body"><span class="portal-card-title">Cisco NetAcad</span><span class="portal-card-desc">CCNA & cybersecurity</span></span>
-        </a>
-        <a class="portal-card" href="https://academy.openai.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🤖</span>
-          <span class="portal-card-body"><span class="portal-card-title">OpenAI Academy</span><span class="portal-card-desc">AI & prompt engineering</span></span>
-        </a>
-        <a class="portal-card" href="https://www.codecademy.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">💻</span>
-          <span class="portal-card-body"><span class="portal-card-title">Codecademy</span><span class="portal-card-desc">Coding practice</span></span>
-        </a>
-        <a class="portal-card" href="https://www.coursera.org" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📚</span>
-          <span class="portal-card-body"><span class="portal-card-title">Coursera</span><span class="portal-card-desc">Professional certifications</span></span>
-        </a>
-        <a class="portal-card" href="https://www.itulearning.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🌐</span>
-          <span class="portal-card-body"><span class="portal-card-title">ITU Learning</span><span class="portal-card-desc">IT & telecom courses</span></span>
-        </a>
-        <a class="portal-card" href="https://learning.sba.gov" target="_blank" rel="noopener">
-          <span class="portal-card-icon">🏢</span>
-          <span class="portal-card-body"><span class="portal-card-title">SBA Learning</span><span class="portal-card-desc">Small business training</span></span>
-        </a>
-      </div>
-    </div>
-
-    <!-- ══ REFERENCE ══ -->
-    <div class="portal-section">
-      <p class="portal-section-label">Reference</p>
-      <div class="portal-grid">
-        <a class="portal-card" href="REPLACE_DRIVE_OPERATING_AGREEMENT" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📜</span>
-          <span class="portal-card-body"><span class="portal-card-title">Operating Agreement</span><span class="portal-card-desc">LLC governance — paste Drive link above</span></span>
-        </a>
-        <a class="portal-card" href="https://docs.google.com/document/d/10bHQiw0lmD3g_5UzY4czmRz1RJi-htN3poYxn4EZqtU/edit" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📊</span>
-          <span class="portal-card-body"><span class="portal-card-title">Business Plan</span><span class="portal-card-desc">3-yr projections</span></span>
-        </a>
-        <a class="portal-card" href="https://dash.cloudflare.com" target="_blank" rel="noopener">
-          <span class="portal-card-icon">📡</span>
-          <span class="portal-card-body"><span class="portal-card-title">Web Analytics</span><span class="portal-card-desc">Traffic & visitors</span></span>
-        </a>
-      </div>
-    </div>
-
-    <!-- ══ TEAM & GOVERNANCE ══ -->
-    <div class="portal-section">
-      <p class="portal-section-label">Team & Governance</p>
-      <div class="portal-team-note">
-        ME Shield Group LLC — 3 members
-        <ul>
-          <li>Miguelson Etienne — Managing Member (~85%)</li>
-          <li>Fendia Etienne — Member</li>
-          <li>Monika Etienne — Member</li>
-        </ul>
-        Full terms, succession, and ownership detail live in the Operating Agreement above.
-      </div>
-    </div>
-
-    <div class="portal-note">
-      <strong>Reminder:</strong> use this page for links only. Keep client files in Google Drive with restricted sharing, and never paste client data, account numbers, or passwords directly into this page — Cloudflare Access controls who can <em>see</em> it, it doesn't encrypt anything pasted here.
     </div>
 
   </div>
+
+  <!-- WIDGET ROW 2: Notes · Activity -->
+  <div class="widget-row-2">
+
+    <div class="widget widget-notes">
+      <div class="widget-label">Quick Notes — saved automatically</div>
+      <textarea class="notes-area" id="notes-ta" placeholder="Write a quick note here — it stays saved even if you close the page..."></textarea>
+      <div class="notes-status" id="notes-st">Notes auto-save to this device</div>
+    </div>
+
+    <div class="widget widget-activity">
+      <div class="widget-label">Recent Activity</div>
+      <div class="activity-item">
+        <div class="activity-dot"></div>
+        <div class="activity-text">Trump Account article published + newsletter sent</div>
+        <div class="activity-time">Today</div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot"></div>
+        <div class="activity-text">Blog updated — Trump Account featured at top</div>
+        <div class="activity-time">Today</div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot dim"></div>
+        <div class="activity-text">Portal redesigned with widgets & tabs</div>
+        <div class="activity-time">Today</div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot dim"></div>
+        <div class="activity-text">Cloudflare Pages rebuilt — site restored</div>
+        <div class="activity-time">Jul 3</div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot dim"></div>
+        <div class="activity-text">Content Library organized in Google Drive</div>
+        <div class="activity-time">Jul 1</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB NAVIGATION -->
+  <nav class="tab-nav" role="tablist" aria-label="Portal sections">
+    <button class="tab-btn active" id="tb-daily"      onclick="switchTab('daily')">Daily Tools</button>
+    <button class="tab-btn"        id="tb-marketing"  onclick="switchTab('marketing')">Marketing & Social</button>
+    <button class="tab-btn"        id="tb-banking"    onclick="switchTab('banking')">Banking</button>
+    <button class="tab-btn"        id="tb-insurance"  onclick="switchTab('insurance')">Insurance Portals</button>
+    <button class="tab-btn"        id="tb-compliance" onclick="switchTab('compliance')">Compliance</button>
+    <button class="tab-btn"        id="tb-content"    onclick="switchTab('content')">Content & Files</button>
+    <button class="tab-btn"        id="tb-education"  onclick="switchTab('education')">Education</button>
+    <button class="tab-btn"        id="tb-reference"  onclick="switchTab('reference')">Reference</button>
+  </nav>
+
+  <!-- ── DAILY TOOLS ── -->
+  <div class="tab-panel active" id="tp-daily">
+    <div class="link-grid">
+      <a class="link-card" href="https://mail.google.com" target="_blank" rel="noopener">
+        <div class="link-icon">✉️</div><div><div class="link-title">Gmail</div><div class="link-desc">meshieldservices@gmail.com</div></div>
+      </a>
+      <a class="link-card" href="https://drive.google.com" target="_blank" rel="noopener">
+        <div class="link-icon">📁</div><div><div class="link-title">Google Drive</div><div class="link-desc">Files & folders</div></div>
+      </a>
+      <a class="link-card" href="https://app.hubspot.com" target="_blank" rel="noopener">
+        <div class="link-icon">📇</div><div><div class="link-title">HubSpot CRM</div><div class="link-desc">Leads & pipeline</div></div>
+      </a>
+      <a class="link-card" href="https://app.cal.com" target="_blank" rel="noopener">
+        <div class="link-icon">📅</div><div><div class="link-title">Cal.com</div><div class="link-desc">Scheduling</div></div>
+      </a>
+      <a class="link-card" href="https://dash.cloudflare.com" target="_blank" rel="noopener">
+        <div class="link-icon">☁️</div><div><div class="link-title">Cloudflare</div><div class="link-desc">Site, DNS & analytics</div></div>
+      </a>
+      <a class="link-card" href="https://app.slack.com" target="_blank" rel="noopener">
+        <div class="link-icon">💬</div><div><div class="link-title">Slack</div><div class="link-desc">Team messaging</div></div>
+      </a>
+      <a class="link-card" href="https://github.com/migoo-meshield/meshieldfinancial-site" target="_blank" rel="noopener">
+        <div class="link-icon">🐙</div><div><div class="link-title">GitHub</div><div class="link-desc">Site code & deployments</div></div>
+      </a>
+      <a class="link-card" href="https://rpr.irs.gov" target="_blank" rel="noopener">
+        <div class="link-icon">🏛️</div><div><div class="link-title">IRS Tax Pro</div><div class="link-desc">PTIN & e-Services</div></div>
+      </a>
+      <a class="link-card" href="https://www.paypal.com/signin" target="_blank" rel="noopener">
+        <div class="link-icon">💰</div><div><div class="link-title">PayPal</div><div class="link-desc">Payments & invoicing</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── MARKETING & SOCIAL ── -->
+  <div class="tab-panel" id="tp-marketing">
+    <div class="link-grid">
+      <a class="link-card" href="https://business.facebook.com" target="_blank" rel="noopener">
+        <div class="link-icon">📊</div><div><div class="link-title">Meta Business Suite</div><div class="link-desc">Ads, Pages & inbox</div></div>
+      </a>
+      <a class="link-card" href="https://www.instagram.com/meshieldfinancial?igsh=eThlYml3dW5xMnlx&utm_source=qr" target="_blank" rel="noopener">
+        <div class="link-icon">📸</div><div><div class="link-title">Instagram</div><div class="link-desc">@meshieldfinancial</div></div>
+      </a>
+      <a class="link-card" href="https://www.facebook.com/share/19BzPKJNXE/?mibextid=wwXIfr" target="_blank" rel="noopener">
+        <div class="link-icon">👍</div><div><div class="link-title">Facebook Page</div><div class="link-desc">Public page</div></div>
+      </a>
+      <a class="link-card" href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener">
+        <div class="link-icon">🎵</div><div><div class="link-title">TikTok</div><div class="link-desc">@me.shield.financial.serv</div></div>
+      </a>
+      <a class="link-card" href="https://wa.me/message/JUQP57VLU3T2B1" target="_blank" rel="noopener">
+        <div class="link-icon">💬</div><div><div class="link-title">WhatsApp Business</div><div class="link-desc">Client chat</div></div>
+      </a>
+      <a class="link-card" href="https://nextdoor.com/dashboard" target="_blank" rel="noopener">
+        <div class="link-icon">🏘️</div><div><div class="link-title">Nextdoor</div><div class="link-desc">Neighborhood posts</div></div>
+      </a>
+      <a class="link-card" href="https://www.adobe.com/express" target="_blank" rel="noopener">
+        <div class="link-icon">🎨</div><div><div class="link-title">Adobe Express</div><div class="link-desc">Graphics & content design</div></div>
+      </a>
+      <a class="link-card" href="https://buffer.com/app" target="_blank" rel="noopener">
+        <div class="link-icon">🗓️</div><div><div class="link-title">Buffer</div><div class="link-desc">Post scheduler</div></div>
+      </a>
+      <a class="link-card" href="https://app.brevo.com/" target="_blank" rel="noopener">
+        <div class="link-icon">📧</div><div><div class="link-title">Brevo</div><div class="link-desc">Email & newsletter campaigns</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── BANKING ── -->
+  <div class="tab-panel" id="tp-banking">
+    <div class="link-grid">
+      <a class="link-card" href="https://mercury.com" target="_blank" rel="noopener">
+        <div class="link-icon">🏦</div><div><div class="link-title">Mercury</div><div class="link-desc">Primary account + IO card</div></div>
+      </a>
+      <a class="link-card" href="https://lili.co" target="_blank" rel="noopener">
+        <div class="link-icon">💳</div><div><div class="link-title">Lili</div><div class="link-desc">Cash deposits + credit building</div></div>
+      </a>
+      <a class="link-card" href="https://www.paypal.com/signin" target="_blank" rel="noopener">
+        <div class="link-icon">💰</div><div><div class="link-title">PayPal</div><div class="link-desc">Payments & invoicing</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── INSURANCE PORTALS ── -->
+  <div class="tab-panel" id="tp-insurance">
+    <div class="link-grid">
+      <a class="link-card" href="https://gateway.geico.com/quote" target="_blank" rel="noopener">
+        <div class="link-icon">🦎</div><div><div class="link-title">GEICO Gateway</div><div class="link-desc">Agent quoting portal</div></div>
+      </a>
+      <a class="link-card" href="https://workbench.ameritas.com/login" target="_blank" rel="noopener">
+        <div class="link-icon">📋</div><div><div class="link-title">Ameritas Workbench</div><div class="link-desc">Agent portal</div></div>
+      </a>
+      <a class="link-card" href="https://www.nationallife.com/agent" target="_blank" rel="noopener">
+        <div class="link-icon">🏛️</div><div><div class="link-title">National Life Group</div><div class="link-desc">Agent portal</div></div>
+      </a>
+      <a class="link-card" href="https://portal.firstconnectinsurance.com/signin?email=miguelsonetienne19%40gmail.com&process=team-member-sign-up" target="_blank" rel="noopener">
+        <div class="link-icon">🔗</div><div><div class="link-title">First Connect</div><div class="link-desc">Agent portal</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── COMPLIANCE ── -->
+  <div class="tab-panel" id="tp-compliance">
+    <div class="link-grid">
+      <a class="link-card" href="https://www.myfloridacfo.com/division/agents" target="_blank" rel="noopener">
+        <div class="link-icon">🪪</div><div><div class="link-title">Florida DOI</div><div class="link-desc">FL license</div></div>
+      </a>
+      <a class="link-card" href="https://www.mass.gov/orgs/division-of-insurance" target="_blank" rel="noopener">
+        <div class="link-icon">🪪</div><div><div class="link-title">Massachusetts DOI</div><div class="link-desc">MA license</div></div>
+      </a>
+      <a class="link-card" href="https://www.nj.gov/dobi" target="_blank" rel="noopener">
+        <div class="link-icon">🪪</div><div><div class="link-title">New Jersey DOBI</div><div class="link-desc">NJ license</div></div>
+      </a>
+      <a class="link-card" href="https://nipr.com" target="_blank" rel="noopener">
+        <div class="link-icon">📋</div><div><div class="link-title">NIPR</div><div class="link-desc">Producer licensing hub</div></div>
+      </a>
+      <a class="link-card" href="https://dice.fldfs.com/public/pb_index.aspx" target="_blank" rel="noopener">
+        <div class="link-icon">🔍</div><div><div class="link-title">DICE / FLDS</div><div class="link-desc">License lookup & verification</div></div>
+      </a>
+      <a class="link-card" href="https://rpr.irs.gov" target="_blank" rel="noopener">
+        <div class="link-icon">🔁</div><div><div class="link-title">PTIN Renewal</div><div class="link-desc">Annual IRS renewal</div></div>
+      </a>
+      <div class="info-card">
+        <div class="info-icon">🛡️</div>
+        <div><div class="info-title">E&O Insurance</div><div class="info-desc">Held via JWANAIX GROUP — contact agency for documents</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONTENT & FILES ── -->
+  <div class="tab-panel" id="tp-content">
+    <div class="link-grid">
+      <a class="link-card" href="https://drive.google.com/drive/folders/10tDMp7sDTftMMgaPF1uFo9uPARgtjFtJ" target="_blank" rel="noopener">
+        <div class="link-icon">🖼️</div><div><div class="link-title">Content Library</div><div class="link-desc">Social graphics & decks</div></div>
+      </a>
+      <a class="link-card" href="https://drive.google.com/drive/folders/15mKBcsyteZwox4NdjscLDIiYCZgywcvE" target="_blank" rel="noopener">
+        <div class="link-icon">📝</div><div><div class="link-title">Forms & Scripts</div><div class="link-desc">Intake forms, sales scripts</div></div>
+      </a>
+      <a class="link-card" href="https://drive.google.com/drive/folders/1lR1HMBVDe1sYQXDZygOmWv7Q_nMkglxD" target="_blank" rel="noopener">
+        <div class="link-icon">📈</div><div><div class="link-title">CRM Workbook</div><div class="link-desc">5 linked Sheets</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── EDUCATION ── -->
+  <div class="tab-panel" id="tp-education">
+    <div class="link-grid">
+      <a class="link-card" href="https://www.netacad.com" target="_blank" rel="noopener">
+        <div class="link-icon">🎓</div><div><div class="link-title">Cisco NetAcad</div><div class="link-desc">CCNA & cybersecurity</div></div>
+      </a>
+      <a class="link-card" href="https://academy.openai.com" target="_blank" rel="noopener">
+        <div class="link-icon">🤖</div><div><div class="link-title">OpenAI Academy</div><div class="link-desc">AI & prompt engineering</div></div>
+      </a>
+      <a class="link-card" href="https://www.codecademy.com" target="_blank" rel="noopener">
+        <div class="link-icon">💻</div><div><div class="link-title">Codecademy</div><div class="link-desc">Coding practice</div></div>
+      </a>
+      <a class="link-card" href="https://www.coursera.org" target="_blank" rel="noopener">
+        <div class="link-icon">📚</div><div><div class="link-title">Coursera</div><div class="link-desc">Professional certifications</div></div>
+      </a>
+      <a class="link-card" href="https://www.itulearning.com" target="_blank" rel="noopener">
+        <div class="link-icon">🌐</div><div><div class="link-title">ITU Learning</div><div class="link-desc">IT & telecom courses</div></div>
+      </a>
+      <a class="link-card" href="https://learning.sba.gov" target="_blank" rel="noopener">
+        <div class="link-icon">🏢</div><div><div class="link-title">SBA Learning</div><div class="link-desc">Small business training</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── REFERENCE ── -->
+  <div class="tab-panel" id="tp-reference">
+    <div class="link-grid">
+      <a class="link-card" href="REPLACE_DRIVE_OPERATING_AGREEMENT" target="_blank" rel="noopener">
+        <div class="link-icon">📜</div><div><div class="link-title">Operating Agreement</div><div class="link-desc">LLC governance — paste Drive link</div></div>
+      </a>
+      <a class="link-card" href="https://docs.google.com/document/d/10bHQiw0lmD3g_5UzY4czmRz1RJi-htN3poYxn4EZqtU/edit" target="_blank" rel="noopener">
+        <div class="link-icon">📊</div><div><div class="link-title">Business Plan</div><div class="link-desc">3-year projections</div></div>
+      </a>
+      <a class="link-card" href="https://dash.cloudflare.com" target="_blank" rel="noopener">
+        <div class="link-icon">📡</div><div><div class="link-title">Web Analytics</div><div class="link-desc">Traffic & visitors</div></div>
+      </a>
+    </div>
+
+    <div class="panel-label" style="margin-top:24px;">Team & Governance</div>
+    <div class="team-box">
+      ME Shield Group LLC — 3 Members
+      <ul>
+        <li>Miguelson Etienne — Managing Member (~85%)</li>
+        <li>Fendia Etienne — Member</li>
+        <li>Monika Etienne — Member</li>
+      </ul>
+    </div>
+
+    <div class="portal-notice">
+      <strong>Security reminder:</strong> Use this portal for links only. Keep client files in Google Drive with restricted sharing. Never paste client data, account numbers, or passwords into this page.
+    </div>
+  </div>
+
 </main>
 
 <footer class="portal-footer">
-  <div class="container">
-    ME Shield Financial Services — Internal use only. Not part of the public website.
-  </div>
+  ME Shield Financial Services · Internal use only · Not part of the public website
 </footer>
 
+<script>
+// ── CLOCK & GREETING ────────────────────────────────────────────────────────
+function tick(){
+  const opts={timeZone:'America/New_York'};
+  const now=new Date();
+  const t=now.toLocaleString('en-US',{...opts,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
+  const parts=t.split(' ');
+  document.getElementById('clk-time').textContent=parts[0];
+  document.getElementById('clk-ampm').textContent=parts[1];
+  const d=now.toLocaleDateString('en-US',{...opts,weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('clk-date').textContent=d;
+  document.getElementById('greet-sub').textContent=d+' · Eastern Time';
+  const h=parseInt(now.toLocaleString('en-US',{...opts,hour:'numeric',hour12:false}));
+  const word=h<12?'morning':h<17?'afternoon':'evening';
+  document.getElementById('greet-word').textContent=word;
+}
+tick();setInterval(tick,1000);
+
+// ── WEATHER ─────────────────────────────────────────────────────────────────
+const ICONS={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️',96:'⛈️',99:'⛈️'};
+const DESC={0:'Clear sky',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',80:'Showers',81:'Heavy showers',82:'Violent showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'};
+fetch('https://api.open-meteo.com/v1/forecast?latitude=28.6753&longitude=-81.5068&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=America%2FNew_York')
+  .then(r=>r.json())
+  .then(d=>{
+    const c=d.current;
+    document.getElementById('wx-icon').textContent=ICONS[c.weather_code]||'🌡️';
+    document.getElementById('wx-temp').textContent=Math.round(c.temperature_2m)+'°F';
+    document.getElementById('wx-desc').textContent=DESC[c.weather_code]||'';
+  })
+  .catch(()=>{
+    document.getElementById('wx-temp').textContent='--°F';
+    document.getElementById('wx-desc').textContent='Unable to load';
+  });
+
+// ── NOTES ────────────────────────────────────────────────────────────────────
+const ta=document.getElementById('notes-ta');
+const st=document.getElementById('notes-st');
+try{ta.value=localStorage.getItem('meshield-portal-notes')||'';}catch(e){}
+let timer;
+ta.addEventListener('input',()=>{
+  clearTimeout(timer);
+  st.textContent='Saving...';
+  timer=setTimeout(()=>{
+    try{localStorage.setItem('meshield-portal-notes',ta.value);}catch(e){}
+    st.textContent='Saved ✓';
+    setTimeout(()=>{st.textContent='Notes auto-save to this device';},2000);
+  },800);
+});
+
+// ── TABS ─────────────────────────────────────────────────────────────────────
+function switchTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tp-'+id).classList.add('active');
+  const btn=document.getElementById('tb-'+id);
+  btn.classList.add('active');
+  btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+</script>
 </body>
 </html>
