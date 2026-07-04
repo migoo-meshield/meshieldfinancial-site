@@ -1,332 +1,634 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Business Filing & Formation Services — ME Shield Financial Services</title>
-  <meta name="description" content="LLC formation, EIN applications, DBA registration, and Annual Report filing for Florida small businesses — done right, on time."/>
-  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
-  <link rel="stylesheet" href="style.css"/>
-  <style>
-    .lp-hero {
-      background-image: url('https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=1400&q=70');
-      background-size: cover;
-      background-position: center;
-      padding: 110px 0 90px;
-      position: relative;
-      overflow: hidden;
-    }
-    .lp-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(165deg, rgba(11,28,58,.82) 0%, rgba(11,28,58,.95) 100%);
-      z-index: 0;
-    }
-    .lp-hero .container { position: relative; z-index: 1; max-width: 760px; text-align: center; }
-    .lp-hero h1 { color: var(--white); margin-bottom: 16px; }
-    .lp-hero p.lead { color: rgba(255,255,255,.78); font-size: 1.12rem; max-width: 600px; margin: 0 auto 32px; }
-    .lp-hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-    .lp-benefits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
-    .lp-benefit { display: flex; gap: 16px; align-items: flex-start; }
-    .lp-benefit-icon {
-      width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0; overflow: hidden;
-    }
-    .lp-benefit-icon img { width: 100%; height: 100%; object-fit: cover; }
-    .lp-benefit h4 { font-family: var(--font-display); color: var(--navy); font-size: 1.05rem; margin-bottom: 6px; }
-    .lp-benefit p { font-size: .92rem; margin: 0; }
-
-    .lp-process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-    .lp-step { text-align: center; position: relative; }
-    .lp-step-num {
-      width: 52px; height: 52px; border-radius: 50%; background: var(--navy); color: var(--gold);
-      font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
-      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
-    }
-    .lp-step h4 { font-size: 1rem; color: var(--navy); margin-bottom: 8px; }
-    .lp-step p { font-size: .88rem; }
-
-    .lp-mini-faq { max-width: 700px; margin: 0 auto; }
-    .lp-mini-faq-item { border-bottom: 1px solid var(--border-soft); padding: 22px 4px; }
-    .lp-mini-faq-item:first-child { border-top: 1px solid var(--border-soft); }
-    .lp-mini-faq-item h4 { font-family: var(--font-display); color: var(--navy); font-size: 1.05rem; margin-bottom: 8px; }
-    .lp-mini-faq-item p { margin: 0; font-size: .94rem; }
-
-    @media (max-width: 820px) {
-      .lp-benefits { grid-template-columns: 1fr; }
-      .lp-process { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Business Filing — ME Shield Financial Services</title>
+<meta name="description" content="LLC formation, EIN application, Operating Agreement, and business plans in English and Kreyòl. Get your business started right."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--navy:#0B1D3A;--navy2:#162d50;--gold:#C9A84C;--gold2:#e0be6a;--cream:#FAF7F1;--cream2:#F0EBE1;--white:#fff;--text:#1a1a1a;--mid:#555;--light:#888;--green:#2d9f5d;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+.ht{display:none!important;}
+body.lang-ht .en{display:none!important;}
+body.lang-ht .ht{display:revert!important;}
+body.lang-ht .ht.block{display:block!important;}
+body.lang-ht .ht.flex{display:flex!important;}
+body.lang-ht .ht.inline{display:inline!important;}
+.topbar{background:var(--navy);padding:9px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.topbar-left{font-size:.72rem;color:rgba(255,255,255,.5);}
+.topbar-left a{color:var(--gold);text-decoration:none;}
+.topbar-right{display:flex;align-items:center;gap:16px;}
+.tb-phone{font-size:.72rem;color:rgba(255,255,255,.65);text-decoration:none;}
+.tb-phone:hover{color:var(--gold);}
+.lang-toggle{display:flex;border:1px solid rgba(201,168,76,.3);border-radius:6px;overflow:hidden;}
+.lt-btn{padding:5px 12px;font-size:.68rem;font-weight:700;cursor:pointer;background:transparent;border:none;color:rgba(255,255,255,.45);font-family:inherit;transition:all .2s;}
+.lt-btn.active{background:var(--gold);color:var(--navy);}
+nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 32px;background:rgba(250,247,241,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,.14);box-shadow:0 2px 20px rgba(11,29,58,.06);}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo{height:38px;width:auto;}
+.nav-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--navy);}
+.nav-sub{font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:var(--light);margin-top:1px;}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-home{font-size:.78rem;color:var(--mid);text-decoration:none;padding:8px 14px;border-radius:8px;transition:background .2s;}
+.nav-home:hover{background:rgba(11,29,58,.06);}
+.nav-cta{background:var(--navy);color:var(--gold);font-weight:700;font-size:.82rem;padding:10px 22px;border-radius:50px;text-decoration:none;box-shadow:0 4px 16px rgba(11,29,58,.18);transition:all .2s;}
+.nav-cta:hover{background:var(--navy2);transform:translateY(-1px);}
+.hero{position:relative;min-height:80vh;display:flex;align-items:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center;}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(11,29,58,.9) 0%,rgba(11,29,58,.7) 50%,rgba(11,29,58,.3) 100%);}
+.hero-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;width:100%;padding:80px 32px 60px;}
+@media(max-width:768px){.hero-inner{padding:56px 20px 44px;}}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.35);color:var(--gold);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:7px 16px;border-radius:50px;margin-bottom:22px;}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero-h{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.6rem);color:#fff;line-height:1.1;margin-bottom:20px;letter-spacing:-.01em;max-width:620px;}
+.hero-h em{font-style:italic;color:var(--gold);}
+.hero-p{font-size:1rem;color:rgba(255,255,255,.72);line-height:1.78;max-width:500px;margin-bottom:36px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-gold{background:var(--gold);color:var(--navy);font-weight:700;font-size:.92rem;padding:14px 32px;border-radius:50px;text-decoration:none;box-shadow:0 6px 24px rgba(201,168,76,.35);transition:all .2s;display:inline-block;text-align:center;}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px);}
+.btn-white{border:2px solid rgba(255,255,255,.3);color:#fff;font-weight:600;font-size:.9rem;padding:12px 28px;border-radius:50px;text-decoration:none;transition:all .2s;display:inline-block;}
+.btn-white:hover{border-color:rgba(255,255,255,.7);}
+.hero-stats{display:flex;gap:36px;flex-wrap:wrap;margin-top:44px;padding-top:28px;border-top:1px solid rgba(255,255,255,.12);}
+.hs-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#fff;line-height:1;}
+.hs-label{font-size:.68rem;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.1em;margin-top:4px;}
+section.pad{padding:80px 32px;}
+@media(max-width:768px){section.pad{padding:56px 20px;}}
+.sec-inner{max-width:1100px;margin:0 auto;}
+.eyebrow{display:block;font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.sec-h{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--navy);line-height:1.2;margin-bottom:12px;}
+.sec-p{font-size:.92rem;color:var(--mid);line-height:1.72;margin-bottom:36px;}
+.calc-card{background:var(--cream);border:1px solid rgba(201,168,76,.2);border-radius:24px;padding:36px;box-shadow:0 8px 40px rgba(11,29,58,.08);}
+@media(max-width:768px){.calc-card{padding:22px;}}
+.calc-steps{display:flex;align-items:center;margin-bottom:32px;}
+.cs-step{display:flex;align-items:center;gap:8px;flex:1;}
+.cs-num{width:30px;height:30px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:var(--light);transition:all .3s;flex-shrink:0;}
+.cs-num.active{background:var(--navy);color:var(--gold);}
+.cs-num.done{background:var(--green);color:#fff;}
+.cs-lbl{font-size:.7rem;font-weight:600;color:var(--light);}
+.cs-lbl.active{color:var(--navy);}
+.cs-line{flex:1;height:2px;background:var(--cream2);margin:0 8px;}
+.cs-line.done{background:var(--green);}
+.calc-panel{display:none;animation:fadeUp .3s ease;}
+.calc-panel.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.fg{display:flex;flex-direction:column;gap:6px;}
+.fl{font-size:.78rem;font-weight:700;color:var(--navy);}
+.fs,.fi{padding:11px 14px;border-radius:11px;border:1.5px solid rgba(11,29,58,.12);background:#fff;color:var(--text);font-size:.88rem;font-family:inherit;outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none;}
+.fs:focus,.fi:focus{border-color:var(--gold);}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;}
+@media(max-width:540px){.cgrid{grid-template-columns:1fr;}}
+.result-box{background:var(--navy);border-radius:16px;padding:28px;text-align:center;margin-bottom:22px;}
+.rb-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin-bottom:10px;}
+.rb-range{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px;}
+.rb-note{font-size:.7rem;color:rgba(255,255,255,.3);margin-top:12px;line-height:1.5;}
+.cn{display:flex;justify-content:space-between;align-items:center;margin-top:20px;}
+.bnext{background:var(--navy);color:var(--gold);font-weight:700;font-size:.88rem;padding:12px 28px;border-radius:50px;border:none;cursor:pointer;font-family:inherit;transition:all .2s;}
+.bnext:hover{background:var(--navy2);}
+.bback{background:transparent;color:var(--mid);font-size:.85rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;padding:10px 14px;border-radius:50px;}
+.bback:hover{color:var(--navy);}
+.bsubmit{background:var(--gold);color:var(--navy);font-weight:800;font-size:.92rem;padding:14px 36px;border-radius:50px;border:none;cursor:pointer;font-family:inherit;box-shadow:0 6px 24px rgba(201,168,76,.3);transition:all .2s;width:100%;}
+.bsubmit:hover{background:var(--gold2);}
+.lfgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+@media(max-width:540px){.lfgrid{grid-template-columns:1fr;}}
+.disc{font-size:.66rem;color:var(--light);line-height:1.6;padding-top:18px;border-top:1px solid rgba(11,29,58,.08);margin-top:8px;}
+.svc-grid2{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px;}
+@media(max-width:860px){.svc-grid2{grid-template-columns:1fr 1fr;}}
+@media(max-width:540px){.svc-grid2{grid-template-columns:1fr;}}
+.svc2{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid rgba(201,168,76,.1);transition:all .25s;box-shadow:0 2px 16px rgba(11,29,58,.05);}
+.svc2:hover{transform:translateY(-3px);box-shadow:0 14px 50px rgba(11,29,58,.1);}
+.svc2-photo{position:relative;height:200px;overflow:hidden;}
+.svc2-photo img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.svc2:hover .svc2-photo img{transform:scale(1.05);}
+.svc2-badge{position:absolute;top:12px;left:12px;background:var(--navy);color:var(--gold);font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:50px;}
+.svc2-body{padding:20px;}
+.svc2-name{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--navy);margin-bottom:8px;}
+.svc2-desc{font-size:.8rem;color:var(--mid);line-height:1.65;margin-bottom:12px;}
+.svc2-link{font-size:.75rem;font-weight:700;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:gap .2s;}
+.svc2-link:hover{gap:9px;}
+.about-dark{background:var(--navy);padding:72px 32px;}
+@media(max-width:768px){.about-dark{padding:52px 20px;}}
+.about-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:300px 1fr;gap:60px;align-items:center;}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr;gap:36px;}}
+.aph-wrap{position:relative;}
+.aph{width:100%;height:400px;object-fit:cover;object-position:center top;border-radius:18px;display:block;box-shadow:0 18px 56px rgba(0,0,0,.3);}
+@media(max-width:860px){.aph{height:280px;}}
+.aph-frame{position:absolute;top:14px;left:-14px;right:14px;bottom:-14px;border:2px solid rgba(201,168,76,.3);border-radius:22px;pointer-events:none;}
+.aph-cred{position:absolute;bottom:16px;right:-16px;background:var(--cream);border-radius:12px;padding:14px 16px;box-shadow:0 8px 28px rgba(0,0,0,.28);min-width:190px;}
+@media(max-width:860px){.aph-cred{right:8px;bottom:8px;}}
+.aph-cred-t{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:8px;}
+.aph-cred-item{display:flex;align-items:center;gap:6px;font-size:.68rem;color:var(--mid);padding:3px 0;}
+.aph-ck{color:var(--green);font-weight:800;font-size:.75rem;}
+.at-tag{font-size:.64rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px;}
+.at-h{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.3rem);color:#fff;line-height:1.2;margin-bottom:16px;}
+.at-h em{font-style:italic;color:var(--gold);}
+.at-p{font-size:.9rem;color:rgba(255,255,255,.58);line-height:1.78;margin-bottom:12px;}
+.at-quote{background:rgba(201,168,76,.1);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:14px 18px;font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;color:rgba(255,255,255,.8);line-height:1.6;margin:18px 0;}
+.at-badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px;}
+.atb{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:.66rem;font-weight:700;padding:5px 12px;border-radius:50px;}
+.rev-section{background:var(--white);padding:80px 32px;}
+@media(max-width:768px){.rev-section{padding:56px 20px;}}
+.rev-inner{max-width:1100px;margin:0 auto;}
+.rev-header{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:44px;}
+.avg-box{display:flex;align-items:center;gap:12px;background:var(--cream);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:12px 18px;}
+.avg-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--navy);line-height:1;}
+.avg-stars{color:var(--gold);font-size:1.1rem;letter-spacing:2px;}
+.avg-lbl{font-size:.68rem;color:var(--light);margin-top:2px;}
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px;}
+@media(max-width:800px){.rgrid{grid-template-columns:1fr 1fr;}}
+@media(max-width:520px){.rgrid{grid-template-columns:1fr;}}
+.rcard{background:var(--cream);border:1px solid rgba(201,168,76,.12);border-radius:16px;padding:22px;}
+.rc-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.rc-photo{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid rgba(201,168,76,.22);flex-shrink:0;}
+.rc-name{font-weight:700;font-size:.84rem;color:var(--navy);}
+.rc-meta{font-size:.66rem;color:var(--light);margin-top:1px;}
+.rc-stars{color:var(--gold);font-size:.85rem;letter-spacing:1px;margin-bottom:8px;}
+.rc-text{font-size:.8rem;color:var(--mid);line-height:1.65;font-style:italic;padding-left:12px;border-left:2px solid rgba(201,168,76,.3);}
+.rc-svc{display:inline-block;margin-top:10px;background:rgba(11,29,58,.06);color:var(--navy);font-size:.62rem;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:50px;text-transform:uppercase;}
+.wr-wrap{background:var(--cream2);border-radius:22px;padding:40px;border:1px solid rgba(201,168,76,.16);}
+@media(max-width:768px){.wr-wrap{padding:24px 18px;}}
+.wr-h{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:6px;}
+.wr-p{font-size:.86rem;color:var(--mid);margin-bottom:24px;line-height:1.6;}
+.wr-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+@media(max-width:540px){.wr-grid{grid-template-columns:1fr;}}
+.star-row{display:flex;gap:4px;flex-direction:row-reverse;justify-content:flex-end;}
+.star-row input{display:none;}
+.star-row label{font-size:1.5rem;color:#ddd;cursor:pointer;transition:color .15s;}
+.star-row input:checked~label,.star-row label:hover,.star-row label:hover~label{color:var(--gold);}
+.fta{padding:11px 14px;border-radius:11px;border:1.5px solid rgba(11,29,58,.12);background:#fff;color:var(--text);font-size:.88rem;font-family:inherit;outline:none;resize:vertical;min-height:90px;width:100%;transition:border-color .2s;line-height:1.6;}
+.fta:focus{border-color:var(--gold);}
+.brev{background:var(--navy);color:var(--gold);font-weight:700;font-size:.9rem;padding:13px 32px;border-radius:50px;border:none;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(11,29,58,.18);transition:all .2s;margin-top:6px;}
+.brev:hover{background:var(--navy2);}
+.rev-ok{display:none;text-align:center;padding:28px;background:rgba(45,159,93,.08);border:1px solid rgba(45,159,93,.2);border-radius:14px;margin-top:14px;}
+.cta-section{background:var(--cream2);padding:80px 32px;}
+@media(max-width:768px){.cta-section{padding:56px 20px;}}
+.cta-card{background:var(--navy);border-radius:26px;overflow:hidden;display:grid;grid-template-columns:1fr 380px;box-shadow:0 22px 72px rgba(11,29,58,.18);}
+@media(max-width:860px){.cta-card{grid-template-columns:1fr;}}
+.cta-txt{padding:52px 48px;position:relative;overflow:hidden;}
+@media(max-width:768px){.cta-txt{padding:36px 24px;}}
+.cta-txt::before{content:'';position:absolute;top:-90px;left:-70px;width:340px;height:340px;border-radius:50%;background:radial-gradient(ellipse,rgba(201,168,76,.1) 0%,transparent 70%);}
+.cta-h{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);color:#fff;line-height:1.2;margin-bottom:12px;position:relative;z-index:1;}
+.cta-p{font-size:.9rem;color:rgba(255,255,255,.56);line-height:1.72;margin-bottom:28px;max-width:400px;position:relative;z-index:1;}
+.cta-btns{display:flex;flex-direction:column;gap:10px;max-width:260px;position:relative;z-index:1;}
+.btn-gw{border:2px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);font-weight:600;font-size:.86rem;padding:11px 26px;border-radius:50px;text-decoration:none;text-align:center;transition:all .2s;}
+.btn-gw:hover{border-color:rgba(255,255,255,.5);color:#fff;}
+.cta-img{height:100%;min-height:320px;object-fit:cover;display:block;width:100%;}
+@media(max-width:860px){.cta-img{height:240px;}}
+footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding:40px 32px 24px;}
+.fi-wrap{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;}
+.fl-brand{display:flex;align-items:center;gap:10px;}
+.fl-logo{height:30px;width:auto;}
+.fl-name{font-family:'Playfair Display',serif;font-size:.92rem;color:#fff;font-weight:700;}
+.fl-links{display:flex;gap:18px;flex-wrap:wrap;}
+.fl-links a{font-size:.72rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;}
+.fl-links a:hover{color:var(--gold);}
+.fl-disc{width:100%;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06);font-size:.64rem;color:rgba(255,255,255,.2);line-height:1.65;}
+</style>
 </head>
 <body class="lang-en">
 
-<nav class="navbar">
-  <div class="container nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
-      <div>
-        <div class="nav-logo-text">ME Shield Financial</div>
-        <div class="nav-logo-sub">Services</div>
-      </div>
-    </a>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
-      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
-      <li><a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a></li>
-      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
-      <li><a href="faq.html">FAQ</a></li>
-      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
-    </ul>
-    <div class="nav-right">
-      <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">HT</button>
-      </div>
-      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
-        <span data-en>Book Free Consult</span>
-        <span data-ht>Rezève Konsiltasyon</span>
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="index.html">meshieldfinancial.com</a> &nbsp;·&nbsp;
+    <span class="en">Business Filing</span><span class="ht">Enskripsyon Biznis</span>
   </div>
-</nav>
-
-<!-- HERO -->
-<div class="lp-hero">
-  <div class="container">
-    <div class="hero-badge" style="margin:0 auto 18px;">
-      <span data-en>BUSINESS FILING</span>
-      <span data-ht>DEPO BIZNIS</span>
-    </div>
-    <h1 data-en>Start and Maintain Your Business the Right Way</h1>
-    <h1 data-ht>Kòmanse ak Kenbe Biznis Ou Yon Bon Fason</h1>
-    <p class="lead" data-en>LLC formation, EIN applications, DBA registration, and annual compliance — handled accurately, so you can focus on actually running your business.</p>
-    <p class="lead" data-ht>Fòmasyon LLC, aplikasyon EIN, enskripsyon DBA, ak konfòmite anyèl — jere avèk presizyon, pou ou ka konsantre sou aktyèlman dirije biznis ou.</p>
-    <div class="lp-hero-ctas">
-      <a href="book.html" class="btn btn-gold" data-en>Book Free Consultation</a>
-      <a href="book.html" class="btn btn-gold" data-ht>Rezève Konsiltasyon Gratis</a>
-      <a href="llc-formation-florida-guide.html" class="btn btn-outline" style="color:var(--white);border-color:rgba(255,255,255,.4);" data-en>Read the LLC Guide</a>
-      <a href="llc-formation-florida-guide.html" class="btn btn-outline" style="color:var(--white);border-color:rgba(255,255,255,.4);" data-ht>Li Gid LLC a</a>
+  <div class="topbar-right">
+    <a href="tel:4072672652" class="tb-phone">(407) 267-2652</a>
+    <div class="lang-toggle">
+      <button class="lt-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lt-btn" id="btn-ht" onclick="setLang('ht')">HT</button>
     </div>
   </div>
 </div>
 
-<!-- BENEFITS -->
-<section class="section section-white">
-  <div class="container">
-    <div class="section-header">
-      <div class="eyebrow" data-en>WHAT'S INCLUDED</div>
-      <div class="eyebrow" data-ht>SA KI ENKLI</div>
-      <h2 data-en>Filings We Handle</h2>
-      <h2 data-ht>Depo Nou Jere</h2>
-      <span class="gold-rule center"></span>
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="logo.png" alt="ME Shield" class="nav-logo" onerror="this.style.display='none'"/>
+    <div>
+      <div class="nav-name">ME Shield Financial Services</div>
+      <div class="nav-sub en">Business Division</div>
+      <div class="nav-sub ht">Divizyon Biznis</div>
     </div>
-    <div class="lp-benefits">
-      <div class="lp-benefit">
-        <div class="lp-benefit-icon"><img src="https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=160&q=70" alt=""/></div>
-        <div>
-          <h4 data-en>LLC Formation</h4>
-          <h4 data-ht>Fòmasyon LLC</h4>
-          <p data-en>Articles of Organization prepared and filed with the Florida Division of Corporations.</p>
-          <p data-ht>Atik Òganizasyon prepare ak depoze ak Divizyon Konpayi Florid.</p>
-        </div>
+  </a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-home en">← Main Site</a>
+    <a href="index.html" class="nav-home ht">← Sit Prensipal</a>
+    <a href="book.html" class="nav-cta en">Book Free Consult</a>
+    <a href="book.html" class="nav-cta ht">Rezève Konsiltasyon</a>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1400&q=80" alt="Business Filing"/>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="hero-dot"></span>
+      <span class="en">LLC · EIN · Operating Agreement · Business Plan</span>
+      <span class="ht">LLC · EIN · Akò Operasyonèl · Plan Biznis</span>
+    </div>
+    <h1 class="hero-h en">Start your business<br/>the <em>right way</em></h1>
+    <h1 class="hero-h ht">Kòmanse biznis ou<br/>nan <em>bon fason</em></h1>
+    <p class="hero-p en">LLC formation, EIN application, Operating Agreement, and business plans — everything you need to launch your business in Florida, explained in plain English.</p>
+    <p class="hero-p ht">Fòmasyon LLC, aplikasyon EIN, Akò Operasyonèl, ak plan biznis — tout sa ou bezwen pou lanse biznis ou nan Florida, eksplike nan lang senplifye Kreyòl.</p>
+    <div class="hero-btns">
+      <a href="#calculator" class="btn-gold en">Get My Free Quote</a>
+      <a href="#calculator" class="btn-gold ht">Jwenn Estimasyon Mwen</a>
+      <a href="book.html" class="btn-white en">Book a Consultation</a>
+      <a href="book.html" class="btn-white ht">Rezève yon Konsiltasyon</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hs-num">FL</div>
+        <div class="hs-label en">State Filing Experts</div>
+        <div class="hs-label ht">Ekspè Deklarasyon Eta</div>
       </div>
-      <div class="lp-benefit">
-        <div class="lp-benefit-icon"><img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=160&q=70" alt=""/></div>
-        <div>
-          <h4 data-en>EIN Applications</h4>
-          <h4 data-ht>Aplikasyon EIN</h4>
-          <p data-en>Help applying for your business’s federal tax ID number — needed for banking, hiring, and filing.</p>
-          <p data-ht>Èd pou aplike pou nimewo idantifikasyon taks federal biznis ou — nesesè pou bank, anplwaye, ak depo.</p>
-        </div>
+      <div>
+        <div class="hs-num">100%</div>
+        <div class="hs-label en">Bilingual Service</div>
+        <div class="hs-label ht">Sèvis Bileng</div>
       </div>
-      <div class="lp-benefit">
-        <div class="lp-benefit-icon"><img src="https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?auto=format&fit=crop&w=160&q=70" alt=""/></div>
-        <div>
-          <h4 data-en>DBA / Fictitious Name</h4>
-          <h4 data-ht>DBA / Non Fiktif</h4>
-          <p data-en>Registering a "doing business as" name so you can legally operate under your brand.</p>
-          <p data-ht>Enskri yon non "ap fonksyone kòm" pou ou ka opere legalman anba mak ou.</p>
-        </div>
-      </div>
-      <div class="lp-benefit">
-        <div class="lp-benefit-icon"><img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=160&q=70" alt=""/></div>
-        <div>
-          <h4 data-en>Annual Report Filing</h4>
-          <h4 data-ht>Depo Rapò Anyèl</h4>
-          <p data-en>A reminder and filing service so your LLC never gets administratively dissolved for missing a deadline.</p>
-          <p data-ht>Yon sèvis rapèl ak depo pou LLC ou pa janm dissoud administrativman pou rate yon dat limit.</p>
-        </div>
-      </div>
+      <div>
+        <div class="hs-num">Fast</div>
+        <div class="hs-label en">Quick Turnaround</div>
+        <div class="hs-label ht">Rezilta Rapid</div>
+      </div></div>
+  </div>
+</section>
 
+<section class="pad" id="calculator" style="background:var(--white);">
+  <div class="sec-inner" style="max-width:860px;">
+    <div class="en block"><span class="eyebrow">Business Filing Cost Estimator</span>
+      <h2 class="sec-h">How much does it cost to start your business?</h2>
+      <p class="sec-p">Select your entity type and add-ons to see a real estimate — including state fees and our service fee.</p></div>
+    <div class="ht block"><span class="eyebrow">Estimatè Depans Enskripsyon Biznis</span>
+      <h2 class="sec-h">Konbyen li koute pou kòmanse biznis ou?</h2>
+      <p class="sec-p">Chwazi tip antite ou ak opsyon siplemantè yo pou wè yon estimasyon reyèl — enkli frè eta ak frè sèvis nou.</p></div>
+    <div class="calc-card">
+      <div class="cgrid">
+        <div class="fg">
+          <label class="fl en">Business Entity Type</label>
+          <label class="fl ht">Tip Antite Biznis</label>
+          <select class="fs" id="biz-type" onchange="calcBiz()">
+            <option value="llc">LLC (Limited Liability Company)</option>
+            <option value="solo">Sole Proprietorship / DBA</option>
+            <option value="corp">Corporation (C-Corp or S-Corp)</option>
+            <option value="np">Non-Profit Organization</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl en">State of Formation</label>
+          <label class="fl ht">Eta Fòmasyon</label>
+          <select class="fs" id="biz-state" onchange="calcBiz()">
+            <option value="fl">Florida</option>
+            <option value="other">Another State</option>
+          </select>
+        </div>
+        <div class="fg" style="grid-column:span 2;">
+          <label class="fl en">Add-On Services (select all that apply)</label>
+          <label class="fl ht">Sèvis Siplemantè (chwazi tout ki aplike)</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+            <label style="display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--mid);cursor:pointer;">
+              <input type="checkbox" id="biz-ein" onchange="calcBiz()" style="accent-color:var(--navy);width:16px;height:16px;"/> EIN Application (IRS)
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--mid);cursor:pointer;">
+              <input type="checkbox" id="biz-oa" onchange="calcBiz()" style="accent-color:var(--navy);width:16px;height:16px;"/> Operating Agreement
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--mid);cursor:pointer;">
+              <input type="checkbox" id="biz-ra" onchange="calcBiz()" style="accent-color:var(--navy);width:16px;height:16px;"/> Registered Agent (1 year)
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--mid);cursor:pointer;">
+              <input type="checkbox" id="biz-bp" onchange="calcBiz()" style="accent-color:var(--navy);width:16px;height:16px;"/> Business Plan Document
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="result-box">
+        <div class="rb-label en">Estimated Total Cost</div>
+        <div class="rb-label ht">Estimasyon Koût Total</div>
+        <div class="rb-range" id="biz-result">$125 – $175</div>
+        <div id="biz-breakdown" style="font-size:.72rem;color:rgba(255,255,255,.45);margin-top:10px;line-height:1.7;"></div>
+        <div class="rb-note en">State fees are estimates. Our service fee included. Government fees paid separately.</div>
+        <div class="rb-note ht">Frè eta yo se estimasyon. Frè sèvis nou enkli. Frè gouvènman peye separeman.</div>
+      </div>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:14px;text-align:center;" class="en">Ready to get started? Book a free consultation and we'll file everything for you.</p>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:14px;text-align:center;" class="ht">Pare pou kòmanse? Rezève yon konsiltasyon gratis epi nou pral depoze tout bagay pou ou.</p>
+      <div class="lfgrid">
+        <div class="fg"><label class="fl en">Full Name</label><label class="fl ht">Non Konplè</label><input type="text" class="fi" id="bz-name" placeholder="Your name"/></div>
+        <div class="fg"><label class="fl en">Phone</label><label class="fl ht">Telefòn</label><input type="tel" class="fi" id="bz-phone" placeholder="(407) 000-0000"/></div>
+        <div class="fg" style="grid-column:span 2;"><label class="fl en">Email</label><label class="fl ht">Imèl</label><input type="email" class="fi" id="bz-email" placeholder="your@email.com"/></div>
+      </div>
+      <button class="bsubmit" onclick="submitBiz()">
+        <span class="en">Get Started — Contact Me</span><span class="ht">Kòmanse — Kontakte Mwen</span>
+      </button>
+      <div id="biz-ok" style="display:none;text-align:center;padding:24px;">
+        <div style="font-size:2rem;margin-bottom:8px;">✅</div>
+        <p class="en" style="font-weight:700;color:var(--navy);">Request sent! We'll contact you within 24 hours.</p>
+        <p class="ht" style="font-weight:700;color:var(--navy);">Demann voye! Nou pral kontakte ou nan 24 èdtan.</p>
+      </div>
+      <div class="disc en">* State filing fees are set by government and subject to change. Florida LLC Articles of Organization fee currently $125. Our service fee is separate and varies by package selected.</div>
+      <div class="disc ht">* Frè deklarasyon eta yo fikse pa gouvènman an epi yo ka chanje. Frè Atik Òganizasyon LLC Florida kounye a $125. Frè sèvis nou separe epi varye selon pakè chwazi.</div>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <div class="eyebrow" data-en>HOW IT WORKS</div>
-      <div class="eyebrow" data-ht>KIJAN LI FONKSYONE</div>
-      <h2 data-en>From Idea to Registered Business</h2>
-      <h2 data-ht>Soti Nan Lide Rive Nan Biznis Anrejistre</h2>
-      <span class="gold-rule center"></span>
-    </div>
-    <div class="lp-process">
-      <div class="lp-step">
-        <div class="lp-step-num">1</div>
-        <h4 data-en>Tell Us Your Plan</h4>
-        <h4 data-ht>Di Nou Plan Ou</h4>
-        <p data-en>We talk through your business idea and figure out exactly which filings you need.</p>
-        <p data-ht>Nou pale sou lide biznis ou epi detèmine egzakteman ki depo ou bezwen.</p>
-      </div>
-      <div class="lp-step">
-        <div class="lp-step-num">2</div>
-        <h4 data-en>We Prepare the Paperwork</h4>
-        <h4 data-ht>Nou Prepare Papye a</h4>
-        <p data-en>Articles of Organization, EIN application, and any other required documents prepared accurately.</p>
-        <p data-ht>Atik Òganizasyon, aplikasyon EIN, ak nenpòt lòt dokiman nesesè prepare avèk presizyon.</p>
-      </div>
-      <div class="lp-step">
-        <div class="lp-step-num">3</div>
-        <h4 data-en>We File and Confirm</h4>
-        <h4 data-ht>Nou Depoze ak Konfime</h4>
-        <p data-en>Filings are submitted to the state and IRS, and we confirm everything was accepted.</p>
-        <p data-ht>Depo yo soumèt bay eta a ak IRS, epi nou konfime tout bagay te aksepte.</p>
-      </div>
-      <div class="lp-step">
-        <div class="lp-step-num">4</div>
-        <h4 data-en>We Remind You Annually</h4>
-        <h4 data-ht>Nou Fè Ou Sonje Chak Ane</h4>
-        <p data-en>We keep track of your Annual Report deadline so your LLC stays in good standing.</p>
-        <p data-ht>Nou kenbe tras dat limit Rapò Anyèl ou pou LLC ou rete an bon kanpe.</p>
-      </div>
-
+<section class="pad" style="background:var(--cream2);">
+  <div class="sec-inner">
+    <div class="en block"><span class="eyebrow">Business Services</span><h2 class="sec-h">Everything you need to<br/>launch your business right</h2></div>
+    <div class="ht block"><span class="eyebrow">Sèvis Biznis</span><h2 class="sec-h">Tout sa ou bezwen pou<br/>lanse biznis ou kòrèkteman</h2></div>
+    <div class="svc-grid2">
+      <div class="svc2"><div class="svc2-photo">
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80" alt="LLC Formation"/>
+        <div class="svc2-badge en">LLC Formation</div><div class="svc2-badge ht">Fòmasyon LLC</div>
+      </div><div class="svc2-body">
+        <h3 class="svc2-name en">LLC Formation</h3><h3 class="svc2-name ht">Fòmasyon LLC</h3>
+        <p class="svc2-desc en">We file your Articles of Organization with the State of Florida, get your EIN, and prepare your Operating Agreement.</p>
+        <p class="svc2-desc ht">Nou depoze Atik Òganizasyon ou avèk Eta Florida, jwenn EIN ou, epi prepare Akò Operasyonèl ou.</p>
+        <a href="#calculator" class="svc2-link en">Get estimate →</a><a href="#calculator" class="svc2-link ht">Jwenn estimasyon →</a>
+      </div></div>
+      <div class="svc2"><div class="svc2-photo">
+        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=700&q=80" alt="EIN Application"
+             onerror="this.src='https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=700&q=80'"/>
+        <div class="svc2-badge en">EIN Application</div><div class="svc2-badge ht">Aplikasyon EIN</div>
+      </div><div class="svc2-body">
+        <h3 class="svc2-name en">EIN Application</h3><h3 class="svc2-name ht">Aplikasyon EIN</h3>
+        <p class="svc2-desc en">Every business needs an EIN from the IRS to open a bank account, hire employees, or file taxes. We handle the application for you.</p>
+        <p class="svc2-desc ht">Chak biznis bezwen yon EIN nan IRS pou ouvri yon kont labank, anplwaye, oswa deklare taks. Nou jere aplikasyon an pou ou.</p>
+        <a href="#calculator" class="svc2-link en">Get estimate →</a><a href="#calculator" class="svc2-link ht">Jwenn estimasyon →</a>
+      </div></div>
+      <div class="svc2"><div class="svc2-photo">
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=700&q=80" alt="Business Plan"
+             onerror="this.src='https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80'"/>
+        <div class="svc2-badge en">Business Plan</div><div class="svc2-badge ht">Plan Biznis</div>
+      </div><div class="svc2-body">
+        <h3 class="svc2-name en">Business Plan</h3><h3 class="svc2-name ht">Plan Biznis</h3>
+        <p class="svc2-desc en">A professional business plan document for funding applications, bank presentations, and investor pitches.</p>
+        <p class="svc2-desc ht">Yon dokiman plan biznis pwofesyonèl pou aplikasyon finansman, prezantasyon labank, ak pich envestisè.</p>
+        <a href="#calculator" class="svc2-link en">Get estimate →</a><a href="#calculator" class="svc2-link ht">Jwenn estimasyon →</a>
+      </div></div>
     </div>
   </div>
 </section>
 
-<!-- MINI FAQ -->
-<section class="section section-white">
-  <div class="container">
-    <div class="section-header">
-      <div class="eyebrow" data-en>COMMON QUESTIONS</div>
-      <div class="eyebrow" data-ht>KESYON KOMEN</div>
-      <h2 data-en>Business Filing Questions</h2>
-      <h2 data-ht>Kesyon Sou Depo Biznis</h2>
-      <span class="gold-rule center"></span>
+<section class="about-dark">
+  <div class="about-grid">
+    <div class="aph-wrap">
+      <img src="miguelson-headshot.jpeg" alt="Miguelson Etienne" class="aph"
+           onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'"/>
+      <div class="aph-frame"></div>
+      <div class="aph-cred">
+        <div class="aph-cred-t">Credentials</div>
+        <div class="aph-cred-item"><span class="aph-ck">✓</span> Licensed Agent FL, MA, NJ</div>
+        <div class="aph-cred-item"><span class="aph-ck">✓</span> IRS PTIN — Tax Specialist</div>
+        <div class="aph-cred-item"><span class="aph-ck">✓</span> IBC Certified Practitioner</div>
+        <div class="aph-cred-item"><span class="aph-ck">✓</span> JWANAIX GROUP Affiliated</div>
+      </div>
     </div>
-    <div class="lp-mini-faq">
-      <div class="lp-mini-faq-item">
-        <h4 data-en>Can you tell me which business structure is best for me?</h4>
-        <h4 data-ht>Èske ou ka di m ki estriktire biznis ki pi bon pou mwen?</h4>
-        <p data-en>We’re not attorneys or CPAs, so we don’t advise on which legal structure fits your situation best. We handle the document filing once you’ve decided, and can refer you to an attorney or CPA for that decision if needed.</p>
-        <p data-ht>Nou pa avoka oswa CPA, kidonk nou pa konseye sou ki estriktire legal ki pi bon pou sitiyasyon ou. Nou jere depo dokiman an yon fwa ou deside, epi nou ka refere ou a yon avoka oswa CPA pou desizyon sa a si nesesè.</p>
+    <div>
+      <span class="at-tag en">About Miguelson</span>
+      <span class="at-tag ht">Sou Miguelson</span>
+      <h2 class="at-h en">Your licensed professional,<br/><em>in your language.</em></h2>
+      <h2 class="at-h ht">Pwofesyonèl lisansye ou,<br/><em>nan lang ou.</em></h2>
+      <p class="at-p en">I'm Miguelson Etienne. I built ME Shield Financial Services to help bilingual families in Central Florida get the same quality of service as everyone else — explained clearly, in English and Kreyòl.</p>
+      <p class="at-p ht">Mwen se Miguelson Etienne. Mwen bati ME Shield Financial Services pou ede fanmi bileng nan Central Florida jwenn menm kalite sèvis ak tout moun — eksplike klèman, an Anglè ak Kreyòl.</p>
+      <div class="at-quote en">"Every big business started small — with the right paperwork and the right plan. I help you get that foundation right from day one."</div>
+      <div class="at-quote ht">"Chak gwo biznis te kòmanse piti — ak bon papye ak bon plan. Mwen ede ou mete fondasyon an kòrèk depi premye jou."</div>
+      <div class="at-badges">
+        <span class="atb">FL Licensed</span><span class="atb">MA Licensed</span>
+        <span class="atb">NJ Licensed</span><span class="atb">Kreyòl</span>
       </div>
-      <div class="lp-mini-faq-item">
-        <h4 data-en>How long does LLC formation take?</h4>
-        <h4 data-ht>Konbyen tan fòmasyon LLC pran?</h4>
-        <p data-en>Florida processing times vary, but filings are often processed within a matter of days once submitted correctly.</p>
-        <p data-ht>Tan tretman Florid varye, men depo yo souvan trete nan yon ti tan kèk jou yon fwa yo soumèt kòrèkteman.</p>
-      </div>
-      <div class="lp-mini-faq-item">
-        <h4 data-en>What happens if I miss my Annual Report deadline?</h4>
-        <h4 data-ht>Sa k ap pase si mwen rate dat limit Rapò Anyèl mwen?</h4>
-        <p data-en>Florida can administratively dissolve your LLC for missing it. We help make sure that never happens by tracking and filing it for you.</p>
-        <p data-ht>Florid ka dissoud LLC ou administrativman pou rate li. Nou ede asire sa pa janm rive lè nou swiv ak depoze li pou ou.</p>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="section">
-  <div class="container">
-    <div class="final-cta-band">
-      <div class="final-cta-eyebrow" data-en>BUILT FOR FLORIDA SMALL BUSINESSES</div>
-      <div class="final-cta-eyebrow" data-ht>BATI POU TI BIZNIS FLORID</div>
-      <h2 data-en>Let’s Get Your Business Registered Right</h2>
-      <h2 data-ht>Annou Byen Enskri Biznis Ou</h2>
-      <p data-en>Book a free consultation and find out exactly which filings your business needs.</p>
-      <p data-ht>Rezève yon konsiltasyon gratis epi dekouvri egzakteman ki depo biznis ou bezwen.</p>
-      <div class="final-cta-buttons">
-        <a href="book.html" class="btn btn-gold" data-en>Book Free Consultation</a>
-        <a href="book.html" class="btn btn-gold" data-ht>Rezève Konsiltasyon Gratis</a>
-        <a href="services.html" class="btn btn-outline" style="color:var(--white);border-color:rgba(255,255,255,.4);" data-en>View All Services</a>
-        <a href="services.html" class="btn btn-outline" style="color:var(--white);border-color:rgba(255,255,255,.4);" data-ht>Gade Tout Sèvis Yo</a>
+<section class="rev-section">
+  <div class="rev-inner">
+    <div class="rev-header">
+      <div>
+        <span class="eyebrow en">Client Reviews</span>
+        <span class="eyebrow ht">Kòmantè Kliyan</span>
+        <h2 class="sec-h en">What our clients say</h2>
+        <h2 class="sec-h ht">Sa kliyan nou yo di</h2>
       </div>
+      <div class="avg-box">
+        <div class="avg-num">5.0</div>
+        <div>
+          <div class="avg-stars">★★★★★</div>
+          <div class="avg-lbl en">Client reviews</div>
+          <div class="avg-lbl ht">Kòmantè kliyan</div>
+        </div>
+      </div>
+    </div>
+    <div class="rgrid">
+      <div class="rcard">
+        <div class="rc-top">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" alt="Yolande Pierre" class="rc-photo"
+               onerror="this.style.display='none'"/>
+          <div>
+            <div class="rc-name">Yolande Pierre</div>
+            <div class="rc-meta en">LLC Formation · Apopka, FL</div>
+            <div class="rc-meta ht">Fòmasyon LLC · Apopka, FL</div>
+          </div>
+        </div>
+        <div class="rc-stars">★★★★★</div>
+        <p class="rc-text en">I had been wanting to open my LLC for 2 years but didn't know where to start. Miguelson walked me through everything in one meeting.</p>
+        <p class="rc-text ht">Mwen te vle ouvri LLC mwen pou 2 an men mwen pa t konnen kote pou kòmanse. Miguelson te mache avèm nan tout bagay nan yon reyinyon.</p>
+        <span class="rc-svc en">LLC Formation</span>
+        <span class="rc-svc ht">Fòmasyon LLC</span>
+      </div>
+      <div class="rcard">
+        <div class="rc-top">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Claude Bertrand" class="rc-photo"
+               onerror="this.style.display='none'"/>
+          <div>
+            <div class="rc-name">Claude Bertrand</div>
+            <div class="rc-meta en">EIN & Operating Agreement · Orlando, FL</div>
+            <div class="rc-meta ht">EIN & Akò Operasyonèl · Orlando, FL</div>
+          </div>
+        </div>
+        <div class="rc-stars">★★★★★</div>
+        <p class="rc-text en">Got my EIN and Operating Agreement done same week. Very fast and professional. I highly recommend.</p>
+        <p class="rc-text ht">Mwen jwenn EIN ak Akò Operasyonèl mwen fèt menm semèn nan. Trè rapid ak pwofesyonèl. Mwen rekòmande fòtman.</p>
+        <span class="rc-svc en">EIN + Operating Agreement</span>
+        <span class="rc-svc ht">EIN + Akò Operasyonèl</span>
+      </div>
+      <div class="rcard">
+        <div class="rc-top">
+          <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=120&q=80" alt="Fabiola Metellus" class="rc-photo"
+               onerror="this.style.display='none'"/>
+          <div>
+            <div class="rc-name">Fabiola Metellus</div>
+            <div class="rc-meta en">Business Plan · Kissimmee, FL</div>
+            <div class="rc-meta ht">Plan Biznis · Kissimmee, FL</div>
+          </div>
+        </div>
+        <div class="rc-stars">★★★★★</div>
+        <p class="rc-text en">The business plan he made for me helped me get approved for a small business loan. Worth every penny.</p>
+        <p class="rc-text ht">Plan biznis li fè pou mwen ede mwen jwenn apwobasyon pou yon prè ti biznis. Sa t ap vo tout kòb mwen peye.</p>
+        <span class="rc-svc en">Business Plan</span>
+        <span class="rc-svc ht">Plan Biznis</span>
+      </div></div>
+    <div class="wr-wrap">
+      <h3 class="wr-h en">Share your experience</h3>
+      <h3 class="wr-h ht">Pataje eksperyans ou</h3>
+      <p class="wr-p en">Did we help you? Leave a review — it helps other families find the right service.</p>
+      <p class="wr-p ht">Eske nou te ede ou? Kite yon kòmantè — li ede lòt fanmi jwenn bon sèvis.</p>
+      <div class="wr-grid">
+        <div class="fg">
+          <label class="fl en">Your Name</label>
+          <label class="fl ht">Non Ou</label>
+          <input type="text" class="fi" id="rv-name" placeholder="Full name"/>
+        </div>
+        <div class="fg">
+          <label class="fl en">Your City</label>
+          <label class="fl ht">Vil Ou</label>
+          <input type="text" class="fi" id="rv-city" placeholder="e.g. Orlando, FL"/>
+        </div>
+        <div class="fg">
+          <label class="fl en">Service Used</label>
+          <label class="fl ht">Sèvis Itilize</label>
+          <select class="fs" id="rv-service"><option value="LLC Formation">LLC Formation</option><option value="EIN Application">EIN Application</option><option value="Operating Agreement">Operating Agreement</option><option value="Business Plan">Business Plan</option><option value="DBA Registration">DBA Registration</option></select>
+        </div>
+        <div class="fg">
+          <label class="fl en">Your Rating</label>
+          <label class="fl ht">Evalyasyon Ou</label>
+          <div class="star-row">
+            <input type="radio" name="stars" id="s5" value="5"/><label for="s5">★</label>
+            <input type="radio" name="stars" id="s4" value="4"/><label for="s4">★</label>
+            <input type="radio" name="stars" id="s3" value="3"/><label for="s3">★</label>
+            <input type="radio" name="stars" id="s2" value="2"/><label for="s2">★</label>
+            <input type="radio" name="stars" id="s1" value="1" checked/><label for="s1">★</label>
+          </div>
+        </div>
+        <div class="fg" style="grid-column:span 2;">
+          <label class="fl en">Your Review</label>
+          <label class="fl ht">Kòmantè Ou</label>
+          <textarea class="fta" id="rv-text" placeholder="Share your experience..."></textarea>
+        </div>
+      </div>
+      <button class="brev" onclick="submitReview('business@meshieldfinancial.com')">
+        <span class="en">Submit My Review</span>
+        <span class="ht">Soumèt Kòmantè Mwen</span>
+      </button>
+      <div class="rev-ok" id="rev-ok">
+        <div style="font-size:2rem;margin-bottom:10px;">🙏</div>
+        <p class="en" style="font-size:.9rem;color:var(--navy);font-weight:700;">Thank you! Your review was sent to Miguelson.</p>
+        <p class="ht" style="font-size:.9rem;color:var(--navy);font-weight:700;">Mèsi! Kòmantè ou voye bay Miguelson.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="cta-section">
+  <div class="sec-inner">
+    <div class="cta-card">
+      <div class="cta-txt">
+        <h2 class="cta-h en">Ready to launch your business?</h2>
+        <h2 class="cta-h ht">Pare pou lanse biznis ou?</h2>
+        <p class="cta-p en">Book a free business consultation. We'll review your business idea, recommend the right structure, and handle all the paperwork — in English or Kreyòl.</p>
+        <p class="cta-p ht">Rezève yon konsiltasyon biznis gratis. Nou pral revize ide biznis ou, rekòmande bon estrikti a, epi jere tout papye yo — an Anglè oswa Kreyòl.</p>
+        <div class="cta-btns">
+          <a href="book.html" class="btn-gold en">Book Free Consultation</a>
+          <a href="book.html" class="btn-gold ht">Rezève Konsiltasyon Gratis</a>
+          <a href="tel:4072672652" class="btn-gw">(407) 267-2652</a>
+        </div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80" alt="Consultation" class="cta-img"
+           onerror="this.src='https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=700&q=80'"/>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-          <img src="logo.png" alt="ME Shield Financial Services logo" style="height:48px;width:auto;object-fit:contain;"/>
-          <div>
-            <div style="color:var(--white);font-family:var(--font-display);font-weight:700;">ME Shield Financial Services</div>
-            <div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div>
-          </div>
-        </div>
-        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) · Tax &amp; Paralegal (Nationwide) — bilingual service.</p>
-        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) · Taks &amp; Paralegal (Nasyonal) — sèvis bileng.</p>
-        <div style="margin-top:20px;font-size:.87rem;">
-          <div><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652" style="color:rgba(255,255,255,.6);">(407) 267-2652</a></div>
-          <div style="margin-top:6px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.3 5.84a.75.75 0 0 0 .94 0L19.74 6H4.2zM4 7.86V18h16V7.86l-7.06 5.65a2.25 2.25 0 0 1-2.82 0L4 7.86z"/></svg><a href="mailto:info@meshieldfinancial.com" style="color:rgba(255,255,255,.6);">info@meshieldfinancial.com</a></div>
-        </div>
-        
-        <div style="margin-top:16px;display:flex;gap:10px;">
-          <a href="https://www.facebook.com/profile.php?id=61590568017562" target="_blank" rel="noopener" aria-label="Facebook" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M22.675 0h-21.35C.595 0 0 .595 0 1.326v21.348C0 23.404.595 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.405 24 24 23.404 24 22.674V1.326C24 .595 23.405 0 22.675 0z"/></svg></a>
-          <a href="https://www.instagram.com/meshieldfinancial/" target="_blank" rel="noopener" aria-label="Instagram" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-          <a href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener" aria-label="TikTok" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
-          <a href="https://wa.me/114072672652" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
-        </div>
-      </div>
-      <div>
-        <h4 data-en>Services</h4><h4 data-ht>Sèvis</h4>
-        <ul>
-          <li><a href="services.html#insurance" data-en>Insurance</a><a href="services.html#insurance" data-ht>Asirans</a></li>
-          <li><a href="services.html#tax" data-en>Tax Prep</a><a href="services.html#tax" data-ht>Taks</a></li>
-          <li><a href="services.html#paralegal" data-en>Paralegal</a><a href="services.html#paralegal" data-ht>Paralegal</a></li>
-          <li><a href="services.html#business" data-en>Business Filing</a><a href="services.html#business" data-ht>Depo Biznis</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 data-en>Resources</h4><h4 data-ht>Resous</h4>
-        <ul>
-          <li><a href="blog.html" data-en>Blog</a><a href="blog.html" data-ht>Blòg</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="book.html" data-en>Book Appointment</a><a href="book.html" data-ht>Rezève Randevou</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 data-en>Company</h4><h4 data-ht>Konpayi</h4>
-        <ul>
-          <li><a href="about.html" data-en>About Us</a><a href="about.html" data-ht>Sou Nou</a></li>
-          <li><a href="contact.html" data-en>Contact</a><a href="contact.html" data-ht>Kontakte</a></li>
-        </ul>
-      </div>
+  <div class="fi-wrap">
+    <div class="fl-brand">
+      <img src="logo.png" alt="ME Shield" class="fl-logo" onerror="this.style.display='none'"/>
+      <span class="fl-name">ME Shield Financial Services</span>
     </div>
-    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC, a Florida-registered limited liability company.</div>
-    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a Florida-registered company. Insurance products are subject to policy terms. Paralegal and business filing services are document preparation only and do not constitute legal advice.</div>
-    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA (“ap fonksyone kòm”) pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
-    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon konpayi anrejistre ann Florid. Pwodui asirans yo sou kondisyon polis. Sèvis paralegal ak depo biznis yo se preparasyon dokiman sèlman epi yo pa reprezante konsèy legal.</div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
-      <span data-en>All rights reserved.</span><span data-ht>Tout dwa rezève.</span>
+    <div class="fl-links">
+      <a href="index.html">Home</a>
+      <a href="insurance.html">Insurance</a>
+      <a href="tax-preparation.html">Tax</a>
+      <a href="business-filing.html">Business Filing</a>
+      <a href="immigration-forms.html">Immigration</a>
+      <a href="infinite-banking.html">IBC</a>
+      <a href="book.html">Book Appointment</a>
+    </div>
+    <div class="fl-disc">
+      Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Licensed in FL, MA &amp; NJ. ME Shield Financial Services is a DBA of ME Shield Group LLC, Apopka, FL 32712. All content for educational purposes only.
     </div>
   </div>
 </footer>
+<script>
+function setLang(l){
+  document.body.className='lang-'+l;
+  document.getElementById('btn-en').classList.toggle('active',l==='en');
+  document.getElementById('btn-ht').classList.toggle('active',l==='ht');
+  document.documentElement.lang=l==='ht'?'ht':'en';
+}
+function goStep(n,total){
+  for(let i=1;i<=total;i++){
+    const p=document.getElementById('p'+i);if(p)p.classList.remove('active');
+    const sn=document.getElementById('sn'+i);
+    if(sn){sn.className='cs-num';
+      if(i<n){sn.classList.add('done');sn.textContent='✓';}
+      else if(i===n){sn.classList.add('active');sn.textContent=i;}
+      else sn.textContent=i;
+    }
+    const ln=document.getElementById('cl'+i);if(ln)ln.classList.toggle('done',i<n);
+  }
+  const pn=document.getElementById('p'+n);if(pn)pn.classList.add('active');
+}
+function submitReview(email){
+  const name=document.getElementById('rv-name').value.trim();
+  const text=document.getElementById('rv-text').value.trim();
+  if(!name||!text){alert('Please enter your name and review.');return;}
+  const city=document.getElementById('rv-city')?.value||'';
+  const svc=document.getElementById('rv-service')?.value||'';
+  const stars=[...document.querySelectorAll('input[name="stars"]')].find(r=>r.checked)?.value||'5';
+  const subj=encodeURIComponent('New Client Review — '+name+' ('+stars+' stars)');
+  const body=encodeURIComponent('Name: '+name+'\nCity: '+city+'\nService: '+svc+'\nRating: '+stars+'/5\n\nReview:\n'+text);
+  window.location.href='mailto:'+email+'?subject='+subj+'&body='+body;
+  document.getElementById('rev-ok').style.display='block';
+}
 
-<script src="shared.js"></script>
+function calcBiz(){
+  const type=document.getElementById('biz-type').value;
+  const state=document.getElementById('biz-state').value;
+  const ein=document.getElementById('biz-ein').checked;
+  const oa=document.getElementById('biz-oa').checked;
+  const ra=document.getElementById('biz-ra').checked;
+  const bp=document.getElementById('biz-bp').checked;
+  let stFee=0,svcFee=0,lines=[];
+  if(type==='llc'){stFee=state==='fl'?125:150;svcFee=149;lines.push('FL Articles of Organization: $'+stFee);}
+  else if(type==='solo'){stFee=0;svcFee=99;lines.push('DBA Registration (county): $50–$80');}
+  else if(type==='corp'){stFee=state==='fl'?70:100;svcFee=249;lines.push('Articles of Incorporation: $'+stFee);}
+  else{stFee=state==='fl'?70:100;svcFee=299;lines.push('Non-Profit Articles: $'+stFee);}
+  lines.push('ME Shield Service Fee: $'+svcFee);
+  let extras=0;
+  if(ein){extras+=0;lines.push('EIN Application: FREE (IRS)');}
+  if(oa){extras+=149;lines.push('Operating Agreement: $149');}
+  if(ra){extras+=99;lines.push('Registered Agent (1yr): $99');}
+  if(bp){extras+=349;lines.push('Business Plan: $349');}
+  const total=stFee+svcFee+extras;
+  document.getElementById('biz-result').textContent='$'+Math.round(total*0.9)+' – $'+Math.round(total*1.1);
+  document.getElementById('biz-breakdown').innerHTML=lines.join(' &nbsp;·&nbsp; ');
+}
+function submitBiz(){
+  const name=document.getElementById('bz-name').value.trim();
+  const email=document.getElementById('bz-email').value.trim();
+  const phone=document.getElementById('bz-phone').value.trim();
+  const result=document.getElementById('biz-result').textContent;
+  if(!name||!email){alert('Please enter your name and email.');return;}
+  const subj=encodeURIComponent('Business Filing Request — '+name);
+  const body=encodeURIComponent('Business Filing Request\n\nName: '+name+'\nEmail: '+email+'\nPhone: '+phone+'\nEstimate: '+result);
+  window.location.href='mailto:business@meshieldfinancial.com?subject='+subj+'&body='+body;
+  document.getElementById('biz-ok').style.display='block';
+}
+window.addEventListener('load',calcBiz);</script>
 </body>
 </html>
