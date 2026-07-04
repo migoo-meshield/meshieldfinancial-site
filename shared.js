@@ -15,10 +15,11 @@ function setLang(lang, save = true) {
   if (save) localStorage.setItem('me-shield-lang', lang);
 }
 
-/* ── Hamburger ── */
+/* ── Hamburger (legacy — kept for backward compatibility) ── */
 function initHamburger() {
-  const btn = document.getElementById('hamburger');
+  const btn   = document.getElementById('hamburger');
   const links = document.getElementById('nav-links');
+  // New side-panel pages don't use #nav-links — skip
   if (!btn || !links) return;
   btn.addEventListener('click', () => {
     links.classList.toggle('open');
@@ -26,9 +27,7 @@ function initHamburger() {
   });
 }
 
-/* ── Active nav link ──
-   Handles the root "/" path (which has no filename) and maps
-   blog article pages back to the "Blog" nav item. */
+/* ── Active nav link (works for both old nav and new panel) ── */
 function initActiveNav() {
   let page = location.pathname.split('/').pop();
   if (!page) page = 'index.html';
@@ -45,19 +44,25 @@ function initActiveNav() {
     'choosing-a-trustworthy-financial-advisor.html',
     'building-an-emergency-fund.html',
     'naturalization-process-guide.html',
-    'how-much-life-insurance-do-i-need.html'
+    'how-much-life-insurance-do-i-need.html',
+    'trump-account.html',
   ];
   if (articlePages.includes(page)) page = 'blog.html';
 
+  // Old nav
   document.querySelectorAll('.nav-links a').forEach(a => {
     if (a.getAttribute('href') === page) a.classList.add('active');
   });
+  // New side panel nav
+  const panel = document.getElementById('nav-panel');
+  if (panel) {
+    panel.querySelectorAll('.nav-panel-link').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === page);
+    });
+  }
 }
 
-/* ── Scroll reveal ──
-   Animates any element with class="reveal" into view once it
-   enters the viewport. Respects reduced-motion automatically
-   via the CSS (.reveal has no transform there). */
+/* ── Scroll reveal ── */
 function initReveal() {
   const targets = document.querySelectorAll('.reveal');
   if (!targets.length) return;
@@ -72,9 +77,7 @@ function initReveal() {
   targets.forEach(t => obs.observe(t));
 }
 
-/* ── Back to top button ──
-   Injects a single floating button if the page doesn't already
-   have one, and toggles its visibility on scroll. */
+/* ── Back to top button ── */
 function initBackToTop() {
   if (document.querySelector('.back-to-top')) return;
   const btn = document.createElement('button');
