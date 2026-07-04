@@ -188,6 +188,33 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
 .fl-links a{font-size:.72rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;}
 .fl-links a:hover{color:var(--gold);}
 .fl-disc{width:100%;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06);font-size:.64rem;color:rgba(255,255,255,.2);line-height:1.65;}
+
+/* ── MOBILE FIXES ── */
+@media(max-width:540px){
+  /* Credential block: move below photo instead of floating over it */
+  .aph-cred{
+    position:static !important;
+    margin-top:16px;
+    min-width:auto !important;
+    width:100%;
+    box-shadow:0 4px 16px rgba(0,0,0,.15);
+  }
+  /* Hide decorative gold frame on small screens */
+  .aph-frame{display:none;}
+  /* About grid stacks cleanly */
+  .about-grid{gap:16px;}
+}
+@media(max-width:760px){
+  /* Compare table scrolls horizontally on mobile */
+  .compare-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  /* Feature grid: 1 column on small phones */
+  .ibc-feature-grid{grid-template-columns:1fr !important;}
+  /* Hero stats wrap better */
+  .hero-stats{gap:20px;}
+  /* Calc grids stack */
+  .cgrid{grid-template-columns:1fr !important;}
+}
+
 </style>
 </head>
 <body class="lang-en">
@@ -224,7 +251,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
 </nav>
 <section class="hero">
   <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1400&q=80" alt="Tax Preparation"/>
+    <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=1400&q=80" alt="Tax Preparation"/>
   </div>
   <div class="hero-inner">
     <div class="hero-badge">
@@ -402,7 +429,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
     <div class="ht block"><span class="eyebrow">Sèvis Taks Nou</span><h2 class="sec-h">Tout taks — nan yon sèl kote</h2></div>
     <div class="svc-grid2">
       <div class="svc2"><div class="svc2-photo">
-        <img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=700&q=80" alt="Individual tax return"/>
+        <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=700&q=80" alt="Individual tax return"/>
         <div class="svc2-badge en">Individual</div><div class="svc2-badge ht">Endividyèl</div>
       </div><div class="svc2-body">
         <h3 class="svc2-name en">Individual Tax Return</h3><h3 class="svc2-name ht">Deklarasyon Taks Endividyèl</h3>
@@ -411,7 +438,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
         <a href="#calculator" class="svc2-link en">Get estimate →</a><a href="#calculator" class="svc2-link ht">Jwenn estimasyon →</a>
       </div></div>
       <div class="svc2"><div class="svc2-photo">
-        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=700&q=80" alt="Business tax"
+        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=700&q=80" alt="Business tax"
              onerror="this.src='https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80'"/>
         <div class="svc2-badge en">Business</div><div class="svc2-badge ht">Biznis</div>
       </div><div class="svc2-body">
@@ -421,7 +448,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
         <a href="#calculator" class="svc2-link en">Get estimate →</a><a href="#calculator" class="svc2-link ht">Jwenn estimasyon →</a>
       </div></div>
       <div class="svc2"><div class="svc2-photo">
-        <img src="https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&w=700&q=80" alt="ITIN application"
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=700&q=80" alt="ITIN application"
              onerror="this.src='https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=700&q=80'"/>
         <div class="svc2-badge en">ITIN</div><div class="svc2-badge ht">ITIN</div>
       </div><div class="svc2-body">
@@ -596,8 +623,8 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
           <a href="tel:4072672652" class="btn-gw">(407) 267-2652</a>
         </div>
       </div>
-      <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=700&q=80" alt="Consultation" class="cta-img"
-           onerror="this.src='https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=700&q=80'"/>
+      <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=700&q=80" alt="Consultation" class="cta-img"
+           onerror="this.src='https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=700&q=80'"/>
     </div>
   </div>
 </section>

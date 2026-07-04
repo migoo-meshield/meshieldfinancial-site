@@ -188,6 +188,33 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
 .fl-links a{font-size:.72rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;}
 .fl-links a:hover{color:var(--gold);}
 .fl-disc{width:100%;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06);font-size:.64rem;color:rgba(255,255,255,.2);line-height:1.65;}
+
+/* ── MOBILE FIXES ── */
+@media(max-width:540px){
+  /* Credential block: move below photo instead of floating over it */
+  .aph-cred{
+    position:static !important;
+    margin-top:16px;
+    min-width:auto !important;
+    width:100%;
+    box-shadow:0 4px 16px rgba(0,0,0,.15);
+  }
+  /* Hide decorative gold frame on small screens */
+  .aph-frame{display:none;}
+  /* About grid stacks cleanly */
+  .about-grid{gap:16px;}
+}
+@media(max-width:760px){
+  /* Compare table scrolls horizontally on mobile */
+  .compare-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  /* Feature grid: 1 column on small phones */
+  .ibc-feature-grid{grid-template-columns:1fr !important;}
+  /* Hero stats wrap better */
+  .hero-stats{gap:20px;}
+  /* Calc grids stack */
+  .cgrid{grid-template-columns:1fr !important;}
+}
+
 </style>
 </head>
 <body class="lang-en">
@@ -348,7 +375,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
         <a href="#calculator" class="svc2-link en">Get estimate →</a><a href="#calculator" class="svc2-link ht">Jwenn estimasyon →</a>
       </div></div>
       <div class="svc2"><div class="svc2-photo">
-        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191011?auto=format&fit=crop&w=700&q=80" alt="Family Petition"
+        <img src="https://images.unsplash.com/photo-1602702777088-25c4dcdb751e?auto=format&fit=crop&w=700&q=80" alt="Family Petition"
              onerror="this.src='https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=700&q=80'"/>
         <div class="svc2-badge">I-130 · Family Petition</div>
       </div><div class="svc2-body">
@@ -358,7 +385,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
         <a href="#calculator" class="svc2-link en">Get estimate →</a><a href="#calculator" class="svc2-link ht">Jwenn estimasyon →</a>
       </div></div>
       <div class="svc2"><div class="svc2-photo">
-        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=700&q=80" alt="Citizenship N-400"
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=700&q=80" alt="Citizenship N-400"
              onerror="this.src='https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=700&q=80'"/>
         <div class="svc2-badge">N-400 · Citizenship</div>
       </div><div class="svc2-body">
@@ -533,8 +560,8 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
           <a href="tel:4072672652" class="btn-gw">(407) 267-2652</a>
         </div>
       </div>
-      <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=700&q=80" alt="Consultation" class="cta-img"
-           onerror="this.src='https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=700&q=80'"/>
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=700&q=80" alt="Consultation" class="cta-img"
+           onerror="this.src='https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=700&q=80'"/>
     </div>
   </div>
 </section>

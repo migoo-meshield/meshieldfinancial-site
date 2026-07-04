@@ -209,6 +209,40 @@ section.pad.ibc-alt{background:#0a1628;}
 .compare-table tr:first-child td{color:#fff;font-weight:600;}
 .ct-yes{color:var(--green);font-weight:700;}
 .ct-no{color:rgba(255,255,255,.3);}
+
+
+/* IBC nav — text must be white on dark background */
+nav .nav-name { color: #ffffff !important; }
+nav .nav-sub  { color: rgba(255,255,255,.45) !important; }
+nav .nav-home { color: rgba(255,255,255,.6) !important; }
+nav .nav-home:hover { color: #C9A84C !important; background: rgba(255,255,255,.08) !important; }
+
+/* ── MOBILE FIXES ── */
+@media(max-width:540px){
+  /* Credential block: move below photo instead of floating over it */
+  .aph-cred{
+    position:static !important;
+    margin-top:16px;
+    min-width:auto !important;
+    width:100%;
+    box-shadow:0 4px 16px rgba(0,0,0,.15);
+  }
+  /* Hide decorative gold frame on small screens */
+  .aph-frame{display:none;}
+  /* About grid stacks cleanly */
+  .about-grid{gap:16px;}
+}
+@media(max-width:760px){
+  /* Compare table scrolls horizontally on mobile */
+  .compare-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  /* Feature grid: 1 column on small phones */
+  .ibc-feature-grid{grid-template-columns:1fr !important;}
+  /* Hero stats wrap better */
+  .hero-stats{gap:20px;}
+  /* Calc grids stack */
+  .cgrid{grid-template-columns:1fr !important;}
+}
+
 </style>
 </head>
 <body class="lang-en">
@@ -245,7 +279,7 @@ section.pad.ibc-alt{background:#0a1628;}
 </nav>
 <section class="hero">
   <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=1400&q=80" alt="Infinite Banking Concept — Special Service"/>
+    <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=1400&q=80" alt="Infinite Banking Concept — Special Service"/>
   </div>
   <div class="hero-inner">
     <div class="hero-badge">
@@ -396,7 +430,7 @@ section.pad.ibc-alt{background:#0a1628;}
       <h2 class="sec-h white">How does IBC compare<br/>to your other options?</h2></div>
     <div class="ht block"><span class="eyebrow">IBC vs. Opsyon Tradisyonèl</span>
       <h2 class="sec-h white">Kijan IBC konpare<br/>ak lòt opsyon ou yo?</h2></div>
-    <table class="compare-table">
+    <div class="compare-table-wrap"><table class="compare-table">
       <thead><tr>
         <th>Feature</th>
         <th>IBC Whole Life</th>
@@ -411,7 +445,7 @@ section.pad.ibc-alt{background:#0a1628;}
         <tr><td>Earn dividends</td><td class="ct-yes">Yes (participating)</td><td class="ct-no">No</td><td class="ct-no">Low interest</td></tr>
         <tr><td>No income requirement</td><td class="ct-yes">Yes</td><td class="ct-no">Requires earned income</td><td class="ct-yes">Yes</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 </section>
 
@@ -577,8 +611,8 @@ section.pad.ibc-alt{background:#0a1628;}
           <a href="tel:4072672652" class="btn-gw">(407) 267-2652</a>
         </div>
       </div>
-      <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=700&q=80" alt="Consultation" class="cta-img"
-           onerror="this.src='https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=700&q=80'"/>
+      <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80" alt="Consultation" class="cta-img"
+           onerror="this.src='https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=700&q=80'"/>
     </div>
   </div>
 </section>
