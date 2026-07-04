@@ -431,6 +431,60 @@ body::after{
 
   </div>
 
+  <!-- ANALYTICS DASHBOARD -->
+  <div style="margin-bottom:28px;">
+    <div style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:rgba(201,168,76,.7);margin-bottom:12px;display:flex;align-items:center;gap:10px;">
+      Live Site Analytics
+      <span style="flex:1;height:1px;background:rgba(201,168,76,.14);display:block;"></span>
+      <span id="analytics-updated" style="font-size:.58rem;color:rgba(255,255,255,.25);font-weight:400;text-transform:none;letter-spacing:0;">Loading...</span>
+      <button onclick="loadAnalytics()" style="background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.25);color:#C9A84C;font-size:.62rem;padding:4px 10px;border-radius:50px;cursor:pointer;font-family:inherit;">↻ Refresh</button>
+    </div>
+    <div id="analytics-error" style="display:none;background:rgba(255,80,80,.1);border:1px solid rgba(255,80,80,.2);border-radius:12px;padding:14px 18px;font-size:.8rem;color:rgba(255,120,120,.8);margin-bottom:12px;"></div>
+
+    <!-- Stat cards -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;">
+      <div class="glass" style="padding:16px;border-radius:16px;text-align:center;">
+        <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:8px;">Visitors Today</div>
+        <div id="stat-visitors" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#C9A84C;line-height:1;">--</div>
+        <div id="stat-visitors-change" style="font-size:.65rem;color:rgba(255,255,255,.3);margin-top:4px;"></div>
+      </div>
+      <div class="glass" style="padding:16px;border-radius:16px;text-align:center;">
+        <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:8px;">Page Views</div>
+        <div id="stat-pageviews" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#fff;line-height:1;">--</div>
+        <div id="stat-pageviews-sub" style="font-size:.65rem;color:rgba(255,255,255,.3);margin-top:4px;"></div>
+      </div>
+      <div class="glass" style="padding:16px;border-radius:16px;text-align:center;">
+        <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:8px;">Requests</div>
+        <div id="stat-requests" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#4ade80;line-height:1;">--</div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.3);margin-top:4px;">total today</div>
+      </div>
+      <div class="glass" style="padding:16px;border-radius:16px;text-align:center;">
+        <div style="font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:8px;">Threats Blocked</div>
+        <div id="stat-threats" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#f87171;line-height:1;">--</div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.3);margin-top:4px;">by Cloudflare</div>
+      </div>
+    </div>
+
+    <!-- Charts row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+
+      <!-- Hourly traffic chart -->
+      <div class="glass" style="padding:18px;border-radius:16px;">
+        <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:14px;">Hourly Traffic — Last 24 Hours</div>
+        <canvas id="chart-hourly" height="80" style="width:100%;"></canvas>
+      </div>
+
+      <!-- Top pages -->
+      <div class="glass" style="padding:18px;border-radius:16px;">
+        <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:14px;">Top Pages Today</div>
+        <div id="top-pages-list" style="display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:.75rem;color:rgba(255,255,255,.25);font-style:italic;">Loading...</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <!-- TAB NAVIGATION -->
   <nav class="tab-nav" role="tablist" aria-label="Portal sections">
     <button class="tab-btn active" id="tb-daily"      onclick="switchTab('daily')">Daily Tools</button>
@@ -692,6 +746,108 @@ ta.addEventListener('input',()=>{
     setTimeout(()=>{st.textContent='Notes auto-save to this device';},2000);
   },800);
 });
+
+
+// ── LIVE ANALYTICS ──────────────────────────────────────────────────────────
+function animNum(el, target){
+  if(!el) return;
+  let c=0, step=Math.max(1,Math.ceil(target/30));
+  const t=setInterval(()=>{
+    c=Math.min(c+step, target);
+    el.textContent=c.toLocaleString();
+    if(c>=target) clearInterval(t);
+  }, 40);
+}
+
+function drawHourlyChart(data){
+  const canvas=document.getElementById('chart-hourly');
+  if(!canvas||!data||!data.length) return;
+  const ctx=canvas.getContext('2d');
+  canvas.width=canvas.offsetWidth*2;
+  canvas.height=160;
+  const W=canvas.width, H=canvas.height;
+  const max=Math.max(...data.map(d=>d.requests),1);
+  const bw=Math.floor((W-40)/data.length)-2;
+  ctx.clearRect(0,0,W,H);
+  data.forEach((d,i)=>{
+    const bh=Math.max(4, ((d.requests/max)*(H-30)));
+    const x=20+i*(bw+2);
+    const y=H-bh-20;
+    // Bar gradient
+    const grad=ctx.createLinearGradient(0,y,0,H-20);
+    grad.addColorStop(0,'rgba(201,168,76,.85)');
+    grad.addColorStop(1,'rgba(201,168,76,.2)');
+    ctx.fillStyle=grad;
+    ctx.beginPath();
+    ctx.roundRect(x,y,bw,bh,3);
+    ctx.fill();
+  });
+  // Hour labels every 6h
+  ctx.fillStyle='rgba(255,255,255,.25)';
+  ctx.font='18px Inter, system-ui';
+  data.forEach((d,i)=>{
+    if(i%6===0){
+      const h=new Date(d.time).getHours();
+      const label=h===0?'12am':h<12?h+'am':h===12?'12pm':(h-12)+'pm';
+      const x=20+i*(bw+2);
+      ctx.fillText(label, x, H-2);
+    }
+  });
+}
+
+function renderTopPages(pages){
+  const el=document.getElementById('top-pages-list');
+  if(!el||!pages||!pages.length){
+    if(el) el.innerHTML='<div style="font-size:.75rem;color:rgba(255,255,255,.25);">No data yet for today</div>';
+    return;
+  }
+  const max=pages[0].requests||1;
+  const names={'/':"Home",'/index.html':"Home",'/insurance.html':"Insurance",'/tax-preparation.html':"Tax Prep",'/business-filing.html':"Business Filing",'/immigration-forms.html':"Immigration",'/infinite-banking.html':"IBC",'/blog.html':"Blog",'/about.html':"About",'/contact.html':"Contact",'/book.html':"Book",'/faq.html':"FAQ",'/trump-account.html':"Trump Account"};
+  el.innerHTML=pages.map((p,i)=>{
+    const pct=Math.round((p.requests/max)*100);
+    const name=names[p.path]||(p.path.replace(/\//g,'').replace(/.html/,'')||p.path);
+    const colors=['#C9A84C','#e0be6a','rgba(201,168,76,.7)','rgba(201,168,76,.5)','rgba(201,168,76,.35)'];
+    return `<div>
+      <div style="display:flex;justify-content:space-between;font-size:.72rem;color:rgba(255,255,255,.65);margin-bottom:4px;">
+        <span>${name}</span>
+        <span style="color:rgba(255,255,255,.35);">${p.requests.toLocaleString()}</span>
+      </div>
+      <div style="height:5px;background:rgba(255,255,255,.08);border-radius:3px;">
+        <div style="height:100%;width:${pct}%;background:${colors[i]||colors[4]};border-radius:3px;transition:width .6s ease;"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.loadAnalytics = async function(){
+  const upd=document.getElementById('analytics-updated');
+  const err=document.getElementById('analytics-error');
+  if(upd) upd.textContent='Loading...';
+  if(err) err.style.display='none';
+  try{
+    const res=await fetch('/api/analytics');
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const d=await res.json();
+    if(d.error) throw new Error(d.error);
+    animNum(document.getElementById('stat-visitors'), d.visitors||0);
+    animNum(document.getElementById('stat-pageviews'), d.pageviews||0);
+    animNum(document.getElementById('stat-requests'), d.requests||0);
+    animNum(document.getElementById('stat-threats'), d.threats||0);
+    drawHourlyChart(d.hourly||[]);
+    renderTopPages(d.topPages||[]);
+    if(upd){
+      const t=new Date(d.updatedAt);
+      upd.textContent='Updated '+t.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    }
+  } catch(e){
+    if(upd) upd.textContent='Error loading';
+    if(err){ err.style.display='block'; err.textContent='Analytics error: '+e.message+'. Make sure the CF_ANALYTICS_TOKEN secret is set in your Cloudflare Pages settings.'; }
+  }
+};
+
+// Load on page open + auto-refresh every 5 min
+document.addEventListener('DOMContentLoaded', loadAnalytics);
+setInterval(loadAnalytics, 5*60*1000);
 
 // ── TABS ─────────────────────────────────────────────────────────────────────
 function switchTab(id){
