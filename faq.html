@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FAQ — ME Shield Financial Services</title>
-  <meta name="description" content="Frequently asked questions about insurance, tax preparation, and paralegal services at ME Shield Financial Services, Florida."/>
+  <meta name="description" content="Frequently asked questions about insurance, tax preparation, and immigration forms filing at ME Shield Financial Services, Florida."/>
   <link rel="icon" type="image/x-icon" href="favicon.ico"/>
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
@@ -185,7 +185,37 @@
 
 
 
-  </style>
+  /* ── SIDE PANEL NAV ──────────────────────────────────────── */
+.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:998;opacity:0;pointer-events:none;transition:opacity .3s ease;backdrop-filter:blur(3px);}
+.nav-overlay.open{opacity:1;pointer-events:all;}
+.nav-panel{position:fixed;top:0;right:0;bottom:0;width:min(340px,92vw);background:var(--navy);z-index:999;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 48px rgba(0,0,0,.35);}
+.nav-panel.open{transform:translateX(0);}
+.nav-panel-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid rgba(255,255,255,.08);}
+.nav-panel-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-close{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+.nav-close:hover{background:rgba(201,168,76,.2);color:#C9A84C;border-color:rgba(201,168,76,.4);}
+.nav-panel-body{flex:1;overflow-y:auto;padding:8px 0;}
+.nav-panel-section{padding:8px 0;}
+.nav-panel-link{display:flex;align-items:center;gap:12px;padding:13px 28px;font-size:.9rem;font-weight:500;color:rgba(255,255,255,.72);text-decoration:none;transition:all .18s;border-left:3px solid transparent;}
+.nav-panel-link:hover{background:rgba(255,255,255,.06);color:#fff;border-left-color:rgba(201,168,76,.5);}
+.nav-panel-link.active{color:#C9A84C;border-left-color:#C9A84C;background:rgba(201,168,76,.08);}
+.nav-svc-link{font-size:.85rem;padding:11px 28px 11px 36px;}
+.nav-svc-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);flex-shrink:0;}
+.nav-svc-dot-gold{background:#C9A84C;}
+.nav-ibc{color:rgba(201,168,76,.85) !important;}
+.nav-ibc:hover{color:#C9A84C !important;}
+.nav-ibc-badge{margin-left:auto;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:#C9A84C;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:50px;}
+.nav-panel-divider{display:flex;align-items:center;gap:12px;padding:10px 28px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:rgba(201,168,76,.7);}
+.nav-panel-divider::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.18);}
+.nav-panel-foot{padding:20px 24px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:10px;}
+.nav-panel-cta{display:block;background:#C9A84C;color:var(--navy);font-weight:700;font-size:.88rem;text-align:center;padding:13px 20px;border-radius:50px;text-decoration:none;transition:background .2s;box-shadow:0 4px 16px rgba(201,168,76,.3);}
+.nav-panel-cta:hover{background:#e0be6a;}
+.nav-panel-phone{display:block;text-align:center;font-size:.82rem;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;}
+.nav-panel-phone:hover{color:#C9A84C;}
+/* Hide old nav-links list */
+.nav-links{display:none !important;}
+
+</style>
 </head>
 <body class="lang-en">
 
@@ -198,38 +228,88 @@
         <div class="nav-logo-sub">Services</div>
       </div>
     </a>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
-      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
-      <li class="nav-dropdown">
-        <a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a>
-        <ul class="nav-dropdown-menu">
-          <li><a href="insurance.html"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li>
-          <li><a href="tax-preparation.html"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li>
-          <li><a href="paralegal-immigration.html"><span data-en>Paralegal &amp; Immigration</span><span data-ht>Paralegal &amp; Imigrasyon</span></a></li>
-          <li><a href="business-filing.html"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li>
-          <li><a href="infinite-banking.html"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li>
-        </ul>
-      </li>
-      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
-      <li><a href="faq.html"><span data-en>FAQ</span><span data-ht>FAQ</span></a></li>
-      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
-    </ul>
     <div class="nav-right">
       <div class="lang-toggle">
         <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
         <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">HT</button>
       </div>
-      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
-        <span data-en>Book Appointment</span>
-        <span data-ht>Rezève Randevou</span>
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 </nav>
+
+<!-- Side Panel Menu -->
+<div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
+<aside class="nav-panel" id="nav-panel" aria-hidden="true">
+  <div class="nav-panel-head">
+    <a href="index.html" class="nav-panel-logo">
+      <img src="logo.png" alt="ME Shield" style="height:34px;width:auto;"/>
+      <div>
+        <div style="font-family:'Playfair Display',Georgia,serif;font-size:.95rem;font-weight:700;color:#fff;line-height:1.2;">ME Shield Financial</div>
+        <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-top:2px;">Services</div>
+      </div>
+    </a>
+    <button class="nav-close" onclick="closeMenu()" aria-label="Close menu">&#10005;</button>
+  </div>
+
+  <div class="nav-panel-body">
+    <!-- Main links -->
+    <div class="nav-panel-section">
+      <a href="index.html" class="nav-panel-link"><span data-en>Home</span><span data-ht>Akèy</span></a>
+      <a href="about.html" class="nav-panel-link"><span data-en>About</span><span data-ht>Sou Nou</span></a>
+      <a href="blog.html" class="nav-panel-link"><span data-en>Blog</span><span data-ht>Blòg</span></a>
+      <a href="faq.html" class="nav-panel-link">FAQ</a>
+      <a href="contact.html" class="nav-panel-link"><span data-en>Contact</span><span data-ht>Kontakte</span></a>
+    </div>
+
+    <!-- Divider -->
+    <div class="nav-panel-divider">
+      <span data-en>Services</span>
+      <span data-ht>Sèvis</span>
+    </div>
+
+    <!-- Services -->
+    <div class="nav-panel-section">
+      <a href="insurance.html" class="nav-panel-link nav-svc-link">
+        <span class="nav-svc-dot"></span>
+        <span data-en>Insurance — Life, Health & P&C</span>
+        <span data-ht>Asirans — Lavi, Sante ak P&C</span>
+      </a>
+      <a href="tax-preparation.html" class="nav-panel-link nav-svc-link">
+        <span class="nav-svc-dot"></span>
+        <span data-en>Tax Preparation</span>
+        <span data-ht>Preparasyon Taks</span>
+      </a>
+      <a href="business-filing.html" class="nav-panel-link nav-svc-link">
+        <span class="nav-svc-dot"></span>
+        <span data-en>Business Filing</span>
+        <span data-ht>Depo Biznis</span>
+      </a>
+      <a href="immigration-forms.html" class="nav-panel-link nav-svc-link">
+        <span class="nav-svc-dot"></span>
+        <span data-en>Immigration Forms Filing</span>
+        <span data-ht>Ranpli Fòmilè Imigrasyon</span>
+      </a>
+      <a href="infinite-banking.html" class="nav-panel-link nav-svc-link nav-ibc">
+        <span class="nav-svc-dot nav-svc-dot-gold"></span>
+        <span data-en>Infinite Banking (IBC)</span>
+        <span data-ht>Bank Enfini (IBC)</span>
+        <span class="nav-ibc-badge">Special</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="nav-panel-foot">
+    <a href="book.html" class="nav-panel-cta">
+      <span data-en>Book Free Consultation</span>
+      <span data-ht>Rezève Konsiltasyon Gratis</span>
+    </a>
+    <a href="tel:4072672652" class="nav-panel-phone">(407) 267-2652</a>
+  </div>
+</aside>
+
 
 <div class="page-hero has-photo" style="background-image:url('https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?auto=format&fit=crop&w=1400&q=70');">
   <div class="container">
@@ -252,7 +332,7 @@
       <button class="faq-tab active" data-cat="general" onclick="showCategory('general')"><span data-en>General</span><span data-ht>Jeneral</span></button>
       <button class="faq-tab" data-cat="insurance" onclick="showCategory('insurance')"><span data-en>Insurance</span><span data-ht>Asirans</span></button>
       <button class="faq-tab" data-cat="tax" onclick="showCategory('tax')"><span data-en>Tax Prep</span><span data-ht>Taks</span></button>
-      <button class="faq-tab" data-cat="paralegal" onclick="showCategory('paralegal')"><span data-en>Paralegal</span><span data-ht>Paralegal</span></button>
+      <button class="faq-tab" data-cat="immigration-forms" onclick="showCategory('immigration-forms')"><span data-en>Immigration Forms</span><span data-ht>Fòmilè Imigrasyon</span></button>
       <button class="faq-tab" data-cat="business" onclick="showCategory('business')"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></button>
       <button class="faq-tab" data-cat="billing" onclick="showCategory('billing')"><span data-en>Fees &amp; Payment</span><span data-ht>Frè &amp; Peman</span></button>
     </div>
@@ -318,7 +398,7 @@
               </button>
               <div class="accordion-body">
                 <div class="accordion-answer">
-                  <p data-en>Yes! That's actually one of our biggest advantages. Because insurance, tax, and legal documents are all handled by the same advisor, we can <strong>see your full financial picture</strong> and give you more coordinated, effective guidance.</p>
+                  <p data-en>Yes! That's actually one of our biggest advantages. Because insurance, tax, and immigration forms are all handled by the same advisor, we can <strong>see your full financial picture</strong> and give you more coordinated, effective guidance.</p>
                   <p data-ht>Wi! Sa a se youn nan pi gwo avantaj nou yo. Paske asirans, taks, ak dokiman legal yo tout jere pa menm konseye a, nou ka <strong>wè tout sitiyasyon finansyè ou</strong> epi ba ou konsèy ki pi kòdone ak efikas.</p>
                 </div>
               </div>
@@ -463,25 +543,25 @@
           </div>
         </div>
 
-        <!-- PARALEGAL -->
-        <div class="faq-group" id="paralegal">
+        <!-- IMMIGRATION FORMS -->
+        <div class="faq-group" id="immigration-forms">
           <div class="faq-group-header">
             <div class="faq-group-icon"><img src="https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=120&q=70" alt=""/></div>
-            <h2 data-en>Paralegal & Immigration Questions</h2>
-            <h2 data-ht>Kesyon Paralegal & Imigrasyon</h2>
+            <h2 data-en>Immigration Forms Filing Questions</h2>
+            <h2 data-ht>Kesyon sou Ranpli Fòmilè Imigrasyon</h2>
           </div>
           <div class="accordion">
 
             <div class="accordion-item">
               <button class="accordion-trigger" onclick="toggleFAQ(this)">
-                <span class="accordion-question" data-en>Are you a lawyer? Can you give legal advice?</span>
-                <span class="accordion-question" data-ht>Èske ou se yon avoka? Èske ou ka bay konsèy legal?</span>
+                <span class="accordion-question" data-en>Are you a licensed professional? What can you help with?</span>
+                <span class="accordion-question" data-ht>Èske ou se yon pwofesyonèl lisansye? Kisa ou ka ede avèk?</span>
                 <span class="accordion-icon">+</span>
               </button>
               <div class="accordion-body">
                 <div class="accordion-answer">
-                  <p data-en><strong>No — we are not attorneys and do not provide legal advice.</strong> We provide document preparation services only, helping you accurately complete and organize USCIS forms and other legal documents. For complex legal situations, we will refer you to a licensed immigration attorney.</p>
-                  <p data-ht><strong>Non — nou pa avoka epi nou pa bay konsèy legal.</strong> Nou bay sèvis preparasyon dokiman sèlman, ede ou konplete ak òganize fòm USCIS ak lòt dokiman legal avèk presizyon. Pou sitiyasyon legal konplèks, nou pral refere ou a yon avoka imigrasyon lisansye.</p>
+                  <p data-en><strong>No — we are not lawyers and do not provide legal advice.</strong> We help you fill out and file your immigration forms correctly — step by step, in English and Kreyòl. For complex situations, we will connect you with the right professional.</p>
+                  <p data-ht><strong>Non — nou pa avoka epi nou pa bay konsèy legal.</strong> Nou ede ou ranpli epi depoze fòmilè imigrasyon ou kòrèkteman — etap pa etap, an Anglè ak Kreyòl. Pou sitiyasyon konplèks, nou pral konekte ou avèk bon pwofesyonèl la.</p>
                 </div>
               </div>
             </div>
@@ -534,8 +614,8 @@
               </button>
               <div class="accordion-body">
                 <div class="accordion-answer">
-                  <p data-en>Yes — we prepare and file Articles of Organization with the Florida Division of Corporations, along with related paperwork like EIN applications and registered agent designation. We are not attorneys, so we don't advise on which business structure is legally best for you; for that decision, we recommend consulting a licensed attorney or CPA first.</p>
-                  <p data-ht>Wi — nou prepare ak depoze Atik Òganizasyon ak Divizyon Konpayi Florid, ansanm ak papye ki gen rapò tankou aplikasyon EIN ak designasyon ajan anrejistre. Nou pa avoka, alò nou pa konseye sou ki estriktire biznis ki pi bon legalman pou ou; pou desizyon sa a, nou rekòmande konsilte yon avoka oswa CPA lisansye anvan.</p>
+                  <p data-en>Yes — we prepare and file Articles of Organization with the Florida Division of Corporations, along with related paperwork like EIN applications and registered agent designation. For deciding which business structure is best for your situation, we recommend consulting a CPA or business advisor first.</p>
+                  <p data-ht>Wi — nou prepare ak depoze Atik Òganizasyon ak Divizyon Konpayi Florid, ansanm ak papye ki gen rapò tankou aplikasyon EIN ak designasyon ajan anrejistre. Pou deside ki estriktire biznis ki pi bon pou sitiyasyon ou, nou rekòmande konsilte yon CPA oswa yon konseye biznis anvan.</p>
                 </div>
               </div>
             </div>
@@ -548,7 +628,7 @@
               </button>
               <div class="accordion-body">
                 <div class="accordion-answer">
-                  <p data-en><strong>Document filing</strong> means accurately completing and submitting the forms your business needs — Articles of Organization, EIN applications, DBA registration, annual reports. <strong>Legal advice</strong> means recommending a specific business structure, drafting custom contracts, or resolving disputes — and that requires a licensed attorney. We handle the former and refer out the latter.</p>
+                  <p data-en><strong>Document filing</strong> means accurately completing and submitting the forms your business needs — Articles of Organization, EIN applications, DBA registration, annual reports. <strong>Professional advice</strong> means recommending a specific business structure, drafting custom contracts, or resolving disputes — and that requires a business lawyer. We handle the paperwork and connect you with the right professional when needed.</p>
                   <p data-ht><strong>Depo dokiman</strong> vle di konplete ak soumèt avèk presizyon fòm biznis ou bezwen yo — Atik Òganizasyon, aplikasyon EIN, enskripsyon DBA, rapò anyèl. <strong>Konsèy legal</strong> vle di rekòmande yon estriktire biznis espesifik, ekri kontra pèsonalize, oswa rezoud konfli — epi sa mande yon avoka lisansye. Nou jere premye a epi nou refere dezyèm la.</p>
                 </div>
               </div>
@@ -588,8 +668,8 @@
               </button>
               <div class="accordion-body">
                 <div class="accordion-answer">
-                  <p data-en>Pricing varies by service and complexity. <strong>Insurance premiums</strong> depend on your coverage needs and the carrier. <strong>Tax preparation</strong> is flat-rate based on the complexity of your return. <strong>Paralegal services</strong> are priced per form/package. Contact us for a precise quote — the initial consultation is always free.</p>
-                  <p data-ht>Pri varye selon sèvis ak konpleksite. <strong>Prèm asirans</strong> depan sou bezwen kouvèti ou ak konpayi a. <strong>Preparasyon taks</strong> se yon tarif fiks baze sou konpleksite deklarasyon ou. <strong>Sèvis paralegal</strong> yo gen pri pa fòm/pakè. Kontakte nou pou yon estimasyon presiz — konsiltasyon inisyal la toujou gratis.</p>
+                  <p data-en>Pricing varies by service and complexity. <strong>Insurance premiums</strong> depend on your coverage needs and the carrier. <strong>Tax preparation</strong> is flat-rate based on the complexity of your return. <strong>Immigration forms filing</strong> is priced per form or package. Contact us for a precise quote — the initial consultation is always free.</p>
+                  <p data-ht>Pri varye selon sèvis ak konpleksite. <strong>Prèm asirans</strong> depan sou bezwen kouvèti ou ak konpayi a. <strong>Preparasyon taks</strong> se yon tarif fiks baze sou konpleksite deklarasyon ou. <strong>Ranpli fòmilè imigrasyon</strong> gen pri pa fòm oswa pakè. Kontakte nou pou yon estimasyon presiz — konsiltasyon inisyal la toujou gratis.</p>
                 </div>
               </div>
             </div>
@@ -602,8 +682,8 @@
               </button>
               <div class="accordion-body">
                 <div class="accordion-answer">
-                  <p data-en>We accept <strong>cash, Zelle, CashApp, and major credit/debit cards</strong>. Payment plans may be available for paralegal services — ask at your consultation.</p>
-                  <p data-ht>Nou aksepte <strong>lajan kach, Zelle, CashApp, ak kat kredi/debi prensipal</strong>. Plan peman ka disponib pou sèvis paralegal — mande nan konsiltasyon ou.</p>
+                  <p data-en>We accept <strong>cash, Zelle, CashApp, and major credit/debit cards</strong>. Payment plans may be available for immigration forms filing services — ask at your consultation.</p>
+                  <p data-ht>Nou aksepte <strong>lajan kach, Zelle, CashApp, ak kat kredi/debi prensipal</strong>. Plan peman ka disponib pou sèvis ranpli fòmilè imigrasyon — mande nan konsiltasyon ou.</p>
                 </div>
               </div>
             </div>
@@ -640,8 +720,8 @@
             <div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div>
           </div>
         </div>
-        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) · Tax &amp; Paralegal (Nationwide) — bilingual service.</p>
-        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) · Taks &amp; Paralegal (Nasyonal) — sèvis bileng.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) · Tax &amp; Immigration Forms Filing — bilingual service.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) · Taks &amp; Ranpli Fòmilè Imigrasyon — sèvis bileng.</p>
         <div style="margin-top:20px;font-size:.87rem;">
           <div><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652" style="color:rgba(255,255,255,.6);">(407) 267-2652</a></div>
           <div style="margin-top:6px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.3 5.84a.75.75 0 0 0 .94 0L19.74 6H4.2zM4 7.86V18h16V7.86l-7.06 5.65a2.25 2.25 0 0 1-2.82 0L4 7.86z"/></svg><a href="mailto:info@meshieldfinancial.com" style="color:rgba(255,255,255,.6);">info@meshieldfinancial.com</a></div>
@@ -658,8 +738,8 @@
         <ul>
           <li><a href="services.html#insurance" data-en>Insurance</a><a href="services.html#insurance" data-ht>Asirans</a></li>
           <li><a href="services.html#tax" data-en>Tax Preparation</a><a href="services.html#tax" data-ht>Preparasyon Taks</a></li>
-          <li><a href="services.html#paralegal" data-en>Paralegal</a><a href="services.html#paralegal" data-ht>Paralegal</a></li>
-          <li><a href="services.html#immigration" data-en>Immigration Docs</a><a href="services.html#immigration" data-ht>Dokiman Imigrasyon</a></li>
+          <li><a href="immigration-forms.html" data-en>Immigration Forms Filing</a><a href="immigration-forms.html" data-ht>Ranpli Fòmilè Imigrasyon</a></li>
+          <li></li>
           <li><a href="services.html#business" data-en>Business Filing</a><a href="services.html#business" data-ht>Depo Biznis</a></li>
         </ul>
       </div>
@@ -682,9 +762,9 @@
       </div>
     </div>
     <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC, a Florida-registered limited liability company.</div>
-    <div class="footer-disclaimer" data-en>Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Paralegal services are document preparation only and do not constitute legal advice.</div>
+    <div class="footer-disclaimer" data-en>Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Immigration forms filing services are document preparation assistance only and do not constitute legal advice.</div>
     <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA (“ap fonksyone kòm”) pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
-    <div class="footer-disclaimer" data-ht>Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP. Sèvis paralegal yo se preparasyon dokiman sèlman epi yo pa reprezante konsèy legal.</div>
+    <div class="footer-disclaimer" data-ht>Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP. Sèvis ranpli fòmilè imigrasyon yo se asistans preparasyon dokiman sèlman epi yo pa reprezante konsèy legal.</div>
     <div class="footer-bottom">
       <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
       <span data-en>All rights reserved.</span><span data-ht>Tout dwa rezève.</span>
@@ -743,6 +823,33 @@
 
   // Initialize: show only the first category on page load
   document.addEventListener('DOMContentLoaded', () => showCategory('general'));
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var btn=document.getElementById('hamburger');
+  var panel=document.getElementById('nav-panel');
+  var overlay=document.getElementById('nav-overlay');
+  if(!btn||!panel)return;
+  btn.addEventListener('click',function(){
+    panel.classList.toggle('open');
+    overlay.classList.toggle('open');
+    btn.setAttribute('aria-expanded',panel.classList.contains('open'));
+    document.body.style.overflow=panel.classList.contains('open')?'hidden':'';
+  });
+  var page=location.pathname.split('/').pop()||'index.html';
+  panel.querySelectorAll('.nav-panel-link').forEach(function(a){
+    if(a.getAttribute('href')===page)a.classList.add('active');
+  });
+});
+function closeMenu(){
+  var panel=document.getElementById('nav-panel');
+  var overlay=document.getElementById('nav-overlay');
+  var btn=document.getElementById('hamburger');
+  if(panel)panel.classList.remove('open');
+  if(overlay)overlay.classList.remove('open');
+  if(btn)btn.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
 </script>
 </body>
 </html>
