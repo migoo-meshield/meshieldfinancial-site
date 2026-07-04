@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Client Portal — ME Shield Financial Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--navy:#0B1D3A;--gold:#C9A84C;--gold2:#e0be6a;--cream:#FAF7F1;--green:#2d9f5d;--red:#d94040;}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--navy);min-height:100vh;color:#fff;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 10% 10%,rgba(201,168,76,.07) 0%,transparent 60%),linear-gradient(160deg,#060f1e 0%,#0b1d3a 60%,#060f1e 100%);z-index:0;}
+
+/* NAV */
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid rgba(255,255,255,.08);}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-brand img{height:38px;width:auto;}
+.nav-name{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;font-weight:700;}
+.nav-sub{font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.35);}
+.nav-back{font-size:.78rem;color:rgba(255,255,255,.5);text-decoration:none;padding:8px 16px;border:1px solid rgba(255,255,255,.12);border-radius:50px;transition:all .2s;}
+.nav-back:hover{color:#fff;border-color:rgba(255,255,255,.3);}
+
+/* MAIN */
+main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:48px 24px;}
+
+/* PANELS */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* LOGIN PANEL */
+.login-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:40px 36px;text-align:center;}
+@media(max-width:480px){.login-card{padding:28px 20px;}}
+.login-shield{width:72px;height:72px;border-radius:50%;background:rgba(201,168,76,.15);border:2px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem;}
+.login-title{font-family:'Playfair Display',serif;font-size:1.7rem;color:#fff;margin-bottom:8px;}
+.login-sub{font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.65;margin-bottom:32px;}
+.form-label{display:block;font-size:.75rem;font-weight:700;color:rgba(255,255,255,.6);text-align:left;margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em;}
+.form-input{width:100%;padding:13px 16px;border-radius:12px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-size:.95rem;font-family:inherit;outline:none;transition:border-color .2s;margin-bottom:16px;}
+.form-input:focus{border-color:var(--gold);}
+.form-input::placeholder{color:rgba(255,255,255,.25);}
+.btn-gold{width:100%;background:var(--gold);color:var(--navy);font-weight:700;font-size:.95rem;padding:14px;border-radius:50px;border:none;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 6px 24px rgba(201,168,76,.3);}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-gold:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.msg-box{border-radius:12px;padding:12px 16px;font-size:.82rem;margin-bottom:16px;text-align:left;display:none;}
+.msg-success{background:rgba(45,159,93,.15);border:1px solid rgba(45,159,93,.3);color:#4ade80;}
+.msg-error{background:rgba(217,64,64,.15);border:1px solid rgba(217,64,64,.3);color:#f87171;}
+.login-disclaimer{font-size:.7rem;color:rgba(255,255,255,.25);margin-top:20px;line-height:1.6;}
+
+/* DASHBOARD PANEL */
+.dash-header{margin-bottom:32px;}
+.dash-welcome{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;margin-bottom:6px;}
+.dash-welcome em{font-style:italic;color:var(--gold);}
+.dash-service{display:inline-block;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin-bottom:4px;}
+.dash-email{font-size:.78rem;color:rgba(255,255,255,.35);}
+
+/* Cards */
+.dash-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+.dash-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px 24px;}
+.card-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(201,168,76,.7);margin-bottom:14px;}
+
+/* Status tracker */
+.status-steps{display:flex;flex-direction:column;gap:12px;}
+.status-step{display:flex;align-items:center;gap:14px;}
+.step-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;flex-shrink:0;}
+.step-dot.done{background:var(--green);color:#fff;}
+.step-dot.current{background:var(--gold);color:var(--navy);animation:pulse 2s infinite;}
+.step-dot.pending{background:rgba(255,255,255,.08);color:rgba(255,255,255,.3);}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.5);}50%{box-shadow:0 0 0 8px rgba(201,168,76,.0);}}
+.step-name{font-size:.85rem;font-weight:600;color:#fff;}
+.step-name.pending{color:rgba(255,255,255,.3);}
+.step-date{font-size:.7rem;color:rgba(255,255,255,.3);margin-top:2px;}
+.step-connector{width:2px;height:14px;background:rgba(255,255,255,.08);margin-left:15px;}
+.step-connector.done{background:var(--green);}
+
+/* Documents */
+.doc-list{display:flex;flex-direction:column;gap:10px;}
+.doc-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;text-decoration:none;transition:all .2s;}
+.doc-item:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.25);}
+.doc-img{width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;}
+.doc-name{font-size:.84rem;font-weight:600;color:#fff;}
+.doc-type{font-size:.68rem;color:rgba(255,255,255,.35);}
+.doc-empty{font-size:.8rem;color:rgba(255,255,255,.3);font-style:italic;}
+
+/* Message form */
+.msg-textarea{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#fff;font-size:.88rem;font-family:inherit;resize:vertical;min-height:90px;outline:none;transition:border-color .2s;margin-bottom:12px;}
+.msg-textarea:focus{border-color:var(--gold);}
+.msg-textarea::placeholder{color:rgba(255,255,255,.2);}
+.btn-send{background:var(--navy);border:1.5px solid rgba(201,168,76,.35);color:var(--gold);font-weight:700;font-size:.88rem;padding:12px 28px;border-radius:50px;cursor:pointer;font-family:inherit;transition:all .2s;}
+.btn-send:hover{background:rgba(201,168,76,.1);}
+
+/* PayPal */
+.invoice-card{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;margin-bottom:12px;}
+.inv-desc{font-size:.85rem;font-weight:600;color:#fff;margin-bottom:3px;}
+.inv-amount{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);font-weight:700;}
+.inv-status{font-size:.68rem;color:rgba(255,255,255,.4);}
+.btn-pay{background:var(--gold);color:var(--navy);font-weight:700;font-size:.82rem;padding:10px 22px;border-radius:50px;text-decoration:none;transition:all .2s;white-space:nowrap;}
+.btn-pay:hover{background:var(--gold2);}
+.inv-paid{font-size:.75rem;color:var(--green);font-weight:700;}
+.no-invoice{font-size:.8rem;color:rgba(255,255,255,.3);font-style:italic;}
+
+/* Logout */
+.btn-logout{background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);font-size:.78rem;padding:8px 20px;border-radius:50px;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:28px;}
+.btn-logout:hover{border-color:rgba(255,255,255,.3);color:#fff;}
+
+/* Footer */
+.portal-footer{text-align:center;padding:32px 24px;color:rgba(255,255,255,.2);font-size:.7rem;position:relative;z-index:1;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="logo.png" alt="ME Shield" onerror="this.style.display='none'"/>
+    <div>
+      <div class="nav-name">ME Shield Financial Services</div>
+      <div class="nav-sub">Client Portal</div>
+    </div>
+  </a>
+  <a href="index.html" class="nav-back">← Back to Site</a>
+</nav>
+
+<main>
+
+  <!-- LOGIN PANEL -->
+  <div class="panel active" id="panel-login">
+    <div class="login-card">
+      <div style="width:100%;height:180px;border-radius:16px;overflow:hidden;margin-bottom:24px;position:relative;">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
+             alt="ME Shield Financial Services professional office"
+             style="width:100%;height:100%;object-fit:cover;object-position:center;"
+             onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80'"/>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(11,29,58,.85) 0%,rgba(11,29,58,.3) 100%);display:flex;align-items:flex-end;padding:18px 20px;">
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700;line-height:1.2;">ME Shield Financial Services</div>
+            <div style="font-size:.7rem;color:rgba(255,255,255,.6);margin-top:4px;text-transform:uppercase;letter-spacing:.1em;">Secure Client Portal</div>
+          </div>
+        </div>
+      </div>
+      <h1 class="login-title">Welcome Back</h1>
+      <p class="login-sub">Enter your email address and we will send you a secure link to access your dashboard. No password needed.</p>
+
+      <div class="msg-box msg-success" id="login-success">
+        Check your inbox! We sent a secure link to your email. It expires in 15 minutes.
+      </div>
+      <div class="msg-box msg-error" id="login-error"></div>
+
+      <label class="form-label" for="login-email">Your Email Address</label>
+      <input type="email" id="login-email" class="form-input" placeholder="yourname@email.com"/>
+      <button class="btn-gold" id="login-btn" onclick="requestMagicLink()">
+        Send Me My Secure Link →
+      </button>
+      <p class="login-disclaimer">Your information is protected and only accessible to you and ME Shield Financial Services. By entering your email you confirm you are an existing client.</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD PANEL -->
+  <div class="panel" id="panel-dashboard">
+    <div class="dash-header">
+      <h1 class="dash-welcome">Welcome back, <em id="client-name">--</em></h1>
+      <span class="dash-service" id="client-service">--</span><br/>
+      <span class="dash-email" id="client-email-display">--</span>
+    </div>
+
+    <div class="dash-grid">
+
+      <!-- Case Status -->
+      <div class="dash-card">
+        <div class="card-label">Your Case Status</div>
+        <div class="status-steps" id="status-steps">
+          <div style="font-size:.8rem;color:rgba(255,255,255,.3);">Loading...</div>
+        </div>
+      </div>
+
+      <!-- Documents -->
+      <div class="dash-card">
+        <div class="card-label">Your Documents</div>
+        <div class="doc-list" id="doc-list">
+          <div class="doc-empty">Loading your documents...</div>
+        </div>
+      </div>
+
+      <!-- Send a Message -->
+      <div class="dash-card">
+        <div class="card-label">Send a Message to Miguelson</div>
+        <div class="msg-box msg-success" id="msg-sent" style="display:none;">
+          Message sent! Miguelson will reply within 24 hours.
+        </div>
+        <textarea class="msg-textarea" id="msg-text" placeholder="Type your question or message here..."></textarea>
+        <button class="btn-send" onclick="sendMessage()">Send Message</button>
+      </div>
+
+      <!-- Invoice / Payment -->
+      <div class="dash-card">
+        <div class="card-label">Invoices & Payments</div>
+        <div id="invoice-area">
+          <div class="no-invoice">Loading...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="btn-logout" onclick="logout()">Sign Out</button>
+  </div>
+
+</main>
+
+<div class="portal-footer">
+  ME Shield Financial Services · Secure Client Portal · meshieldfinancial.com
+</div>
+
+<script>
+const TOKEN_KEY = 'me-shield-portal-token';
+const CLIENT_KEY = 'me-shield-client-data';
+
+// ── CHECK IF ALREADY LOGGED IN ────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function(){
+  // Check URL for magic link token
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  if(token){
+    verifyToken(token);
+    return;
+  }
+  // Check localStorage session
+  const saved = localStorage.getItem(CLIENT_KEY);
+  if(saved){
+    try{
+      const data = JSON.parse(saved);
+      if(data.expires && new Date(data.expires) > new Date()){
+        showDashboard(data);
+        return;
+      }
+    } catch(e){}
+    localStorage.removeItem(CLIENT_KEY);
+  }
+  // Show login
+  showPanel('login');
+});
+
+// ── REQUEST MAGIC LINK ────────────────────────────────────────────────────
+async function requestMagicLink(){
+  const email = document.getElementById('login-email').value.trim();
+  const btn   = document.getElementById('login-btn');
+  const errEl = document.getElementById('login-error');
+  const sucEl = document.getElementById('login-success');
+
+  errEl.style.display = 'none';
+  sucEl.style.display = 'none';
+
+  if(!email || !email.includes('@')){
+    errEl.textContent = 'Please enter a valid email address.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  try{
+    const res = await fetch('/api/portal-auth', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ action: 'request', email })
+    });
+    const data = await res.json();
+
+    if(data.success){
+      sucEl.style.display = 'block';
+      btn.textContent = 'Email Sent ✓';
+    } else {
+      errEl.textContent = data.message || 'Email not found. Please contact Miguelson to be added to the portal.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Send Me My Secure Link →';
+    }
+  } catch(e){
+    errEl.textContent = 'Connection error. Please try again.';
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Send Me My Secure Link →';
+  }
+}
+
+// ── VERIFY TOKEN FROM URL ─────────────────────────────────────────────────
+async function verifyToken(token){
+  try{
+    const res = await fetch('/api/portal-auth', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ action: 'verify', token })
+    });
+    const data = await res.json();
+
+    if(data.success && data.client){
+      // Save session for 24h
+      const session = { ...data.client, expires: new Date(Date.now()+24*60*60*1000).toISOString() };
+      localStorage.setItem(CLIENT_KEY, JSON.stringify(session));
+      // Clean URL
+      window.history.replaceState({}, '', '/client-portal');
+      showDashboard(session);
+    } else {
+      showPanel('login');
+      const errEl = document.getElementById('login-error');
+      errEl.textContent = 'This link has expired or is invalid. Please request a new one.';
+      errEl.style.display = 'block';
+    }
+  } catch(e){
+    showPanel('login');
+  }
+}
+
+// ── SHOW DASHBOARD ────────────────────────────────────────────────────────
+function showDashboard(client){
+  document.getElementById('client-name').textContent    = client.name || 'Client';
+  document.getElementById('client-service').textContent = client.service || 'Client';
+  document.getElementById('client-email-display').textContent = client.email || '';
+  renderStatus(client.status || []);
+  renderDocs(client.documents || []);
+  renderInvoices(client.invoices || []);
+  showPanel('dashboard');
+}
+
+// ── RENDER STATUS ─────────────────────────────────────────────────────────
+function renderStatus(steps){
+  const el = document.getElementById('status-steps');
+  if(!steps.length){ el.innerHTML='<div style="font-size:.8rem;color:rgba(255,255,255,.3);">No status updates yet.</div>'; return; }
+  el.innerHTML = steps.map((s,i) => `
+    ${i>0?`<div class="step-connector ${s.status==='done'?'done':''}"></div>`:''}
+    <div class="status-step">
+      <div class="step-dot ${s.status}">
+        ${s.status==='done'?'✓':s.status==='current'?'●':i+1}
+      </div>
+      <div>
+        <div class="step-name ${s.status==='pending'?'pending':''}">${s.label}</div>
+        ${s.date?`<div class="step-date">${s.date}</div>`:''}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── RENDER DOCUMENTS ──────────────────────────────────────────────────────
+// Photo thumbnails by document type
+const DOC_PHOTOS = {
+  'insurance':   'https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=120&q=70',
+  'tax':         'https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=120&q=70',
+  'immigration': 'https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=120&q=70',
+  'business':    'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=120&q=70',
+  'ibc':         'https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=120&q=70',
+  'default':     'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=120&q=70',
+};
+function getDocPhoto(doc){
+  const name = (doc.name||'').toLowerCase();
+  if(name.includes('insurance')||name.includes('policy')||name.includes('quote')) return DOC_PHOTOS.insurance;
+  if(name.includes('tax')||name.includes('return')||name.includes('itin')) return DOC_PHOTOS.tax;
+  if(name.includes('immigration')||name.includes('daca')||name.includes('i-')) return DOC_PHOTOS.immigration;
+  if(name.includes('business')||name.includes('llc')||name.includes('ein')) return DOC_PHOTOS.business;
+  if(name.includes('ibc')||name.includes('banking')||name.includes('whole life')) return DOC_PHOTOS.ibc;
+  return doc.photo || DOC_PHOTOS.default;
+}
+
+function renderDocs(docs){
+  const el = document.getElementById('doc-list');
+  if(!docs.length){ el.innerHTML='<div class="doc-empty">No documents shared yet. Miguelson will upload your documents here.</div>'; return; }
+  el.innerHTML = docs.map(d => `
+    <a href="${d.url}" target="_blank" rel="noopener" class="doc-item">
+      <img src="${getDocPhoto(d)}" alt="${d.name}"
+           style="width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;"
+           onerror="this.src='${DOC_PHOTOS.default}'"/>
+      <div>
+        <div class="doc-name">${d.name}</div>
+        <div class="doc-type">${d.type||'Document'} · ${d.date||''}</div>
+      </div>
+    </a>
+  `).join('');
+}
+
+// ── RENDER INVOICES ───────────────────────────────────────────────────────
+function renderInvoices(invoices){
+  const el = document.getElementById('invoice-area');
+  if(!invoices.length){ el.innerHTML='<div class="no-invoice">No pending invoices. You are all set!</div>'; return; }
+  el.innerHTML = invoices.map(inv => `
+    <div class="invoice-card">
+      <div>
+        <div class="inv-desc">${inv.description}</div>
+        <div class="inv-amount">$${inv.amount}</div>
+        <div class="inv-status">${inv.paid?'Paid':'Due: '+inv.due}</div>
+      </div>
+      ${inv.paid
+        ? '<span class="inv-paid">✓ Paid</span>'
+        : `<a href="${inv.paypalLink||'https://paypal.me/miguelsonetienne'}" target="_blank" class="btn-pay">Pay Now</a>`
+      }
+    </div>
+  `).join('');
+}
+
+// ── SEND MESSAGE ──────────────────────────────────────────────────────────
+async function sendMessage(){
+  const saved = localStorage.getItem(CLIENT_KEY);
+  const client = saved ? JSON.parse(saved) : {};
+  const text = document.getElementById('msg-text').value.trim();
+  if(!text) return;
+
+  try{
+    await fetch('/api/portal-auth', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ action: 'message', email: client.email, name: client.name, message: text })
+    });
+    document.getElementById('msg-text').value = '';
+    document.getElementById('msg-sent').style.display = 'block';
+  } catch(e){}
+}
+
+// ── LOGOUT ────────────────────────────────────────────────────────────────
+function logout(){
+  localStorage.removeItem(CLIENT_KEY);
+  showPanel('login');
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-success').style.display = 'none';
+  document.getElementById('login-btn').disabled = false;
+  document.getElementById('login-btn').textContent = 'Send Me My Secure Link →';
+}
+
+function showPanel(name){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+}
+</script>
+</body>
+</html>
