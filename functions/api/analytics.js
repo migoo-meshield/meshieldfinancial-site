@@ -44,7 +44,7 @@ export async function onRequest(context) {
           filter: { date_geq: "${today}" }
         ) {
           dimensions { clientRequestPath }
-          sum { requests }
+          count
         }
       }
     }
@@ -84,7 +84,7 @@ export async function onRequest(context) {
       topPages: pages
         .map(p => ({
           path:     p.dimensions.clientRequestPath,
-          requests: p.sum.requests,
+          requests: p.count,
         }))
         .sort((a, b) => b.requests - a.requests)
         .slice(0, 5),
