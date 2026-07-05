@@ -1,25 +1,35 @@
 // Cloudflare Pages Function — /api/analytics
-// Fetches real analytics from Cloudflare GraphQL API
-// Token stored as environment variable (never exposed to browser)
+// DIAGNOSTIC MODE — helps us find why the token isn't loading
 
 export async function onRequest(context) {
-  const TOKEN   = context.env.CF_ANALYTICS_TOKEN;
-  const ZONE_ID = context.env.CF_ZONE_ID || '68d68daf795dc8bc081072fcac2b82cf';
-
-  // CORS — only allow your own site
   const CORS = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET',
     'Content-Type': 'application/json',
   };
 
+  const TOKEN   = context.env.CF_ANALYTICS_TOKEN;
+  const ZONE_ID = context.env.CF_ZONE_ID;
+
+  // ── DIAGNOSTIC INFO (safe — does not expose your real token) ──────────
+  const diagnostic = {
+    token_present: !!TOKEN,
+    token_length: TOKEN ? TOKEN.length : 0,
+    token_starts_with: TOKEN ? TOKEN.substring(0, 5) : null,
+    zone_id_present: !!ZONE_ID,
+    zone_id_value: ZONE_ID || null,
+    all_env_keys: Object.keys(context.env),
+  };
+
   if (!TOKEN) {
-    return new Response(JSON.stringify({ error: 'Token not configured' }), { headers: CORS });
+    return new Response(JSON.stringify({
+      error: 'Token not configured',
+      diagnostic
+    }), { headers: CORS });
   }
 
+  // If we get here, the token IS present — let's test it against Cloudflare
   const today = new Date().toISOString().split('T')[0];
-  const yesterday = new Date(Date.now() - 24*60*60*1000).toISOString();
-  const now = new Date().toISOString();
 
   const query = `{
     viewer {
@@ -30,23 +40,6 @@ export async function onRequest(context) {
         ) {
           sum { requests pageViews threats }
           uniq { uniques }
-        }
-        hourly: httpRequests1hGroups(
-          limit: 24,
-          filter: { datetime_geq: "${yesterday}", datetime_leq: "${now}" }
-          orderBy: [datetime_ASC]
-        ) {
-          dimensions { datetime }
-          sum { requests }
-          uniq { uniques }
-        }
-        topPages: httpRequestsAdaptiveGroups(
-          limit: 5,
-          filter: { date_geq: "${today}" }
-          orderBy: [sum_requests_DESC]
-        ) {
-          dimensions { clientRequestPath }
-          sum { requests }
         }
       }
     }
@@ -64,35 +57,17 @@ export async function onRequest(context) {
 
     const json = await res.json();
 
-    if (!json.data) {
-      return new Response(JSON.stringify({ error: 'API error', raw: json }), { headers: CORS });
-    }
-
-    const zone  = json.data.viewer.zones[0];
-    const day   = zone.today[0]   || { sum: {}, uniq: {} };
-    const hours = zone.hourly     || [];
-    const pages = zone.topPages   || [];
-
-    const result = {
-      visitors:  day.uniq.uniques   || 0,
-      requests:  day.sum.requests   || 0,
-      pageviews: day.sum.pageViews  || 0,
-      threats:   day.sum.threats    || 0,
-      hourly: hours.map(h => ({
-        time: h.dimensions.datetime,
-        requests: h.sum.requests,
-        visitors: h.uniq.uniques,
-      })),
-      topPages: pages.map(p => ({
-        path:     p.dimensions.clientRequestPath,
-        requests: p.sum.requests,
-      })),
-      updatedAt: new Date().toISOString(),
-    };
-
-    return new Response(JSON.stringify(result), { headers: CORS });
+    return new Response(JSON.stringify({
+      diagnostic,
+      cloudflare_response_status: res.status,
+      cloudflare_response: json,
+    }), { headers: CORS });
 
   } catch (e) {
-    return new Response(JSON.stringify({ error: e.message }), { headers: CORS });
+    return new Response(JSON.stringify({
+      error: 'Fetch failed',
+      message: e.message,
+      diagnostic
+    }), { headers: CORS });
   }
 }
