@@ -40,9 +40,8 @@ export async function onRequest(context) {
           uniq { uniques }
         }
         topPages: httpRequestsAdaptiveGroups(
-          limit: 5,
+          limit: 20,
           filter: { date_geq: "${today}" }
-          orderBy: [sum_requests_DESC]
         ) {
           dimensions { clientRequestPath }
           sum { requests }
@@ -82,10 +81,13 @@ export async function onRequest(context) {
         requests: h.sum.requests,
         visitors: h.uniq.uniques,
       })),
-      topPages: pages.map(p => ({
-        path:     p.dimensions.clientRequestPath,
-        requests: p.sum.requests,
-      })),
+      topPages: pages
+        .map(p => ({
+          path:     p.dimensions.clientRequestPath,
+          requests: p.sum.requests,
+        }))
+        .sort((a, b) => b.requests - a.requests)
+        .slice(0, 5),
       updatedAt: new Date().toISOString(),
     };
 
