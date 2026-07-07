@@ -299,10 +299,10 @@ nav .nav-home:hover { color: #C9A84C !important; background: rgba(255,255,255,.0
   <div class="sec-inner" style="max-width:900px;">
     <div class="en block"><span class="eyebrow">IBC Wealth Projection Calculator</span>
       <h2 class="sec-h white">See your projected cash value growth</h2>
-      <p class="sec-p dim">Enter your age and how much you want to contribute monthly. We'll show you how your money grows at 1, 5, 10, and 20 years — split between Base Premium and Cash Value.</p></div>
+      <p class="sec-p dim">Enter your age and how much you want to contribute monthly. We'll show you a projected total at 1, 5, 10, and 20 years.</p></div>
     <div class="ht block"><span class="eyebrow">Kalkilatè Pwojeksyon Richès IBC</span>
       <h2 class="sec-h white">Wè kwasans valè lajan pwojete ou</h2>
-      <p class="sec-p dim">Antre laj ou ak konbyen ou vle kontribye chak mwa. Nou pral montre ou kijan lajan ou grandi nan 1, 5, 10, ak 20 an — separe ant Prim Debaz ak Valè Lajan.</p></div>
+      <p class="sec-p dim">Antre laj ou ak konbyen ou vle kontribye chak mwa. Nou pral montre ou yon total pwojete nan 1, 5, 10, ak 20 an.</p></div>
     <div class="calc-card" style="background:rgba(255,255,255,.05);border-color:rgba(201,168,76,.25);">
       <div class="cgrid">
         <div class="fg">
@@ -324,45 +324,14 @@ nav .nav-home:hover { color: #C9A84C !important; background: rgba(255,255,255,.0
         </div>
       </div>
 
-      <div class="proj-table-wrap">
-        <table class="proj-table">
-          <thead>
-            <tr>
-              <th><span class="en">Projection</span><span class="ht">Pwojeksyon</span></th>
-              <th><span class="en">1 Year</span><span class="ht">1 An</span></th>
-              <th><span class="en">5 Years</span><span class="ht">5 An</span></th>
-              <th><span class="en">10 Years</span><span class="ht">10 An</span></th>
-              <th><span class="en">20 Years</span><span class="ht">20 An</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="en">Base Premium (60%)</span><span class="ht">Prim Debaz (60%)</span></td>
-              <td id="ibc-base-1">--</td>
-              <td id="ibc-base-5">--</td>
-              <td id="ibc-base-10">--</td>
-              <td id="ibc-base-20">--</td>
-            </tr>
-            <tr>
-              <td><span class="en">Cash Value (40%)</span><span class="ht">Valè Lajan (40%)</span></td>
-              <td id="ibc-cash-1">--</td>
-              <td id="ibc-cash-5">--</td>
-              <td id="ibc-cash-10">--</td>
-              <td id="ibc-cash-20">--</td>
-            </tr>
-            <tr>
-              <td><span class="en">Total</span><span class="ht">Total</span></td>
-              <td id="ibc-total-1">--</td>
-              <td id="ibc-total-5">--</td>
-              <td id="ibc-total-10">--</td>
-              <td id="ibc-total-20">--</td>
-            </tr>
-          </tbody>
-        </table>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px;" id="ibc-results">
+        <div class="result-box" style="padding:18px 10px;"><div class="rb-label en">1 Year</div><div class="rb-label ht">1 An</div><div class="rb-range" id="ibc-1" style="font-size:1.3rem;">--</div></div>
+        <div class="result-box" style="padding:18px 10px;"><div class="rb-label en">5 Years</div><div class="rb-label ht">5 An</div><div class="rb-range" id="ibc-5" style="font-size:1.3rem;">--</div></div>
+        <div class="result-box" style="padding:18px 10px;"><div class="rb-label en">10 Years</div><div class="rb-label ht">10 An</div><div class="rb-range" id="ibc-10" style="font-size:1.3rem;">--</div></div>
+        <div class="result-box" style="padding:18px 10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);"><div class="rb-label en">20 Years</div><div class="rb-label ht">20 An</div><div class="rb-range" id="ibc-20" style="font-size:1.3rem;">--</div></div>
       </div>
-
-      <p style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;margin-bottom:20px;" class="en">These are educational estimates based on a typical 4–5% whole life compound growth rate. Base Premium and Cash Value are shown as a 60/40 split of your total projected value and always add up to the Total. Actual results vary by policy design and insurer.</p>
-      <p style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;margin-bottom:20px;" class="ht">Sa yo se estimasyon edikasyonèl baze sou yon to kwasans konpoze lavi antye tipik 4-5%. Prim Debaz ak Valè Lajan montre kòm yon separasyon 60/40 nan valè total pwojete ou epi yo toujou adisyone bay Total la. Rezilta reyèl yo varye selon konsepsyon polis ak konpayi asirans.</p>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;margin-bottom:20px;" class="en">These are educational estimates based on a typical 4–5% whole life compound growth rate. Actual results vary by policy design and insurer.</p>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;margin-bottom:20px;" class="ht">Sa yo se estimasyon edikasyonèl baze sou yon to kwasans konpoze lavi antye tipik 4-5%. Rezilta reyèl yo varye selon konsepsyon polis ak konpayi asirans.</p>
 
       <div class="lfgrid">
         <div class="fg"><label class="fl en" style="color:rgba(255,255,255,.7);">Full Name</label><label class="fl ht" style="color:rgba(255,255,255,.7);">Non Konplè</label><input type="text" class="fi" id="ib-name" placeholder="Your name" style="background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.2);color:#fff;"/></div>
@@ -377,8 +346,8 @@ nav .nav-home:hover { color: #C9A84C !important; background: rgba(255,255,255,.0
         <p class="en" style="font-weight:700;color:var(--gold);font-size:1rem;">Consultation request sent! Miguelson will contact you within 24 hours.</p>
         <p class="ht" style="font-weight:700;color:var(--gold);font-size:1rem;">Demann konsiltasyon voye! Miguelson ap kontakte ou nan 24 èdtan.</p>
       </div>
-      <div class="disc" style="border-top-color:rgba(255,255,255,.08);" class="en">* Projections are educational estimates only and do not constitute a policy illustration or financial advice. Contact Miguelson for a personalized policy illustration.</div>
-      <div class="disc" style="border-top-color:rgba(255,255,255,.08);" class="ht">* Pwojeksyon yo se estimasyon edikasyonèl sèlman epi pa konstitye yon ilustrasyon polis oswa konsèy finansye. Kontakte Miguelson pou yon ilustrasyon polis pèsonalize.</div>
+      <div class="disc en" style="border-top-color:rgba(255,255,255,.08);">* Projections are educational estimates only and do not constitute a policy illustration or financial advice. Contact Miguelson for a personalized policy illustration.</div>
+      <div class="disc ht" style="border-top-color:rgba(255,255,255,.08);">* Pwojeksyon yo se estimasyon edikasyonèl sèlman epi pa konstitye yon ilustrasyon polis oswa konsèy finansye. Kontakte Miguelson pou yon ilustrasyon polis pèsonalize.</div>
     </div>
   </div>
 </section>
@@ -407,7 +376,7 @@ nav .nav-home:hover { color: #C9A84C !important; background: rgba(255,255,255,.0
         <p class="ibc-feat-desc ht">Aksede valè lajan ou nenpòt ki lè — san apwobasyon labank, san tcheke kredi. Rembouse nan orè pa ou.</p>
       </div>
       <div class="ibc-feat">
-        <div class="ibc-feat-photo"><img src="https://images.unsplash.com/photo-1466354424719-343280fe75a4?auto=format&fit=crop&w=400&q=80" alt="Guaranteed death benefit for family"/></div>
+        <div class="ibc-feat-photo"><img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=400&q=80" alt="Guaranteed death benefit for family"/></div>
         <h3 class="ibc-feat-name en">Guaranteed Death Benefit</h3>
         <h3 class="ibc-feat-name ht">Benefis Lanmò Garanti</h3>
         <p class="ibc-feat-desc en">When you pass, your family receives a guaranteed tax-free lump sum — a legacy that outlasts you.</p>
@@ -750,9 +719,8 @@ function submitReview(){
   document.getElementById('rv-text').value='';
 }
 
-// Calculator: whole monthly premium compounds together at ~4.5%/yr,
-// then the resulting total is SPLIT for display: 60% shown as "Base
-// Premium", 40% shown as "Cash Value". Base + Cash Value = Total, always.
+// Calculator: monthly premium compounds together at ~4.5%/yr across
+// 1, 5, 10, and 20 years — a straightforward projected total, like before.
 function totalAt(annual, years, rate){
   let val = 0;
   for (let y = 1; y <= years; y++){
@@ -771,11 +739,7 @@ function calcIBC(){
 
   periods.forEach(function(yrs){
     const total = totalAt(annual, yrs, rate);
-    const base = total * 0.6;
-    const cash = total * 0.4;
-    document.getElementById('ibc-base-' + yrs).textContent = fmt(base);
-    document.getElementById('ibc-cash-' + yrs).textContent = fmt(cash);
-    document.getElementById('ibc-total-' + yrs).textContent = fmt(total);
+    document.getElementById('ibc-' + yrs).textContent = fmt(total);
   });
 }
 
@@ -790,7 +754,7 @@ function submitIBC(){
 
   const age=document.getElementById('ibc-age').value;
   const prem=document.getElementById('ibc-prem').value;
-  const total20=document.getElementById('ibc-total-20').textContent;
+  const total20=document.getElementById('ibc-20').textContent;
   const details = 'Age: '+age+', Monthly premium: $'+prem+', 20-year projected total: '+total20;
 
   const digits = phone.replace(/\D/g, '');
