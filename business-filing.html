@@ -189,9 +189,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
 .fl-links a:hover{color:var(--gold);}
 .fl-disc{width:100%;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06);font-size:.64rem;color:rgba(255,255,255,.2);line-height:1.65;}
 
-/* ── MOBILE FIXES ── */
 @media(max-width:540px){
-  /* Credential block: move below photo instead of floating over it */
   .aph-cred{
     position:static !important;
     margin-top:16px;
@@ -199,19 +197,13 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
     width:100%;
     box-shadow:0 4px 16px rgba(0,0,0,.15);
   }
-  /* Hide decorative gold frame on small screens */
   .aph-frame{display:none;}
-  /* About grid stacks cleanly */
   .about-grid{gap:16px;}
 }
 @media(max-width:760px){
-  /* Compare table scrolls horizontally on mobile */
   .compare-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-  /* Feature grid: 1 column on small phones */
   .ibc-feature-grid{grid-template-columns:1fr !important;}
-  /* Hero stats wrap better */
   .hero-stats{gap:20px;}
-  /* Calc grids stack */
   .cgrid{grid-template-columns:1fr !important;}
 }
 
@@ -412,7 +404,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
         <div class="aph-cred-t">Credentials</div>
         <div class="aph-cred-item"><span class="aph-ck">✓</span> Licensed Agent FL, MA, NJ</div>
         <div class="aph-cred-item"><span class="aph-ck">✓</span> IRS PTIN — Tax Specialist</div>
-        <div class="aph-cred-item"><span class="aph-ck">✓</span> IBC Certified Practitioner</div>
+        <div class="aph-cred-item"><span class="aph-ck">✓</span> IBC Practitioner</div>
         <div class="aph-cred-item"><span class="aph-ck">✓</span> JWANAIX GROUP Affiliated</div>
       </div>
     </div>
@@ -512,6 +504,11 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
           <input type="text" class="fi" id="rv-name" placeholder="Full name"/>
         </div>
         <div class="fg">
+          <label class="fl en">Your Email</label>
+          <label class="fl ht">Imèl Ou</label>
+          <input type="email" class="fi" id="rv-email" placeholder="your@email.com"/>
+        </div>
+        <div class="fg">
           <label class="fl en">Your City</label>
           <label class="fl ht">Vil Ou</label>
           <input type="text" class="fi" id="rv-city" placeholder="e.g. Orlando, FL"/>
@@ -538,7 +535,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
           <textarea class="fta" id="rv-text" placeholder="Share your experience..."></textarea>
         </div>
       </div>
-      <button class="brev" onclick="submitReview('business@meshieldfinancial.com')">
+      <button class="brev" onclick="submitReview()">
         <span class="en">Submit My Review</span>
         <span class="ht">Soumèt Kòmantè Mwen</span>
       </button>
@@ -571,25 +568,91 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
 </section>
 
 <footer>
-  <div class="fi-wrap">
-    <div class="fl-brand">
-      <img src="logo.png" alt="ME Shield" class="fl-logo" onerror="this.style.display='none'"/>
-      <span class="fl-name">ME Shield Financial Services</span>
+  <div class="footer-grid2">
+    <div>
+      <div class="footer-brand">
+        <img src="logo.png" alt="ME Shield" class="footer-logo" onerror="this.style.display='none'"/>
+        <div>
+          <div class="footer-name">ME Shield Financial Services</div>
+          <div class="footer-dba">A DBA of ME Shield Group LLC</div>
+        </div>
+      </div>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.45);max-width:260px;line-height:1.6;" class="en">Insurance (FL, MA, NJ), tax &amp; immigration forms filing (nationwide) — in English and Haitian Creole.</p>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.45);max-width:260px;line-height:1.6;" class="ht">Asirans (FL, MA, NJ), taks &amp; ranpli fòmilè imigrasyon (nasyonal) — an Anglè ak Kreyòl.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/profile.php?id=61590568017562" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="15" height="15" fill="#fff"><path d="M22.675 0h-21.35C.595 0 0 .595 0 1.326v21.348C0 23.404.595 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.405 24 24 23.404 24 22.674V1.326C24 .595 23.405 0 22.675 0z"/></svg></a>
+        <a href="https://www.instagram.com/meshieldfinancial/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="15" height="15" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" width="15" height="15" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
+        <a href="https://wa.me/14072672652" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="15" height="15" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
+      </div>
+      <div class="footer-trust">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3zm0 2.2 6 2.25v4.55c0 4-2.8 7.3-6 8.95-3.2-1.65-6-4.95-6-8.95V6.45l6-2.25z"/></svg>
+        <span class="en">FL Licensed &amp; PTIN Registered</span>
+        <span class="ht">Lisansye FL &amp; Anrejistre PTIN</span>
+      </div>
     </div>
-    <div class="fl-links">
-      <a href="index.html">Home</a>
-      <a href="insurance.html">Insurance</a>
-      <a href="tax-preparation.html">Tax</a>
-      <a href="business-filing.html">Business Filing</a>
-      <a href="immigration-forms.html">Immigration</a>
-      <a href="infinite-banking.html">IBC</a>
-      <a href="book.html">Book Appointment</a>
+
+    <div class="footer-col">
+      <h4 class="en">Services</h4><h4 class="ht">Sèvis</h4>
+      <ul>
+        <li><a href="insurance.html" class="en">Insurance</a><a href="insurance.html" class="ht">Asirans</a></li>
+        <li><a href="tax-preparation.html" class="en">Tax Preparation</a><a href="tax-preparation.html" class="ht">Preparasyon Taks</a></li>
+        <li><a href="immigration-forms.html" class="en">Immigration Forms Filing</a><a href="immigration-forms.html" class="ht">Ranpli Fòmilè Imigrasyon</a></li>
+        <li><a href="business-filing.html" class="en">Business Filing</a><a href="business-filing.html" class="ht">Depo Biznis</a></li>
+        <li><a href="infinite-banking.html" class="en">Infinite Banking</a><a href="infinite-banking.html" class="ht">Bank Enfini</a></li>
+      </ul>
     </div>
-    <div class="fl-disc">
-      Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Licensed in FL, MA &amp; NJ. ME Shield Financial Services is a DBA of ME Shield Group LLC, Apopka, FL 32712. All content for educational purposes only.
+
+    <div class="footer-col">
+      <h4 class="en">Company</h4><h4 class="ht">Konpayi</h4>
+      <ul>
+        <li><a href="about.html" class="en">About Us</a><a href="about.html" class="ht">Sou Nou</a></li>
+        <li><a href="contact.html" class="en">Contact</a><a href="contact.html" class="ht">Kontakte</a></li>
+        <li><a href="book.html" class="en">Free Consultation</a><a href="book.html" class="ht">Konsiltasyon Gratis</a></li>
+        <li><a href="blog.html" class="en">Blog</a><a href="blog.html" class="ht">Blòg</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="en">Contact</h4><h4 class="ht">Kontakte</h4>
+      <ul>
+        <li style="color:rgba(255,255,255,.5);font-size:.78rem;">Apopka, FL 32712</li>
+        <li><a href="tel:+14072672652" style="color:rgba(255,255,255,.5);">(407) 267-2652</a></li>
+        <li><a href="mailto:info@meshieldfinancial.com" style="color:rgba(255,255,255,.5);">info@meshieldfinancial.com</a></li>
+        <li style="color:rgba(255,255,255,.5);font-size:.78rem;" class="en">Mon–Fri: 9am–6pm</li>
+        <li style="color:rgba(255,255,255,.5);font-size:.78rem;" class="ht">Lendi–Vandredi: 9am–6pm</li>
+      </ul>
     </div>
   </div>
+
+  <div class="footer-bottom-strip">
+    <div class="footer-disc en">ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC, a Florida-registered limited liability company. We are not attorneys or CPAs and do not provide legal or tax structuring advice. For educational purposes only.</div>
+    <div class="footer-disc ht">ME Shield Financial Services se yon DBA pou ME Shield Group LLC. Nou pa avoka oswa CPA epi nou pa bay konsèy legal oswa estriktire taks. Pou objektif edikasyonèl sèlman.</div>
+    <div class="footer-copy">© <span id="year"></span> ME Shield Financial Services. <span class="en">All rights reserved.</span><span class="ht">Tout dwa rezève.</span></div>
+  </div>
 </footer>
+
+<style>
+.footer-grid2{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:36px;}
+@media(max-width:860px){.footer-grid2{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.footer-grid2{grid-template-columns:1fr;}}
+.footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.footer-logo{height:32px;width:auto;}
+.footer-name{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;font-weight:700;}
+.footer-dba{font-size:.62rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;}
+.footer-col h4{color:#fff;font-size:.8rem;font-weight:700;margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-col a{font-size:.78rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+.footer-col a:hover{color:var(--gold);}
+.footer-social{display:flex;gap:10px;margin-top:16px;}
+.footer-social a{width:32px;height:32px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .2s;}
+.footer-social a:hover{background:rgba(201,168,76,.25);}
+.footer-trust{display:flex;align-items:center;gap:6px;color:var(--gold);font-size:.72rem;font-weight:700;margin-top:16px;}
+.footer-bottom-strip{max-width:1100px;margin:36px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);}
+.footer-disc{font-size:.66rem;color:rgba(255,255,255,.35);line-height:1.7;margin-bottom:6px;}
+.footer-copy{font-size:.7rem;color:rgba(255,255,255,.3);margin-top:14px;}
+</style>
+
 <script>
 function setLang(l){
   document.body.className='lang-'+l;
@@ -597,6 +660,12 @@ function setLang(l){
   document.getElementById('btn-ht').classList.toggle('active',l==='ht');
   document.documentElement.lang=l==='ht'?'ht':'en';
 }
+
+document.addEventListener('DOMContentLoaded', function(){
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+});
+
 function goStep(n,total){
   for(let i=1;i<=total;i++){
     const p=document.getElementById('p'+i);if(p)p.classList.remove('active');
@@ -610,17 +679,42 @@ function goStep(n,total){
   }
   const pn=document.getElementById('p'+n);if(pn)pn.classList.add('active');
 }
-function submitReview(email){
+
+// Your Brevo "Reviews" submission endpoint (shared with insurance.html / tax-preparation.html)
+const REVIEW_FORM_ACTION = 'https://d95daacd.sibforms.com/serve/MUIFAKAUD22A4Zsu1zWN0Dt6ZTTf93u7k0CXPn5GwLMcTjUu9E9-kn-kBOAtNkWxo32yigZNYTQXSuLQ_29Vl-dVAKFmI-oEThulvkUYH6AEApMOY6uRVa9HpBw6_snBMjfJQDgKQHEBayL20YHP9IiauhSW0VVOfMybpYZWLdzcEbd8tNuNuwLnsA7nraVfeUMxzEeroZ9E1qm8Wg==';
+
+function submitReview(){
   const name=document.getElementById('rv-name').value.trim();
+  const email=document.getElementById('rv-email').value.trim();
+  const city=document.getElementById('rv-city').value.trim();
+  const service=document.getElementById('rv-service').value;
   const text=document.getElementById('rv-text').value.trim();
-  if(!name||!text){alert('Please enter your name and review.');return;}
-  const city=document.getElementById('rv-city')?.value||'';
-  const svc=document.getElementById('rv-service')?.value||'';
   const stars=[...document.querySelectorAll('input[name="stars"]')].find(r=>r.checked)?.value||'5';
-  const subj=encodeURIComponent('New Client Review — '+name+' ('+stars+' stars)');
-  const body=encodeURIComponent('Name: '+name+'\nCity: '+city+'\nService: '+svc+'\nRating: '+stars+'/5\n\nReview:\n'+text);
-  window.location.href='mailto:'+email+'?subject='+subj+'&body='+body;
+  if(!name||!email||!text){alert('Please enter your name, email, and review.');return;}
+
+  const params = new URLSearchParams();
+  params.append('LASTNAME', name);
+  params.append('EMAIL', email);
+  params.append('CITY', city);
+  params.append('SERVICE_INTERESTED', service);
+  params.append('RATING', stars);
+  params.append('REVIEW', text);
+  params.append('email_address_check', '');
+  params.append('locale', 'en');
+  params.append('html_type', 'simple');
+
+  fetch(REVIEW_FORM_ACTION, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  }).catch(() => {});
+
   document.getElementById('rev-ok').style.display='block';
+  document.getElementById('rv-name').value='';
+  document.getElementById('rv-email').value='';
+  document.getElementById('rv-city').value='';
+  document.getElementById('rv-text').value='';
 }
 
 function calcBiz(){
@@ -645,15 +739,40 @@ function calcBiz(){
   document.getElementById('biz-result').textContent='$'+Math.round(total*0.9)+' – $'+Math.round(total*1.1);
   document.getElementById('biz-breakdown').innerHTML=lines.join(' &nbsp;·&nbsp; ');
 }
+
+// Your Brevo "Quote Form" submission endpoint (shared with insurance.html / tax-preparation.html)
+const QUOTE_FORM_ACTION = 'https://d95daacd.sibforms.com/serve/MUIFAMqjH_cY1LbRSOMkgaHyh3AM8-YFTKECi52xHfqMLn-GuIdA_-AR79NKMutB8ClkLRVS6xTsE1rCP0ay371kFgxCGSXVTSFsfcp1iKMsvUPSeqh6yDtJbLiQd3216pI03uN9RbummyF4YxV-zWpiGY3n1Lff2FmR1WRCfgfoH6IBhMHe6JKvb-CgpPzfPbAkNeGZU9e9Pu7kAg==';
+
 function submitBiz(){
   const name=document.getElementById('bz-name').value.trim();
   const email=document.getElementById('bz-email').value.trim();
   const phone=document.getElementById('bz-phone').value.trim();
   const result=document.getElementById('biz-result').textContent;
-  if(!name||!email){alert('Please enter your name and email.');return;}
-  const subj=encodeURIComponent('Business Filing Request — '+name);
-  const body=encodeURIComponent('Business Filing Request\n\nName: '+name+'\nEmail: '+email+'\nPhone: '+phone+'\nEstimate: '+result);
-  window.location.href='mailto:business@meshieldfinancial.com?subject='+subj+'&body='+body;
+  if(!name||!email||!phone){alert('Please enter your name, email, and phone number.');return;}
+
+  const type=document.getElementById('biz-type').value;
+  const details = 'Entity type: '+type+', Breakdown: '+document.getElementById('biz-breakdown').textContent;
+
+  const digits = phone.replace(/\D/g, '');
+  const params = new URLSearchParams();
+  params.append('LASTNAME', name);
+  params.append('EMAIL', email);
+  params.append('SMS__COUNTRY_CODE', '+1');
+  params.append('SMS', digits.length===10 ? '1'+digits : digits);
+  params.append('SERVICE_INTERESTED', 'Business Filing');
+  params.append('MESSAGE', details);
+  params.append('ESTIMATE', result);
+  params.append('email_address_check', '');
+  params.append('locale', 'en');
+  params.append('html_type', 'simple');
+
+  fetch(QUOTE_FORM_ACTION, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  }).catch(() => {});
+
   document.getElementById('biz-ok').style.display='block';
 }
 window.addEventListener('load',calcBiz);</script>
