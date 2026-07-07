@@ -14,12 +14,15 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 /* NAV */
 nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid rgba(255,255,255,.08);}
-.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.nav-brand img{height:38px;width:auto;}
-.nav-name{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;font-weight:700;}
-.nav-sub{font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.35);}
+.nav-brand{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.nav-brand img{height:56px;width:auto;}
+.nav-name{font-family:'Playfair Display',serif;font-size:1.05rem;color:#fff;font-weight:700;}
+.nav-sub{font-size:.6rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.35);}
+.nav-links{display:flex;align-items:center;gap:10px;}
 .nav-back{font-size:.78rem;color:rgba(255,255,255,.5);text-decoration:none;padding:8px 16px;border:1px solid rgba(255,255,255,.12);border-radius:50px;transition:all .2s;}
 .nav-back:hover{color:#fff;border-color:rgba(255,255,255,.3);}
+.nav-support{font-size:.78rem;color:var(--gold);text-decoration:none;padding:8px 16px;border:1px solid rgba(201,168,76,.35);border-radius:50px;transition:all .2s;font-weight:600;}
+.nav-support:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
 /* MAIN */
 main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:48px 24px;}
@@ -116,7 +119,10 @@ main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:48px 24px
       <div class="nav-sub">Client Portal</div>
     </div>
   </a>
-  <a href="index.html" class="nav-back">← Back to Site</a>
+  <div class="nav-links">
+    <a href="portal-support.html" class="nav-support">Contact Support</a>
+    <a href="index.html" class="nav-back">← Back to Site</a>
+  </div>
 </nav>
 
 <main>
@@ -426,5 +432,9 @@ function showPanel(name){
   document.getElementById('panel-'+name).classList.add('active');
 }
 </script>
+
+<!-- Floating chat widget (same as public site) -->
+<script id="chat-widget-js" src="chat-widget.js"></script>
+
 </body>
 </html>
