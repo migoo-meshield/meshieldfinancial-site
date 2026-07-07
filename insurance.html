@@ -915,6 +915,11 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
           <input type="text" class="form-input" id="rv-name" placeholder="Full name"/>
         </div>
         <div class="form-group">
+          <label class="form-label en">Your Email</label>
+          <label class="form-label ht">Imèl Ou</label>
+          <input type="email" class="form-input" id="rv-email" placeholder="your@email.com"/>
+        </div>
+        <div class="form-group">
           <label class="form-label en">Your City</label>
           <label class="form-label ht">Vil Ou</label>
           <input type="text" class="form-input" id="rv-city" placeholder="e.g. Orlando, FL"/>
@@ -1183,13 +1188,16 @@ function calcAndShow() {
   goStep(3);
 }
 
+// Your Brevo "Quote Form" submission endpoint
+const QUOTE_FORM_ACTION = 'https://d95daacd.sibforms.com/serve/MUIFAMqjH_cY1LbRSOMkgaHyh3AM8-YFTKECi52xHfqMLn-GuIdA_-AR79NKMutB8ClkLRVS6xTsE1rCP0ay371kFgxCGSXVTSFsfcp1iKMsvUPSeqh6yDtJbLiQd3216pI03uN9RbummyF4YxV-zWpiGY3n1Lff2FmR1WRCfgfoH6IBhMHe6JKvb-CgpPzfPbAkNeGZU9e9Pu7kAg==';
+
 function submitLead() {
   const name=document.getElementById('lead-name').value.trim();
   const email=document.getElementById('lead-email').value.trim();
   const phone=document.getElementById('lead-phone').value.trim();
   const type=document.getElementById('ins-type').value;
   const range=document.getElementById('result-range').textContent;
-  if(!name||!email){alert('Please enter your name and email.');return;}
+  if(!name||!email||!phone){alert('Please enter your name, email, and phone number.');return;}
 
   let details = '';
   if (type==='term-10'||type==='term-20'||type==='whole') {
@@ -1202,25 +1210,69 @@ function submitLead() {
     details = 'Home value: $'+document.getElementById('home-value').value+', Year built: '+document.getElementById('home-year').value+', Claims: '+document.getElementById('home-claims').value;
   }
 
-  const subj=encodeURIComponent('Insurance Quote Request — '+name);
-  const body=encodeURIComponent('New Insurance Quote Request\n\nName: '+name+'\nEmail: '+email+'\nPhone: '+phone+'\nType: '+type+'\nDetails: '+details+'\nEstimate: '+range);
-  window.location.href='mailto:insurance@meshieldfinancial.com?subject='+subj+'&body='+body;
+  // Brevo requires a 10-digit US number with no punctuation, prefixed with country code
+  const digits = phone.replace(/\D/g, '');
+  const params = new URLSearchParams();
+  params.append('LASTNAME', name);
+  params.append('EMAIL', email);
+  params.append('SMS__COUNTRY_CODE', '+1');
+  params.append('SMS', digits.length===10 ? '1'+digits : digits);
+  params.append('SERVICE_INTERESTED', type);
+  params.append('MESSAGE', details);
+  params.append('ESTIMATE', range);
+  params.append('email_address_check', ''); // Brevo's own honeypot — must stay blank
+  params.append('locale', 'en');
+  params.append('html_type', 'simple');
+
+  // mode: 'no-cors' lets this POST reach Brevo without a CORS preflight.
+  // We can't read the response, so we show success right away — the
+  // request still lands in Brevo either way.
+  fetch(QUOTE_FORM_ACTION, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  }).catch(() => {});
+
   document.getElementById('calc-success').style.display='block';
   document.getElementById('p3').style.display='none';
 }
 
+// Your Brevo "Reviews" submission endpoint
+const REVIEW_FORM_ACTION = 'https://d95daacd.sibforms.com/serve/MUIFAKAUD22A4Zsu1zWN0Dt6ZTTf93u7k0CXPn5GwLMcTjUu9E9-kn-kBOAtNkWxo32yigZNYTQXSuLQ_29Vl-dVAKFmI-oEThulvkUYH6AEApMOY6uRVa9HpBw6_snBMjfJQDgKQHEBayL20YHP9IiauhSW0VVOfMybpYZWLdzcEbd8tNuNuwLnsA7nraVfeUMxzEeroZ9E1qm8Wg==';
+
 function submitReview() {
   const name=document.getElementById('rv-name').value.trim();
+  const email=document.getElementById('rv-email').value.trim();
   const city=document.getElementById('rv-city').value.trim();
   const service=document.getElementById('rv-service').value;
   const text=document.getElementById('rv-text').value.trim();
   const stars=[...document.querySelectorAll('input[name="stars"]')].find(r=>r.checked)?.value||'5';
-  if(!name||!text){alert('Please enter your name and review.');return;}
-  const subj=encodeURIComponent('New Client Review — '+name+' ('+stars+' stars)');
-  const body=encodeURIComponent('New Client Review\n\nName: '+name+'\nCity: '+city+'\nService: '+service+'\nRating: '+stars+'/5 stars\n\nReview:\n'+text);
-  window.location.href='mailto:insurance@meshieldfinancial.com?subject='+subj+'&body='+body;
+  if(!name||!email||!text){alert('Please enter your name, email, and review.');return;}
+
+  const params = new URLSearchParams();
+  params.append('LASTNAME', name);
+  params.append('EMAIL', email);
+  params.append('CITY', city);
+  params.append('SERVICE_INTERESTED', service);
+  params.append('RATING', stars);
+  params.append('REVIEW', text);
+  params.append('email_address_check', '');
+  params.append('locale', 'en');
+  params.append('html_type', 'simple');
+
+  fetch(REVIEW_FORM_ACTION, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  }).catch(() => {});
+
   document.getElementById('review-success').style.display='block';
-  document.querySelector('.write-review-wrap form') && document.querySelector('.write-review-wrap form').reset();
+  document.getElementById('rv-name').value='';
+  document.getElementById('rv-email').value='';
+  document.getElementById('rv-city').value='';
+  document.getElementById('rv-text').value='';
 }
 </script>
 
