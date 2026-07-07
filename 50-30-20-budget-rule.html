@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Does the 50/30/20 Budget Rule Actually Work? — ME Shield Financial Services</title>
+  <meta name="description" content="An honest look at whether the 50/30/20 budgeting rule holds up for real families with rent, remittances, and a single income."/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .utility-bar{background:var(--navy-mid,#16284f);padding:8px 0;font-size:.8rem;}
+    .utility-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .utility-left{display:flex;align-items:center;gap:18px;color:rgba(255,255,255,.7);}
+    .utility-left a{color:rgba(255,255,255,.7);}
+    .utility-promos{display:flex;gap:18px;flex-wrap:wrap;}
+    .utility-promo{color:var(--gold);font-weight:700;letter-spacing:.04em;}
+    .utility-promo a{color:var(--white);font-weight:600;margin-left:6px;text-decoration:underline;}
+    @media (max-width:700px){.utility-promos{display:none;}}
+    .article-body{max-width:760px;margin:0 auto;}
+    .article-body h2{color:var(--navy);margin-top:36px;margin-bottom:14px;}
+    .article-body p{margin-bottom:18px;line-height:1.75;color:var(--text-mid);}
+    .article-body ul{margin:0 0 18px 20px;color:var(--text-mid);line-height:1.75;}
+    .article-meta{display:flex;gap:14px;align-items:center;margin-bottom:24px;color:var(--text-light);font-size:.88rem;}
+    .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-weight:600;font-size:.9rem;margin-bottom:24px;text-decoration:none;}
+    .article-cta{background:var(--navy);border-radius:12px;padding:36px 32px;text-align:center;margin-top:40px;border:1px solid var(--border);}
+    .article-cta h3{color:var(--gold);margin-bottom:10px;}
+    .article-cta p{color:rgba(255,255,255,.7);margin-bottom:22px;}
+    .disclaimer-box{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:16px 20px;font-size:.85rem;color:var(--text-dark);margin:28px 0;}
+  </style>
+</head>
+<body class="lang-en">
+
+<div class="utility-bar">
+  <div class="container utility-bar-inner">
+    <div class="utility-left">
+      <span><a href="tel:+14072672652">(407) 267-2652</a></span>
+      <span data-en>Mon–Fri 9am–6pm · Sat by appointment</span>
+      <span data-ht>Lendi–Vandredi 9am–6pm · Samdi sou randevou</span>
+    </div>
+    <div class="utility-promos">
+      <span class="utility-promo" data-en>FREE CONSULTATION<a href="book.html">Book Now</a></span>
+      <span class="utility-promo" data-ht>KONSILTASYON GRATIS<a href="book.html">Rezève</a></span>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
+      <div><div class="nav-logo-text">ME Shield Financial</div><div class="nav-logo-sub">Services</div></div>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+      <li class="nav-dropdown">
+        <a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="insurance.html"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li>
+          <li><a href="tax-preparation.html"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li>
+          <li><a href="immigration-forms.html"><span data-en>Immigration Forms Filing</span><span data-ht>Ranpli Fòmilè Imigrasyon</span></a></li>
+          <li><a href="business-filing.html"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li>
+          <li><a href="infinite-banking.html"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li>
+        </ul>
+      </li>
+      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">HT</button>
+      </div>
+      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;"><span data-en>Book Free Consult</span><span data-ht>Rezève Konsiltasyon</span></a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero has-photo" style="background-image:url('https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1400&q=70');">
+  <div class="container">
+    <h1 data-en>Does the 50/30/20 Budget Rule Actually Work for Real Families?</h1>
+    <h1 data-ht>Èske Règ Bidjè 50/30/20 A Reyèlman Fonksyone Pou Vrè Fanmi?</h1>
+  </div>
+</div>
+
+<section class="section section-white">
+  <div class="container article-body">
+    <a href="blog.html" class="back-link" data-en>← Back to Blog</a>
+    <a href="blog.html" class="back-link" data-ht>← Retounen nan Blòg</a>
+    <div class="article-meta"><span data-en>Financial Education</span><span data-ht>Edikasyon Finansyè</span><span>·</span><span>July 2026</span></div>
+
+    <div data-en>
+      <p>You've probably heard the 50/30/20 rule: 50% of your income to needs, 30% to wants, 20% to savings and debt payoff. It's simple, easy to remember, and a genuinely useful starting point. But for a lot of the families we work with — juggling rent, remittances back home, and often a single income — the math doesn't always add up so cleanly. Let's look honestly at where it works and where it doesn't.</p>
+
+      <h2>Where the Rule Works Well</h2>
+      <p>If you have a stable income and moderate cost of living, 50/30/20 is a great sanity check. It forces you to categorize spending instead of just reacting to whatever's left in your account, and the 20% savings target is a solid long-term goal to aim for.</p>
+
+      <h2>Where It Breaks Down</h2>
+      <p>In high-cost areas of Florida, "needs" alone — rent, utilities, groceries, transportation — can easily eat 60-70% of a paycheck before anything else is considered. And for many families in our community, there's a category the rule doesn't even mention: sending money to family abroad. That's not a "want," but it's also not always a fixed "need" in the traditional sense — it often falls somewhere in between, and it can be substantial.</p>
+      <p>If you're following 50/30/20 strictly and it isn't working, that doesn't mean you're doing something wrong — it usually means the ratios need to be adjusted for your real numbers.</p>
+
+      <h2>A More Realistic Approach</h2>
+      <ul>
+        <li><strong>Start with your actual numbers, not the percentages.</strong> Track a full month of spending before assigning any targets.</li>
+        <li><strong>Treat remittances as their own category</strong> rather than squeezing them into "wants" or "needs" — decide what you can sustainably send, then build around it.</li>
+        <li><strong>Aim for progress, not perfection.</strong> Even 5% in savings is better than 0%, and you can grow that percentage as your income or expenses shift.</li>
+        <li><strong>Revisit the plan every few months.</strong> Rent increases, new jobs, and family changes all mean your ratios should change too.</li>
+      </ul>
+
+      <div class="disclaimer-box">
+        <strong>Educational content only.</strong> This is general budgeting guidance, not personalized financial advice. Everyone's situation is different — what matters is finding a plan you can actually sustain.
+      </div>
+
+      <h2>The Bottom Line</h2>
+      <p>50/30/20 is a helpful mental model, not a law. Use it as a starting conversation with yourself about where your money goes — then adjust the percentages to match your real life, not the other way around.</p>
+    </div>
+
+    <div data-ht style="display:none;">
+      <p>Ou gen chans tande règ 50/30/20 la: 50% revni ou pou bezwen, 30% pou anvi, 20% pou epay ak peye dèt. Li senp, fasil pou sonje, epi li se yon bon pwen depa. Men pou anpil nan fanmi nou travay avèk yo — k ap jongle lwaye, voye lajan tounen nan peyi a, epi souvan yon sèl revni — matematik la pa toujou vin ansanm konsa fasil. Ann gade onètman kote li fonksyone ak kote li pa fonksyone.</p>
+
+      <h2>Kote Règ La Fonksyone Byen</h2>
+      <p>Si ou gen yon revni estab ak yon kout lavi modere, 50/30/20 se yon bon verifikasyon santi bon sans. Li fòse ou kategorize depans ou olye ou jis reyaji ak sa ki rete nan kont ou, epi objektif 20% epay la se yon bon objektif alontèm pou vize.</p>
+
+      <h2>Kote Li Kraze</h2>
+      <p>Nan zòn Florid ki koute chè, "bezwen" sèlman — lwaye, itilite, makèt, transpò — ka fasilman manje 60-70% yon chèk anvan nenpòt lòt bagay konsidere. Epi pou anpil fanmi nan kominote nou an, gen yon kategori règ la pa menm mansyone: voye lajan bay fanmi aletranje. Sa a se pa yon "anvi," men li se pa toujou yon "bezwen" fiks nan sans tradisyonèl la — li souvan tonbe yon kote antre de yo, epi li ka konsiderab.</p>
+      <p>Si ou ap swiv 50/30/20 estriktman epi li pa fonksyone, sa pa vle di ou ap fè yon bagay mal — jeneralman sa vle di rapò yo bezwen ajiste pou vrè chif ou yo.</p>
+
+      <h2>Yon Apwòch Pi Realistik</h2>
+      <ul>
+        <li><strong>Kòmanse ak vrè chif ou yo, pa pousantaj yo.</strong> Swiv yon mwa konplè depans anvan ou asiyen okenn objektif.</li>
+        <li><strong>Trete lajan voye yo kòm pwòp kategori yo pa</strong> olye de peze yo nan "anvi" oswa "bezwen" — deside kisa ou ka voye dirab, epi bati alantou li.</li>
+        <li><strong>Vize pwogrè, pa pèfeksyon.</strong> Menm 5% nan epay pi bon pase 0%, epi ou ka fè pousantaj sa a grandi pandan revni oswa depans ou chanje.</li>
+        <li><strong>Revize plan an chak kèk mwa.</strong> Ogmantasyon lwaye, nouvo travay, ak chanjman fanmi tout vle di rapò ou yo ta dwe chanje tou.</li>
+      </ul>
+
+      <div class="disclaimer-box">
+        <strong>Kontni edikasyonèl sèlman.</strong> Sa a se konsèy bidjè jeneral, se pa konsèy finansye pèsonalize. Sitiyasyon chak moun diferan — sa ki enpòtan se jwenn yon plan ou ka reyèlman kenbe.
+      </div>
+
+      <h2>Konklizyon</h2>
+      <p>50/30/20 se yon modèl mantal itil, se pa yon lwa. Itilize li kòm yon konvèsasyon depa avèk tèt ou sou kote lajan ou ale — epi ajiste pousantaj yo pou matche ak vrè lavi ou, pa lòt sans lan.</p>
+    </div>
+
+    <div class="article-cta">
+      <h3 data-en>Want help building a plan that actually fits your income?</h3>
+      <h3 data-ht>Ou vle èd pou bati yon plan ki reyèlman koresponn ak revni ou?</h3>
+      <p data-en>Book a free consultation — we look at your full financial picture, not just a formula.</p>
+      <p data-ht>Rezève yon konsiltasyon gratis — nou gade tout sitiyasyon finansyè ou, pa jis yon fòmil.</p>
+      <a href="book.html" class="btn btn-gold" data-en>Book Free Consultation</a>
+      <a href="book.html" class="btn btn-gold" data-ht>Rezève Konsiltasyon Gratis</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <img src="logo.png" alt="ME Shield Financial Services logo" style="height:48px;width:auto;object-fit:contain;"/>
+          <div><div style="color:var(--white);font-family:var(--font-display);font-weight:700;">ME Shield Financial Services</div><div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div></div>
+        </div>
+        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ), tax &amp; immigration forms filing (nationwide) — in English and Haitian Creole.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ), taks &amp; ranpli fòmilè imigrasyon (nasyonal) — an Anglè ak Kreyòl.</p>
+      </div>
+      <div>
+        <h4 data-en>Services</h4><h4 data-ht>Sèvis</h4>
+        <ul>
+          <li><a href="insurance.html" data-en>Insurance</a><a href="insurance.html" data-ht>Asirans</a></li>
+          <li><a href="tax-preparation.html" data-en>Tax Preparation</a><a href="tax-preparation.html" data-ht>Preparasyon Taks</a></li>
+          <li><a href="immigration-forms.html" data-en>Immigration Forms Filing</a><a href="immigration-forms.html" data-ht>Ranpli Fòmilè Imigrasyon</a></li>
+          <li><a href="business-filing.html" data-en>Business Filing</a><a href="business-filing.html" data-ht>Depo Biznis</a></li>
+          <li><a href="infinite-banking.html" data-en>Infinite Banking</a><a href="infinite-banking.html" data-ht>Bank Enfini</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Company</h4><h4 data-ht>Konpayi</h4>
+        <ul>
+          <li><a href="about.html" data-en>About Us</a><a href="about.html" data-ht>Sou Nou</a></li>
+          <li><a href="contact.html" data-en>Contact</a><a href="contact.html" data-ht>Kontakte</a></li>
+          <li><a href="book.html" data-en>Free Consultation</a><a href="book.html" data-ht>Konsiltasyon Gratis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Contact</h4><h4 data-ht>Kontakte</h4>
+        <ul style="font-size:.88rem;color:rgba(255,255,255,.6);">
+          <li style="list-style:none;color:inherit;">Apopka, FL 32712</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-en>Mon – Fri: 9am – 6pm</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-ht>Lendi – Vandredi: 9am – 6pm</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC. Blog content is general education, not personalized financial advice.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA pou ME Shield Group LLC. Kontni blòg se edikasyon jeneral, se pa konsèy finansye pèsonalize.</div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
+      <span data-en>All rights reserved.</span><span data-ht>Tout dwa rezève.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script src="chat-widget.js"></script>
+</body>
+</html>
