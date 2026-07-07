@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portal Support — ME Shield Financial Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--navy:#0B1D3A;--gold:#C9A84C;--gold2:#e0be6a;}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--navy);min-height:100vh;color:#fff;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 10% 10%,rgba(201,168,76,.07) 0%,transparent 60%),linear-gradient(160deg,#060f1e 0%,#0b1d3a 60%,#060f1e 100%);z-index:0;}
+
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid rgba(255,255,255,.08);}
+.nav-brand{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.nav-brand img{height:56px;width:auto;}
+.nav-name{font-family:'Playfair Display',serif;font-size:1.05rem;color:#fff;font-weight:700;}
+.nav-sub{font-size:.6rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.35);}
+.nav-back{font-size:.78rem;color:rgba(255,255,255,.5);text-decoration:none;padding:8px 16px;border:1px solid rgba(255,255,255,.12);border-radius:50px;transition:all .2s;}
+.nav-back:hover{color:#fff;border-color:rgba(255,255,255,.3);}
+
+main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:48px 24px 80px;}
+
+.lang-toggle{display:flex;justify-content:flex-end;gap:8px;margin-bottom:28px;}
+.lang-btn{background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:.72rem;font-weight:700;padding:6px 16px;border-radius:50px;cursor:pointer;font-family:inherit;letter-spacing:.05em;transition:all .2s;}
+.lang-btn.active{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+
+.page-title{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;margin-bottom:8px;}
+.page-sub{font-size:.9rem;color:rgba(255,255,255,.5);margin-bottom:36px;line-height:1.6;}
+
+.faq-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px 24px;margin-bottom:14px;}
+.faq-q{font-size:.95rem;font-weight:700;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.faq-q-icon{width:26px;height:26px;border-radius:50%;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;}
+.faq-a{font-size:.86rem;color:rgba(255,255,255,.65);line-height:1.7;}
+
+.contact-card{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.25);border-radius:18px;padding:28px 26px;margin-top:32px;text-align:center;}
+.contact-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:#fff;margin-bottom:6px;}
+.contact-sub{font-size:.82rem;color:rgba(255,255,255,.45);margin-bottom:20px;}
+.contact-buttons{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+.contact-btn{display:flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:700;font-size:.85rem;padding:11px 22px;border-radius:50px;text-decoration:none;transition:all .2s;}
+.contact-btn:hover{background:var(--gold2);}
+.contact-btn.outline{background:transparent;border:1.5px solid rgba(255,255,255,.2);color:#fff;}
+.contact-btn.outline:hover{border-color:var(--gold);color:var(--gold);}
+
+.lang-block{display:none;}
+.lang-block.active{display:block;}
+
+.portal-footer{text-align:center;padding:32px 24px;color:rgba(255,255,255,.2);font-size:.7rem;position:relative;z-index:1;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="logo.png" alt="ME Shield" onerror="this.style.display='none'"/>
+    <div>
+      <div class="nav-name">ME Shield Financial Services</div>
+      <div class="nav-sub">Portal Support</div>
+    </div>
+  </a>
+  <a href="client-portal.html" class="nav-back">← Back to Portal</a>
+</nav>
+
+<main>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btn-ht" onclick="setLang('ht')">HT</button>
+  </div>
+
+  <!-- ENGLISH -->
+  <div class="lang-block active" id="block-en">
+    <h1 class="page-title">Portal Support</h1>
+    <p class="page-sub">Answers to common questions about using your ME Shield client portal. Can't find what you need? Reach out below.</p>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">1</span> How do I log in to my portal?</div>
+      <div class="faq-a">Go to the client portal page and enter the email address on file with ME Shield. We'll send you a secure link by email — no password needed. Click the link within 15 minutes to access your dashboard.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">2</span> I didn't receive my secure link email. What do I do?</div>
+      <div class="faq-a">First, check your spam or junk folder. If it's not there after a few minutes, request a new link — each one expires after 15 minutes. If it still doesn't arrive, contact us using the buttons below and we'll verify your account.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">3</span> My email isn't recognized by the portal.</div>
+      <div class="faq-a">Only emails already on file as active clients can access the portal. If you're a client and this happens, contact Miguelson directly to confirm the email address linked to your account.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">4</span> Where can I find my documents?</div>
+      <div class="faq-a">Your documents appear under "Your Documents" on your dashboard once Miguelson uploads them. If you're expecting a document you don't see yet, send a message from the portal or contact us directly.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">5</span> How do I pay an invoice?</div>
+      <div class="faq-a">If you have a balance due, it will appear under "Invoices & Payments" with a "Pay Now" button linking to secure PayPal checkout. Once paid, it will show as "Paid" on your next visit.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">6</span> How does the message form work?</div>
+      <div class="faq-a">Messages sent through the portal go directly to Miguelson. You'll typically receive a reply within 24 hours. For urgent matters, please call or WhatsApp us directly instead.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">7</span> Is my information secure?</div>
+      <div class="faq-a">Yes. Your portal session is protected with a one-time secure link, and only you and ME Shield Financial Services can access your information.</div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-title">Still need help?</div>
+      <div class="contact-sub">Our team is here for you, Monday through Friday.</div>
+      <div class="contact-buttons">
+        <a href="tel:+14072672652" class="contact-btn">📞 Call Us</a>
+        <a href="https://wa.me/message/JUQP57VLU3T2B1" target="_blank" class="contact-btn outline">💬 WhatsApp</a>
+        <a href="mailto:meshieldservices@gmail.com" class="contact-btn outline">✉️ Email</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HAITIAN CREOLE -->
+  <div class="lang-block" id="block-ht">
+    <h1 class="page-title">Èd pou Pòtay la</h1>
+    <p class="page-sub">Repons pou kesyon komen sou kijan pou itilize pòtay kliyan ME Shield ou a. Ou pa jwenn sa w ap chèche? Kontakte nou anba a.</p>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">1</span> Kijan pou m konekte nan pòtay mwen?</div>
+      <div class="faq-a">Ale sou paj pòtay kliyan an epi antre adrès imel ki asosye ak kont ME Shield ou a. N ap voye yon lyen sekirize ba ou pa imel — pa gen modpas ki nesesè. Klike sou lyen an nan 15 minit pou jwenn aksè nan tablodbò ou.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">2</span> Mwen pa resevwa imel ak lyen sekirize a. Kisa pou m fè?</div>
+      <div class="faq-a">Premyèman, tcheke dosye spam oswa junk ou. Si li pa la apre kèk minit, mande yon nouvo lyen — chak lyen ekspire apre 15 minit. Si li toujou pa rive, kontakte nou avèk bouton anba yo epi n ap verifye kont ou.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">3</span> Pòtay la pa rekonèt imel mwen an.</div>
+      <div class="faq-a">Se sèlman imel ki deja anrejistre kòm kliyan aktif ki ka jwenn aksè nan pòtay la. Si w se yon kliyan epi sa rive, kontakte Miguelson dirèkteman pou konfime adrès imel ki lye ak kont ou.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">4</span> Kote m ka jwenn dokiman mwen yo?</div>
+      <div class="faq-a">Dokiman ou yo parèt anba "Your Documents" nan tablodbò ou depi Miguelson telechaje yo. Si w ap tann yon dokiman ou pa wè toujou, voye yon mesaj nan pòtay la oswa kontakte nou dirèkteman.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">5</span> Kijan pou m peye yon fakti?</div>
+      <div class="faq-a">Si w gen yon balans pou peye, l ap parèt anba "Invoices & Payments" ak yon bouton "Pay Now" ki mennen nan yon peman PayPal sekirize. Yon fwa peye, l ap montre "Paid" pwochen fwa w vizite.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">6</span> Kijan fòm mesaj la fonksyone?</div>
+      <div class="faq-a">Mesaj ou voye nan pòtay la ale dirèkteman bay Miguelson. Anjeneral w ap resevwa yon repons nan 24 èdtan. Pou bagay ijan, tanpri rele oswa voye WhatsApp dirèkteman.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q"><span class="faq-q-icon">7</span> Èske enfòmasyon mwen an sekirize?</div>
+      <div class="faq-a">Wi. Sesyon pòtay ou a pwoteje ak yon lyen sekirize itilizasyon inik, epi se sèlman ou menm ak ME Shield Financial Services ki ka jwenn aksè nan enfòmasyon ou.</div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-title">Ou toujou bezwen èd?</div>
+      <div class="contact-sub">Ekip nou an la pou ou, Lendi rive Vandredi.</div>
+      <div class="contact-buttons">
+        <a href="tel:+14072672652" class="contact-btn">📞 Rele Nou</a>
+        <a href="https://wa.me/message/JUQP57VLU3T2B1" target="_blank" class="contact-btn outline">💬 WhatsApp</a>
+        <a href="mailto:meshieldservices@gmail.com" class="contact-btn outline">✉️ Imel</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div class="portal-footer">
+  ME Shield Financial Services · Secure Client Portal · meshieldfinancial.com
+</div>
+
+<script id="chat-widget-js" src="chat-widget.js"></script>
+
+<script>
+function setLang(lang){
+  document.querySelectorAll('.lang-block').forEach(b=>b.classList.remove('active'));
+  document.getElementById('block-'+lang).classList.add('active');
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('btn-'+lang).classList.add('active');
+}
+</script>
+
+</body>
+</html>
