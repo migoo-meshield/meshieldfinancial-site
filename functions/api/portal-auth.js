@@ -35,7 +35,14 @@ export async function onRequestPost(context) {
       const client    = JSON.parse(clientData);
       const magicLink = 'https://meshieldfinancial.com/client-portal?token=' + token;
 
-      await sendMagicLinkEmail(BREVO_KEY, email, client.name, magicLink);
+      const emailResult = await sendMagicLinkEmail(BREVO_KEY, email, client.name, magicLink);
+
+      if (!emailResult.ok) {
+        console.log('BREVO ERROR:', emailResult.status, emailResult.body);
+        return json({ success: false, message: 'Email could not be sent. Please try again or contact support.', debug: emailResult.body }, CORS);
+      }
+
+      console.log('BREVO SUCCESS:', emailResult.body);
       return json({ success: true }, CORS);
     }
 
@@ -66,13 +73,17 @@ export async function onRequestPost(context) {
     if (action === 'message') {
       const { email, name, message } = body;
       if (!message) return json({ success: false }, CORS);
-      await sendMessageEmail(BREVO_KEY, email, name, message);
+      const emailResult = await sendMessageEmail(BREVO_KEY, email, name, message);
+      if (!emailResult.ok) {
+        console.log('BREVO ERROR (message):', emailResult.status, emailResult.body);
+      }
       return json({ success: true }, CORS);
     }
 
     return json({ success: false, message: 'Unknown action' }, CORS);
 
   } catch (e) {
+    console.log('FUNCTION ERROR:', e.message);
     return json({ success: false, error: e.message }, CORS);
   }
 }
@@ -93,7 +104,7 @@ function json(data, headers) {
 }
 
 async function sendMagicLinkEmail(apiKey, to, name, link) {
-  return fetch('https://api.brevo.com/v3/smtp/email', {
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: { 'api-key': apiKey, 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -130,10 +141,12 @@ async function sendMagicLinkEmail(apiKey, to, name, link) {
       `,
     }),
   });
+  const bodyText = await res.text();
+  return { ok: res.ok, status: res.status, body: bodyText };
 }
 
 async function sendMessageEmail(apiKey, clientEmail, clientName, message) {
-  return fetch('https://api.brevo.com/v3/smtp/email', {
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: { 'api-key': apiKey, 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -148,4 +161,6 @@ async function sendMessageEmail(apiKey, clientEmail, clientName, message) {
       `,
     }),
   });
+  const bodyText = await res.text();
+  return { ok: res.ok, status: res.status, body: bodyText };
 }
