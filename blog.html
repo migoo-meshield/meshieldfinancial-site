@@ -4,11 +4,12 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Blog — ME Shield Financial Services</title>
-  <meta name="description" content="Financial education articles on insurance, tax tips, immigration updates, and more — in English and Haitian Creole."/>
+  <meta name="description" content="Financial education articles on insurance, tax tips, immigration updates, business filing, and Infinite Banking — in English and Haitian Creole."/>
   <link rel="icon" type="image/x-icon" href="favicon.ico"/>
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="alternate" type="application/rss+xml" title="ME Shield Financial Services Blog" href="rss.xml"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
     /* ── FILTER BAR ── */
@@ -156,6 +157,22 @@
     .newsletter-form input::placeholder { color: rgba(255,255,255,.4); }
     .newsletter-form input:focus { border-color: var(--gold); }
 
+    /* ── UTILITY BAR (matches homepage) ── */
+    .utility-bar {
+      background: var(--navy-mid, #16284f);
+      padding: 8px 0;
+      font-size: .8rem;
+    }
+    .utility-bar-inner {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .utility-left { display: flex; align-items: center; gap: 18px; color: rgba(255,255,255,.7); }
+    .utility-left a { color: rgba(255,255,255,.7); }
+    .utility-promos { display: flex; gap: 18px; flex-wrap: wrap; }
+    .utility-promo { color: var(--gold); font-weight: 700; letter-spacing: .04em; }
+    .utility-promo a { color: var(--white); font-weight: 600; margin-left: 6px; text-decoration: underline; }
+    @media (max-width: 700px) { .utility-promos { display: none; } }
+
     @media (max-width: 900px) {
       .blog-grid { grid-template-columns: repeat(2,1fr); }
       .blog-card.featured { grid-column: span 2; flex-direction: column; }
@@ -172,39 +189,27 @@
 
 
   </style>
-<style id="nav-panel-styles">
-/* ── SIDE PANEL NAV — isolated, does not touch existing page styles ── */
-.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:998;opacity:0;pointer-events:none;transition:opacity .3s ease;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);}
-.nav-overlay.open{opacity:1;pointer-events:all;}
-.nav-panel{position:fixed;top:0;right:0;bottom:0;width:min(340px,92vw);background:#0B1D3A;z-index:999;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 48px rgba(0,0,0,.35);}
-.nav-panel.open{transform:translateX(0);}
-.nav-panel-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;}
-.nav-panel-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.nav-close{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
-.nav-close:hover{background:rgba(201,168,76,.2);color:#C9A84C;border-color:rgba(201,168,76,.4);}
-.nav-panel-body{flex:1;overflow-y:auto;padding:8px 0;}
-.nav-panel-section{padding:4px 0;}
-.nav-panel-link{display:flex;align-items:center;gap:12px;padding:13px 28px;font-size:.9rem;font-weight:500;color:rgba(255,255,255,.72);text-decoration:none;transition:all .18s;border-left:3px solid transparent;}
-.nav-panel-link:hover{background:rgba(255,255,255,.06);color:#fff;border-left-color:rgba(201,168,76,.5);}
-.nav-panel-link.active{color:#C9A84C;border-left-color:#C9A84C;background:rgba(201,168,76,.08);}
-.nav-svc-link{font-size:.85rem;padding:11px 28px 11px 36px;}
-.nav-svc-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);flex-shrink:0;}
-.nav-svc-dot-gold{background:#C9A84C;}
-.nav-ibc{color:rgba(201,168,76,.85)!important;}
-.nav-ibc:hover{color:#C9A84C!important;}
-.nav-ibc-badge{margin-left:auto;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:#C9A84C;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:50px;white-space:nowrap;}
-.nav-panel-divider{display:flex;align-items:center;gap:12px;padding:12px 28px 8px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:rgba(201,168,76,.7);}
-.nav-panel-divider::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.18);}
-.nav-panel-foot{padding:20px 24px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:10px;flex-shrink:0;}
-.nav-panel-cta{display:block;background:#C9A84C;color:#0B1D3A;font-weight:700;font-size:.88rem;text-align:center;padding:13px 20px;border-radius:50px;text-decoration:none;transition:background .2s;box-shadow:0 4px 16px rgba(201,168,76,.3);}
-.nav-panel-cta:hover{background:#e0be6a;}
-.nav-panel-phone{display:block;text-align:center;font-size:.82rem;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;}
-.nav-panel-phone:hover{color:#C9A84C;}
-</style>
-
 </head>
 <body class="lang-en">
 
+<!-- ── UTILITY BAR ── -->
+<div class="utility-bar">
+  <div class="container utility-bar-inner">
+    <div class="utility-left">
+      <span><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652">(407) 267-2652</a></span>
+      <span data-en>Mon–Fri 9am–6pm · Sat by appointment</span>
+      <span data-ht>Lendi–Vandredi 9am–6pm · Samdi sou randevou</span>
+    </div>
+    <div class="utility-promos">
+      <span class="utility-promo" data-en>FREE CONSULTATION<a href="book.html">Book Now</a></span>
+      <span class="utility-promo" data-ht>KONSILTASYON GRATIS<a href="book.html">Rezève</a></span>
+      <span class="utility-promo" data-en>TAX SEASON READY<a href="services.html#tax">Get Started</a></span>
+      <span class="utility-promo" data-ht>SEZON TAKS PARE<a href="services.html#tax">Kòmanse</a></span>
+    </div>
+  </div>
+</div>
+
+<!-- ── NAVBAR (matches homepage) ── -->
 <nav class="navbar">
   <div class="container nav-inner">
     <a href="index.html" class="nav-logo">
@@ -214,77 +219,38 @@
         <div class="nav-logo-sub">Services</div>
       </div>
     </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+      <li class="nav-dropdown">
+        <a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="insurance.html"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li>
+          <li><a href="tax-preparation.html"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li>
+          <li><a href="immigration-forms.html"><span data-en>Immigration Forms Filing</span><span data-ht>Ranpli Fòmilè Imigrasyon</span></a></li>
+          <li><a href="business-filing.html"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li>
+          <li><a href="infinite-banking.html"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li>
+        </ul>
+      </li>
+      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+    </ul>
     <div class="nav-right">
       <div class="lang-toggle">
         <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
         <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">HT</button>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
+        <span data-en>Book Free Consult</span>
+        <span data-ht>Rezève Konsiltasyon</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 </nav>
-
-<!-- Side Panel Menu -->
-<div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
-<aside class="nav-panel" id="nav-panel" aria-hidden="true">
-  <div class="nav-panel-head">
-    <a href="index.html" class="nav-panel-logo">
-      <img src="logo.png" alt="ME Shield" style="height:34px;width:auto;"/>
-      <div>
-        <div style="font-family:'Playfair Display',Georgia,serif;font-size:.95rem;font-weight:700;color:#fff;line-height:1.2;">ME Shield Financial</div>
-        <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-top:2px;">Services</div>
-      </div>
-    </a>
-    <button class="nav-close" onclick="closeMenu()" aria-label="Close menu">&#10005;</button>
-  </div>
-  <div class="nav-panel-body">
-    <div class="nav-panel-section">
-      <a href="index.html" class="nav-panel-link"><span data-en>Home</span><span data-ht>Akèy</span></a>
-      <a href="about.html" class="nav-panel-link"><span data-en>About</span><span data-ht>Sou Nou</span></a>
-      <a href="blog.html" class="nav-panel-link"><span data-en>Blog</span><span data-ht>Blòg</span></a>
-      <a href="faq.html" class="nav-panel-link">FAQ</a>
-      <a href="contact.html" class="nav-panel-link"><span data-en>Contact</span><span data-ht>Kontakte</span></a>
-    </div>
-    <div class="nav-panel-divider"><span data-en>Services</span><span data-ht>Sèvis</span></div>
-    <div class="nav-panel-section">
-      <a href="insurance.html" class="nav-panel-link nav-svc-link">
-        <span class="nav-svc-dot"></span>
-        <span data-en>Insurance — Life, Health &amp; P&amp;C</span>
-        <span data-ht>Asirans — Lavi, Sante ak P&amp;C</span>
-      </a>
-      <a href="tax-preparation.html" class="nav-panel-link nav-svc-link">
-        <span class="nav-svc-dot"></span>
-        <span data-en>Tax Preparation</span>
-        <span data-ht>Preparasyon Taks</span>
-      </a>
-      <a href="business-filing.html" class="nav-panel-link nav-svc-link">
-        <span class="nav-svc-dot"></span>
-        <span data-en>Business Filing</span>
-        <span data-ht>Depo Biznis</span>
-      </a>
-      <a href="immigration-forms.html" class="nav-panel-link nav-svc-link">
-        <span class="nav-svc-dot"></span>
-        <span data-en>Immigration Forms Filing</span>
-        <span data-ht>Ranpli Fòmilè Imigrasyon</span>
-      </a>
-      <a href="infinite-banking.html" class="nav-panel-link nav-svc-link nav-ibc">
-        <span class="nav-svc-dot nav-svc-dot-gold"></span>
-        <span data-en>Infinite Banking (IBC)</span>
-        <span data-ht>Bank Enfini (IBC)</span>
-        <span class="nav-ibc-badge">Special</span>
-      </a>
-    </div>
-  </div>
-  <div class="nav-panel-foot">
-    <a href="book.html" class="nav-panel-cta">
-      <span data-en>Book Free Consultation</span>
-      <span data-ht>Rezève Konsiltasyon Gratis</span>
-    </a>
-    <a href="tel:4072672652" class="nav-panel-phone">(407) 267-2652</a>
-  </div>
-</aside>
 
 <div class="page-hero has-photo" style="background-image:url('https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1400&q=70');">
   <div class="container">
@@ -322,8 +288,8 @@
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:18px;">
         <div class="eyebrow" style="margin-bottom:0;" data-en>RECENT UPDATES</div>
         <div class="eyebrow" style="margin-bottom:0;" data-ht>DÈNYE MIZAJOU</div>
-        <span style="font-size:.78rem;color:var(--text-light);" data-en>Last checked: June 24, 2026</span>
-        <span style="font-size:.78rem;color:var(--text-light);" data-ht>Dènye verifye: 24 Jen 2026</span>
+        <span style="font-size:.78rem;color:var(--text-light);" data-en>Last checked: July 7, 2026</span>
+        <span style="font-size:.78rem;color:var(--text-light);" data-ht>Dènye verifye: 7 Jiyè 2026</span>
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
@@ -331,19 +297,25 @@
           <h4 style="font-size:.92rem;color:var(--navy);margin-bottom:10px;" data-en>IRS &amp; Tax</h4>
           <h4 style="font-size:.92rem;color:var(--navy);margin-bottom:10px;" data-ht>IRS &amp; Taks</h4>
           <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;">
-            <li style="font-size:.88rem;color:var(--text-mid);" data-en>2026 standard deduction rises to $16,100 (single) / $32,200 (married filing jointly) — <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener" style="color:var(--gold);">IRS source</a></li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>Dediksyon estanda 2026 monte a $16,100 (sèl) / $32,200 (marye, depo ansanm) — <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener" style="color:var(--gold);">Sous IRS</a></li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-en>New "No Tax on Tips" deduction is now available for eligible occupations under the 2025 tax law — ask us if it applies to you.</li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>Nouvo dediksyon "Pa gen Taks sou Tip" disponib kounye a pou okipasyon ki kalifye — mande nou si li aplike pou ou.</li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-en>Missed the deadline? IRS Free File is still open at no cost for late 2025 returns.</li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>Rate dat limit la? IRS Free File toujou ouvè gratis pou deklarasyon 2025 ki an reta.</li>
+            <li style="font-size:.88rem;color:var(--text-mid);" data-en><strong>Deadline: July 10, 2026</strong> — if you paid IRS penalties or interest between Jan. 2020 and July 2023, a recent court decision (Kwong) may entitle you to a refund, but you generally must file a claim (Form 843) by this date — <a href="https://www.taxpayeradvocate.irs.gov/news/nta-blog/act-on-or-before-july-10-2026-to-protect-potential-covid-19-disaster-relief-refund-claims/2026/07/" target="_blank" rel="noopener" style="color:var(--gold);">Taxpayer Advocate source</a></li>
+            <li style="font-size:.88rem;color:var(--text-mid);" data-ht><strong>Dat limit: 10 Jiyè 2026</strong> — si ou te peye penalite oswa enterè IRS ant Janvye 2020 ak Jiyè 2023, yon desizyon tribinal resan (Kwong) ka fè ou kalifye pou yon ranbousman, men jeneralman ou dwe depoze yon reklamasyon (Fòm 843) anvan dat sa a — <a href="https://www.taxpayeradvocate.irs.gov/news/nta-blog/act-on-or-before-july-10-2026-to-protect-potential-covid-19-disaster-relief-refund-claims/2026/07/" target="_blank" rel="noopener" style="color:var(--gold);">Sous Taxpayer Advocate</a></li>
+            <li style="font-size:.88rem;color:var(--text-mid);" data-en>IRS issued Revenue Procedure 2026-25 (June 29, 2026) clarifying gift-tax reporting for contributions to Trump Accounts, and taxpayers can now view and manage Trump Account elections in their IRS Individual Online Account.</li>
+            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>IRS pibliye Revenue Procedure 2026-25 (29 Jen 2026) ki klarifye rapò taks sou kado pou kontribisyon nan Trump Accounts, epi kontribyab yo ka kounye a gade ak jere eleksyon Trump Account yo nan Kont Endividyèl anliy IRS yo.</li>
+            <li style="font-size:.88rem;color:var(--text-mid);" data-en>2026 standard deduction is now $16,100 (single) / $32,200 (married filing jointly) — <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener" style="color:var(--gold);">IRS source</a></li>
+            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>Dediksyon estanda 2026 kounye a se $16,100 (sèl) / $32,200 (marye, depo ansanm) — <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener" style="color:var(--gold);">Sous IRS</a></li>
           </ul>
         </div>
         <div>
           <h4 style="font-size:.92rem;color:var(--navy);margin-bottom:10px;" data-en>Immigration</h4>
           <h4 style="font-size:.92rem;color:var(--navy);margin-bottom:10px;" data-ht>Imigrasyon</h4>
-          <p style="font-size:.88rem;color:var(--text-mid);line-height:1.7;margin:0;" data-en>Immigration policy is changing quickly right now, including ongoing court cases affecting how USCIS processes certain applications. Because rules can shift week to week, we strongly recommend checking the <a href="https://www.uscis.gov/newsroom" target="_blank" rel="noopener" style="color:var(--gold);">official USCIS newsroom</a> directly. We help you fill out and file your immigration forms — step by step, in English and Kreyòl.</p>
-          <p style="font-size:.88rem;color:var(--text-mid);line-height:1.7;margin:0;" data-ht>Politik imigrasyon ap chanje rapidman kounye a, ansanm ak pwosè tribinal k ap kontinye ki afekte kijan USCIS trete sèten aplikasyon. Paske règ yo ka chanje semèn pa semèn, nou rekòmande fòtman verifye <a href="https://www.uscis.gov/newsroom" target="_blank" rel="noopener" style="color:var(--gold);">sal nouvèl ofisyèl USCIS</a> dirèkteman Nou ede ou ranpli epi depoze fòmilè imigrasyon ou — etap pa etap, an Anglè ak Kreyòl.</p>
+          <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;">
+            <li style="font-size:.88rem;color:var(--text-mid);" data-en>USCIS issued new guidance (July 1, 2026) on <strong>Temporary Protected Status (TPS) for Haiti</strong>, superseding the earlier March 2026 termination notice. This remains an actively evolving situation — <a href="https://www.uscis.gov/save/current-user-agencies/news-alerts" target="_blank" rel="noopener" style="color:var(--gold);">USCIS source</a></li>
+            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>USCIS pibliye nouvo direktiv (1 Jiyè 2026) sou <strong>Estati Pwoteje Tanporè (TPS) pou Ayiti</strong>, ki ranplase avi terminezon Mas 2026 anvan an. Sitiyasyon sa a ap kontinye chanje — <a href="https://www.uscis.gov/save/current-user-agencies/news-alerts" target="_blank" rel="noopener" style="color:var(--gold);">Sous USCIS</a></li>
+            <li style="font-size:.88rem;color:var(--text-mid);" data-en>Some TPS-linked work permit (EAD) extensions are currently only confirmed through <strong>July 10, 2026</strong> pending ongoing court proceedings — if this may affect you, confirm your specific status directly with USCIS or a licensed attorney.</li>
+            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>Kèk ekstansyon pèmi travay (EAD) ki konekte ak TPS konfime sèlman jiska <strong>10 Jiyè 2026</strong> pandan pwosedi tribinal yo ap kontinye — si sa ka afekte ou, konfime estati espesifik ou dirèkteman ak USCIS oswa yon avoka lisansye.</li>
+            <li style="font-size:.88rem;color:var(--text-mid);" data-en>USCIS opened a new asylum office location in Atlanta (beginning July 8, 2026) as part of continued expansion of interview capacity nationwide.</li>
+            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>USCIS louvri yon nouvo biwo azil nan Atlanta (kòmanse 8 Jiyè 2026) kòm pati nan ekspansyon kontinyèl kapasite entèvyou nan tout peyi a.</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -368,9 +340,9 @@
         </div>
       </article>
 
-      <!-- POST 2 — IBC (moved from featured to regular) -->
+      <!-- POST 2 — IBC -->
       <article class="blog-card" data-category="insurance">
-        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1601051297657-39a9b2ce2cdc?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
             <span class="blog-tag" data-en>Insurance & IBC</span>
@@ -404,7 +376,7 @@
         </div>
       </article>
 
-      <!-- POST 3 -->
+      <!-- POST 4 -->
       <article class="blog-card" data-category="immigration">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -422,9 +394,9 @@
         </div>
       </article>
 
-      <!-- POST 4 -->
+      <!-- POST 5 -->
       <article class="blog-card" data-category="finance">
-        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
             <span class="blog-tag" data-en>Financial Education</span>
@@ -440,9 +412,9 @@
         </div>
       </article>
 
-      <!-- POST 5 -->
+      <!-- POST 6 -->
       <article class="blog-card" data-category="tax">
-        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
             <span class="blog-tag" data-en>Tax Tips</span>
@@ -458,7 +430,7 @@
         </div>
       </article>
 
-      <!-- POST 6 -->
+      <!-- POST 7 -->
       <article class="blog-card" data-category="community">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -476,7 +448,7 @@
         </div>
       </article>
 
-      <!-- POST 7 -->
+      <!-- POST 8 -->
       <article class="blog-card" data-category="business">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -494,7 +466,7 @@
         </div>
       </article>
 
-      <!-- POST 8 -->
+      <!-- POST 9 -->
       <article class="blog-card" data-category="insurance">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -512,27 +484,27 @@
         </div>
       </article>
 
-      <!-- POST 9 -->
+      <!-- POST 10 -->
       <article class="blog-card" data-category="community">
-        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
             <span class="blog-tag" data-en>Community</span>
             <span class="blog-tag" data-ht>Kominote</span>
             <span class="blog-date">December 2025</span>
           </div>
-          <h3 data-en>How to Choose a Financial Advisor You Can Actually Trust</h3>
-          <h3 data-ht>Kijan pou Chwazi yon Konseye Finansye Ou Ka Reyèlman Fè Konfyans</h3>
-          <p data-en>What separates an advisor who truly looks out for you from one who's just selling a product — and how to tell the difference.</p>
-          <p data-ht>Sa ki separe yon konseye ki reyèlman gade pou ou de youn ki jis ap vann yon pwodui — ak kijan pou di diferans la.</p>
+          <h3 data-en>How to Choose a Financial Consultant You Can Actually Trust</h3>
+          <h3 data-ht>Kijan pou Chwazi yon Konsiltan Finansye Ou Ka Reyèlman Fè Konfyans</h3>
+          <p data-en>What separates a consultant who truly looks out for you from one who's just selling a product — and how to tell the difference.</p>
+          <p data-ht>Sa ki separe yon konsiltan ki reyèlman gade pou ou de youn ki jis ap vann yon pwodui — ak kijan pou di diferans la.</p>
           <a href="choosing-a-trustworthy-financial-advisor.html" class="blog-read-more" data-en>Read full article →</a>
           <a href="choosing-a-trustworthy-financial-advisor.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
         </div>
       </article>
 
-      <!-- POST 10 -->
+      <!-- POST 11 -->
       <article class="blog-card" data-category="finance">
-        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1554774853-b415df9eeb92?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
             <span class="blog-tag" data-en>Financial Education</span>
@@ -548,9 +520,9 @@
         </div>
       </article>
 
-      <!-- POST 11 -->
+      <!-- POST 12 -->
       <article class="blog-card" data-category="immigration">
-        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1768326530593-00a0b2627063?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
             <span class="blog-tag" data-en>Immigration</span>
@@ -566,9 +538,9 @@
         </div>
       </article>
 
-      <!-- POST 12 -->
+      <!-- POST 13 -->
       <article class="blog-card" data-category="insurance">
-        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1589178941221-136be7711c99?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
             <span class="blog-tag" data-en>Insurance & IBC</span>
@@ -581,6 +553,114 @@
           <p data-ht>Yon ankadreman senp pou kalkile konbyen kouvèti asirans lavi tèm fanmi ou reyèlman bezwen — ak yon egzanp travay.</p>
           <a href="how-much-life-insurance-do-i-need.html" class="blog-read-more" data-en>Read full article →</a>
           <a href="how-much-life-insurance-do-i-need.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <!-- ══ NEW ARTICLE — INSURANCE & IBC ══ -->
+      <article class="blog-card" data-category="insurance">
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Insurance & IBC</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Asirans & IBC</span>
+            <span class="blog-date">July 2026</span>
+          </div>
+          <h3 data-en>Whole Life vs. Universal Life: Which One Actually Builds Cash Value Faster?</h3>
+          <h3 data-ht>Lavi Antye vs Lavi Inivèsèl: Ki Youn Ki Reyèlman Bati Valè Kach Pi Vit?</h3>
+          <p data-en>Both are permanent life insurance, but they grow cash value very differently — and the difference matters a lot if you're considering Infinite Banking. Here's a side-by-side comparison.</p>
+          <p data-ht>Toulede se asirans lavi pèmanan, men yo grandi valè kach yo trè diferan — epi diferans lan enpòtan anpil si w ap konsidere Bank Enfini. Men yon konparezon kote pou kote.</p>
+          <a href="whole-life-vs-universal-life.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="whole-life-vs-universal-life.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <!-- ══ NEW ARTICLE — TAX TIPS ══ -->
+      <article class="blog-card" data-category="tax">
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Tax Tips</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Konsèy Taks</span>
+            <span class="blog-date">July 2026</span>
+          </div>
+          <h3 data-en>The 2026 Standard Deduction Just Went Up — Here's What It Means for Your Refund</h3>
+          <h3 data-ht>Dediksyon Estanda 2026 Fèk Monte — Men Sa Sa Vle Di Pou Ranbousman Ou</h3>
+          <p data-en>The IRS raised the standard deduction again for 2026. We break down the new numbers and what they could mean for your paycheck and next year's refund.</p>
+          <p data-ht>IRS ogmante dediksyon estanda a ankò pou 2026. Nou eksplike nouvo chif yo ak sa yo ka vle di pou chèk ou ak ranbousman ou ane pwochèn.</p>
+          <a href="2026-standard-deduction-increase.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="2026-standard-deduction-increase.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <!-- ══ NEW ARTICLE — IMMIGRATION ══ -->
+      <article class="blog-card" data-category="immigration">
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Immigration</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Imigrasyon</span>
+            <span class="blog-date">July 2026</span>
+          </div>
+          <h3 data-en>TPS for Haiti in 2026: What the Latest USCIS Guidance Actually Means for You</h3>
+          <h3 data-ht>TPS Pou Ayiti nan 2026: Sa Dènye Direktiv USCIS La Vrèman Vle Di Pou Ou</h3>
+          <p data-en>USCIS issued new guidance this month on Temporary Protected Status for Haiti. Here's what's changed, what's still uncertain, and what steps to consider if this affects your status or work permit.</p>
+          <p data-ht>USCIS pibliye nouvo direktiv mwa sa a sou Estati Pwoteje Tanporè pou Ayiti. Men sa ki chanje, sa ki toujou ensèten, ak ki etap pou konsidere si sa afekte estati oswa pèmi travay ou.</p>
+          <a href="tps-haiti-2026-update.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="tps-haiti-2026-update.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <!-- ══ NEW ARTICLE — FINANCIAL EDUCATION ══ -->
+      <article class="blog-card" data-category="finance">
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1554260570-83a2223b0e63?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Financial Education</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Edikasyon Finansye</span>
+            <span class="blog-date">July 2026</span>
+          </div>
+          <h3 data-en>Does the 50/30/20 Budget Rule Actually Work for Real Families?</h3>
+          <h3 data-ht>Èske Règ Bidjè 50/30/20 A Reyèlman Fonksyone Pou Vrè Fanmi?</h3>
+          <p data-en>The 50/30/20 rule is popular advice — needs, wants, savings. But does it hold up for families dealing with rent, remittances, and a single income? We break down when it works and when it doesn't.</p>
+          <p data-ht>Règ 50/30/20 a se konsèy popilè — bezwen, anvi, epay. Men èske li kenbe pou fanmi k ap fè fas ak lwaye, voye lajan, ak yon sèl revni? Nou eksplike kilè li fonksyone ak kilè li pa fonksyone.</p>
+          <a href="50-30-20-budget-rule.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="50-30-20-budget-rule.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <!-- ══ NEW ARTICLE — COMMUNITY ══ -->
+      <article class="blog-card" data-category="community">
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1609220136736-443140cffec6?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Community</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Kominote</span>
+            <span class="blog-date">July 2026</span>
+          </div>
+          <h3 data-en>5 Money Habits Passed Down in Haitian Households — And Which Ones to Keep</h3>
+          <h3 data-ht>5 Abitid Lajan Pase Desann nan Kay Ayisyen — Ak Ki Sa Pou Kenbe</h3>
+          <p data-en>From "sòl" savings circles to supporting family back home, our community has its own money culture. We look at which traditions build wealth — and which ones might be worth rethinking.</p>
+          <p data-ht>Soti nan sèk epay "sòl" jiska soutni fanmi nan peyi a, kominote nou an gen pwòp kilti lajan li. Nou gade ki tradisyon bati richès — ak ki sa ki ka merite repanse.</p>
+          <a href="haitian-household-money-habits.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="haitian-household-money-habits.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <!-- ══ NEW ARTICLE — BUSINESS FILING ══ -->
+      <article class="blog-card" data-category="business">
+        <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Business Filing</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Depo Biznis</span>
+            <span class="blog-date">July 2026</span>
+          </div>
+          <h3 data-en>Registered Agent 101: Why Every Florida LLC Needs One (And Who Can Serve)</h3>
+          <h3 data-ht>Ajan Anrejistre 101: Poukisa Chak LLC Florid Bezwen Youn (Ak Ki Moun Ki Ka Sèvi)</h3>
+          <p data-en>It's a required part of every Florida LLC filing, but many owners don't fully understand what a Registered Agent actually does — or the risk of not keeping one current.</p>
+          <p data-ht>Se yon pati obligatwa nan chak depo LLC Florid, men anpil mèt pa konprann konplètman sa yon Ajan Anrejistre reyèlman fè — oswa risk pou pa kenbe youn ajou.</p>
+          <a href="registered-agent-florida-llc.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="registered-agent-florida-llc.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
         </div>
       </article>
 
@@ -618,6 +698,7 @@
   </div>
 </section>
 
+<!-- ── FOOTER (matches homepage) ── -->
 <footer>
   <div class="container">
     <div class="footer-grid">
@@ -629,8 +710,8 @@
             <div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div>
           </div>
         </div>
-        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) · Tax &amp; Immigration Forms Filing — bilingual service.</p>
-        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) · Taks &amp; Ranpli Fòmilè Imigrasyon — sèvis bileng.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ), tax &amp; immigration forms filing (nationwide) — in English and Haitian Creole.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ), taks &amp; ranpli fòmilè imigrasyon (nasyonal) — an Anglè ak Kreyòl.</p>
         <div style="margin-top:20px;font-size:.87rem;">
           <div><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652" style="color:rgba(255,255,255,.6);">(407) 267-2652</a></div>
           <div style="margin-top:6px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.3 5.84a.75.75 0 0 0 .94 0L19.74 6H4.2zM4 7.86V18h16V7.86l-7.06 5.65a2.25 2.25 0 0 1-2.82 0L4 7.86z"/></svg><a href="mailto:info@meshieldfinancial.com" style="color:rgba(255,255,255,.6);">info@meshieldfinancial.com</a></div>
@@ -641,37 +722,44 @@
           <a href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener" aria-label="TikTok" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
           <a href="https://wa.me/14072672652" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
         </div>
+        <div class="footer-trust-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3zm0 2.2 6 2.25v4.55c0 4-2.8 7.3-6 8.95-3.2-1.65-6-4.95-6-8.95V6.45l6-2.25z"/></svg> <span data-en>FL Licensed &amp; PTIN Registered</span><span data-ht>Lisansye FL &amp; Anrejistre PTIN</span></div>
       </div>
       <div>
-        <h4 data-en>Services</h4><h4 data-ht>Sèvis</h4>
+        <h4 data-en>Services</h4>
+        <h4 data-ht>Sèvis</h4>
         <ul>
-          <li><a href="services.html#insurance" data-en>Insurance</a><a href="services.html#insurance" data-ht>Asirans</a></li>
-          <li><a href="services.html#tax" data-en>Tax Prep</a><a href="services.html#tax" data-ht>Taks</a></li>
+          <li><a href="insurance.html" data-en>Insurance</a><a href="insurance.html" data-ht>Asirans</a></li>
+          <li><a href="tax-preparation.html" data-en>Tax Preparation</a><a href="tax-preparation.html" data-ht>Preparasyon Taks</a></li>
           <li><a href="immigration-forms.html" data-en>Immigration Forms Filing</a><a href="immigration-forms.html" data-ht>Ranpli Fòmilè Imigrasyon</a></li>
-          <li><a href="services.html#immigration" data-en>Immigration Docs</a><a href="services.html#immigration" data-ht>Dokiman Imigrasyon</a></li>
-          <li><a href="services.html#business" data-en>Business Filing</a><a href="services.html#business" data-ht>Depo Biznis</a></li>
+          <li><a href="business-filing.html" data-en>Business Filing</a><a href="business-filing.html" data-ht>Depo Biznis</a></li>
+          <li><a href="infinite-banking.html" data-en>Infinite Banking</a><a href="infinite-banking.html" data-ht>Bank Enfini</a></li>
         </ul>
       </div>
       <div>
-        <h4 data-en>Resources</h4><h4 data-ht>Resous</h4>
-        <ul>
-          <li><a href="blog.html" data-en>Blog</a><a href="blog.html" data-ht>Blòg</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="book.html" data-en>Book Appointment</a><a href="book.html" data-ht>Rezève Randevou</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 data-en>Company</h4><h4 data-ht>Konpayi</h4>
+        <h4 data-en>Company</h4>
+        <h4 data-ht>Konpayi</h4>
         <ul>
           <li><a href="about.html" data-en>About Us</a><a href="about.html" data-ht>Sou Nou</a></li>
           <li><a href="contact.html" data-en>Contact</a><a href="contact.html" data-ht>Kontakte</a></li>
+          <li><a href="book.html" data-en>Free Consultation</a><a href="book.html" data-ht>Konsiltasyon Gratis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Contact</h4>
+        <h4 data-ht>Kontakte</h4>
+        <ul style="font-size:.88rem;color:rgba(255,255,255,.6);">
+          <li style="list-style:none;color:inherit;">Apopka, FL 32712</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-en>Mon – Fri: 9am – 6pm</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-ht>Lendi – Vandredi: 9am – 6pm</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-en>Sat: By appointment</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-ht>Samdi: Sou randevou</li>
         </ul>
       </div>
     </div>
     <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC, a Florida-registered limited liability company.</div>
-    <div class="footer-disclaimer" data-en>Immigration forms filing services are document preparation assistance only and do not constitute legal advice. Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Insurance and tax content on this blog is general education, not personalized advice.</div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a Florida-registered company. Insurance products are subject to policy terms and conditions. Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Tax preparation services provided by an IRS PTIN-registered preparer. Immigration forms filing services are document preparation assistance only and do not constitute legal advice. Insurance and tax content on this blog is general education, not personalized advice.</div>
     <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA (“ap fonksyone kòm”) pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
-    <div class="footer-disclaimer" data-ht>Sèvis ranpli fòmilè imigrasyon yo se asistans preparasyon dokiman sèlman epi yo pa reprezante konsèy legal. Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP. Kontni asirans ak taks sou blòg sa a se edikasyon jeneral, se pa konsèy pèsonalize.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon konpayi anrejistre ann Florid. Pwodui asirans yo sijè a tèm ak kondisyon polis la. Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP. Sèvis preparasyon taks yo bay pa yon preparatè anrejistre nan IRS PTIN. Sèvis ranpli fòmilè imigrasyon yo se asistans preparasyon dokiman sèlman epi yo pa reprezante konsèy legal. Kontni asirans ak taks sou blòg sa a se edikasyon jeneral, se pa konsèy pèsonalize.</div>
     <div class="footer-bottom">
       <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
       <span data-en>All rights reserved.</span><span data-ht>Tout dwa rezève.</span>
@@ -714,43 +802,6 @@
     return true;
   }
 </script>
-<script id="nav-panel-js">
-(function(){
-  function openMenu(){
-    var p=document.getElementById('nav-panel');
-    var o=document.getElementById('nav-overlay');
-    var b=document.getElementById('hamburger');
-    if(!p) return;
-    p.classList.add('open');
-    o&&o.classList.add('open');
-    b&&b.setAttribute('aria-expanded','true');
-    document.body.style.overflow='hidden';
-    p.setAttribute('aria-hidden','false');
-    var page=location.pathname.split('/').pop()||'index.html';
-    p.querySelectorAll('.nav-panel-link').forEach(function(a){
-      a.classList.toggle('active', a.getAttribute('href')===page);
-    });
-  }
-  window.closeMenu=function(){
-    var p=document.getElementById('nav-panel');
-    var o=document.getElementById('nav-overlay');
-    var b=document.getElementById('hamburger');
-    if(!p) return;
-    p.classList.remove('open');
-    o&&o.classList.remove('open');
-    b&&b.setAttribute('aria-expanded','false');
-    document.body.style.overflow='';
-    p.setAttribute('aria-hidden','true');
-  };
-  document.addEventListener('DOMContentLoaded',function(){
-    var btn=document.getElementById('hamburger');
-    if(btn) btn.addEventListener('click', openMenu);
-    document.addEventListener('keydown',function(e){
-      if(e.key==='Escape') window.closeMenu();
-    });
-  });
-})();
-</script>
-
+<script src="chat-widget.js"></script>
 </body>
 </html>
