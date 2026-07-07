@@ -31,19 +31,6 @@
       justify-content: center;
       position: relative;
     }
-    .about-img-box .initials {
-      font-family: var(--font-display);
-      font-size: 6rem;
-      font-weight: 700;
-      color: rgba(201,168,76,.25);
-      user-select: none;
-    }
-    .about-img-note {
-      font-size: .78rem;
-      color: var(--text-light);
-      text-align: center;
-      margin-top: 10px;
-    }
     .accent-card {
       position: absolute;
       bottom: -20px; right: -20px;
@@ -110,42 +97,43 @@
       .mission-block { padding: 32px 28px; }
     }
 
-
-
+    /* ── UTILITY BAR (matches homepage) ── */
+    .utility-bar {
+      background: var(--navy-mid, #16284f);
+      padding: 8px 0;
+      font-size: .8rem;
+    }
+    .utility-bar-inner {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .utility-left { display: flex; align-items: center; gap: 18px; color: rgba(255,255,255,.7); }
+    .utility-left a { color: rgba(255,255,255,.7); }
+    .utility-promos { display: flex; gap: 18px; flex-wrap: wrap; }
+    .utility-promo { color: var(--gold); font-weight: 700; letter-spacing: .04em; }
+    .utility-promo a { color: var(--white); font-weight: 600; margin-left: 6px; text-decoration: underline; }
+    @media (max-width: 700px) { .utility-promos { display: none; } }
   </style>
-<style id="nav-panel-styles">
-/* ── SIDE PANEL NAV — isolated, does not touch existing page styles ── */
-.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:998;opacity:0;pointer-events:none;transition:opacity .3s ease;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);}
-.nav-overlay.open{opacity:1;pointer-events:all;}
-.nav-panel{position:fixed;top:0;right:0;bottom:0;width:min(340px,92vw);background:#0B1D3A;z-index:999;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 48px rgba(0,0,0,.35);}
-.nav-panel.open{transform:translateX(0);}
-.nav-panel-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0;}
-.nav-panel-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.nav-close{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
-.nav-close:hover{background:rgba(201,168,76,.2);color:#C9A84C;border-color:rgba(201,168,76,.4);}
-.nav-panel-body{flex:1;overflow-y:auto;padding:8px 0;}
-.nav-panel-section{padding:4px 0;}
-.nav-panel-link{display:flex;align-items:center;gap:12px;padding:13px 28px;font-size:.9rem;font-weight:500;color:rgba(255,255,255,.72);text-decoration:none;transition:all .18s;border-left:3px solid transparent;}
-.nav-panel-link:hover{background:rgba(255,255,255,.06);color:#fff;border-left-color:rgba(201,168,76,.5);}
-.nav-panel-link.active{color:#C9A84C;border-left-color:#C9A84C;background:rgba(201,168,76,.08);}
-.nav-svc-link{font-size:.85rem;padding:11px 28px 11px 36px;}
-.nav-svc-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);flex-shrink:0;}
-.nav-svc-dot-gold{background:#C9A84C;}
-.nav-ibc{color:rgba(201,168,76,.85)!important;}
-.nav-ibc:hover{color:#C9A84C!important;}
-.nav-ibc-badge{margin-left:auto;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:#C9A84C;font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:50px;white-space:nowrap;}
-.nav-panel-divider{display:flex;align-items:center;gap:12px;padding:12px 28px 8px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:rgba(201,168,76,.7);}
-.nav-panel-divider::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.18);}
-.nav-panel-foot{padding:20px 24px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:10px;flex-shrink:0;}
-.nav-panel-cta{display:block;background:#C9A84C;color:#0B1D3A;font-weight:700;font-size:.88rem;text-align:center;padding:13px 20px;border-radius:50px;text-decoration:none;transition:background .2s;box-shadow:0 4px 16px rgba(201,168,76,.3);}
-.nav-panel-cta:hover{background:#e0be6a;}
-.nav-panel-phone{display:block;text-align:center;font-size:.82rem;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;}
-.nav-panel-phone:hover{color:#C9A84C;}
-</style>
-
 </head>
 <body class="lang-en">
 
+<!-- ── UTILITY BAR ── -->
+<div class="utility-bar">
+  <div class="container utility-bar-inner">
+    <div class="utility-left">
+      <span><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652">(407) 267-2652</a></span>
+      <span data-en>Mon–Fri 9am–6pm · Sat by appointment</span>
+      <span data-ht>Lendi–Vandredi 9am–6pm · Samdi sou randevou</span>
+    </div>
+    <div class="utility-promos">
+      <span class="utility-promo" data-en>FREE CONSULTATION<a href="book.html">Book Now</a></span>
+      <span class="utility-promo" data-ht>KONSILTASYON GRATIS<a href="book.html">Rezève</a></span>
+      <span class="utility-promo" data-en>TAX SEASON READY<a href="services.html#tax">Get Started</a></span>
+      <span class="utility-promo" data-ht>SEZON TAKS PARE<a href="services.html#tax">Kòmanse</a></span>
+    </div>
+  </div>
+</div>
+
+<!-- ── NAVBAR (matches homepage) ── -->
 <nav class="navbar">
   <div class="container nav-inner">
     <a href="index.html" class="nav-logo">
@@ -155,84 +143,45 @@
         <div class="nav-logo-sub">Services</div>
       </div>
     </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+      <li class="nav-dropdown">
+        <a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="insurance.html"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li>
+          <li><a href="tax-preparation.html"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li>
+          <li><a href="immigration-forms.html"><span data-en>Immigration Forms Filing</span><span data-ht>Ranpli Fòmilè Imigrasyon</span></a></li>
+          <li><a href="business-filing.html"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li>
+          <li><a href="infinite-banking.html"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li>
+        </ul>
+      </li>
+      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+    </ul>
     <div class="nav-right">
       <div class="lang-toggle">
         <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
         <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">HT</button>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
+        <span data-en>Book Free Consult</span>
+        <span data-ht>Rezève Konsiltasyon</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 </nav>
 
-<!-- Side Panel Menu -->
-<div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
-<aside class="nav-panel" id="nav-panel" aria-hidden="true">
-  <div class="nav-panel-head">
-    <a href="index.html" class="nav-panel-logo">
-      <img src="logo.png" alt="ME Shield" style="height:34px;width:auto;"/>
-      <div>
-        <div style="font-family:'Playfair Display',Georgia,serif;font-size:.95rem;font-weight:700;color:#fff;line-height:1.2;">ME Shield Financial</div>
-        <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-top:2px;">Services</div>
-      </div>
-    </a>
-    <button class="nav-close" onclick="closeMenu()" aria-label="Close menu">&#10005;</button>
-  </div>
-  <div class="nav-panel-body">
-    <div class="nav-panel-section">
-      <a href="index.html" class="nav-panel-link"><span data-en>Home</span><span data-ht>Akèy</span></a>
-      <a href="about.html" class="nav-panel-link"><span data-en>About</span><span data-ht>Sou Nou</span></a>
-      <a href="blog.html" class="nav-panel-link"><span data-en>Blog</span><span data-ht>Blòg</span></a>
-      <a href="faq.html" class="nav-panel-link">FAQ</a>
-      <a href="contact.html" class="nav-panel-link"><span data-en>Contact</span><span data-ht>Kontakte</span></a>
-    </div>
-    <div class="nav-panel-divider"><span data-en>Services</span><span data-ht>Sèvis</span></div>
-    <div class="nav-panel-section">
-      <a href="insurance.html" class="nav-panel-link nav-svc-link">
-        <span class="nav-svc-dot"></span>
-        <span data-en>Insurance — Life, Health &amp; P&amp;C</span>
-        <span data-ht>Asirans — Lavi, Sante ak P&amp;C</span>
-      </a>
-      <a href="tax-preparation.html" class="nav-panel-link nav-svc-link">
-        <span class="nav-svc-dot"></span>
-        <span data-en>Tax Preparation</span>
-        <span data-ht>Preparasyon Taks</span>
-      </a>
-      <a href="business-filing.html" class="nav-panel-link nav-svc-link">
-        <span class="nav-svc-dot"></span>
-        <span data-en>Business Filing</span>
-        <span data-ht>Depo Biznis</span>
-      </a>
-      <a href="immigration-forms.html" class="nav-panel-link nav-svc-link">
-        <span class="nav-svc-dot"></span>
-        <span data-en>Immigration Forms Filing</span>
-        <span data-ht>Ranpli Fòmilè Imigrasyon</span>
-      </a>
-      <a href="infinite-banking.html" class="nav-panel-link nav-svc-link nav-ibc">
-        <span class="nav-svc-dot nav-svc-dot-gold"></span>
-        <span data-en>Infinite Banking (IBC)</span>
-        <span data-ht>Bank Enfini (IBC)</span>
-        <span class="nav-ibc-badge">Special</span>
-      </a>
-    </div>
-  </div>
-  <div class="nav-panel-foot">
-    <a href="book.html" class="nav-panel-cta">
-      <span data-en>Book Free Consultation</span>
-      <span data-ht>Rezève Konsiltasyon Gratis</span>
-    </a>
-    <a href="tel:4072672652" class="nav-panel-phone">(407) 267-2652</a>
-  </div>
-</aside>
-
 <!-- PAGE HERO -->
-<div class="page-hero has-photo" style="background-image:url('headshot.jpg');">
+<div class="page-hero has-photo" style="background-image:url('miguelson-headshot.jpeg');">
   <div class="container">
     <div class="hero-badge" style="margin:0 auto 16px;">
-      <span data-en>Your Advisor</span>
-      <span data-ht>Konseye Ou</span>
+      <span data-en>About ME Shield Financial Services</span>
+      <span data-ht>Sou ME Shield Financial Services</span>
     </div>
     <h1 data-en>About ME Shield</h1>
     <h1 data-ht>Sou ME Shield</h1>
@@ -248,8 +197,8 @@
       <span data-en>ABOUT ME SHIELD FINANCIAL SERVICES</span>
       <span data-ht>SOU ME SHIELD FINANCIAL SERVICES</span>
     </div>
-    <p data-en style="font-size:1.1rem;color:var(--text-mid);">ME Shield Financial Services is a Florida-based practice offering insurance, tax preparation, paralegal document support, and business filing assistance — all under one trusted advisor. We built ME Shield around a simple idea: financial protection shouldn't require navigating multiple offices, language barriers, or confusing jargon. Whether you're insuring your family, filing your taxes, handling immigration paperwork, or registering a new business, you get the same advisor, the same level of care, and answers in plain English or Kreyòl Ayisyen.</p>
-    <p data-ht style="font-size:1.1rem;color:var(--text-mid);">ME Shield Financial Services se yon pratik ki baze ann Florid ki ofri asirans, preparasyon taks, sipò dokiman paralegal, ak asistans depo biznis — tout anba yon sèl konseye ou ka fè konfyans. Nou bati ME Shield alantou yon lide senp: pwoteksyon finansye pa ta dwe mande navige plizyè biwo, baryè lang, oswa jagon konfizyon. Kit ou ap asire fanmi ou, depoze taks ou, jere papye imigrasyon, oswa enskri yon nouvo biznis, ou jwenn menm konseye a, menm nivo swen an, ak repons nan Anglè senp oswa Kreyòl Ayisyen.</p>
+    <p data-en style="font-size:1.1rem;color:var(--text-mid);">ME Shield Financial Services is a Florida-based practice offering insurance, tax preparation, business filing, and immigration forms filing — all in one place. Whether you're insuring your family, filing your taxes, handling immigration paperwork, or registering a new business, you get the same consultant, the same level of care, and answers in plain English or Kreyòl Ayisyen.</p>
+    <p data-ht style="font-size:1.1rem;color:var(--text-mid);">ME Shield Financial Services se yon pratik ki baze ann Florid ki ofri asirans, preparasyon taks, depo biznis, ak ranpli fòmilè imigrasyon — tout nan yon sèl kote. Kit ou ap asire fanmi ou, depoze taks ou, jere papye imigrasyon, oswa enskri yon nouvo biznis, ou jwenn menm konsiltan an, menm nivo swen an, ak repons nan Anglè senp oswa Kreyòl Ayisyen.</p>
   </div>
 </section>
 
@@ -259,7 +208,7 @@
     <div class="about-grid">
       <div class="about-img-wrap">
         <div class="about-img-box" style="background:none;">
-          <img src="headshot.jpg" alt="Miguelson Etienne — ME Shield Financial Services"
+          <img src="miguelson-headshot.jpeg" alt="Miguelson Etienne — ME Shield Financial Services"
                style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:12px;display:block;"/>
         </div>
         <div class="accent-card">
@@ -269,15 +218,19 @@
         </div>
       </div>
       <div class="about-text">
-        <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-en>FOUNDER & ADVISOR</div>
-        <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-ht>FONDATÈ & KONSEYE</div>
+        <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-en>LICENSED CONSULTANT</div>
+        <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-ht>KONSILTAN LISANSYE</div>
         <h2 data-en>Miguelson Etienne</h2>
         <h2 data-ht>Miguelson Etienne</h2>
+        <div style="font-size:.9rem;color:var(--text-dark);font-weight:600;margin-bottom:18px;">
+          <span data-en>Licensed Insurance Consultant · Tax Specialist · Infinite Banking Practitioner</span>
+          <span data-ht>Konsiltan Asirans Lisansye · Espesyalis Taks · Praktisyen Bank Enfini</span>
+        </div>
         <span class="gold-rule"></span>
         <p data-en>ME Shield Financial Services was founded with a simple but powerful mission: to make financial protection accessible to every family — especially those in our bilingual Haitian Creole community who are often underserved by traditional financial services.</p>
         <p data-ht>ME Shield Financial Services te fonde ak yon misyon senp men pisan: pou rann pwoteksyon finansyè aksesib pou chak fanmi — sitou moun ki nan kominote Kreyòl nou an ki souvan pa ka jwenn sèvis finansyè tradisyonèl yo.</p>
-        <p data-en>As the sole advisor and owner, I take a hands-on approach with every client. When you call ME Shield, you speak directly with me — someone who understands your language, your culture, and your financial goals.</p>
-        <p data-ht>Kòm sèl konseye ak pwopriyetè, mwen pran yon apwòch pèsonèl ak chak kliyan. Lè ou rele ME Shield, ou pale dirèkteman avèk mwen — yon moun ki konprann lang ou, kilti ou, ak objektif finansyè ou.</p>
+        <p data-en>As the sole consultant and owner, I take a hands-on approach with every client. When you call ME Shield, you speak directly with me — someone who understands your language, your culture, and your financial goals.</p>
+        <p data-ht>Kòm sèl konsiltan ak pwopriyetè, mwen pran yon apwòch pèsonèl ak chak kliyan. Lè ou rele ME Shield, ou pale dirèkteman avèk mwen — yon moun ki konprann lang ou, kilti ou, ak objektif finansyè ou.</p>
 
         <div class="license-grid">
           <div class="license-item">
@@ -303,10 +256,19 @@
           <div class="license-item">
             <span class="badge"><img src="https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=120&q=70" alt=""/></span>
             <div>
-              <strong data-en>Paralegal Services</strong>
-              <strong data-ht>Sèvis Paralegal</strong>
+              <strong data-en>Immigration Forms Filing</strong>
+              <strong data-ht>Ranpli Fòmilè Imigrasyon</strong>
               <span data-en>Document Prep — All 50 States</span>
               <span data-ht>Preparasyon Dokiman — Tout 50 Eta</span>
+            </div>
+          </div>
+          <div class="license-item">
+            <span class="badge"><img src="https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=120&q=70" alt=""/></span>
+            <div>
+              <strong data-en>Business Filing</strong>
+              <strong data-ht>Depo Biznis</strong>
+              <span data-en>LLC, EIN &amp; DBA Support</span>
+              <span data-ht>Sipò LLC, EIN ak DBA</span>
             </div>
           </div>
           <div class="license-item">
@@ -318,7 +280,7 @@
             </div>
           </div>
           <div class="license-item">
-            <span class="badge"><img src="https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=120&q=70" alt=""/></span>
+            <span class="badge"><img src="https://images.unsplash.com/photo-1601051297657-39a9b2ce2cdc?auto=format&fit=crop&w=120&q=70" alt=""/></span>
             <div>
               <strong data-en>Infinite Banking Practitioner</strong>
               <strong data-ht>Pratikan Bank Enfini</strong>
@@ -336,7 +298,7 @@
               <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,28,58,.1) 0%,rgba(11,28,58,.85) 100%);"></div>
               <div style="position:absolute;bottom:10px;left:12px;right:12px;">
                 <div style="color:var(--gold);font-family:var(--font-display);font-weight:700;font-size:1.1rem;">FL</div>
-                <div style="color:rgba(255,255,255,.85);font-size:.72rem;">Orlando</div>
+                <div style="color:rgba(255,255,255,.85);font-size:.72rem;">Apopka</div>
               </div>
             </div>
             <div style="position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/3;background-image:url('https://images.unsplash.com/photo-1768326530593-00a0b2627063?auto=format&fit=crop&w=500&q=70');background-size:cover;background-position:center;">
@@ -358,8 +320,8 @@
 
         <div style="margin-top:24px;padding:18px 20px;background:rgba(201,168,76,.08);border-radius:8px;border:1px solid rgba(201,168,76,.25);">
           <p style="color:var(--navy);font-size:.85rem;font-weight:700;margin-bottom:6px;"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2 1 21h22L12 2zm0 4.5 7.5 13h-15L12 6.5zM11 10v5h2v-5h-2zm0 6.5v2h2v-2h-2z"/></svg> <span data-en>Important Notice</span><span data-ht>Avi Enpòtan</span></p>
-          <p style="color:var(--text-dark);font-size:.85rem;" data-en>Miguelson Etienne is <strong>not an attorney</strong> and ME Shield Financial Services does not provide legal advice. Paralegal and immigration document services are limited to document preparation only. For complex legal matters, clients are referred to a licensed attorney.</p>
-          <p style="color:var(--text-dark);font-size:.85rem;" data-ht>Miguelson Etienne <strong>se pa yon avoka</strong> epi ME Shield Financial Services pa bay konsèy legal. Sèvis paralegal ak dokiman imigrasyon yo limite a preparasyon dokiman sèlman. Pou pwoblèm legal konplèks, kliyan yo refere a yon avoka lisansye.</p>
+          <p style="color:var(--text-dark);font-size:.85rem;" data-en>Miguelson Etienne is <strong>not an attorney</strong> and ME Shield Financial Services does not provide legal advice. Immigration forms filing services are limited to document preparation only. For complex legal matters, clients are referred to a licensed attorney.</p>
+          <p style="color:var(--text-dark);font-size:.85rem;" data-ht>Miguelson Etienne <strong>se pa yon avoka</strong> epi ME Shield Financial Services pa bay konsèy legal. Sèvis ranpli fòmilè imigrasyon yo limite a preparasyon dokiman sèlman. Pou pwoblèm legal konplèks, kliyan yo refere a yon avoka lisansye.</p>
         </div>
       </div>
     </div>
@@ -379,10 +341,8 @@
     <div style="max-width:720px;margin:0 auto;">
       <p data-en>ME Shield Group LLC started with a simple observation: too many families in Florida's Haitian Creole-speaking community were navigating insurance enrollment, tax season, and immigration paperwork without anyone who could walk them through it in their own language — or with the kind of personal attention a major decision deserves.</p>
       <p data-ht>ME Shield Group LLC kòmanse ak yon obsèvasyon senp: twòp fanmi nan kominote Kreyòl Ayisyen ann Florid t ap navige enskripsyon asirans, sezon taks, ak papye imigrasyon san pèsonn ki ka pase atravè yo nan pwòp lang yo — oswa ak kalite atansyon pèsonèl yon gwo desizyon merite.</p>
-      <p data-en>Big call centers and impersonal offices rarely take the time to explain why a policy matters, what a tax form actually means for your refund, or how to read through immigration paperwork carefully enough that small mistakes don't cause big delays. For a lot of families, that gap wasn't just inconvenient — it meant going without coverage they needed, missing money they were owed, or facing avoidable setbacks during already-stressful processes.</p>
-      <p data-ht>Gwo sant apèl ak biwo san pèsonalite raman pran tan pou eksplike poukisa yon polis enpòtan, kisa yon fòm taks vle di pou ranbousman ou, oswa kijan pou li ak swen nan papye imigrasyon pou ti erè pa lakòz gwo reta. Pou anpil fanmi, vid sa a se pa t sèlman jennan — li te vle di pase san kouvèti yo te bezwen, rate lajan yo te dwe yo, oswa fè fas a setback evitab pandan pwosesis ki te deja estresan.</p>
-      <p data-en><strong>ME Shield Group LLC</strong>, operating as <strong>ME Shield Financial Services</strong>, was built to close that gap directly: one advisor, three connected service lines — insurance, tax preparation, and paralegal/immigration document support — and a commitment to explain everything clearly, in English or Kreyòl Ayisyen, with no jargon and no rush.</p>
-      <p data-ht><strong>ME Shield Group LLC</strong>, k ap fonksyone kòm <strong>ME Shield Financial Services</strong>, te bati pou femen vid sa a dirèkteman: yon sèl konseye, twa sèvis ki konekte — asirans, preparasyon taks, ak sipò dokiman paralegal/imigrasyon — ak yon angajman pou eksplike tout bagay klèman, an Anglè oswa Kreyòl Ayisyen, san jagon ak san kouri.</p>
+      <p data-en><strong>ME Shield Group LLC</strong>, operating as <strong>ME Shield Financial Services</strong>, was built to close that gap directly: one licensed consultant, five connected services — insurance, tax preparation, business filing, immigration forms filing, and the Infinite Banking Concept — with a commitment to explain everything clearly, in English or Kreyòl Ayisyen, with no jargon and no rush.</p>
+      <p data-ht><strong>ME Shield Group LLC</strong>, k ap fonksyone kòm <strong>ME Shield Financial Services</strong>, te bati pou femen vid sa a dirèkteman: yon sèl konsiltan lisansye, senk sèvis ki konekte — asirans, preparasyon taks, depo biznis, ranpli fòmilè imigrasyon, ak Konsèp Bank Enfini — ak yon angajman pou eksplike tout bagay klèman, an Anglè oswa Kreyòl Ayisyen, san jagon ak san kouri.</p>
       <p data-en>The name reflects the goal plainly: a shield is protection, and that's what every conversation here is built around — protecting your family's finances, your tax refund, and your immigration paperwork with the same care you'd want for your own.</p>
       <p data-ht>Non an reflekte objektif la klèman: yon "shield" se pwoteksyon, epi se sa chak konvèsasyon isit la bati sou li — pwoteje finans fanmi ou, ranbousman taks ou, ak papye imigrasyon ou ak menm swen ou ta vle pou pwòp tèt ou.</p>
     </div>
@@ -422,7 +382,7 @@
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ── FOOTER (matches homepage) ── -->
 <footer>
   <div class="container">
     <div class="footer-grid">
@@ -434,8 +394,8 @@
             <div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div>
           </div>
         </div>
-        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) and tax &amp; paralegal services (nationwide) — in English and Haitian Creole.</p>
-        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) ak sèvis taks &amp; paralegal (nasyonal) — an Anglè ak Kreyòl.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ), tax &amp; immigration forms filing (nationwide) — in English and Haitian Creole.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ), taks &amp; ranpli fòmilè imigrasyon (nasyonal) — an Anglè ak Kreyòl.</p>
         <div style="margin-top:20px;font-size:.87rem;">
           <div><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652" style="color:rgba(255,255,255,.6);">(407) 267-2652</a></div>
           <div style="margin-top:6px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.3 5.84a.75.75 0 0 0 .94 0L19.74 6H4.2zM4 7.86V18h16V7.86l-7.06 5.65a2.25 2.25 0 0 1-2.82 0L4 7.86z"/></svg><a href="mailto:info@meshieldfinancial.com" style="color:rgba(255,255,255,.6);">info@meshieldfinancial.com</a></div>
@@ -446,38 +406,44 @@
           <a href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener" aria-label="TikTok" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
           <a href="https://wa.me/14072672652" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
         </div>
+        <div class="footer-trust-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3zm0 2.2 6 2.25v4.55c0 4-2.8 7.3-6 8.95-3.2-1.65-6-4.95-6-8.95V6.45l6-2.25z"/></svg> <span data-en>FL Licensed &amp; PTIN Registered</span><span data-ht>Lisansye FL &amp; Anrejistre PTIN</span></div>
       </div>
       <div>
-        <h4 data-en>Services</h4><h4 data-ht>Sèvis</h4>
+        <h4 data-en>Services</h4>
+        <h4 data-ht>Sèvis</h4>
         <ul>
-          <li><a href="services.html#insurance" data-en>Insurance</a><a href="services.html#insurance" data-ht>Asirans</a></li>
-          <li><a href="services.html#tax" data-en>Tax Preparation</a><a href="services.html#tax" data-ht>Preparasyon Taks</a></li>
-          <li><a href="services.html#paralegal" data-en>Paralegal</a><a href="services.html#paralegal" data-ht>Paralegal</a></li>
-          <li><a href="services.html#immigration" data-en>Immigration Docs</a><a href="services.html#immigration" data-ht>Dokiman Imigrasyon</a></li>
-          <li><a href="services.html#business" data-en>Business Filing</a><a href="services.html#business" data-ht>Depo Biznis</a></li>
+          <li><a href="insurance.html" data-en>Insurance</a><a href="insurance.html" data-ht>Asirans</a></li>
+          <li><a href="tax-preparation.html" data-en>Tax Preparation</a><a href="tax-preparation.html" data-ht>Preparasyon Taks</a></li>
+          <li><a href="immigration-forms.html" data-en>Immigration Forms Filing</a><a href="immigration-forms.html" data-ht>Ranpli Fòmilè Imigrasyon</a></li>
+          <li><a href="business-filing.html" data-en>Business Filing</a><a href="business-filing.html" data-ht>Depo Biznis</a></li>
+          <li><a href="infinite-banking.html" data-en>Infinite Banking</a><a href="infinite-banking.html" data-ht>Bank Enfini</a></li>
         </ul>
       </div>
       <div>
-        <h4 data-en>Company</h4><h4 data-ht>Konpayi</h4>
+        <h4 data-en>Company</h4>
+        <h4 data-ht>Konpayi</h4>
         <ul>
           <li><a href="about.html" data-en>About Us</a><a href="about.html" data-ht>Sou Nou</a></li>
           <li><a href="contact.html" data-en>Contact</a><a href="contact.html" data-ht>Kontakte</a></li>
+          <li><a href="book.html" data-en>Free Consultation</a><a href="book.html" data-ht>Konsiltasyon Gratis</a></li>
         </ul>
       </div>
       <div>
-        <h4 data-en>Hours</h4><h4 data-ht>Orè</h4>
+        <h4 data-en>Contact</h4>
+        <h4 data-ht>Kontakte</h4>
         <ul style="font-size:.88rem;color:rgba(255,255,255,.6);">
-          <li style="list-style:none;color:inherit;" data-en>Mon – Fri: 9am – 6pm</li>
-          <li style="list-style:none;color:inherit;" data-ht>Lendi – Vandredi: 9am – 6pm</li>
+          <li style="list-style:none;color:inherit;">Apopka, FL 32712</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-en>Mon – Fri: 9am – 6pm</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-ht>Lendi – Vandredi: 9am – 6pm</li>
           <li style="list-style:none;margin-top:6px;color:inherit;" data-en>Sat: By appointment</li>
-          <li style="list-style:none;color:inherit;" data-ht>Samdi: Sou randevou</li>
+          <li style="list-style:none;margin-top:6px;color:inherit;" data-ht>Samdi: Sou randevou</li>
         </ul>
       </div>
     </div>
     <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA (“doing business as”) of ME Shield Group LLC, a Florida-registered limited liability company.</div>
-    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a Florida-registered company. Insurance products are subject to policy terms. Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Paralegal services are document preparation only and do not constitute legal advice.</div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a Florida-registered company. Insurance products are subject to policy terms and conditions. Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Tax preparation services provided by an IRS PTIN-registered preparer. Immigration forms filing services are document preparation assistance only and do not constitute legal advice.</div>
     <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA (“ap fonksyone kòm”) pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
-    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon konpayi anrejistre ann Florid. Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP. Sèvis paralegal yo se preparasyon dokiman sèlman epi yo pa reprezante konsèy legal.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon konpayi anrejistre ann Florid. Pwodui asirans yo sijè a tèm ak kondisyon polis la. Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP. Sèvis preparasyon taks yo bay pa yon preparatè anrejistre nan IRS PTIN. Sèvis ranpli fòmilè imigrasyon yo se asistans preparasyon dokiman sèlman epi yo pa reprezante konsèy legal.</div>
     <div class="footer-bottom">
       <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
       <span data-en>All rights reserved.</span>
@@ -487,43 +453,6 @@
 </footer>
 
 <script src="shared.js"></script>
-<script id="nav-panel-js">
-(function(){
-  function openMenu(){
-    var p=document.getElementById('nav-panel');
-    var o=document.getElementById('nav-overlay');
-    var b=document.getElementById('hamburger');
-    if(!p) return;
-    p.classList.add('open');
-    o&&o.classList.add('open');
-    b&&b.setAttribute('aria-expanded','true');
-    document.body.style.overflow='hidden';
-    p.setAttribute('aria-hidden','false');
-    var page=location.pathname.split('/').pop()||'index.html';
-    p.querySelectorAll('.nav-panel-link').forEach(function(a){
-      a.classList.toggle('active', a.getAttribute('href')===page);
-    });
-  }
-  window.closeMenu=function(){
-    var p=document.getElementById('nav-panel');
-    var o=document.getElementById('nav-overlay');
-    var b=document.getElementById('hamburger');
-    if(!p) return;
-    p.classList.remove('open');
-    o&&o.classList.remove('open');
-    b&&b.setAttribute('aria-expanded','false');
-    document.body.style.overflow='';
-    p.setAttribute('aria-hidden','true');
-  };
-  document.addEventListener('DOMContentLoaded',function(){
-    var btn=document.getElementById('hamburger');
-    if(btn) btn.addEventListener('click', openMenu);
-    document.addEventListener('keydown',function(e){
-      if(e.key==='Escape') window.closeMenu();
-    });
-  });
-})();
-</script>
-
+<script src="chat-widget.js"></script>
 </body>
 </html>
