@@ -652,9 +652,6 @@ body::after{
         <div><div class="info-title">E&O Insurance</div><div class="info-desc">Held via JWANAIX GROUP — contact agency for documents</div></div>
       </div>
     </div>
-
-    <div class="panel-label" style="margin-top:24px;">Renewal Status</div>
-    <div class="compliance-grid" id="compliance-grid-2"></div>
   </div>
 
   <!-- ── CONTENT & FILES ── -->
@@ -826,9 +823,7 @@ function renderCompliance(){
     </div>`;
   }).join('');
   const g1=document.getElementById('compliance-grid');
-  const g2=document.getElementById('compliance-grid-2');
   if(g1) g1.innerHTML=items;
-  if(g2) g2.innerHTML=items;
 }
 renderCompliance();
 
