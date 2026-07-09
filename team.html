@@ -128,6 +128,20 @@ body::after{
 .widget-resize::after{content:'';position:absolute;bottom:4px;right:4px;width:8px;height:8px;border-right:2px solid rgba(201,168,76,.4);border-bottom:2px solid rgba(201,168,76,.4);}
 .widget-resize:hover::after{border-color:rgba(201,168,76,.9);}
 .widget.resizing{opacity:.85;box-shadow:0 0 0 2px rgba(201,168,76,.4);}
+.widget.dragging{opacity:.85;box-shadow:0 0 0 2px rgba(201,168,76,.5);z-index:50;cursor:grabbing;}
+
+/* ── Drag handle ── */
+.widget-drag{position:absolute;top:10px;left:12px;color:rgba(255,255,255,.25);font-size:.85rem;cursor:grab;z-index:6;line-height:1;padding:2px;user-select:none;touch-action:none;}
+.widget-drag:hover{color:rgba(201,168,76,.8);}
+.widget-drag:active{cursor:grabbing;}
+
+/* ── City autocomplete suggestions ── */
+.wx-suggestions{position:absolute;top:100%;left:0;right:0;margin-top:4px;background:#132544;border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.4);display:none;}
+.wx-suggestions.show{display:block;}
+.wx-suggestion-item{padding:9px 12px;font-size:.76rem;color:rgba(255,255,255,.75);cursor:pointer;border-bottom:1px solid rgba(255,255,255,.06);}
+.wx-suggestion-item:last-child{border-bottom:none;}
+.wx-suggestion-item:hover,.wx-suggestion-item.active{background:rgba(201,168,76,.15);color:#fff;}
+.wx-suggestion-sub{color:rgba(255,255,255,.35);font-size:.66rem;}
 
 /* ── Weather edit button ── */
 .widget-edit-btn{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:6;}
@@ -365,6 +379,7 @@ body::after{
   <div class="widget-row">
 
     <div class="widget widget-clock" id="w-clock">
+      <div class="widget-drag" title="Drag to move">⠿</div>
       <div class="widget-label">Local Time</div>
       <div>
         <span class="clock-time" id="clk-time">--:--</span>
@@ -376,6 +391,7 @@ body::after{
     </div>
 
     <div class="widget widget-weather" id="w-weather">
+      <div class="widget-drag" title="Drag to move">⠿</div>
       <button class="widget-edit-btn" id="wx-edit-btn" title="Change city">✏️</button>
       <div class="widget-label" id="wx-label">Weather · Apopka FL</div>
       <div class="weather-top">
@@ -385,13 +401,15 @@ body::after{
       <div class="weather-desc" id="wx-desc"></div>
       <div class="weather-loc" id="wx-loc">Apopka, FL · 28.67°N 81.51°W</div>
       <div class="weather-city-form" id="wx-city-form" style="display:none;">
-        <input type="text" id="wx-city-input" placeholder="Type a city name..." class="wx-city-input"/>
-        <button id="wx-city-save" class="wx-city-save">Save</button>
+        <input type="text" id="wx-city-input" placeholder="Type a city name..." class="wx-city-input" autocomplete="off"/>
+        <button id="wx-city-save" class="wx-city-save" style="display:none;">Save</button>
+        <div id="wx-suggestions" class="wx-suggestions"></div>
       </div>
       <div class="widget-resize"></div>
     </div>
 
     <div class="widget widget-stats" id="w-stats">
+      <div class="widget-drag" title="Drag to move">⠿</div>
       <div class="widget-label">Quick Stats</div>
       <div class="stat-row">
         <span class="stat-name">Blog Articles</span>
@@ -803,28 +821,48 @@ document.getElementById('wx-edit-btn').addEventListener('click', function(){
   const form = document.getElementById('wx-city-form');
   form.style.display = form.style.display === 'none' ? 'flex' : 'none';
   if(form.style.display === 'flex') document.getElementById('wx-city-input').focus();
+  else document.getElementById('wx-suggestions').classList.remove('show');
 });
 
-// Save new city
-document.getElementById('wx-city-save').addEventListener('click', async function(){
-  const input = document.getElementById('wx-city-input');
-  const cityName = input.value.trim();
-  if(!cityName) return;
-  this.textContent = '...';
-  const loc = await searchCity(cityName);
-  this.textContent = 'Save';
-  if(loc){
-    localStorage.setItem(WX_KEY, JSON.stringify(loc));
-    loadWeather(loc);
-    document.getElementById('wx-city-form').style.display = 'none';
-    input.value = '';
-  } else {
-    alert('City not found. Try a different spelling.');
+// ── Autocomplete — search as you type ──
+let wxSearchTimer = null;
+document.getElementById('wx-city-input').addEventListener('input', function(){
+  const val = this.value.trim();
+  clearTimeout(wxSearchTimer);
+  const box = document.getElementById('wx-suggestions');
+  if(val.length < 2){ box.classList.remove('show'); box.innerHTML=''; return; }
+  wxSearchTimer = setTimeout(async ()=>{
+    try{
+      const res = await fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(val)+'&count=6');
+      const data = await res.json();
+      const results = data.results || [];
+      if(!results.length){ box.classList.remove('show'); box.innerHTML=''; return; }
+      box.innerHTML = results.map((r,i)=>`
+        <div class="wx-suggestion-item" data-idx="${i}">
+          ${r.name}<span class="wx-suggestion-sub"> · ${[r.admin1,r.country].filter(Boolean).join(', ')}</span>
+        </div>`).join('');
+      box.classList.add('show');
+      box.querySelectorAll('.wx-suggestion-item').forEach((item,i)=>{
+        item.addEventListener('click', ()=>{
+          const r = results[i];
+          const loc = { name:r.name, region:r.admin1||r.country_code||'', lat:r.latitude, lon:r.longitude };
+          localStorage.setItem(WX_KEY, JSON.stringify(loc));
+          loadWeather(loc);
+          box.classList.remove('show');
+          document.getElementById('wx-city-form').style.display = 'none';
+          document.getElementById('wx-city-input').value = '';
+        });
+      });
+    } catch(e){ box.classList.remove('show'); }
+  }, 350);
+});
+// Close suggestions when clicking outside
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.widget-weather')) {
+    document.getElementById('wx-suggestions').classList.remove('show');
   }
 });
-document.getElementById('wx-city-input').addEventListener('keydown', function(e){
-  if(e.key === 'Enter') document.getElementById('wx-city-save').click();
-});
+
 
 // ── LIVE BLOG ARTICLE COUNT ──────────────────────────────────────────────────
 fetch('/api/blog-count')
@@ -877,6 +915,73 @@ fetch('/api/blog-count')
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
       startX = clientX; startY = clientY;
       startW = widget.offsetWidth; startH = widget.offsetHeight;
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+      document.addEventListener('touchmove', onMove, {passive:false});
+      document.addEventListener('touchend', onUp);
+    }
+    handle.addEventListener('mousedown', onDown);
+    handle.addEventListener('touchstart', onDown, {passive:false});
+  });
+})();
+
+// ── DRAGGABLE WIDGETS — move anywhere, position saved per widget ────────────
+(function(){
+  const POS_KEY = 'me-shield-widget-positions';
+  let positions = {};
+  try { positions = JSON.parse(localStorage.getItem(POS_KEY) || '{}'); } catch(e){}
+
+  document.querySelectorAll('.widget-drag').forEach(handle=>{
+    const widget = handle.closest('.widget');
+    const container = widget.parentElement;
+    if(getComputedStyle(container).position === 'static') container.style.position = 'relative';
+
+    // Apply saved position on load
+    if(positions[widget.id]){
+      widget.style.position = 'absolute';
+      widget.style.left = positions[widget.id].x + 'px';
+      widget.style.top = positions[widget.id].y + 'px';
+      widget.style.margin = '0';
+    }
+
+    let startX, startY, origLeft, origTop, isAbsolute;
+
+    function onMove(e){
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const dx = clientX - startX;
+      const dy = clientY - startY;
+      widget.style.left = (origLeft + dx) + 'px';
+      widget.style.top = (origTop + dy) + 'px';
+    }
+    function onUp(){
+      widget.classList.remove('dragging');
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onUp);
+      positions[widget.id] = { x: parseInt(widget.style.left), y: parseInt(widget.style.top) };
+      localStorage.setItem(POS_KEY, JSON.stringify(positions));
+    }
+    function onDown(e){
+      e.preventDefault();
+      widget.classList.add('dragging');
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      startX = clientX; startY = clientY;
+
+      if(widget.style.position !== 'absolute'){
+        // Convert from normal flow to absolute at current visual position
+        const wRect = widget.getBoundingClientRect();
+        const cRect = container.getBoundingClientRect();
+        widget.style.position = 'absolute';
+        widget.style.left = (wRect.left - cRect.left) + 'px';
+        widget.style.top = (wRect.top - cRect.top) + 'px';
+        widget.style.margin = '0';
+      }
+      origLeft = parseInt(widget.style.left);
+      origTop = parseInt(widget.style.top);
+
       document.addEventListener('mousemove', onMove);
       document.addEventListener('mouseup', onUp);
       document.addEventListener('touchmove', onMove, {passive:false});
