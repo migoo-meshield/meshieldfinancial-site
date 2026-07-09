@@ -102,7 +102,7 @@ body::after{
 /* ── WIDGET GRID ── */
 .widget-row{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:12px;
   margin-bottom:12px;
 }
@@ -110,15 +110,33 @@ body::after{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
-  margin-bottom:12px;
+  margin-bottom:28px;
 }
 @media(max-width:768px){
-  .widget-row{grid-template-columns:1fr;}
+  .widget-row{grid-template-columns:repeat(2,1fr);}
   .widget-row-2{grid-template-columns:1fr;}
+}
+@media(max-width:400px){
+  .widget-row{grid-template-columns:1fr 1fr;}
 }
 
 /* Widget shared */
-.widget{padding:18px 20px;border-radius:18px;}
+.widget{padding:18px 20px;border-radius:18px;position:relative;overflow:auto;min-width:160px;min-height:120px;}
+
+/* ── Resize handle (drag corner) ── */
+.widget-resize{position:absolute;bottom:0;right:0;width:20px;height:20px;cursor:nwse-resize;z-index:5;}
+.widget-resize::after{content:'';position:absolute;bottom:4px;right:4px;width:8px;height:8px;border-right:2px solid rgba(201,168,76,.4);border-bottom:2px solid rgba(201,168,76,.4);}
+.widget-resize:hover::after{border-color:rgba(201,168,76,.9);}
+.widget.resizing{opacity:.85;box-shadow:0 0 0 2px rgba(201,168,76,.4);}
+
+/* ── Weather edit button ── */
+.widget-edit-btn{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:6;}
+.widget-edit-btn:hover{background:rgba(201,168,76,.2);border-color:rgba(201,168,76,.4);}
+.weather-city-form{margin-top:10px;display:flex;gap:6px;}
+.wx-city-input{flex:1;padding:6px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-size:.75rem;font-family:inherit;outline:none;}
+.wx-city-input:focus{border-color:#C9A84C;}
+.wx-city-save{background:#C9A84C;color:#0B1D3A;border:none;border-radius:8px;padding:6px 12px;font-size:.7rem;font-weight:700;cursor:pointer;font-family:inherit;}
+.wx-city-save:hover{background:#e0be6a;}
 .widget-label{
   font-size:.62rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.12em;
@@ -141,6 +159,15 @@ body::after{
 .clock-date{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:6px;line-height:1.5;}
 .clock-tz{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.22);margin-top:2px;}
 
+/* Weather widget */
+.widget-weather{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
+.weather-top{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.weather-emoji{font-size:2rem;line-height:1;}
+.weather-temp{font-size:1.9rem;font-weight:800;color:#fff;line-height:1;}
+.weather-desc{font-size:.72rem;color:rgba(255,255,255,.5);text-transform:capitalize;margin-top:2px;}
+.weather-loc{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.22);margin-top:4px;}
+.weather-loading{font-size:.75rem;color:rgba(255,255,255,.25);font-style:italic;}
+
 /* Stats widget */
 .widget-stats{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
 .stat-row{
@@ -152,22 +179,6 @@ body::after{
 .stat-name{font-size:.74rem;color:rgba(255,255,255,.5);}
 .stat-val{font-size:.85rem;font-weight:700;color:#C9A84C;}
 .stat-live{color:#4ade80!important;}
-
-/* Weather grid (4 city cards) */
-.weather-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:12px;
-}
-@media(max-width:768px){.weather-grid{grid-template-columns:repeat(2,1fr);}}
-.weather-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px 16px;}
-.weather-city{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:8px;}
-.weather-top{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
-.weather-emoji{font-size:1.7rem;line-height:1;}
-.weather-temp{font-size:1.5rem;font-weight:800;color:#fff;line-height:1;}
-.weather-desc{font-size:.68rem;color:rgba(255,255,255,.45);text-transform:capitalize;}
-.weather-loading{font-size:.7rem;color:rgba(255,255,255,.25);font-style:italic;}
 
 /* Notes widget */
 .widget-notes{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);}
@@ -201,24 +212,6 @@ body::after{
 .activity-dot.dim{background:rgba(255,255,255,.2);}
 .activity-text{font-size:.72rem;color:rgba(255,255,255,.55);line-height:1.4;flex:1;}
 .activity-time{font-size:.62rem;color:rgba(255,255,255,.22);flex-shrink:0;white-space:nowrap;}
-
-/* Compliance widget */
-.widget-compliance{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);grid-column:1/-1;}
-.compliance-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
-@media(max-width:900px){.compliance-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:480px){.compliance-grid{grid-template-columns:1fr;}}
-.compliance-card{border-radius:14px;padding:14px 16px;border:1px solid;}
-.compliance-card.ok{background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.25);}
-.compliance-card.soon{background:rgba(250,204,21,.08);border-color:rgba(250,204,21,.3);}
-.compliance-card.urgent{background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.35);}
-.compliance-card.unknown{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.1);}
-.compliance-name{font-size:.72rem;font-weight:700;color:#fff;margin-bottom:4px;}
-.compliance-date{font-size:.68rem;color:rgba(255,255,255,.5);margin-bottom:6px;}
-.compliance-days{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
-.compliance-card.ok .compliance-days{color:#4ade80;}
-.compliance-card.soon .compliance-days{color:#facc15;}
-.compliance-card.urgent .compliance-days{color:#f87171;}
-.compliance-card.unknown .compliance-days{color:rgba(255,255,255,.35);}
 
 /* ── TAB NAV ── */
 .tab-nav{
@@ -368,10 +361,10 @@ body::after{
     <div class="greeting-sub" id="greet-sub">Loading...</div>
   </div>
 
-  <!-- WIDGET ROW 1: Clock · Stats -->
+  <!-- WIDGET ROW 1: Clock · Weather · Stats -->
   <div class="widget-row">
 
-    <div class="widget widget-clock">
+    <div class="widget widget-clock" id="w-clock">
       <div class="widget-label">Local Time</div>
       <div>
         <span class="clock-time" id="clk-time">--:--</span>
@@ -379,13 +372,30 @@ body::after{
       </div>
       <div class="clock-date" id="clk-date">Loading date...</div>
       <div class="clock-tz">Eastern Time · Florida</div>
+      <div class="widget-resize"></div>
     </div>
 
-    <div class="widget widget-stats">
+    <div class="widget widget-weather" id="w-weather">
+      <button class="widget-edit-btn" id="wx-edit-btn" title="Change city">✏️</button>
+      <div class="widget-label" id="wx-label">Weather · Apopka FL</div>
+      <div class="weather-top">
+        <div class="weather-emoji" id="wx-icon">⏳</div>
+        <div class="weather-temp" id="wx-temp"><span class="weather-loading">Loading...</span></div>
+      </div>
+      <div class="weather-desc" id="wx-desc"></div>
+      <div class="weather-loc" id="wx-loc">Apopka, FL · 28.67°N 81.51°W</div>
+      <div class="weather-city-form" id="wx-city-form" style="display:none;">
+        <input type="text" id="wx-city-input" placeholder="Type a city name..." class="wx-city-input"/>
+        <button id="wx-city-save" class="wx-city-save">Save</button>
+      </div>
+      <div class="widget-resize"></div>
+    </div>
+
+    <div class="widget widget-stats" id="w-stats">
       <div class="widget-label">Quick Stats</div>
       <div class="stat-row">
         <span class="stat-name">Blog Articles</span>
-        <span class="stat-val">13</span>
+        <span class="stat-val" id="stat-blog-count">--</span>
       </div>
       <div class="stat-row">
         <span class="stat-name">Newsletter Subs</span>
@@ -399,54 +409,46 @@ body::after{
         <span class="stat-name">Website</span>
         <span class="stat-val stat-live">● Live</span>
       </div>
+      <div class="widget-resize"></div>
     </div>
 
-  </div>
-
-  <!-- WEATHER: 4-city grid -->
-  <div class="panel-label">Weather — Your Licensed States</div>
-  <div class="weather-grid" id="weather-grid">
-    <div class="weather-card" data-city="Apopka, FL" data-lat="28.6753" data-lon="-81.5068">
-      <div class="weather-city">Apopka, FL</div>
-      <div class="weather-top"><span class="weather-emoji">⏳</span><span class="weather-temp weather-loading">--</span></div>
-      <div class="weather-desc"></div>
-    </div>
-    <div class="weather-card" data-city="Orlando, FL" data-lat="28.5383" data-lon="-81.3792">
-      <div class="weather-city">Orlando, FL</div>
-      <div class="weather-top"><span class="weather-emoji">⏳</span><span class="weather-temp weather-loading">--</span></div>
-      <div class="weather-desc"></div>
-    </div>
-    <div class="weather-card" data-city="Boston, MA" data-lat="42.3601" data-lon="-71.0589">
-      <div class="weather-city">Boston, MA</div>
-      <div class="weather-top"><span class="weather-emoji">⏳</span><span class="weather-temp weather-loading">--</span></div>
-      <div class="weather-desc"></div>
-    </div>
-    <div class="weather-card" data-city="Newark, NJ" data-lat="40.7357" data-lon="-74.1724">
-      <div class="weather-city">Newark, NJ</div>
-      <div class="weather-top"><span class="weather-emoji">⏳</span><span class="weather-temp weather-loading">--</span></div>
-      <div class="weather-desc"></div>
-    </div>
-  </div>
-
-  <!-- COMPLIANCE REMINDERS -->
-  <div class="panel-label">Keep Business Compliant</div>
-  <div class="widget widget-compliance" style="margin-bottom:28px;">
-    <div class="compliance-grid" id="compliance-grid"></div>
   </div>
 
   <!-- WIDGET ROW 2: Notes · Activity -->
   <div class="widget-row-2">
 
     <div class="widget widget-notes">
-      <div class="widget-label">Quick Notes — synced everywhere</div>
-      <textarea class="notes-area" id="notes-ta" placeholder="Write a quick note here — it syncs to any device or link..."></textarea>
-      <div class="notes-status" id="notes-st">Loading notes...</div>
+      <div class="widget-label">Quick Notes — saved automatically</div>
+      <textarea class="notes-area" id="notes-ta" placeholder="Write a quick note here — it stays saved even if you close the page..."></textarea>
+      <div class="notes-status" id="notes-st">Notes auto-save to this device</div>
     </div>
 
     <div class="widget widget-activity">
-      <div class="widget-label">Recent Activity — live from GitHub</div>
-      <div id="activity-list">
-        <div class="activity-item"><div class="activity-dot dim"></div><div class="activity-text">Loading recent activity...</div></div>
+      <div class="widget-label">Recent Activity</div>
+      <div class="activity-item">
+        <div class="activity-dot"></div>
+        <div class="activity-text">Trump Account article published + newsletter sent</div>
+        <div class="activity-time">Today</div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot"></div>
+        <div class="activity-text">Blog updated — Trump Account featured at top</div>
+        <div class="activity-time">Today</div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot dim"></div>
+        <div class="activity-text">Portal redesigned with widgets & tabs</div>
+        <div class="activity-time">Today</div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot dim"></div>
+        <div class="activity-text">Cloudflare Pages rebuilt — site restored</div>
+        <div class="activity-time">Jul 3</div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-dot dim"></div>
+        <div class="activity-text">Content Library organized in Google Drive</div>
+        <div class="activity-time">Jul 1</div>
       </div>
     </div>
 
@@ -497,11 +499,33 @@ body::after{
 
       <!-- Top pages -->
       <div class="glass" style="padding:18px;border-radius:16px;">
-        <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:14px;">Top Pages Today</div>
+        <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:14px;">Top 10 Pages Today</div>
         <div id="top-pages-list" style="display:flex;flex-direction:column;gap:8px;">
           <div style="font-size:.75rem;color:rgba(255,255,255,.25);font-style:italic;">Loading...</div>
         </div>
       </div>
+    </div>
+
+    <!-- Location + Security row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+
+      <!-- Visitor locations -->
+      <div class="glass" style="padding:18px;border-radius:16px;">
+        <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:14px;">Visitors by Location — Today</div>
+        <div id="location-list" style="display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:.75rem;color:rgba(255,255,255,.25);font-style:italic;">Loading...</div>
+        </div>
+      </div>
+
+      <!-- Security threats -->
+      <div class="glass" style="padding:18px;border-radius:16px;">
+        <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:14px;">Security — Threats Blocked (24h)</div>
+        <div id="security-list" style="display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:.75rem;color:rgba(255,255,255,.25);font-style:italic;">Loading...</div>
+        </div>
+        <div id="security-note" style="display:none;font-size:.68rem;color:rgba(255,255,255,.3);margin-top:10px;font-style:italic;line-height:1.5;"></div>
+      </div>
+
     </div>
 
   </div>
@@ -547,18 +571,6 @@ body::after{
       </a>
       <a class="link-card" href="https://www.paypal.com/signin" target="_blank" rel="noopener">
         <div class="link-icon">💰</div><div><div class="link-title">PayPal</div><div class="link-desc">Payments & invoicing</div></div>
-      </a>
-      <a class="link-card" href="automation-hub.html">
-        <div class="link-icon">🤖</div><div><div class="link-title">Automation Hub</div><div class="link-desc">Social, email & admin prompt builder</div></div>
-      </a>
-      <a class="link-card" href="https://music.apple.com" target="_blank" rel="noopener">
-        <div class="link-icon">🎵</div><div><div class="link-title">Apple Music</div><div class="link-desc">Focus playlists</div></div>
-      </a>
-      <a class="link-card" href="https://soundcloud.com" target="_blank" rel="noopener">
-        <div class="link-icon">🎧</div><div><div class="link-title">SoundCloud</div><div class="link-desc">Focus playlists</div></div>
-      </a>
-      <a class="link-card" href="https://bwlogin.iaproducers.com/oauth2/aus8pd5v02vExnL19697/v1/authorize?client_id=0oa8plkp8jLrucllj697&response_type=code&scope=offline_access%20openid&redirect_uri=https://www.iaproducers.com/Producers/FMLogIn.aspx&state=AuthCodeRedirectUrl" target="_blank" rel="noopener">
-        <div class="link-icon">🏢</div><div><div class="link-title">Bristol Login</div><div class="link-desc">IA Producers portal</div></div>
       </a>
     </div>
   </div>
@@ -626,9 +638,6 @@ body::after{
       <a class="link-card" href="https://portal.firstconnectinsurance.com/signin?email=miguelsonetienne19%40gmail.com&process=team-member-sign-up" target="_blank" rel="noopener">
         <div class="link-icon">🔗</div><div><div class="link-title">First Connect</div><div class="link-desc">Agent portal</div></div>
       </a>
-      <a class="link-card" href="https://bwlogin.iaproducers.com/oauth2/aus8pd5v02vExnL19697/v1/authorize?client_id=0oa8plkp8jLrucllj697&response_type=code&scope=offline_access%20openid&redirect_uri=https://www.iaproducers.com/Producers/FMLogIn.aspx&state=AuthCodeRedirectUrl" target="_blank" rel="noopener">
-        <div class="link-icon">🏢</div><div><div class="link-title">Bristol Login</div><div class="link-desc">IA Producers portal</div></div>
-      </a>
     </div>
   </div>
 
@@ -652,9 +661,6 @@ body::after{
       </a>
       <a class="link-card" href="https://rpr.irs.gov" target="_blank" rel="noopener">
         <div class="link-icon">🔁</div><div><div class="link-title">PTIN Renewal</div><div class="link-desc">Annual IRS renewal</div></div>
-      </a>
-      <a class="link-card" href="https://sunbiz.org" target="_blank" rel="noopener">
-        <div class="link-icon">📑</div><div><div class="link-title">Sunbiz</div><div class="link-desc">FL LLC annual report</div></div>
       </a>
       <div class="info-card">
         <div class="info-icon">🛡️</div>
@@ -755,144 +761,147 @@ function tick(){
 }
 tick();setInterval(tick,1000);
 
-// ── WEATHER (4 cities) ──────────────────────────────────────────────────────
+// ── WEATHER — supports typing any city ────────────────────────────────────────
 const ICONS={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️',96:'⛈️',99:'⛈️'};
 const DESC={0:'Clear sky',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',80:'Showers',81:'Heavy showers',82:'Violent showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'};
-document.querySelectorAll('.weather-card').forEach(card=>{
-  const lat=card.dataset.lat, lon=card.dataset.lon;
-  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=America%2FNew_York`)
+
+const WX_KEY='me-shield-wx-city';
+const DEFAULT_WX={name:'Apopka', region:'FL', lat:28.6753, lon:-81.5068};
+
+function loadWeather(loc){
+  document.getElementById('wx-temp').innerHTML='<span class="weather-loading">Loading...</span>';
+  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto`)
     .then(r=>r.json())
     .then(d=>{
       const c=d.current;
-      card.querySelector('.weather-emoji').textContent=ICONS[c.weather_code]||'🌡️';
-      const t=card.querySelector('.weather-temp');
-      t.textContent=Math.round(c.temperature_2m)+'°F';
-      t.classList.remove('weather-loading');
-      card.querySelector('.weather-desc').textContent=DESC[c.weather_code]||'';
+      document.getElementById('wx-icon').textContent=ICONS[c.weather_code]||'🌡️';
+      document.getElementById('wx-temp').textContent=Math.round(c.temperature_2m)+'°F';
+      document.getElementById('wx-desc').textContent=DESC[c.weather_code]||'';
+      document.getElementById('wx-label').textContent='Weather · '+loc.name+(loc.region?' '+loc.region:'');
+      document.getElementById('wx-loc').textContent=loc.name+(loc.region?', '+loc.region:'')+' · '+loc.lat.toFixed(2)+'°N '+Math.abs(loc.lon).toFixed(2)+'°W';
     })
     .catch(()=>{
-      const t=card.querySelector('.weather-temp');
-      t.textContent='--°F';
-      t.classList.remove('weather-loading');
+      document.getElementById('wx-temp').textContent='--°F';
+      document.getElementById('wx-desc').textContent='Unable to load';
     });
+}
+
+async function searchCity(name){
+  const res = await fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(name)+'&count=1');
+  const data = await res.json();
+  if(!data.results || !data.results.length) return null;
+  const r = data.results[0];
+  return { name: r.name, region: r.admin1 || r.country_code || '', lat: r.latitude, lon: r.longitude };
+}
+
+// Load saved city or default
+const savedWx = JSON.parse(localStorage.getItem(WX_KEY) || 'null') || DEFAULT_WX;
+loadWeather(savedWx);
+
+// Edit button toggle
+document.getElementById('wx-edit-btn').addEventListener('click', function(){
+  const form = document.getElementById('wx-city-form');
+  form.style.display = form.style.display === 'none' ? 'flex' : 'none';
+  if(form.style.display === 'flex') document.getElementById('wx-city-input').focus();
 });
 
-// ── COMPLIANCE REMINDERS ─────────────────────────────────────────────────────
-// Recurring items use a special 'recurring' flag with a month/day that repeats yearly.
-const COMPLIANCE_ITEMS=[
-  { name:'FL Insurance License', sub:'Life, Health, General Lines', date:null, note:'Issued 02/09/2026 & 04/24/2026 — confirm exact expiration with FL DOI (2-yr, birth-month based)' },
-  { name:'MA Insurance License', sub:'Life, A&H, Casualty, Property', date:'2028-10-31' },
-  { name:'NJ Insurance License', sub:'Life, A&H, Casualty, Property', date:'2027-10-31' },
-  { name:'IRS PTIN Renewal', sub:'Annual — recurring', recurringMonth:12, recurringDay:31 },
-  { name:'FL LLC Annual Report', sub:'Sunbiz — recurring', recurringMonth:5, recurringDay:1 },
-  { name:'GitHub Activity Token', sub:'Powers live Recent Activity feed', date:'2026-10-05', note:'Generate a new fine-grained token at github.com/settings/tokens and update the GITHUB_TOKEN secret in Cloudflare' },
-];
+// Save new city
+document.getElementById('wx-city-save').addEventListener('click', async function(){
+  const input = document.getElementById('wx-city-input');
+  const cityName = input.value.trim();
+  if(!cityName) return;
+  this.textContent = '...';
+  const loc = await searchCity(cityName);
+  this.textContent = 'Save';
+  if(loc){
+    localStorage.setItem(WX_KEY, JSON.stringify(loc));
+    loadWeather(loc);
+    document.getElementById('wx-city-form').style.display = 'none';
+    input.value = '';
+  } else {
+    alert('City not found. Try a different spelling.');
+  }
+});
+document.getElementById('wx-city-input').addEventListener('keydown', function(e){
+  if(e.key === 'Enter') document.getElementById('wx-city-save').click();
+});
 
-function daysUntil(dateStr){
-  const today=new Date(); today.setHours(0,0,0,0);
-  const target=new Date(dateStr+'T00:00:00');
-  return Math.round((target-today)/(1000*60*60*24));
-}
-function nextRecurring(month,day){
-  const today=new Date(); today.setHours(0,0,0,0);
-  let year=today.getFullYear();
-  let target=new Date(year,month-1,day);
-  if(target<today) target=new Date(year+1,month-1,day);
-  return target;
-}
+// ── LIVE BLOG ARTICLE COUNT ──────────────────────────────────────────────────
+fetch('/api/blog-count')
+  .then(r=>r.json())
+  .then(d=>{
+    document.getElementById('stat-blog-count').textContent = d.count != null ? d.count : '—';
+  })
+  .catch(()=>{
+    document.getElementById('stat-blog-count').textContent = '—';
+  });
 
-function renderCompliance(){
-  const items = COMPLIANCE_ITEMS.map(item=>{
-    let dateObj, dateLabel, days, statusClass;
-    if(item.recurringMonth){
-      dateObj = nextRecurring(item.recurringMonth,item.recurringDay);
-      days = Math.round((dateObj - new Date().setHours(0,0,0,0))/(1000*60*60*24));
-      dateLabel = dateObj.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    } else if(item.date){
-      days = daysUntil(item.date);
-      dateLabel = new Date(item.date+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    } else {
-      dateLabel = 'Date TBD';
-      days = null;
+// ── RESIZABLE WIDGETS — drag corner, size saved per widget ──────────────────
+(function(){
+  const SIZE_KEY = 'me-shield-widget-sizes';
+  let sizes = {};
+  try { sizes = JSON.parse(localStorage.getItem(SIZE_KEY) || '{}'); } catch(e){}
+
+  // Apply saved sizes on load
+  Object.keys(sizes).forEach(id=>{
+    const el = document.getElementById(id);
+    if(el){ el.style.width = sizes[id].w+'px'; el.style.height = sizes[id].h+'px'; }
+  });
+
+  document.querySelectorAll('.widget-resize').forEach(handle=>{
+    const widget = handle.closest('.widget');
+    let startX, startY, startW, startH;
+
+    function onMove(e){
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const newW = Math.max(160, startW + (clientX - startX));
+      const newH = Math.max(120, startH + (clientY - startY));
+      widget.style.width = newW+'px';
+      widget.style.height = newH+'px';
     }
+    function onUp(){
+      widget.classList.remove('resizing');
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onUp);
+      // Save size
+      sizes[widget.id] = { w: widget.offsetWidth, h: widget.offsetHeight };
+      localStorage.setItem(SIZE_KEY, JSON.stringify(sizes));
+    }
+    function onDown(e){
+      e.preventDefault();
+      widget.classList.add('resizing');
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      startX = clientX; startY = clientY;
+      startW = widget.offsetWidth; startH = widget.offsetHeight;
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+      document.addEventListener('touchmove', onMove, {passive:false});
+      document.addEventListener('touchend', onUp);
+    }
+    handle.addEventListener('mousedown', onDown);
+    handle.addEventListener('touchstart', onDown, {passive:false});
+  });
+})();
 
-    if(days===null) statusClass='unknown';
-    else if(days<0) statusClass='urgent';
-    else if(days<=60) statusClass='urgent';
-    else if(days<=120) statusClass='soon';
-    else statusClass='ok';
+// ── NOTES ────────────────────────────────────────────────────────────────────
 
-    const daysLabel = days===null ? 'Confirm date' : days<0 ? `${Math.abs(days)} days overdue` : `${days} days left`;
-
-    return `<div class="compliance-card ${statusClass}">
-      <div class="compliance-name">${item.name}</div>
-      <div class="compliance-date">${item.sub||''} · ${dateLabel}</div>
-      <div class="compliance-days">${daysLabel}</div>
-      ${item.note?`<div style="font-size:.62rem;color:rgba(255,255,255,.3);margin-top:6px;line-height:1.5;">${item.note}</div>`:''}
-    </div>`;
-  }).join('');
-  const g1=document.getElementById('compliance-grid');
-  if(g1) g1.innerHTML=items;
-}
-renderCompliance();
-
-// ── QUICK NOTES (synced via Cloudflare KV) ──────────────────────────────────
 const ta=document.getElementById('notes-ta');
 const st=document.getElementById('notes-st');
-
-async function loadNotes(){
-  try{
-    const res=await fetch('/api/team-notes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get'})});
-    const data=await res.json();
-    ta.value = data.notes || '';
-    st.textContent='Synced ✓';
-  }catch(e){
-    st.textContent='Could not load notes (offline?)';
-  }
-}
-loadNotes();
-
-let saveTimer;
+try{ta.value=localStorage.getItem('meshield-portal-notes')||'';}catch(e){}
+let timer;
 ta.addEventListener('input',()=>{
-  clearTimeout(saveTimer);
+  clearTimeout(timer);
   st.textContent='Saving...';
-  saveTimer=setTimeout(async ()=>{
-    try{
-      await fetch('/api/team-notes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'save',notes:ta.value})});
-      st.textContent='Saved & synced ✓';
-    }catch(e){
-      st.textContent='Save failed — check connection';
-    }
+  timer=setTimeout(()=>{
+    try{localStorage.setItem('meshield-portal-notes',ta.value);}catch(e){}
+    st.textContent='Saved ✓';
+    setTimeout(()=>{st.textContent='Notes auto-save to this device';},2000);
   },800);
 });
-
-// ── LIVE ACTIVITY (from GitHub) ──────────────────────────────────────────────
-async function loadActivity(){
-  const el=document.getElementById('activity-list');
-  try{
-    const res=await fetch('/api/activity');
-    const data=await res.json();
-    if(!data.success || !data.activity || !data.activity.length){
-      el.innerHTML='<div class="activity-item"><div class="activity-dot dim"></div><div class="activity-text">No recent activity found.</div></div>';
-      return;
-    }
-    el.innerHTML=data.activity.map((a,i)=>{
-      const time=new Date(a.time);
-      const now=new Date();
-      const diffH=Math.round((now-time)/(1000*60*60));
-      const label = diffH<1 ? 'Just now' : diffH<24 ? diffH+'h ago' : Math.round(diffH/24)+'d ago';
-      return `<div class="activity-item">
-        <div class="activity-dot ${i>2?'dim':''}"></div>
-        <div class="activity-text">${a.message}</div>
-        <div class="activity-time">${label}</div>
-      </div>`;
-    }).join('');
-  }catch(e){
-    el.innerHTML='<div class="activity-item"><div class="activity-dot dim"></div><div class="activity-text">Could not load activity feed.</div></div>';
-  }
-}
-loadActivity();
-setInterval(loadActivity, 5*60*1000);
 
 
 // ── LIVE ANALYTICS ──────────────────────────────────────────────────────────
@@ -966,6 +975,59 @@ function renderTopPages(pages){
   }).join('');
 }
 
+function renderLocations(locations){
+  const el=document.getElementById('location-list');
+  if(!el) return;
+  if(!locations||!locations.length){
+    el.innerHTML='<div style="font-size:.75rem;color:rgba(255,255,255,.25);">No location data yet for today</div>';
+    return;
+  }
+  const max=locations[0].count||1;
+  el.innerHTML=locations.map((l,i)=>{
+    const pct=Math.round((l.count/max)*100);
+    return `<div>
+      <div style="display:flex;justify-content:space-between;font-size:.72rem;color:rgba(255,255,255,.65);margin-bottom:4px;">
+        <span>${l.location}</span>
+        <span style="color:rgba(255,255,255,.35);">${l.count.toLocaleString()}</span>
+      </div>
+      <div style="height:5px;background:rgba(255,255,255,.08);border-radius:3px;">
+        <div style="height:100%;width:${pct}%;background:#C9A84C;border-radius:3px;opacity:${1-i*0.08};"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderThreatTypes(threats, note){
+  const el=document.getElementById('security-list');
+  const noteEl=document.getElementById('security-note');
+  if(!el) return;
+  if(note){
+    noteEl.style.display='block';
+    noteEl.textContent=note;
+  } else {
+    noteEl.style.display='none';
+  }
+  if(!threats||!threats.length){
+    el.innerHTML='<div style="font-size:.75rem;color:rgba(255,255,255,.25);">No threats blocked in the last 24 hours ✅</div>';
+    return;
+  }
+  const max=threats[0].count||1;
+  const labels={block:'Blocked',challenge:'Challenged',jschallenge:'JS Challenge',log:'Logged',skip:'Skipped',managed_challenge:'Managed Challenge'};
+  el.innerHTML=threats.map(t=>{
+    const pct=Math.round((t.count/max)*100);
+    const label=labels[t.type]||t.type;
+    return `<div>
+      <div style="display:flex;justify-content:space-between;font-size:.72rem;color:rgba(255,255,255,.65);margin-bottom:4px;">
+        <span>${label}</span>
+        <span style="color:rgba(255,255,255,.35);">${t.count.toLocaleString()}</span>
+      </div>
+      <div style="height:5px;background:rgba(255,255,255,.08);border-radius:3px;">
+        <div style="height:100%;width:${pct}%;background:#f87171;border-radius:3px;"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 window.loadAnalytics = async function(){
   const upd=document.getElementById('analytics-updated');
   const err=document.getElementById('analytics-error');
@@ -982,6 +1044,8 @@ window.loadAnalytics = async function(){
     animNum(document.getElementById('stat-threats'), d.threats||0);
     drawHourlyChart(d.hourly||[]);
     renderTopPages(d.topPages||[]);
+    renderLocations(d.topLocations||[]);
+    renderThreatTypes(d.threatTypes||[], d.securityNote);
     if(upd){
       const t=new Date(d.updatedAt);
       upd.textContent='Updated '+t.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
