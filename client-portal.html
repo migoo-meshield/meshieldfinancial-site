@@ -107,6 +107,36 @@ main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:48px 24px
 
 /* Footer */
 .portal-footer{text-align:center;padding:32px 24px;color:rgba(255,255,255,.2);font-size:.7rem;position:relative;z-index:1;}
+
+/* === INTAKE FORMS ADD-ON === */
+.intake-launch-card{cursor:pointer;transition:all .2s;}
+.intake-launch-card:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.25);}
+.intake-launch-desc{font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:14px;}
+.svc-picker{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;}
+@media(max-width:480px){.svc-picker{grid-template-columns:1fr;}}
+.svc-pick-btn{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;
+  padding:14px 16px;color:#fff;font-size:.84rem;font-weight:600;text-align:left;cursor:pointer;
+  font-family:inherit;transition:all .2s;}
+.svc-pick-btn:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.08);}
+.svc-pick-btn.selected{border-color:var(--gold);background:rgba(201,168,76,.15);color:var(--gold);}
+.intake-form-area{margin-top:22px;display:none;}
+.intake-form-area.active{display:block;}
+.if-field{margin-bottom:16px;}
+.if-label{display:block;font-size:.75rem;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:7px;
+  text-transform:uppercase;letter-spacing:.06em;}
+.if-input,.if-select,.if-textarea{width:100%;padding:12px 15px;border-radius:10px;
+  border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;
+  font-size:.9rem;font-family:inherit;outline:none;transition:border-color .2s;}
+.if-input:focus,.if-select:focus,.if-textarea:focus{border-color:var(--gold);}
+.if-input::placeholder,.if-textarea::placeholder{color:rgba(255,255,255,.25);}
+.if-textarea{min-height:70px;resize:vertical;}
+.if-row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:480px){.if-row2{grid-template-columns:1fr;}}
+.if-check-row{display:flex;align-items:flex-start;gap:10px;font-size:.78rem;color:rgba(255,255,255,.55);
+  line-height:1.6;margin:18px 0;}
+.if-check-row input{margin-top:3px;flex-shrink:0;}
+.if-back{background:transparent;border:none;color:rgba(255,255,255,.4);font-size:.8rem;
+  cursor:pointer;font-family:inherit;margin-bottom:16px;padding:0;}
 </style>
 </head>
 <body>
@@ -177,6 +207,13 @@ main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:48px 24px
         </div>
       </div>
 
+      <!-- Intake Forms -->
+      <div class="dash-card intake-launch-card" onclick="showPanel('intake')">
+        <div class="card-label">Intake Forms</div>
+        <div class="intake-launch-desc">Complete your detailed service intake form securely — this is the same information Miguelson would collect in person, done from your phone.</div>
+        <button class="btn-gold" type="button" onclick="event.stopPropagation();showPanel('intake');">Start / Continue Intake Form →</button>
+      </div>
+
       <!-- Documents -->
       <div class="dash-card">
         <div class="card-label">Your Documents</div>
@@ -208,6 +245,29 @@ main{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:48px 24px
     <button class="btn-logout" onclick="logout()">Sign Out</button>
   </div>
 
+  <!-- INTAKE FORMS PANEL -->
+  <div class="panel" id="panel-intake">
+    <button class="if-back" onclick="showPanel('dashboard')">← Back to Dashboard</button>
+    <h1 class="dash-welcome" style="font-size:1.4rem;margin-bottom:6px;">Intake Form</h1>
+    <p class="dash-email" style="margin-bottom:24px;">Select your service, then complete the form below.</p>
+
+    <div class="dash-card">
+      <div class="card-label">1. Select Your Service</div>
+      <div class="svc-picker" id="svc-picker"></div>
+    </div>
+
+    <div class="dash-card intake-form-area" id="intake-form-area">
+      <div class="card-label" id="if-service-title">Intake Details</div>
+      <div class="msg-box msg-success" id="intake-success">Thank you! Your intake form has been submitted. Miguelson will review it and follow up shortly.</div>
+      <div id="if-fields"></div>
+      <label class="if-check-row">
+        <input type="checkbox" id="if-consent"/>
+        <span>I confirm the information above is accurate to the best of my knowledge, and I authorize ME Shield Financial Services / Miguelson Etienne to use it to prepare my service. This form does not guarantee approval, coverage, or filing outcome, and does not constitute legal, financial, or tax advice.</span>
+      </label>
+      <button class="btn-gold" onclick="submitIntake()">Submit Intake Form →</button>
+    </div>
+  </div>
+
 </main>
 
 <div class="portal-footer">
@@ -220,6 +280,7 @@ const CLIENT_KEY = 'me-shield-client-data';
 
 // ── CHECK IF ALREADY LOGGED IN ────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', function(){
+  buildServicePicker();
   // Check URL for magic link token
   const params = new URLSearchParams(window.location.search);
   const token = params.get('token');
@@ -430,6 +491,170 @@ function logout(){
 function showPanel(name){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+name).classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// INTAKE FORMS ADD-ON
+// ══════════════════════════════════════════════════════════════════════════
+
+// Reuses the same Brevo Quote-form endpoint as your public quote forms.
+const INTAKE_FORM_ACTION = 'https://d95daacd.sibforms.com/serve/MUIFAMqjH_cY1LbRSOMkgaHyh3AM8-YFTKECi52xHfqMLn-GuIdA_-AR79NKMutB8ClkLRVS6xTsE1rCP0ay371kFgxCGSXVTSFsfcp1iKMsvUPSeqh6yDtJbLiQd3216pI03uN9RbummyF4YxV-zWpiGY3n1Lff2FmR1WRCfgfoH6IBhMHe6JKvb-CgpPzfPbAkNeGZU9e9Pu7kAg==';
+
+const INTAKE_SERVICES = {
+  'life-insurance': {
+    label: 'Life Insurance',
+    fields: [
+      {id:'coverage_type', label:'Coverage Type', type:'select', options:['Term Life','Whole Life','Not Sure']},
+      {id:'coverage_amount', label:'Desired Coverage Amount ($)', type:'text', placeholder:'e.g. 250000'},
+      {id:'beneficiary', label:'Primary Beneficiary (Name & Relationship)', type:'text'},
+      {id:'dob', label:'Date of Birth', type:'text', placeholder:'MM/DD/YYYY'},
+      {id:'tobacco', label:'Tobacco / Nicotine User?', type:'select', options:['No','Yes']},
+      {id:'immigration_status', label:'Immigration / Residency Status', type:'select', options:['U.S. Citizen','Permanent Resident','Work Visa','Other Legal Status','Prefer not to answer']},
+      {id:'health_notes', label:'Medications / Pre-existing Conditions (if any)', type:'textarea'},
+    ]
+  },
+  'health-insurance': {
+    label: 'Health Insurance',
+    fields: [
+      {id:'plan_type', label:'Plan Type', type:'select', options:['Individual','Family','Marketplace / ACA','Short-Term','Not Sure']},
+      {id:'household_size', label:'Household Size (people needing coverage)', type:'text'},
+      {id:'dob', label:'Date of Birth', type:'text', placeholder:'MM/DD/YYYY'},
+      {id:'tobacco', label:'Tobacco / Nicotine User?', type:'select', options:['No','Yes']},
+      {id:'immigration_status', label:'Immigration / Residency Status', type:'select', options:['U.S. Citizen','Permanent Resident','Work Visa','Other Legal Status','Prefer not to answer']},
+      {id:'income', label:'Household Annual Income ($)', type:'text'},
+      {id:'health_notes', label:'Current Medications / Conditions (if any)', type:'textarea'},
+    ]
+  },
+  'auto-property-insurance': {
+    label: 'Auto & Property Insurance',
+    fields: [
+      {id:'coverage_type', label:'Coverage Needed', type:'select', options:['Auto','Homeowners','Renters','Both Auto & Property']},
+      {id:'vehicle_info', label:'Vehicle Year / Make / Model (if auto)', type:'text'},
+      {id:'driving_record', label:'Driving Record', type:'select', options:['Clean','Prior Accidents/Claims','Prior DUI/Violations']},
+      {id:'property_address', label:'Property Address (if different from above)', type:'text'},
+      {id:'home_value', label:'Estimated Home Value ($) (if property)', type:'text'},
+      {id:'claims_history', label:'Claims in Past 5 Years', type:'textarea'},
+    ]
+  },
+  'tax-preparation': {
+    label: 'Tax Preparation',
+    fields: [
+      {id:'filing_status', label:'Filing Status', type:'select', options:['Single','Married Filing Jointly','Married Filing Separately','Head of Household']},
+      {id:'tax_year', label:'Tax Year Being Filed', type:'text'},
+      {id:'dependents', label:'Number of Dependents', type:'text'},
+      {id:'income_sources', label:'Income Sources', type:'select', options:['W-2 Employment','Self-Employment/1099','Rental Income','Investment Income','Multiple Sources']},
+      {id:'income_est', label:'Estimated Gross Income ($)', type:'text'},
+      {id:'deductions_notes', label:'Deductions/Credits You Think Apply', type:'textarea'},
+    ]
+  },
+  'business-filing': {
+    label: 'Business Filing',
+    fields: [
+      {id:'business_name', label:'Desired Business Name', type:'text'},
+      {id:'entity_type', label:'Entity Type', type:'select', options:['LLC','Corporation (C-Corp)','S-Corp Election','Sole Proprietorship','Nonprofit','Not Sure']},
+      {id:'business_purpose', label:'Business Purpose / Industry', type:'text'},
+      {id:'state_formation', label:'State of Formation', type:'text'},
+      {id:'filing_needs', label:'Filing Needs (Articles, EIN, Operating Agreement, etc.)', type:'textarea'},
+    ]
+  },
+  'immigration-forms': {
+    label: 'Immigration Forms',
+    fields: [
+      {id:'form_requested', label:'Form(s) Requested', type:'select', options:['I-130 (Family Petition)','I-485 (Adjustment of Status)','N-400 (Naturalization)','I-765 (Work Permit)','DACA Renewal','Other']},
+      {id:'immigration_status', label:'Current Immigration / Residency Status', type:'select', options:['U.S. Citizen','Permanent Resident','Work Visa','Other Legal Status','Prefer not to answer']},
+      {id:'country_origin', label:'Country of Birth / Citizenship', type:'text'},
+      {id:'a_number', label:'Alien Registration Number (A-Number), if any', type:'text'},
+      {id:'case_history', label:'Case History (first-time, renewal, prior denial, etc.)', type:'textarea'},
+    ]
+  },
+  'ibc': {
+    label: 'IBC — Infinite Banking',
+    fields: [
+      {id:'ibc_goal', label:'Primary Goal', type:'select', options:['Build cash value / personal banking','Finance large purchases','Supplement retirement','Fund a business','College funding','Not sure']},
+      {id:'funding_amount', label:'Amount Available to Fund Monthly/Annually ($)', type:'text'},
+      {id:'existing_policies', label:'Existing Whole Life Policies?', type:'select', options:['No','Yes']},
+      {id:'income_est', label:'Estimated Annual Income ($)', type:'text'},
+      {id:'tobacco', label:'Tobacco / Nicotine User?', type:'select', options:['No','Yes']},
+      {id:'notes', label:'What prompted your interest in IBC?', type:'textarea'},
+    ]
+  },
+};
+
+let currentIntakeService = null;
+
+function buildServicePicker(){
+  const wrap = document.getElementById('svc-picker');
+  if(!wrap) return;
+  wrap.innerHTML = Object.keys(INTAKE_SERVICES).map(key => `
+    <button type="button" class="svc-pick-btn" id="pick-${key}" onclick="selectIntakeService('${key}')">
+      ${INTAKE_SERVICES[key].label}
+    </button>
+  `).join('');
+}
+
+function selectIntakeService(key){
+  currentIntakeService = key;
+  document.querySelectorAll('.svc-pick-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('pick-'+key).classList.add('selected');
+
+  const svc = INTAKE_SERVICES[key];
+  document.getElementById('if-service-title').textContent = svc.label + ' — Intake Details';
+  const fieldsEl = document.getElementById('if-fields');
+  fieldsEl.innerHTML = svc.fields.map(f => {
+    if(f.type === 'select'){
+      return `<div class="if-field"><label class="if-label">${f.label}</label>
+        <select class="if-select" id="if-${f.id}">
+          ${f.options.map(o=>`<option value="${o}">${o}</option>`).join('')}
+        </select></div>`;
+    } else if(f.type === 'textarea'){
+      return `<div class="if-field"><label class="if-label">${f.label}</label>
+        <textarea class="if-textarea" id="if-${f.id}" placeholder="${f.placeholder||''}"></textarea></div>`;
+    } else {
+      return `<div class="if-field"><label class="if-label">${f.label}</label>
+        <input type="text" class="if-input" id="if-${f.id}" placeholder="${f.placeholder||''}"/></div>`;
+    }
+  }).join('');
+
+  document.getElementById('intake-form-area').classList.add('active');
+  document.getElementById('intake-success').style.display = 'none';
+}
+
+async function submitIntake(){
+  if(!currentIntakeService){ alert('Please select a service first.'); return; }
+  const consent = document.getElementById('if-consent').checked;
+  if(!consent){ alert('Please check the consent box to submit.'); return; }
+
+  const saved = localStorage.getItem(CLIENT_KEY);
+  const client = saved ? JSON.parse(saved) : {};
+  const svc = INTAKE_SERVICES[currentIntakeService];
+
+  let messageParts = [];
+  svc.fields.forEach(f => {
+    const el = document.getElementById('if-'+f.id);
+    if(el && el.value) messageParts.push(f.label + ': ' + el.value);
+  });
+  const message = messageParts.join(' | ');
+
+  const digits = (client.phone||'').replace(/\D/g,'');
+  const params = new URLSearchParams();
+  params.append('LASTNAME', client.name || '');
+  params.append('EMAIL', client.email || '');
+  params.append('SMS__COUNTRY_CODE', '+1');
+  params.append('SMS', digits.length===10 ? '1'+digits : digits);
+  params.append('SERVICE_INTERESTED', currentIntakeService);
+  params.append('MESSAGE', 'FORM_TYPE: intake | ' + message);
+  params.append('email_address_check', '');
+  params.append('locale', 'en');
+  params.append('html_type', 'simple');
+
+  fetch(INTAKE_FORM_ACTION, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type':'application/x-www-form-urlencoded'},
+    body: params.toString()
+  }).catch(()=>{});
+
+  document.getElementById('intake-success').style.display = 'block';
 }
 </script>
 
