@@ -1,11 +1,9 @@
 /* shared.js — nav, language switcher, scroll reveal, footer */
-
 /* ── Language Switcher ── */
 function initLang() {
   const saved = localStorage.getItem('me-shield-lang') || 'en';
   setLang(saved, false);
 }
-
 function setLang(lang, save = true) {
   document.body.classList.remove('lang-en', 'lang-ht');
   document.body.classList.add('lang-' + lang);
@@ -14,7 +12,6 @@ function setLang(lang, save = true) {
   });
   if (save) localStorage.setItem('me-shield-lang', lang);
 }
-
 /* ── Hamburger (legacy — kept for backward compatibility) ── */
 function initHamburger() {
   const btn   = document.getElementById('hamburger');
@@ -26,12 +23,10 @@ function initHamburger() {
     btn.setAttribute('aria-expanded', links.classList.contains('open'));
   });
 }
-
 /* ── Active nav link (works for both old nav and new panel) ── */
 function initActiveNav() {
   let page = location.pathname.split('/').pop();
   if (!page) page = 'index.html';
-
   const articlePages = [
     'infinite-banking-concept.html',
     'tax-deductions-self-employed.html',
@@ -48,7 +43,6 @@ function initActiveNav() {
     'trump-account.html',
   ];
   if (articlePages.includes(page)) page = 'blog.html';
-
   // Old nav
   document.querySelectorAll('.nav-links a').forEach(a => {
     if (a.getAttribute('href') === page) a.classList.add('active');
@@ -61,7 +55,6 @@ function initActiveNav() {
     });
   }
 }
-
 /* ── Scroll reveal ── */
 function initReveal() {
   const targets = document.querySelectorAll('.reveal');
@@ -76,7 +69,6 @@ function initReveal() {
   }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
   targets.forEach(t => obs.observe(t));
 }
-
 /* ── Back to top button ── */
 function initBackToTop() {
   if (document.querySelector('.back-to-top')) return;
@@ -90,13 +82,21 @@ function initBackToTop() {
     btn.classList.toggle('visible', window.scrollY > 500);
   });
 }
-
 /* ── Footer year ── */
 function initFooterYear() {
   const el = document.getElementById('year');
   if (el) el.textContent = new Date().getFullYear();
 }
-
+/* ── Load AI Chatbot widget (NEW) ── */
+/* Adds the chatbot-widget.js script to every page automatically,       */
+/* so you never have to edit individual HTML pages to include it.      */
+function loadChatbot() {
+  if (document.querySelector('script[src="/chatbot-widget.js"]')) return; // avoid loading twice
+  const s = document.createElement('script');
+  s.src = '/chatbot-widget.js';
+  s.defer = true;
+  document.body.appendChild(s);
+}
 document.addEventListener('DOMContentLoaded', () => {
   initLang();
   initHamburger();
@@ -104,4 +104,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   initBackToTop();
   initFooterYear();
+  loadChatbot();
 });
