@@ -278,14 +278,31 @@ async function generate(t){
   if(t==='admin'&&!selectedAdmin)return;
   const btnId=t==='social'?'s-btn':t==='email'?'e-btn':'a-btn',rid=t+'-result',oid='out-'+t;
   const btn=document.getElementById(btnId),res=document.getElementById(rid),out=document.getElementById(oid);
-  btn.disabled=true;btn.innerHTML='<div class="spinner"></div> Generating…';out.classList.add('show');
+  const labels={social:'✦ Generate Post',email:'✦ Generate Email',admin:'✦ Generate'};
+  btn.disabled=true;
+  btn.innerHTML='<div class="spinner"></div> Generating…';
+  out.classList.add('show');
   res.innerHTML='<div class="loading-msg"><div class="spinner"></div> Writing your content…</div>';
   try{
-    const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:buildPrompt(t)})});
-    const d=await r.json();if(d.error)throw new Error(d.error);
+    const r=await fetch('/api/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({prompt:buildPrompt(t)})
+    });
+    // Check HTTP status first
+    if(!r.ok){
+      const errText=await r.text();
+      throw new Error('Server error ('+r.status+'): '+errText.substring(0,200));
+    }
+    const d=await r.json();
+    if(d.error) throw new Error(d.error);
+    if(!d.result||d.result.trim()==='') throw new Error('AI returned empty content. Please try again.');
     res.innerHTML='<div class="output-text">'+esc(d.result)+'</div>';
-  }catch(e){res.innerHTML='<div class="error-msg">⚠️ '+esc(e.message)+'</div>';}
-  btn.disabled=false;btn.innerHTML=labels[t];
+  }catch(e){
+    res.innerHTML='<div class="error-msg">⚠️ '+esc(e.message)+'</div>';
+  }
+  btn.disabled=false;
+  btn.innerHTML=labels[t];
 }
 function copyOut(rid,bid){const t=document.getElementById(rid).innerText;navigator.clipboard.writeText(t).then(()=>{const b=document.getElementById(bid);b.textContent='Copied!';b.classList.add('copied');setTimeout(()=>{b.textContent='Copy';b.classList.remove('copied');},2000);});}
 function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
