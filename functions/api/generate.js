@@ -1,25 +1,42 @@
 // functions/api/generate.js
-// Cloudflare Pages Function — Workers AI with model fallback
-
-const MODELS = [
-  "@cf/zai-org/glm-4.7-flash",
-  "@cf/meta/llama-3.1-8b-instruct",
-  "@cf/mistral/mistral-7b-instruct-v0.1",
-];
+// Fixed: handles OpenAI-compatible response format from @cf/zai-org/glm-4.7-flash
+// The GLM model returns choices[0].message.content OR choices[0].message.reasoning
 
 function extractText(aiRes) {
   if (!aiRes) return "";
   if (typeof aiRes === "string") return aiRes;
+
+  // ── OpenAI-compatible format (what GLM returns) ──
+  // choices[0].message.content can be null — fall back to .reasoning
+  if (aiRes?.choices?.[0]?.message) {
+    const msg = aiRes.choices[0].message;
+    const text = msg.content ?? msg.reasoning ?? msg.text ?? "";
+    if (text) return text;
+  }
+
+  // ── Standard Cloudflare AI formats ──
   return (
     aiRes?.response ??
     aiRes?.result?.response ??
     aiRes?.message?.content ??
+    aiRes?.message?.reasoning ??
     aiRes?.content ??
     aiRes?.text ??
-    (Array.isArray(aiRes) ? (aiRes[0]?.generated_text ?? aiRes[0]?.response ?? "") : "") ??
+    (Array.isArray(aiRes)
+      ? (aiRes[0]?.generated_text ?? aiRes[0]?.response ?? aiRes[0]?.content ?? "")
+      : "") ??
     ""
   );
 }
+
+const SYSTEM_PROMPT = "You are a professional content writer for ME Shield Financial Services (Miguelson Etienne, Apopka FL). Write clear, professional, warm content for insurance, tax preparation, business filing, immigration forms filing, and Infinite Banking. Never use the words 'advisor', 'paralegal', or 'attorney'. Keep content concise and ready to use. Do not include reasoning or thinking — output only the final content.";
+
+// Models to try in order (glm first since binding shows it's active)
+const MODELS = [
+  "@cf/zai-org/glm-4.7-flash",
+  "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "@cf/mistral/mistral-7b-instruct-v0.2",
+];
 
 export async function onRequestPost(context) {
   const headers = {
@@ -44,21 +61,18 @@ export async function onRequestPost(context) {
 
     if (!context.env.AI) {
       return new Response(
-        JSON.stringify({ error: "Workers AI binding missing. Add it in Cloudflare Pages > Settings > Bindings > Workers AI > name it 'AI'" }),
+        JSON.stringify({ error: "Workers AI binding missing — add it in Cloudflare Pages > Settings > Bindings > Workers AI > name it 'AI'" }),
         { status: 500, headers }
       );
     }
 
-    const systemPrompt = "You are a professional content writer for ME Shield Financial Services (Miguelson Etienne, Apopka FL). Write clear, professional, warm content for insurance, tax preparation, business filing, immigration forms filing, and Infinite Banking. Never use 'advisor', 'paralegal', or 'attorney'. Keep it concise and ready to use.";
-
     let lastError = "";
 
-    // Try each model until one works
     for (const model of MODELS) {
       try {
         const aiRes = await context.env.AI.run(model, {
           messages: [
-            { role: "system", content: systemPrompt },
+            { role: "system", content: SYSTEM_PROMPT },
             { role: "user", content: prompt }
           ],
           max_tokens: 800,
@@ -68,22 +82,21 @@ export async function onRequestPost(context) {
 
         if (text) {
           return new Response(
-            JSON.stringify({ result: text, model_used: model }),
+            JSON.stringify({ result: text }),
             { status: 200, headers }
           );
         }
 
-        lastError = "Model " + model + " returned empty response. Raw: " + JSON.stringify(aiRes).substring(0, 150);
+        lastError = `${model} returned empty. Raw: ${JSON.stringify(aiRes).substring(0, 200)}`;
 
-      } catch (modelErr) {
-        lastError = "Model " + model + " error: " + modelErr.message;
-        continue; // try next model
+      } catch (err) {
+        lastError = `${model} error: ${err.message}`;
+        continue;
       }
     }
 
-    // All models failed
     return new Response(
-      JSON.stringify({ error: "All AI models failed. Last error: " + lastError }),
+      JSON.stringify({ error: "All models failed. Last: " + lastError }),
       { status: 500, headers }
     );
 

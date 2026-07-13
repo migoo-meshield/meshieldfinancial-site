@@ -1,62 +1,49 @@
 // functions/api/test.js
-// Tests both the function routing AND the AI call
+
+function extractText(aiRes) {
+  if (!aiRes) return "";
+  if (typeof aiRes === "string") return aiRes;
+  if (aiRes?.choices?.[0]?.message) {
+    const msg = aiRes.choices[0].message;
+    const text = msg.content ?? msg.reasoning ?? msg.text ?? "";
+    if (text) return text;
+  }
+  return aiRes?.response ?? aiRes?.result?.response ?? aiRes?.message?.content ?? aiRes?.content ?? aiRes?.text ?? (Array.isArray(aiRes) ? (aiRes[0]?.generated_text ?? aiRes[0]?.response ?? "") : "") ?? "";
+}
 
 export async function onRequestGet(context) {
-  const headers = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-  };
+  const headers = { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" };
 
   const result = {
     status: "ok",
     function: "Cloudflare Pages Function is working ✅",
     ai_binding: context.env.AI ? "AI binding found ✅" : "AI binding MISSING ❌",
-    ai_call: "not tested yet",
-    ai_response_raw: null,
-    ai_model_used: null,
+    ai_call: "not tested",
+    ai_text: null,
+    ai_model: null,
+    raw_response: null,
     error: null,
   };
 
   if (!context.env.AI) {
-    return new Response(JSON.stringify(result), { status: 200, headers });
+    return new Response(JSON.stringify(result, null, 2), { status: 200, headers });
   }
 
-  // Test the AI call with a simple prompt
   try {
-    const models = [
-      "@cf/zai-org/glm-4.7-flash",
-      "@cf/meta/llama-3.1-8b-instruct",
-    ];
+    const aiRes = await context.env.AI.run("@cf/zai-org/glm-4.7-flash", {
+      messages: [{ role: "user", content: "Say hello in one sentence." }],
+      max_tokens: 60,
+    });
 
-    for (const model of models) {
-      try {
-        const aiRes = await context.env.AI.run(model, {
-          messages: [
-            { role: "user", content: "Say hello in one sentence." }
-          ],
-          max_tokens: 50,
-        });
+    result.raw_response = JSON.stringify(aiRes).substring(0, 400);
+    const text = extractText(aiRes)?.trim();
 
-        result.ai_response_raw = JSON.stringify(aiRes).substring(0, 300);
-        result.ai_model_used = model;
-
-        // Extract text
-        const text =
-          typeof aiRes === "string" ? aiRes :
-          aiRes?.response ?? aiRes?.result?.response ??
-          aiRes?.message?.content ?? aiRes?.content ?? aiRes?.text ??
-          (Array.isArray(aiRes) ? (aiRes[0]?.generated_text ?? aiRes[0]?.response) : null);
-
-        if (text && text.trim()) {
-          result.ai_call = "AI is working ✅ — model: " + model;
-          result.ai_text = text.trim();
-          break;
-        } else {
-          result.ai_call = "AI responded but text was empty ⚠️";
-        }
-      } catch (modelErr) {
-        result.ai_call = "Model " + model + " failed: " + modelErr.message;
-      }
+    if (text) {
+      result.ai_call = "AI is working ✅";
+      result.ai_text = text;
+      result.ai_model = "@cf/zai-org/glm-4.7-flash";
+    } else {
+      result.ai_call = "AI responded but text was empty ⚠️ — check raw_response";
     }
   } catch (err) {
     result.ai_call = "AI call failed ❌";
