@@ -5,23 +5,27 @@ function extractText(aiRes) {
   if (typeof aiRes === "string") return aiRes;
   if (aiRes?.choices?.[0]?.message) {
     const msg = aiRes.choices[0].message;
-    const text = msg.content ?? msg.reasoning ?? msg.text ?? "";
+    const text = msg.content ?? msg.text ?? "";
     if (text) return text;
   }
-  return aiRes?.response ?? aiRes?.result?.response ?? aiRes?.message?.content ?? aiRes?.content ?? aiRes?.text ?? (Array.isArray(aiRes) ? (aiRes[0]?.generated_text ?? aiRes[0]?.response ?? "") : "") ?? "";
+  return aiRes?.response ?? aiRes?.result?.response ?? aiRes?.content ?? aiRes?.text ?? (Array.isArray(aiRes) ? (aiRes[0]?.generated_text ?? aiRes[0]?.response ?? "") : "") ?? "";
 }
+
+const MODELS = [
+  "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "@cf/mistral/mistral-7b-instruct-v0.2",
+  "@cf/meta/llama-3.2-3b-instruct",
+];
 
 export async function onRequestGet(context) {
   const headers = { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" };
 
   const result = {
-    status: "ok",
     function: "Cloudflare Pages Function is working ✅",
     ai_binding: context.env.AI ? "AI binding found ✅" : "AI binding MISSING ❌",
-    ai_call: "not tested",
+    models_tested: [],
+    working_model: null,
     ai_text: null,
-    ai_model: null,
-    raw_response: null,
     error: null,
   };
 
@@ -29,25 +33,30 @@ export async function onRequestGet(context) {
     return new Response(JSON.stringify(result, null, 2), { status: 200, headers });
   }
 
-  try {
-    const aiRes = await context.env.AI.run("@cf/zai-org/glm-4.7-flash", {
-      messages: [{ role: "user", content: "Say hello in one sentence." }],
-      max_tokens: 60,
-    });
+  for (const model of MODELS) {
+    try {
+      const aiRes = await context.env.AI.run(model, {
+        messages: [{ role: "user", content: "Say hello in one sentence." }],
+        max_tokens: 60,
+      });
 
-    result.raw_response = JSON.stringify(aiRes).substring(0, 400);
-    const text = extractText(aiRes)?.trim();
+      const text = extractText(aiRes)?.trim();
 
-    if (text) {
-      result.ai_call = "AI is working ✅";
-      result.ai_text = text;
-      result.ai_model = "@cf/zai-org/glm-4.7-flash";
-    } else {
-      result.ai_call = "AI responded but text was empty ⚠️ — check raw_response";
+      if (text) {
+        result.models_tested.push(`${model} ✅`);
+        result.working_model = model;
+        result.ai_text = text;
+        break;
+      } else {
+        result.models_tested.push(`${model} ⚠️ empty response`);
+      }
+    } catch (err) {
+      result.models_tested.push(`${model} ❌ ${err.message}`);
     }
-  } catch (err) {
-    result.ai_call = "AI call failed ❌";
-    result.error = err.message;
+  }
+
+  if (!result.working_model) {
+    result.error = "No working model found";
   }
 
   return new Response(JSON.stringify(result, null, 2), { status: 200, headers });

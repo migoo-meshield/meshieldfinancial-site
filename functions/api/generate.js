@@ -1,25 +1,21 @@
 // functions/api/generate.js
-// Fixed: handles OpenAI-compatible response format from @cf/zai-org/glm-4.7-flash
-// The GLM model returns choices[0].message.content OR choices[0].message.reasoning
+// Uses @cf/meta/llama-3.3-70b-instruct-fp8-fast as primary
+// GLM skipped — it returns reasoning only, not actual content
 
 function extractText(aiRes) {
   if (!aiRes) return "";
   if (typeof aiRes === "string") return aiRes;
-
-  // ── OpenAI-compatible format (what GLM returns) ──
-  // choices[0].message.content can be null — fall back to .reasoning
+  // OpenAI-compatible format
   if (aiRes?.choices?.[0]?.message) {
     const msg = aiRes.choices[0].message;
-    const text = msg.content ?? msg.reasoning ?? msg.text ?? "";
+    const text = msg.content ?? msg.text ?? "";
     if (text) return text;
   }
-
-  // ── Standard Cloudflare AI formats ──
+  // Standard Cloudflare AI format
   return (
     aiRes?.response ??
     aiRes?.result?.response ??
     aiRes?.message?.content ??
-    aiRes?.message?.reasoning ??
     aiRes?.content ??
     aiRes?.text ??
     (Array.isArray(aiRes)
@@ -29,13 +25,13 @@ function extractText(aiRes) {
   );
 }
 
-const SYSTEM_PROMPT = "You are a professional content writer for ME Shield Financial Services (Miguelson Etienne, Apopka FL). Write clear, professional, warm content for insurance, tax preparation, business filing, immigration forms filing, and Infinite Banking. Never use the words 'advisor', 'paralegal', or 'attorney'. Keep content concise and ready to use. Do not include reasoning or thinking — output only the final content.";
+const SYSTEM_PROMPT = "You are a professional content writer for ME Shield Financial Services (Miguelson Etienne, Apopka FL). Write clear, professional, warm content for insurance, tax preparation, business filing, immigration forms filing, and Infinite Banking. Never use the words 'advisor', 'paralegal', or 'attorney'. Keep content concise and ready to use. Output ONLY the final content — no thinking, no reasoning, no analysis.";
 
-// Models to try in order (glm first since binding shows it's active)
+// Models in order of preference — GLM excluded (returns reasoning only)
 const MODELS = [
-  "@cf/zai-org/glm-4.7-flash",
   "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
   "@cf/mistral/mistral-7b-instruct-v0.2",
+  "@cf/meta/llama-3.2-3b-instruct",
 ];
 
 export async function onRequestPost(context) {
@@ -61,7 +57,7 @@ export async function onRequestPost(context) {
 
     if (!context.env.AI) {
       return new Response(
-        JSON.stringify({ error: "Workers AI binding missing — add it in Cloudflare Pages > Settings > Bindings > Workers AI > name it 'AI'" }),
+        JSON.stringify({ error: "Workers AI binding missing — add it in Cloudflare Pages > Settings > Bindings" }),
         { status: 500, headers }
       );
     }
@@ -87,7 +83,7 @@ export async function onRequestPost(context) {
           );
         }
 
-        lastError = `${model} returned empty. Raw: ${JSON.stringify(aiRes).substring(0, 200)}`;
+        lastError = `${model} returned empty. Raw: ${JSON.stringify(aiRes).substring(0, 150)}`;
 
       } catch (err) {
         lastError = `${model} error: ${err.message}`;
