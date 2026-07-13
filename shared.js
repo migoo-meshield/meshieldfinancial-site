@@ -87,16 +87,6 @@ function initFooterYear() {
   const el = document.getElementById('year');
   if (el) el.textContent = new Date().getFullYear();
 }
-/* ── Load AI Chatbot widget (NEW) ── */
-/* Adds the chatbot-widget.js script to every page automatically,       */
-/* so you never have to edit individual HTML pages to include it.      */
-function loadChatbot() {
-  if (document.querySelector('script[src="/chatbot-widget.js"]')) return; // avoid loading twice
-  const s = document.createElement('script');
-  s.src = '/chatbot-widget.js';
-  s.defer = true;
-  document.body.appendChild(s);
-}
 document.addEventListener('DOMContentLoaded', () => {
   initLang();
   initHamburger();
@@ -104,5 +94,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   initBackToTop();
   initFooterYear();
-  loadChatbot();
 });
