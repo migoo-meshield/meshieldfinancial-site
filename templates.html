@@ -3,148 +3,183 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Templates | ME Shield Internal Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Templates — ME Shield Internal Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#070C17;--card:#0E1A2E;--gold:#C9A14A;--white:#E8EDF5;--muted:#4A5A78;--dim:#8A9BB5;--border:rgba(255,255,255,0.06);--green:#22C55E;}
-body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 50% 35% at 70% 0%,rgba(201,161,74,0.05) 0%,transparent 70%)}
-nav{position:relative;z-index:10;background:rgba(7,12,23,0.97);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;height:58px;backdrop-filter:blur(10px)}
-.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:28px;flex-shrink:0}
-.nav-shield{width:30px;height:30px;background:linear-gradient(135deg,#1E4D8C,var(--gold));clip-path:polygon(50% 0%,100% 20%,100% 70%,50% 100%,0% 70%,0% 20%);flex-shrink:0}
-.nav-brand-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--white);line-height:1.1;white-space:nowrap}
-.nav-brand-sub{font-size:8px;color:var(--muted);letter-spacing:0.16em;text-transform:uppercase}
-.nav-links{display:flex;align-items:center;gap:2px;overflow-x:auto;flex:1}
-.nav-links::-webkit-scrollbar{display:none}
-.nav-link{color:var(--muted);font-size:11px;font-weight:500;text-decoration:none;padding:6px 12px;border-radius:5px;transition:all .2s;white-space:nowrap}
-.nav-link:hover{color:var(--white);background:rgba(255,255,255,0.05)}
-.nav-link.active{color:var(--gold);background:rgba(201,161,74,0.08)}
-.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
-.nav-live{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--green);font-weight:500}
-.nav-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-.nav-private{border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:var(--dim);font-size:10px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;text-transform:uppercase}
-main{position:relative;z-index:5;max-width:1060px;margin:0 auto;padding:36px 24px 80px}
-.page-greeting{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;line-height:1.2;margin-bottom:4px}
-.page-greeting span{color:var(--gold);font-style:italic}
-.page-sub{color:var(--muted);font-size:11px;letter-spacing:0.04em;margin-bottom:28px}
-.section-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
-.filter-btn{background:none;border:1px solid var(--border);border-radius:20px;color:var(--muted);font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:5px 14px;cursor:pointer;transition:all .2s}
-.filter-btn:hover{color:var(--white);border-color:rgba(255,255,255,0.15)}
-.filter-btn.active{background:rgba(201,161,74,0.1);color:var(--gold);border-color:rgba(201,161,74,0.3)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
-.tmpl-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s;display:flex;flex-direction:column}
-.tmpl-card:hover{border-color:rgba(201,161,74,0.25)}
-.tmpl-bar{height:3px}
-.bar-ai{background:linear-gradient(90deg,var(--gold),#1E4D8C)}
-.bar-word{background:linear-gradient(90deg,#2563EB,#1E4D8C)}
-.bar-excel{background:linear-gradient(90deg,#1D6F42,#2E9E5E)}
-.tmpl-body{padding:18px;flex:1}
-.tmpl-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.tmpl-icon{font-size:22px}
-.badge{font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:10px}
-.badge-ai{background:rgba(201,161,74,0.1);color:var(--gold)}
-.badge-word{background:rgba(37,99,235,0.1);color:#60A5FA}
-.badge-excel{background:rgba(29,111,66,0.1);color:#4ADE80}
-.tmpl-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:6px}
-.tmpl-desc{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:12px}
-.inside-box{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:7px;padding:10px 12px;margin-bottom:0}
-.inside-label{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px}
-.inside-item{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:var(--dim);line-height:1.5;margin-bottom:4px}
-.inside-check{color:var(--gold);font-size:9px;margin-top:2px;flex-shrink:0}
-.tmpl-footer{padding:14px 18px;display:flex;gap:8px;border-top:1px solid var(--border)}
-.btn-open{flex:1;background:rgba(201,161,74,0.08);color:var(--gold);border:1px solid rgba(201,161,74,0.2);border-radius:7px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;padding:9px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .2s}
-.btn-open:hover{background:rgba(201,161,74,0.16);border-color:rgba(201,161,74,0.4)}
-.btn-dl{flex:1;background:rgba(37,99,235,0.08);color:#60A5FA;border:1px solid rgba(37,99,235,0.2);border-radius:7px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;padding:9px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .2s}
-.btn-dl:hover{background:rgba(37,99,235,0.16)}
-.btn-drive{background:none;border:1px solid var(--border);border-radius:7px;color:var(--muted);font-family:'Inter',sans-serif;font-size:10px;padding:9px 12px;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:4px;transition:all .2s;white-space:nowrap}
-.btn-drive:hover{color:var(--white);border-color:rgba(255,255,255,0.15)}
-footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);letter-spacing:0.04em}
-@media(max-width:600px){nav{padding:0 14px}main{padding:24px 14px 60px}.page-greeting{font-size:1.5rem}.grid{grid-template-columns:1fr}}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',system-ui,sans-serif;background:#060f1e;min-height:100vh;color:#fff;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 10% 10%,rgba(201,168,76,.07) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 90% 90%,rgba(30,74,140,.25) 0%,transparent 60%),linear-gradient(160deg,#060f1e 0%,#0b1d3a 60%,#060f1e 100%);z-index:0;animation:bgPulse 12s ease-in-out infinite alternate;}
+@keyframes bgPulse{0%{opacity:1;}100%{opacity:.85;}}
+body::after{content:'';position:fixed;inset:0;background:url('logo.png') center center/480px auto no-repeat;opacity:.03;pointer-events:none;z-index:0;}
+.glass{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:18px;}
+.portal-header{position:sticky;top:0;z-index:200;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(6,15,30,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.06);}
+.header-brand{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.header-brand img{height:34px;width:auto;}
+.header-brand-name{font-size:.9rem;font-weight:700;color:#fff;line-height:1.2;}
+.header-brand-sub{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.35);margin-top:1px;}
+.header-nav{display:flex;align-items:center;gap:2px;overflow-x:auto;flex:1;scrollbar-width:none;}
+.header-nav::-webkit-scrollbar{display:none;}
+.header-nav-link{color:rgba(255,255,255,.38);font-size:.72rem;font-weight:500;text-decoration:none;padding:6px 12px;border-radius:6px;transition:all .2s;white-space:nowrap;}
+.header-nav-link:hover{color:#fff;background:rgba(255,255,255,.06);}
+.header-nav-link.active{color:#C9A84C;background:rgba(201,168,76,.1);}
+.header-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.header-status{display:flex;align-items:center;gap:6px;font-size:.7rem;color:rgba(255,255,255,.4);}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.header-badge{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.28);color:#C9A84C;font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:50px;}
+.portal-main{padding:28px 24px;max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+.page-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.5rem,4vw,2.1rem);font-weight:700;color:#fff;margin-bottom:4px;}
+.page-title em{font-style:italic;color:#C9A84C;}
+.page-sub{font-size:.78rem;color:rgba(255,255,255,.35);margin-bottom:28px;}
+.panel-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:rgba(201,168,76,.6);margin:0 0 14px;display:flex;align-items:center;gap:10px;}
+.panel-label::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.12);}
+
+/* FILTER TABS */
+.tab-nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-bottom:22px;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{flex-shrink:0;padding:9px 18px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:rgba(255,255,255,.45);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit;}
+.tab-btn:hover{background:rgba(255,255,255,.07);color:#fff;}
+.tab-btn.active{background:#C9A84C;color:#0b1d3a;border-color:#C9A84C;font-weight:800;}
+
+/* CARDS GRID */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+
+/* TEMPLATE CARD — matches link-card style from team.html */
+.tmpl-card{display:flex;flex-direction:column;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);overflow:hidden;transition:all .2s;}
+.tmpl-card:hover{background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.25);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.28);}
+.tmpl-bar{height:3px;flex-shrink:0;}
+.bar-ai{background:linear-gradient(90deg,#C9A84C,#1E4D8C);}
+.bar-word{background:linear-gradient(90deg,#2563EB,#1E4D8C);}
+.bar-excel{background:linear-gradient(90deg,#16a34a,#15803d);}
+.tmpl-body{padding:18px;flex:1;}
+.tmpl-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.tmpl-icon{width:40px;height:40px;border-radius:11px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.14);display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.badge{font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:50px;}
+.badge-ai{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);color:#C9A84C;}
+.badge-word{background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);color:#60A5FA;}
+.badge-excel{background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.2);color:#4ade80;}
+.tmpl-title{font-size:.88rem;font-weight:700;color:#fff;margin-bottom:6px;}
+.tmpl-desc{font-size:.72rem;color:rgba(255,255,255,.38);line-height:1.6;margin-bottom:14px;}
+.inside-list{background:rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:10px 14px;}
+.inside-lbl{font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(201,168,76,.5);margin-bottom:8px;}
+.inside-item{display:flex;align-items:flex-start;gap:7px;font-size:.7rem;color:rgba(255,255,255,.45);line-height:1.5;margin-bottom:5px;}
+.inside-item:last-child{margin-bottom:0;}
+.inside-dot{color:#C9A84C;font-size:.65rem;margin-top:2px;flex-shrink:0;}
+.tmpl-footer{padding:14px 18px;border-top:1px solid rgba(255,255,255,.05);display:flex;gap:8px;}
+.btn-open{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;border-radius:10px;border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.08);color:#C9A84C;font-family:inherit;font-size:.72rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s;text-align:center;}
+.btn-open:hover{background:rgba(201,168,76,.16);border-color:rgba(201,168,76,.4);}
+.btn-dl{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;border-radius:10px;border:1px solid rgba(37,99,235,.2);background:rgba(37,99,235,.08);color:#60A5FA;font-family:inherit;font-size:.72rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s;text-align:center;}
+.btn-dl:hover{background:rgba(37,99,235,.16);}
+.btn-drive{display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:none;color:rgba(255,255,255,.35);font-family:inherit;font-size:.72rem;cursor:pointer;text-decoration:none;transition:all .2s;white-space:nowrap;}
+.btn-drive:hover{color:#fff;border-color:rgba(255,255,255,.2);}
+
+.portal-footer{text-align:center;padding:20px 24px 32px;color:rgba(255,255,255,.18);font-size:.7rem;position:relative;z-index:1;}
+@media(max-width:600px){.portal-main{padding:20px 16px;}.cards-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
-<nav>
-  <a href="team.html" class="nav-logo">
-    <div class="nav-shield"></div>
-    <div><div class="nav-brand-name">ME Shield Financial Services</div><div class="nav-brand-sub">Internal Portal</div></div>
-  </a>
-  <div class="nav-links">
-    <a href="team.html" class="nav-link">🏠 Dashboard</a>
-    <a href="automation-hub.html" class="nav-link">🤖 Automation Hub</a>
-    <a href="prompt-builder.html" class="nav-link">⚡ Prompt Builder</a>
-    <a href="templates.html" class="nav-link active">📄 Templates</a>
+
+<header class="portal-header">
+  <div class="header-brand">
+    <img src="logo.png" alt="ME Shield"/>
+    <div>
+      <div class="header-brand-name">ME Shield Financial Services</div>
+      <div class="header-brand-sub">Internal Portal</div>
+    </div>
   </div>
-  <div class="nav-right">
-    <div class="nav-live"><div class="nav-live-dot"></div>Site Live</div>
-    <div class="nav-private">Private</div>
+  <nav class="header-nav">
+    <a href="team.html" class="header-nav-link">🏠 Dashboard</a>
+    <a href="automation-hub.html" class="header-nav-link">🤖 Automation Hub</a>
+    <a href="prompt-builder.html" class="header-nav-link">⚡ Prompt Builder</a>
+    <a href="templates.html" class="header-nav-link active">📄 Templates</a>
+  </nav>
+  <div class="header-right">
+    <div class="header-status"><span class="status-dot"></span><span>Site Live</span></div>
+    <div class="header-badge">Private</div>
   </div>
-</nav>
-<main>
-  <div class="page-greeting">Tools & <span>Templates.</span></div>
+</header>
+
+<main class="portal-main">
+  <h1 class="page-title">Tools & <em>Templates.</em></h1>
   <p class="page-sub">AI tools, fill-in Word templates, and Excel workbooks — everything you need to run ME Shield efficiently.</p>
 
-  <!-- AI TOOLS -->
-  <div class="section-label">AI Tools</div>
-  <div class="grid" style="margin-bottom:32px">
-    <div class="tmpl-card" data-tags="all ai">
-      <div class="tmpl-bar bar-ai"></div>
-      <div class="tmpl-body">
-        <div class="tmpl-top"><span class="tmpl-icon">🤖</span><span class="badge badge-ai">AI Tool</span></div>
-        <div class="tmpl-title">Automation Hub</div>
-        <div class="tmpl-desc">Generate social posts, emails, and admin content automatically. Fill the form, hit Generate — content appears instantly on the page.</div>
-        <div class="inside-box">
-          <div class="inside-label">What's Inside</div>
-          <div class="inside-item"><span class="inside-check">✦</span>📱 Social Media — any platform, topic & tone</div>
-          <div class="inside-item"><span class="inside-check">✦</span>✉️ Email Follow-Up — client, scenario, service</div>
-          <div class="inside-item"><span class="inside-check">✦</span>🗂️ Admin Tasks — summary, checklist, calendar, referral</div>
-        </div>
-      </div>
-      <div class="tmpl-footer"><a href="automation-hub.html" class="btn-open">🚀 Open Hub</a></div>
-    </div>
-    <div class="tmpl-card" data-tags="all ai">
-      <div class="tmpl-bar bar-ai"></div>
-      <div class="tmpl-body">
-        <div class="tmpl-top"><span class="tmpl-icon">⚡</span><span class="badge badge-ai">AI Tool</span></div>
-        <div class="tmpl-title">Quick Prompt Builder</div>
-        <div class="tmpl-desc">Build a ready-to-paste Claude prompt in seconds. Best when you want the highest quality output using your Claude Pro subscription.</div>
-        <div class="inside-box">
-          <div class="inside-label">What's Inside</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Choose Social, Email, or Admin task</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Fill 3–4 fields, click Build</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Copy → paste to Claude → done</div>
-        </div>
-      </div>
-      <div class="tmpl-footer"><a href="prompt-builder.html" class="btn-open">⚡ Open Builder</a></div>
-    </div>
-  </div>
+  <div class="panel-label">Filter</div>
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="filter('all',this)">All</button>
+    <button class="tab-btn" onclick="filter('ai',this)">🤖 AI Tools</button>
+    <button class="tab-btn" onclick="filter('word',this)">📄 Word</button>
+    <button class="tab-btn" onclick="filter('excel',this)">📊 Excel</button>
+    <button class="tab-btn" onclick="filter('social',this)">📱 Social</button>
+    <button class="tab-btn" onclick="filter('email',this)">✉️ Email</button>
+    <button class="tab-btn" onclick="filter('admin',this)">🗂️ Admin</button>
+  </nav>
 
-  <!-- FILL-IN TEMPLATES -->
-  <div class="section-label">Fill-In Templates</div>
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filter('all',this)">All</button>
-    <button class="filter-btn" onclick="filter('word',this)">Word</button>
-    <button class="filter-btn" onclick="filter('excel',this)">Excel</button>
-    <button class="filter-btn" onclick="filter('social',this)">Social</button>
-    <button class="filter-btn" onclick="filter('email',this)">Email</button>
-    <button class="filter-btn" onclick="filter('admin',this)">Admin</button>
-  </div>
-  <div class="grid" id="tmpl-grid">
+  <div class="cards-grid" id="cards-grid">
+
+    <!-- AUTOMATION HUB -->
+    <div class="tmpl-card" data-tags="all ai social email admin">
+      <div class="tmpl-bar bar-ai"></div>
+      <div class="tmpl-body">
+        <div class="tmpl-top">
+          <div class="tmpl-icon">🤖</div>
+          <span class="badge badge-ai">AI Tool</span>
+        </div>
+        <div class="tmpl-title">Automation Hub</div>
+        <div class="tmpl-desc">Generate content automatically. Fill the form, hit Generate — result appears instantly on the page.</div>
+        <div class="inside-list">
+          <div class="inside-lbl">What's Inside</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>📱 Social Media — any platform, topic & tone</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>✉️ Email Follow-Up — client, scenario, service</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>🗂️ Admin Tasks — summary, checklist, calendar, referral</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Powered by Cloudflare Workers AI — free</div>
+        </div>
+      </div>
+      <div class="tmpl-footer">
+        <a href="automation-hub.html" class="btn-open">🚀 Open Hub</a>
+      </div>
+    </div>
+
+    <!-- PROMPT BUILDER -->
+    <div class="tmpl-card" data-tags="all ai social email admin">
+      <div class="tmpl-bar bar-ai"></div>
+      <div class="tmpl-body">
+        <div class="tmpl-top">
+          <div class="tmpl-icon">⚡</div>
+          <span class="badge badge-ai">AI Tool</span>
+        </div>
+        <div class="tmpl-title">Quick Prompt Builder</div>
+        <div class="tmpl-desc">Build a ready-to-paste Claude prompt. Best for highest quality using your Claude Pro subscription.</div>
+        <div class="inside-list">
+          <div class="inside-lbl">What's Inside</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Choose Social, Email, or Admin task</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Fill 3–4 fields, click Build Prompt</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Copy → paste to Claude → done in seconds</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Uses your existing Claude Pro — no extra cost</div>
+        </div>
+      </div>
+      <div class="tmpl-footer">
+        <a href="prompt-builder.html" class="btn-open">⚡ Open Builder</a>
+      </div>
+    </div>
+
+    <!-- SOCIAL MEDIA WORD -->
     <div class="tmpl-card" data-tags="all word social">
       <div class="tmpl-bar bar-word"></div>
       <div class="tmpl-body">
-        <div class="tmpl-top"><span class="tmpl-icon">📄</span><span class="badge badge-word">Word · .docx</span></div>
+        <div class="tmpl-top">
+          <div class="tmpl-icon">📄</div>
+          <span class="badge badge-word">Word · .docx</span>
+        </div>
         <div class="tmpl-title">Social Media Post Template</div>
-        <div class="tmpl-desc">Fill-in form for every social post. Covers all platforms, languages, and content types.</div>
-        <div class="inside-box">
-          <div class="inside-label">What's Inside</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Platform, date & topic fields</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Hook, body, CTA & hashtags</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Language selector (EN / Kreyòl / ES)</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Image & link section</div>
+        <div class="tmpl-desc">Fill-in form for every social post — covers all platforms, topics & languages.</div>
+        <div class="inside-list">
+          <div class="inside-lbl">What's Inside</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Platform, date & topic fields</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Hook, body, CTA & hashtags</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Language selector (EN / Kreyòl / ES)</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Image & link section</div>
         </div>
       </div>
       <div class="tmpl-footer">
@@ -152,18 +187,23 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:18
         <a href="YOUR_GOOGLE_DRIVE_LINK" target="_blank" class="btn-drive">Drive</a>
       </div>
     </div>
+
+    <!-- EMAIL FOLLOW-UP WORD -->
     <div class="tmpl-card" data-tags="all word email">
       <div class="tmpl-bar bar-word"></div>
       <div class="tmpl-body">
-        <div class="tmpl-top"><span class="tmpl-icon">✉️</span><span class="badge badge-word">Word · .docx</span></div>
+        <div class="tmpl-top">
+          <div class="tmpl-icon">✉️</div>
+          <span class="badge badge-word">Word · .docx</span>
+        </div>
         <div class="tmpl-title">Email Follow-Up Template</div>
-        <div class="tmpl-desc">Professional email for every client scenario — after quote, consultation, no response, and more.</div>
-        <div class="inside-box">
-          <div class="inside-label">What's Inside</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Client info & scenario fields</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Subject line, body & CTA</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Pre-built signature block</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Follow-up date tracker</div>
+        <div class="tmpl-desc">Professional email drafts for every client scenario — after quote, consultation, no response & more.</div>
+        <div class="inside-list">
+          <div class="inside-lbl">What's Inside</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Client info & scenario fields</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Subject line, body & CTA</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Pre-built signature block</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Follow-up date tracker</div>
         </div>
       </div>
       <div class="tmpl-footer">
@@ -171,18 +211,23 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:18
         <a href="YOUR_GOOGLE_DRIVE_LINK" target="_blank" class="btn-drive">Drive</a>
       </div>
     </div>
+
+    <!-- ADMIN EXCEL -->
     <div class="tmpl-card" data-tags="all excel admin social email">
       <div class="tmpl-bar bar-excel"></div>
       <div class="tmpl-body">
-        <div class="tmpl-top"><span class="tmpl-icon">📊</span><span class="badge badge-excel">Excel · .xlsx</span></div>
+        <div class="tmpl-top">
+          <div class="tmpl-icon">📊</div>
+          <span class="badge badge-excel">Excel · .xlsx</span>
+        </div>
         <div class="tmpl-title">Admin Templates Pack</div>
         <div class="tmpl-desc">4-tab Excel workbook for your weekly operations — everything in one file.</div>
-        <div class="inside-box">
-          <div class="inside-label">4 Tabs Inside</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Weekly Business Summary tracker</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Client Onboarding Checklist (5 steps)</div>
-          <div class="inside-item"><span class="inside-check">✦</span>7-Day Content Calendar</div>
-          <div class="inside-item"><span class="inside-check">✦</span>Referral Script (SMS + verbal)</div>
+        <div class="inside-list">
+          <div class="inside-lbl">4 Tabs Inside</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Weekly Business Summary tracker</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Client Onboarding Checklist (5 steps)</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>7-Day Social Media Calendar</div>
+          <div class="inside-item"><span class="inside-dot">✦</span>Referral Script (SMS + verbal)</div>
         </div>
       </div>
       <div class="tmpl-footer">
@@ -190,15 +235,19 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:18
         <a href="YOUR_GOOGLE_DRIVE_LINK" target="_blank" class="btn-drive">Drive</a>
       </div>
     </div>
+
   </div>
 </main>
-<footer><span>ME Shield Financial Services — Internal Portal</span><span>© 2026 ME Shield Group LLC · Apopka, FL</span></footer>
+
+<footer class="portal-footer">ME Shield Financial Services · Internal use only · Not part of the public website</footer>
+
 <script>
 function filter(tag,btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('#tmpl-grid .tmpl-card').forEach(c=>{
-    c.style.display=(tag==='all'||c.dataset.tags.includes(tag))?'':'none'})
+  document.querySelectorAll('.tmpl-card').forEach(c=>{
+    c.style.display=(tag==='all'||c.dataset.tags.includes(tag))?'':'none';
+  });
 }
 </script>
 </body>

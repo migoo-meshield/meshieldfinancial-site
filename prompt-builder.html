@@ -3,143 +3,203 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Prompt Builder | ME Shield Internal Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Prompt Builder — ME Shield Internal Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#070C17;--card:#0E1A2E;--gold:#C9A14A;--white:#E8EDF5;--muted:#4A5A78;--dim:#8A9BB5;--border:rgba(255,255,255,0.06);--green:#22C55E;}
-body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 50% 35% at 70% 0%,rgba(201,161,74,0.05) 0%,transparent 70%)}
-nav{position:relative;z-index:10;background:rgba(7,12,23,0.97);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;height:58px;backdrop-filter:blur(10px)}
-.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:28px;flex-shrink:0}
-.nav-shield{width:30px;height:30px;background:linear-gradient(135deg,#1E4D8C,var(--gold));clip-path:polygon(50% 0%,100% 20%,100% 70%,50% 100%,0% 70%,0% 20%);flex-shrink:0}
-.nav-brand-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--white);line-height:1.1;white-space:nowrap}
-.nav-brand-sub{font-size:8px;color:var(--muted);letter-spacing:0.16em;text-transform:uppercase}
-.nav-links{display:flex;align-items:center;gap:2px;overflow-x:auto;flex:1}
-.nav-links::-webkit-scrollbar{display:none}
-.nav-link{color:var(--muted);font-size:11px;font-weight:500;text-decoration:none;padding:6px 12px;border-radius:5px;transition:all .2s;white-space:nowrap}
-.nav-link:hover{color:var(--white);background:rgba(255,255,255,0.05)}
-.nav-link.active{color:var(--gold);background:rgba(201,161,74,0.08)}
-.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
-.nav-live{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--green);font-weight:500}
-.nav-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-.nav-private{border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:var(--dim);font-size:10px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;text-transform:uppercase}
-main{position:relative;z-index:5;max-width:700px;margin:0 auto;padding:36px 24px 80px}
-.page-greeting{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;line-height:1.2;margin-bottom:4px}
-.page-greeting span{color:var(--gold);font-style:italic}
-.page-sub{color:var(--muted);font-size:11px;letter-spacing:0.04em;margin-bottom:28px}
-.section-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:14px}
-.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
-.type-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:14px 10px;cursor:pointer;transition:all .2s;text-align:center}
-.type-card:hover{border-color:rgba(201,161,74,0.25)}
-.type-card.selected{border-color:rgba(201,161,74,0.5);background:rgba(201,161,74,0.07)}
-.type-icon{font-size:20px;margin-bottom:6px}
-.type-title{font-size:11px;font-weight:600;color:var(--white)}
-.dynamic-fields{display:none}.dynamic-fields.show{display:block}
-.field-group{margin-bottom:13px}
-.field-label{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;display:block}
-select,input[type=text],textarea{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:7px;color:var(--white);font-family:'Inter',sans-serif;font-size:12px;padding:9px 12px;outline:none;width:100%;transition:border-color .2s}
-select:focus,input:focus,textarea:focus{border-color:rgba(201,161,74,0.4)}
-select option{background:var(--bg)}
-textarea{resize:vertical}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-.row .field-group{flex:1;min-width:130px}
-.gen-btn{background:rgba(201,161,74,0.1);color:var(--gold);border:1px solid rgba(201,161,74,0.3);border-radius:7px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:10px 24px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;margin-top:4px}
-.gen-btn:hover{background:rgba(201,161,74,0.2);border-color:rgba(201,161,74,0.5)}
-.gen-btn:disabled{opacity:.35;cursor:not-allowed}
-.copy-box{background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:16px;margin-top:14px;display:none}
-.copy-box.show{display:block}
-.copy-box-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.copy-box-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);font-weight:600;display:flex;align-items:center;gap:6px}
-.green-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
-.copy-btn{background:none;border:1px solid rgba(34,197,94,0.25);border-radius:5px;color:var(--muted);font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:4px 12px;cursor:pointer;transition:all .2s}
-.copy-btn:hover{color:var(--white)}
-.copy-btn.copied{background:rgba(34,197,94,0.1);color:var(--green);border-color:rgba(34,197,94,0.3)}
-.copy-box-text{background:rgba(0,0,0,0.2);border-radius:7px;padding:12px;font-size:11px;color:var(--dim);line-height:1.7;white-space:pre-wrap;word-break:break-word;max-height:160px;overflow-y:auto}
-.copy-box-hint{font-size:10px;color:var(--muted);margin-top:8px;font-style:italic}
-.hub-note{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-top:20px;font-size:11px;color:var(--muted);line-height:1.6;display:flex;gap:10px;align-items:flex-start}
-.hub-note a{color:var(--gold);text-decoration:none;font-weight:600}
-footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);letter-spacing:0.04em}
-@media(max-width:600px){nav{padding:0 14px}main{padding:24px 14px 60px}.page-greeting{font-size:1.5rem}.type-grid{grid-template-columns:1fr 1fr}}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',system-ui,sans-serif;background:#060f1e;min-height:100vh;color:#fff;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 10% 10%,rgba(201,168,76,.07) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 90% 90%,rgba(30,74,140,.25) 0%,transparent 60%),linear-gradient(160deg,#060f1e 0%,#0b1d3a 60%,#060f1e 100%);z-index:0;animation:bgPulse 12s ease-in-out infinite alternate;}
+@keyframes bgPulse{0%{opacity:1;}100%{opacity:.85;}}
+body::after{content:'';position:fixed;inset:0;background:url('logo.png') center center/480px auto no-repeat;opacity:.03;pointer-events:none;z-index:0;}
+.glass{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:18px;}
+.portal-header{position:sticky;top:0;z-index:200;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(6,15,30,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.06);}
+.header-brand{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.header-brand img{height:34px;width:auto;}
+.header-brand-name{font-size:.9rem;font-weight:700;color:#fff;line-height:1.2;}
+.header-brand-sub{font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.35);margin-top:1px;}
+.header-nav{display:flex;align-items:center;gap:2px;overflow-x:auto;flex:1;scrollbar-width:none;}
+.header-nav::-webkit-scrollbar{display:none;}
+.header-nav-link{color:rgba(255,255,255,.38);font-size:.72rem;font-weight:500;text-decoration:none;padding:6px 12px;border-radius:6px;transition:all .2s;white-space:nowrap;}
+.header-nav-link:hover{color:#fff;background:rgba(255,255,255,.06);}
+.header-nav-link.active{color:#C9A84C;background:rgba(201,168,76,.1);}
+.header-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.header-status{display:flex;align-items:center;gap:6px;font-size:.7rem;color:rgba(255,255,255,.4);}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.header-badge{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.28);color:#C9A84C;font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:50px;}
+.portal-main{padding:28px 24px;max-width:760px;margin:0 auto;position:relative;z-index:1;}
+.page-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.5rem,4vw,2.1rem);font-weight:700;color:#fff;margin-bottom:4px;}
+.page-title em{font-style:italic;color:#C9A84C;}
+.page-sub{font-size:.78rem;color:rgba(255,255,255,.35);margin-bottom:28px;}
+.panel-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:rgba(201,168,76,.6);margin:0 0 14px;display:flex;align-items:center;gap:10px;}
+.panel-label::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.12);}
+
+/* TYPE SELECTOR — matches link-card style */
+.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px;}
+.type-card{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);cursor:pointer;transition:all .2s;}
+.type-card:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.28);transform:translateY(-2px);}
+.type-card.selected{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.45);}
+.type-icon-box{width:40px;height:40px;border-radius:11px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.14);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.type-title{font-size:.85rem;font-weight:600;color:#fff;}
+.type-desc{font-size:.7rem;color:rgba(255,255,255,.38);}
+
+.dynamic-fields{display:none;}.dynamic-fields.show{display:block;}
+.form-card{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px;margin-bottom:14px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+@media(max-width:500px){.field-row{grid-template-columns:1fr;}}
+.field-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.field-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);}
+select,input[type=text],textarea{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-family:inherit;font-size:.8rem;padding:10px 13px;outline:none;width:100%;transition:border-color .2s;}
+select:focus,input:focus,textarea:focus{border-color:rgba(201,168,76,.5);}
+select option{background:#060f1e;}
+textarea{resize:vertical;min-height:60px;}
+.gen-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:10px;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.12);color:#C9A84C;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:4px;}
+.gen-btn:hover{background:rgba(201,168,76,.2);border-color:rgba(201,168,76,.5);}
+.gen-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* OUTPUT BOX */
+.copy-box{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px;margin-top:14px;display:none;}
+.copy-box.show{display:block;animation:fadeIn .25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+.copy-box-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.copy-box-label{display:flex;align-items:center;gap:6px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#4ade80;}
+.green-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 6px #4ade80;}
+.copy-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:rgba(255,255,255,.5);font-family:inherit;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;cursor:pointer;transition:all .2s;}
+.copy-btn:hover{background:rgba(255,255,255,.1);color:#fff;}
+.copy-btn.copied{background:rgba(74,222,128,.12);color:#4ade80;border-color:rgba(74,222,128,.3);}
+.copy-box-text{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px;font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.75;white-space:pre-wrap;word-break:break-word;max-height:180px;overflow-y:auto;}
+.copy-box-hint{font-size:.65rem;color:rgba(255,255,255,.25);margin-top:10px;font-style:italic;}
+
+/* HUB NOTICE */
+.hub-note{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);margin-top:20px;font-size:.75rem;color:rgba(255,255,255,.38);line-height:1.6;}
+.hub-note a{color:#C9A84C;text-decoration:none;font-weight:600;}
+.hub-note a:hover{text-decoration:underline;}
+
+.portal-footer{text-align:center;padding:20px 24px 32px;color:rgba(255,255,255,.18);font-size:.7rem;position:relative;z-index:1;}
+@media(max-width:600px){.portal-main{padding:20px 16px;}.type-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
-<nav>
-  <a href="team.html" class="nav-logo">
-    <div class="nav-shield"></div>
-    <div><div class="nav-brand-name">ME Shield Financial Services</div><div class="nav-brand-sub">Internal Portal</div></div>
-  </a>
-  <div class="nav-links">
-    <a href="team.html" class="nav-link">🏠 Dashboard</a>
-    <a href="automation-hub.html" class="nav-link">🤖 Automation Hub</a>
-    <a href="prompt-builder.html" class="nav-link active">⚡ Prompt Builder</a>
-    <a href="templates.html" class="nav-link">📄 Templates</a>
+
+<header class="portal-header">
+  <div class="header-brand">
+    <img src="logo.png" alt="ME Shield"/>
+    <div>
+      <div class="header-brand-name">ME Shield Financial Services</div>
+      <div class="header-brand-sub">Internal Portal</div>
+    </div>
   </div>
-  <div class="nav-right">
-    <div class="nav-live"><div class="nav-live-dot"></div>Site Live</div>
-    <div class="nav-private">Private</div>
+  <nav class="header-nav">
+    <a href="team.html" class="header-nav-link">🏠 Dashboard</a>
+    <a href="automation-hub.html" class="header-nav-link">🤖 Automation Hub</a>
+    <a href="prompt-builder.html" class="header-nav-link active">⚡ Prompt Builder</a>
+    <a href="templates.html" class="header-nav-link">📄 Templates</a>
+  </nav>
+  <div class="header-right">
+    <div class="header-status"><span class="status-dot"></span><span>Site Live</span></div>
+    <div class="header-badge">Private</div>
   </div>
-</nav>
-<main>
-  <div class="page-greeting">Quick <span>Prompt</span> Builder.</div>
-  <p class="page-sub">Build a ready-to-use Claude prompt in seconds. For automatic generation, use the Automation Hub.</p>
-  <div class="section-label">Build Your Prompt</div>
-  <div class="card">
-    <div class="section-label" style="margin-bottom:12px">1 — What do you need?</div>
-    <div class="type-grid">
-      <div class="type-card" onclick="selectType('social',this)"><div class="type-icon">📱</div><div class="type-title">Social Post</div></div>
-      <div class="type-card" onclick="selectType('email',this)"><div class="type-icon">✉️</div><div class="type-title">Email Follow-Up</div></div>
-      <div class="type-card" onclick="selectType('admin',this)"><div class="type-icon">🗂️</div><div class="type-title">Admin Task</div></div>
-    </div>
+</header>
 
-    <!-- SOCIAL -->
-    <div class="dynamic-fields" id="fields-social">
-      <div class="section-label" style="margin-bottom:12px">2 — Fill in the details</div>
-      <div class="row">
-        <div class="field-group"><label class="field-label">Platform</label>
-          <select id="s-p"><option>Facebook</option><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option></select></div>
-        <div class="field-group"><label class="field-label">Topic</label>
-          <select id="s-t"><option>Whole Life Insurance & IBC</option><option>Term vs Whole Life</option><option>Tax preparation tips</option><option>Immigration Forms Filing</option><option>Life insurance as retirement strategy</option></select></div>
-      </div>
-      <div class="row">
-        <div class="field-group"><label class="field-label">Tone</label>
-          <select id="s-tn"><option value="educational and trustworthy">Educational</option><option value="urgent and action-driving">Urgent / CTA</option><option value="warm and community-focused">Community Warmth</option><option value="professional and authoritative">Professional</option></select></div>
-        <div class="field-group"><label class="field-label">Language</label>
-          <select id="s-l"><option>English</option><option>Haitian Creole</option><option>English + Haitian Creole</option></select></div>
-      </div>
-      <div class="field-group"><label class="field-label">Extra notes (optional)</label>
-        <input type="text" id="s-e" placeholder="Any specific angle or detail…"/></div>
-    </div>
+<main class="portal-main">
+  <h1 class="page-title">Quick <em>Prompt</em> Builder.</h1>
+  <p class="page-sub">Build a ready-to-paste Claude prompt in seconds. For automatic generation, use the Automation Hub.</p>
 
-    <!-- EMAIL -->
-    <div class="dynamic-fields" id="fields-email">
-      <div class="section-label" style="margin-bottom:12px">2 — Fill in the details</div>
-      <div class="row">
-        <div class="field-group"><label class="field-label">Client First Name</label><input type="text" id="e-n" placeholder="e.g. Maria"/></div>
-        <div class="field-group"><label class="field-label">Service Line</label>
-          <select id="e-s"><option value="life insurance">Life Insurance</option><option value="health insurance">Health Insurance</option><option value="P&C insurance">P&C Insurance</option><option value="tax preparation">Tax Preparation</option><option value="immigration forms filing">Immigration Forms Filing</option></select></div>
-      </div>
-      <div class="field-group"><label class="field-label">Scenario</label>
-        <select id="e-sc"><option value="after a quote was sent">After Quote Sent</option><option value="after an initial consultation">After Consultation</option><option value="a no-response follow-up (2nd attempt)">No Response – 2nd Attempt</option><option value="after a policy was issued">Policy Issued – Welcome</option><option value="tax season reminder">Tax Season Reminder</option></select></div>
-      <div class="field-group"><label class="field-label">Details (optional)</label><textarea id="e-nt" style="min-height:56px" placeholder="Quote amount, deadline, next steps…"></textarea></div>
+  <div class="panel-label">1 — What do you need?</div>
+  <div class="type-grid">
+    <div class="type-card" onclick="selectType('social',this)">
+      <div class="type-icon-box">📱</div>
+      <div><div class="type-title">Social Post</div><div class="type-desc">Any platform & topic</div></div>
     </div>
-
-    <!-- ADMIN -->
-    <div class="dynamic-fields" id="fields-admin">
-      <div class="section-label" style="margin-bottom:12px">2 — Select task</div>
-      <div class="field-group"><label class="field-label">Task Type</label>
-        <select id="a-t"><option value="weekly">Weekly Business Summary Template</option><option value="checklist">Client Onboarding Checklist</option><option value="calendar">7-Day Social Media Content Plan</option><option value="referral">Referral Ask Script (SMS + Verbal)</option></select></div>
-      <div class="field-group"><label class="field-label">Context (optional)</label><textarea id="a-c" style="min-height:50px" placeholder="Names, dates, or extra details…"></textarea></div>
+    <div class="type-card" onclick="selectType('email',this)">
+      <div class="type-icon-box">✉️</div>
+      <div><div class="type-title">Email Follow-Up</div><div class="type-desc">Client scenarios</div></div>
     </div>
-
-    <button class="gen-btn" id="build-btn" onclick="buildPrompt()" disabled>📋 Build Prompt</button>
+    <div class="type-card" onclick="selectType('admin',this)">
+      <div class="type-icon-box">🗂️</div>
+      <div><div class="type-title">Admin Task</div><div class="type-desc">Summary, checklist & more</div></div>
+    </div>
   </div>
 
+  <!-- SOCIAL -->
+  <div class="dynamic-fields" id="fields-social">
+    <div class="panel-label">2 — Fill in the details</div>
+    <div class="form-card">
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Platform</label>
+          <select id="s-p"><option>Facebook</option><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option></select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Topic</label>
+          <select id="s-t"><option>Whole Life Insurance & IBC</option><option>Term vs Whole Life</option><option>Tax preparation tips</option><option>Immigration Forms Filing</option><option>Life insurance as retirement strategy</option></select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Tone</label>
+          <select id="s-tn"><option value="educational and trustworthy">Educational</option><option value="urgent and action-driving">Urgent / CTA</option><option value="warm and community-focused">Community Warmth</option><option value="professional and authoritative">Professional</option></select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Language</label>
+          <select id="s-l"><option>English</option><option>Haitian Creole</option><option>English + Haitian Creole</option></select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Extra notes (optional)</label>
+        <input type="text" id="s-e" placeholder="Any specific angle or detail…"/>
+      </div>
+      <button class="gen-btn" onclick="buildPrompt()">📋 Build Prompt</button>
+    </div>
+  </div>
+
+  <!-- EMAIL -->
+  <div class="dynamic-fields" id="fields-email">
+    <div class="panel-label">2 — Fill in the details</div>
+    <div class="form-card">
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Client First Name</label>
+          <input type="text" id="e-n" placeholder="e.g. Maria"/>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Service Line</label>
+          <select id="e-s"><option value="life insurance">Life Insurance</option><option value="health insurance">Health Insurance</option><option value="P&C insurance">P&C Insurance</option><option value="tax preparation">Tax Preparation</option><option value="immigration forms filing">Immigration Forms Filing</option></select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Scenario</label>
+        <select id="e-sc"><option value="after a quote was sent">After Quote Sent</option><option value="after an initial consultation">After Consultation</option><option value="a no-response follow-up (2nd attempt)">No Response – 2nd Attempt</option><option value="after a policy was issued">Policy Issued – Welcome</option><option value="tax season reminder">Tax Season Reminder</option></select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Details (optional)</label>
+        <textarea id="e-nt" placeholder="Quote amount, deadline, next steps…"></textarea>
+      </div>
+      <button class="gen-btn" onclick="buildPrompt()">📋 Build Prompt</button>
+    </div>
+  </div>
+
+  <!-- ADMIN -->
+  <div class="dynamic-fields" id="fields-admin">
+    <div class="panel-label">2 — Select task</div>
+    <div class="form-card">
+      <div class="field-group">
+        <label class="field-label">Task Type</label>
+        <select id="a-t"><option value="weekly">Weekly Business Summary Template</option><option value="checklist">Client Onboarding Checklist</option><option value="calendar">7-Day Social Media Content Plan</option><option value="referral">Referral Ask Script (SMS + Verbal)</option></select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Context (optional)</label>
+        <textarea id="a-c" placeholder="Names, dates, or extra details…"></textarea>
+      </div>
+      <button class="gen-btn" onclick="buildPrompt()">📋 Build Prompt</button>
+    </div>
+  </div>
+
+  <!-- OUTPUT -->
   <div class="copy-box" id="copy-box">
-    <div class="copy-box-header">
+    <div class="copy-box-top">
       <div class="copy-box-label"><div class="green-dot"></div>Prompt Ready — Paste to Claude Chat</div>
       <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">Copy</button>
     </div>
@@ -148,22 +208,25 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:18
   </div>
 
   <div class="hub-note">
-    <span style="font-size:16px;flex-shrink:0">🤖</span>
+    <span style="font-size:1.1rem;flex-shrink:0;">🤖</span>
     <span>Want content generated automatically without copy-pasting? Use the <a href="automation-hub.html">Automation Hub →</a></span>
   </div>
 </main>
-<footer><span>ME Shield Financial Services — Internal Portal</span><span>© 2026 ME Shield Group LLC · Apopka, FL</span></footer>
+
+<footer class="portal-footer">ME Shield Financial Services · Internal use only · Not part of the public website</footer>
+
 <script>
 let currentType=null;
-const adminPrompts={weekly:(ctx)=>`Create a weekly business summary template for ME Shield Financial Services. Sections: Clients contacted, Services sold, Follow-ups pending, Tasks completed, Goals for next week. Clean fill-in format.${ctx?'\nContext: '+ctx:''}`,checklist:(ctx)=>`Create a client onboarding checklist for ME Shield Financial Services solo agent. Cover: gathering info, explaining services, collecting documents, setting expectations, scheduling follow-ups.${ctx?'\nContext: '+ctx:''}`,calendar:(ctx)=>`Create a 7-day social media content plan for ME Shield Financial Services. Each day: Day, Platform, Topic, one-line post idea.${ctx?'\nContext: '+ctx:''}`,referral:(ctx)=>`Write a referral ask script for Miguelson Etienne, ME Shield Financial Services. Friendly, not salesy. Include SMS and verbal versions.${ctx?'\nContext: '+ctx:''}`};
-function selectType(t,el){document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));document.querySelectorAll('.dynamic-fields').forEach(f=>f.classList.remove('show'));el.classList.add('selected');document.getElementById('fields-'+t).classList.add('show');currentType=t;document.getElementById('build-btn').disabled=false}
+const adminPrompts={weekly:(ctx)=>`Create a weekly business summary template for ME Shield Financial Services. Sections: Clients contacted, Services sold, Follow-ups pending, Tasks completed, Goals for next week.${ctx?'\nContext: '+ctx:''}`,checklist:(ctx)=>`Create a client onboarding checklist for ME Shield Financial Services solo agent. Cover: gathering info, explaining services, collecting documents, setting expectations, scheduling follow-ups.${ctx?'\nContext: '+ctx:''}`,calendar:(ctx)=>`Create a 7-day social media content plan for ME Shield Financial Services. Each day: Day, Platform, Topic, one-line post idea.${ctx?'\nContext: '+ctx:''}`,referral:(ctx)=>`Write a referral ask script for Miguelson Etienne, ME Shield Financial Services. Friendly, not salesy. Include SMS and verbal versions.${ctx?'\nContext: '+ctx:''}`};
+function selectType(t,el){document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));document.querySelectorAll('.dynamic-fields').forEach(f=>f.classList.remove('show'));el.classList.add('selected');document.getElementById('fields-'+t).classList.add('show');currentType=t;document.getElementById('copy-box').classList.remove('show');}
 function buildPrompt(){
-  let p='';
-  if(currentType==='social'){const pl=document.getElementById('s-p').value,tp=document.getElementById('s-t').value,tn=document.getElementById('s-tn').value,l=document.getElementById('s-l').value,e=document.getElementById('s-e').value;p=`Generate a ${pl} post for ME Shield Financial Services (Miguelson Etienne, Florida).\n\nTopic: ${tp}\nTone: ${tn}\nLanguage: ${l}\nInclude a clear call-to-action and relevant emojis.${e?'\nExtra notes: '+e:''}\n\nOutput only the post text, ready to publish.`}
-  else if(currentType==='email'){const n=document.getElementById('e-n').value||'there',s=document.getElementById('e-s').value,sc=document.getElementById('e-sc').value,nt=document.getElementById('e-nt').value;p=`Write a professional follow-up email for Miguelson Etienne at ME Shield Financial Services, Florida.\n\nClient name: ${n}\nService: ${s}\nScenario: ${sc}${nt?'\nDetails: '+nt:''}\n\nFormat: Subject line first, then email body. Sign off warmly as Miguelson Etienne. Output only the email.`}
-  else if(currentType==='admin'){const t=document.getElementById('a-t').value,ctx=document.getElementById('a-c').value;p=adminPrompts[t](ctx)}
-  const box=document.getElementById('copy-box');box.classList.add('show');document.getElementById('prompt-text').textContent=p;box.scrollIntoView({behavior:'smooth',block:'nearest'})}
-function copyPrompt(){const t=document.getElementById('prompt-text').textContent;navigator.clipboard.writeText(t).then(()=>{const b=document.getElementById('copy-btn');b.textContent='Copied!';b.classList.add('copied');setTimeout(()=>{b.textContent='Copy';b.classList.remove('copied')},2000)})}
+  if(!currentType)return;let p='';
+  if(currentType==='social'){const pl=document.getElementById('s-p').value,tp=document.getElementById('s-t').value,tn=document.getElementById('s-tn').value,l=document.getElementById('s-l').value,e=document.getElementById('s-e').value;p=`Generate a ${pl} post for ME Shield Financial Services (Miguelson Etienne, Florida).\n\nTopic: ${tp}\nTone: ${tn}\nLanguage: ${l}\nInclude a clear call-to-action and relevant emojis.${e?'\nExtra notes: '+e:''}\n\nOutput only the post text, ready to publish.`;}
+  else if(currentType==='email'){const n=document.getElementById('e-n').value||'there',s=document.getElementById('e-s').value,sc=document.getElementById('e-sc').value,nt=document.getElementById('e-nt').value;p=`Write a professional follow-up email for Miguelson Etienne at ME Shield Financial Services, Florida.\n\nClient name: ${n}\nService: ${s}\nScenario: ${sc}${nt?'\nDetails: '+nt:''}\n\nFormat: Subject line first, then email body. Sign off warmly as Miguelson Etienne. Output only the email.`;}
+  else if(currentType==='admin'){const t=document.getElementById('a-t').value,ctx=document.getElementById('a-c').value;p=adminPrompts[t](ctx);}
+  const box=document.getElementById('copy-box');box.classList.add('show');document.getElementById('prompt-text').textContent=p;box.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function copyPrompt(){const t=document.getElementById('prompt-text').textContent;navigator.clipboard.writeText(t).then(()=>{const b=document.getElementById('copy-btn');b.textContent='Copied!';b.classList.add('copied');setTimeout(()=>{b.textContent='Copy';b.classList.remove('copied');},2000);});}
 </script>
 </body>
 </html>
