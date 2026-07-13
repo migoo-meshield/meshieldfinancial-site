@@ -13,9 +13,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:#060f1e;min-height:100v
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 10% 10%,rgba(201,168,76,.07) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 90% 90%,rgba(30,74,140,.25) 0%,transparent 60%),linear-gradient(160deg,#060f1e 0%,#0b1d3a 60%,#060f1e 100%);z-index:0;animation:bgPulse 12s ease-in-out infinite alternate;}
 @keyframes bgPulse{0%{opacity:1;}100%{opacity:.85;}}
 body::after{content:'';position:fixed;inset:0;background:url('logo.png') center center/480px auto no-repeat;opacity:.03;pointer-events:none;z-index:0;}
-.glass{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:18px;}
-
-/* HEADER */
 .portal-header{position:sticky;top:0;z-index:200;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(6,15,30,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.06);}
 .header-brand{display:flex;align-items:center;gap:12px;flex-shrink:0;}
 .header-brand img{height:34px;width:auto;}
@@ -31,19 +28,13 @@ body::after{content:'';position:fixed;inset:0;background:url('logo.png') center 
 .status-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
 .header-badge{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.28);color:#C9A84C;font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:50px;}
-
-/* MAIN */
 .portal-main{padding:28px 24px;max-width:960px;margin:0 auto;position:relative;z-index:1;}
 .page-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.5rem,4vw,2.1rem);font-weight:700;color:#fff;margin-bottom:4px;}
 .page-title em{font-style:italic;color:#C9A84C;}
 .page-sub{font-size:.78rem;color:rgba(255,255,255,.35);margin-bottom:28px;}
-
-/* SECTION LABEL */
 .panel-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:rgba(201,168,76,.6);margin:0 0 14px;display:flex;align-items:center;gap:10px;}
 .panel-label::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.12);}
-
-/* TABS */
-.tab-nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-bottom:22px;scrollbar-width:none;-ms-overflow-style:none;}
+.tab-nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-bottom:22px;scrollbar-width:none;}
 .tab-nav::-webkit-scrollbar{display:none;}
 .tab-btn{flex-shrink:0;padding:9px 18px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:rgba(255,255,255,.45);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit;}
 .tab-btn:hover{background:rgba(255,255,255,.07);color:#fff;}
@@ -51,8 +42,6 @@ body::after{content:'';position:fixed;inset:0;background:url('logo.png') center 
 .tab-panel{display:none;animation:fadeIn .25s ease;}
 .tab-panel.active{display:block;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
-
-/* FORM CARD */
 .form-card{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px;margin-bottom:14px;}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
 @media(max-width:600px){.field-row{grid-template-columns:1fr;}}
@@ -62,8 +51,6 @@ select,input[type=text],textarea{background:rgba(255,255,255,.05);border:1px sol
 select:focus,input:focus,textarea:focus{border-color:rgba(201,168,76,.5);}
 select option{background:#060f1e;}
 textarea{resize:vertical;min-height:68px;}
-
-/* ADMIN GRID */
 .admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:16px;}
 .admin-card{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);cursor:pointer;transition:all .2s;}
 .admin-card:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.28);transform:translateY(-2px);}
@@ -71,16 +58,12 @@ textarea{resize:vertical;min-height:68px;}
 .admin-icon-box{width:40px;height:40px;border-radius:11px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.14);display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex-shrink:0;}
 .admin-title{font-size:.82rem;font-weight:600;color:#fff;margin-bottom:2px;}
 .admin-desc{font-size:.68rem;color:rgba(255,255,255,.38);}
-
-/* GENERATE BUTTON */
 .gen-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:10px;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.12);color:#C9A84C;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:6px;}
 .gen-btn:hover{background:rgba(201,168,76,.2);border-color:rgba(201,168,76,.5);}
 .gen-btn:disabled{opacity:.4;cursor:not-allowed;}
-.spinner{width:14px;height:14px;border:2px solid rgba(201,168,76,.3);border-top-color:#C9A84C;border-radius:50%;animation:spin .7s linear infinite;}
+.spinner{width:14px;height:14px;border:2px solid rgba(201,168,76,.3);border-top-color:#C9A84C;border-radius:50%;animation:spin .7s linear infinite;display:inline-block;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .hint-text{font-size:.65rem;color:rgba(255,255,255,.25);margin-top:8px;}
-
-/* OUTPUT */
 .output-card{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px;display:none;margin-top:14px;}
 .output-card.show{display:block;}
 .output-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
@@ -92,8 +75,6 @@ textarea{resize:vertical;min-height:68px;}
 .output-text{font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.85;white-space:pre-wrap;word-break:break-word;}
 .loading-msg{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.3);font-size:.78rem;padding:12px 0;}
 .error-msg{background:rgba(255,80,80,.08);border:1px solid rgba(255,80,80,.2);border-radius:10px;padding:12px 16px;font-size:.78rem;color:rgba(255,120,120,.8);}
-
-/* FOOTER */
 .portal-footer{text-align:center;padding:20px 24px 32px;color:rgba(255,255,255,.18);font-size:.7rem;position:relative;z-index:1;}
 @media(max-width:600px){.portal-main{padding:20px 16px;}.admin-grid{grid-template-columns:1fr 1fr;}}
 </style>
@@ -126,22 +107,22 @@ textarea{resize:vertical;min-height:68px;}
 
   <div class="panel-label">Select Task Type</div>
   <nav class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('social',this)">📱 Social Media</button>
-    <button class="tab-btn" onclick="switchTab('email',this)">✉️ Email Follow-Up</button>
-    <button class="tab-btn" onclick="switchTab('admin',this)">🗂️ Admin Tasks</button>
+    <button class="tab-btn active" data-tab="social" onclick="switchTab('social',this)">📱 Social Media</button>
+    <button class="tab-btn" data-tab="email" onclick="switchTab('email',this)">✉️ Email Follow-Up</button>
+    <button class="tab-btn" data-tab="admin" onclick="switchTab('admin',this)">🗂️ Admin Tasks</button>
   </nav>
 
   <!-- SOCIAL -->
-  <div id="tab-social" class="tab-panel active">
+  <div id="panel-social" class="tab-panel active">
     <div class="form-card">
       <div class="field-row">
         <div class="field-group">
           <label class="field-label">Platform</label>
-          <select id="s-platform"><option>Facebook</option><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option></select>
+          <select id="social-platform"><option>Facebook</option><option>Instagram</option><option>LinkedIn</option><option>Twitter/X</option></select>
         </div>
         <div class="field-group">
           <label class="field-label">Topic</label>
-          <select id="s-topic">
+          <select id="social-topic">
             <option>Whole Life Insurance & IBC</option><option>Term vs Whole Life Insurance</option>
             <option>Tax preparation tips</option><option>Immigration Forms Filing services</option>
             <option>Life insurance as retirement strategy</option><option>Health insurance open enrollment</option>
@@ -152,7 +133,7 @@ textarea{resize:vertical;min-height:68px;}
       <div class="field-row">
         <div class="field-group">
           <label class="field-label">Tone</label>
-          <select id="s-tone">
+          <select id="social-tone">
             <option value="educational and trustworthy">Educational</option>
             <option value="urgent and action-driving">Urgent / CTA</option>
             <option value="warm and community-focused">Community Warmth</option>
@@ -161,35 +142,35 @@ textarea{resize:vertical;min-height:68px;}
         </div>
         <div class="field-group">
           <label class="field-label">Language</label>
-          <select id="s-lang"><option>English</option><option>Haitian Creole</option><option>English + Haitian Creole</option><option>English + Spanish</option></select>
+          <select id="social-lang"><option>English</option><option>Haitian Creole</option><option>English + Haitian Creole</option><option>English + Spanish</option></select>
         </div>
       </div>
       <div class="field-group">
         <label class="field-label">Extra notes (optional)</label>
-        <input type="text" id="s-extra" placeholder="Any specific angle, offer, or detail…"/>
+        <input type="text" id="social-extra" placeholder="Any specific angle, offer, or detail…"/>
       </div>
-      <button class="gen-btn" id="s-btn" onclick="generate('social')">✦ Generate Post</button>
+      <button class="gen-btn" id="social-generate-btn" onclick="generateContent('social')">✦ Generate Post</button>
     </div>
-    <div class="output-card" id="out-social">
+    <div class="output-card" id="social-output-card">
       <div class="output-top">
         <div class="output-status"><div class="output-dot"></div>Generated Post</div>
-        <button class="copy-btn" id="copy-s" onclick="copyOut('s-result','copy-s')">Copy</button>
+        <button class="copy-btn" id="social-copy-btn" onclick="copyOutput('social')">Copy</button>
       </div>
-      <div id="s-result"></div>
+      <div id="social-output-text"></div>
     </div>
   </div>
 
   <!-- EMAIL -->
-  <div id="tab-email" class="tab-panel">
+  <div id="panel-email" class="tab-panel">
     <div class="form-card">
       <div class="field-row">
         <div class="field-group">
           <label class="field-label">Client First Name</label>
-          <input type="text" id="e-name" placeholder="e.g. Maria"/>
+          <input type="text" id="email-name" placeholder="e.g. Maria"/>
         </div>
         <div class="field-group">
           <label class="field-label">Service Line</label>
-          <select id="e-service">
+          <select id="email-service">
             <option value="life insurance">Life Insurance</option><option value="health insurance">Health Insurance</option>
             <option value="property & casualty insurance">P&C Insurance</option>
             <option value="tax preparation">Tax Preparation</option>
@@ -199,7 +180,7 @@ textarea{resize:vertical;min-height:68px;}
       </div>
       <div class="field-group" style="margin-bottom:14px;">
         <label class="field-label">Scenario</label>
-        <select id="e-scenario">
+        <select id="email-scenario">
           <option value="after a quote was sent">After Quote Sent</option>
           <option value="after an initial consultation">After Consultation</option>
           <option value="a no-response follow-up (2nd attempt)">No Response – 2nd Attempt</option>
@@ -210,54 +191,54 @@ textarea{resize:vertical;min-height:68px;}
       </div>
       <div class="field-group">
         <label class="field-label">Additional details (optional)</label>
-        <textarea id="e-notes" placeholder="Quote amount, next steps, deadline, anything specific…"></textarea>
+        <textarea id="email-notes" placeholder="Quote amount, next steps, deadline, anything specific…"></textarea>
       </div>
-      <button class="gen-btn" id="e-btn" onclick="generate('email')">✦ Generate Email</button>
+      <button class="gen-btn" id="email-generate-btn" onclick="generateContent('email')">✦ Generate Email</button>
     </div>
-    <div class="output-card" id="out-email">
+    <div class="output-card" id="email-output-card">
       <div class="output-top">
         <div class="output-status"><div class="output-dot"></div>Generated Email</div>
-        <button class="copy-btn" id="copy-e" onclick="copyOut('e-result','copy-e')">Copy</button>
+        <button class="copy-btn" id="email-copy-btn" onclick="copyOutput('email')">Copy</button>
       </div>
-      <div id="e-result"></div>
+      <div id="email-output-text"></div>
     </div>
   </div>
 
   <!-- ADMIN -->
-  <div id="tab-admin" class="tab-panel">
+  <div id="panel-admin" class="tab-panel">
     <div class="form-card">
       <div class="panel-label" style="margin-bottom:14px;">Select a Task</div>
       <div class="admin-grid">
-        <div class="admin-card" onclick="selectAdmin(this,'weekly')">
+        <div class="admin-card" data-task="weekly" onclick="selectAdminTask(this,'weekly')">
           <div class="admin-icon-box">📊</div>
           <div><div class="admin-title">Weekly Summary</div><div class="admin-desc">Week recap & next steps</div></div>
         </div>
-        <div class="admin-card" onclick="selectAdmin(this,'checklist')">
+        <div class="admin-card" data-task="checklist" onclick="selectAdminTask(this,'checklist')">
           <div class="admin-icon-box">✅</div>
           <div><div class="admin-title">Onboarding Checklist</div><div class="admin-desc">New client setup steps</div></div>
         </div>
-        <div class="admin-card" onclick="selectAdmin(this,'calendar')">
+        <div class="admin-card" data-task="calendar" onclick="selectAdminTask(this,'calendar')">
           <div class="admin-icon-box">📅</div>
           <div><div class="admin-title">7-Day Content Plan</div><div class="admin-desc">Weekly social schedule</div></div>
         </div>
-        <div class="admin-card" onclick="selectAdmin(this,'referral')">
+        <div class="admin-card" data-task="referral" onclick="selectAdminTask(this,'referral')">
           <div class="admin-icon-box">🤝</div>
           <div><div class="admin-title">Referral Script</div><div class="admin-desc">SMS + verbal scripts</div></div>
         </div>
       </div>
       <div class="field-group" style="margin-bottom:14px;">
         <label class="field-label">Context / specifics (optional)</label>
-        <textarea id="a-context" placeholder="Names, dates, service type, or any extra detail…" style="min-height:52px;"></textarea>
+        <textarea id="admin-context" placeholder="Names, dates, service type, or any extra detail…" style="min-height:52px;"></textarea>
       </div>
-      <button class="gen-btn" id="a-btn" onclick="generate('admin')" disabled>✦ Generate</button>
-      <p class="hint-text" id="a-hint">Select a task card above first</p>
+      <button class="gen-btn" id="admin-generate-btn" onclick="generateContent('admin')" disabled>✦ Generate</button>
+      <p class="hint-text" id="admin-hint">Select a task card above first</p>
     </div>
-    <div class="output-card" id="out-admin">
+    <div class="output-card" id="admin-output-card">
       <div class="output-top">
         <div class="output-status"><div class="output-dot"></div>Generated Output</div>
-        <button class="copy-btn" id="copy-a" onclick="copyOut('a-result','copy-a')">Copy</button>
+        <button class="copy-btn" id="admin-copy-btn" onclick="copyOutput('admin')">Copy</button>
       </div>
-      <div id="a-result"></div>
+      <div id="admin-output-text"></div>
     </div>
   </div>
 </main>
@@ -265,61 +246,145 @@ textarea{resize:vertical;min-height:68px;}
 <footer class="portal-footer">ME Shield Financial Services · Internal use only · Not part of the public website</footer>
 
 <script>
-let selectedAdmin=null;
-function switchTab(n,b){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+n).classList.add('active');b.classList.add('active');}
-function selectAdmin(el,t){document.querySelectorAll('.admin-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');selectedAdmin=t;const b=document.getElementById('a-btn');b.disabled=false;document.getElementById('a-hint').style.display='none';}
-function buildPrompt(t){
-  if(t==='social'){const p=document.getElementById('s-platform').value,tp=document.getElementById('s-topic').value,tn=document.getElementById('s-tone').value,l=document.getElementById('s-lang').value,e=document.getElementById('s-extra').value;return`Generate a ${p} post for ME Shield Financial Services (Miguelson Etienne, Florida).\nTopic: ${tp}\nTone: ${tn}\nLanguage: ${l}\nInclude a clear call-to-action and relevant emojis.${e?'\nExtra notes: '+e:''}\nOutput only the post text, ready to publish.`;}
-  if(t==='email'){const n=document.getElementById('e-name').value||'there',s=document.getElementById('e-service').value,sc=document.getElementById('e-scenario').value,nt=document.getElementById('e-notes').value;return`Write a professional follow-up email for Miguelson Etienne at ME Shield Financial Services, Florida.\nClient name: ${n}\nService: ${s}\nScenario: ${sc}${nt?'\nDetails: '+nt:''}\nFormat: Subject line first, then email body. Sign off warmly as Miguelson Etienne. Output only the email.`;}
-  if(t==='admin'){const ctx=document.getElementById('a-context').value;const m={weekly:`Create a weekly business summary template for ME Shield Financial Services. Sections: Clients contacted, Services sold, Follow-ups pending, Tasks completed, Goals for next week.${ctx?'\nContext: '+ctx:''}`,checklist:`Create a client onboarding checklist for ME Shield Financial Services solo agent. Cover: gathering info, explaining services, collecting documents, setting expectations, scheduling follow-ups.${ctx?'\nContext: '+ctx:''}`,calendar:`Create a 7-day social media content plan for ME Shield Financial Services. Each day: Day, Platform, Topic, one-line post idea.${ctx?'\nContext: '+ctx:''}`,referral:`Write a referral ask script for Miguelson Etienne, ME Shield. Friendly, not salesy. Include SMS and verbal versions.${ctx?'\nContext: '+ctx:''}`};return m[selectedAdmin];}
+// ── STATE ──
+let selectedAdminTask = null;
+
+// ── TAB SWITCHING ──
+function switchTab(name, btnEl) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  btnEl.classList.add('active');
 }
-const labels={social:'✦ Generate Post',email:'✦ Generate Email',admin:'✦ Generate'};
-async function generate(t){
-  if(t==='admin'&&!selectedAdmin)return;
-  const btnId=t==='social'?'s-btn':t==='email'?'e-btn':'a-btn',rid=t+'-result',oid='out-'+t;
-  const btn=document.getElementById(btnId),res=document.getElementById(rid),out=document.getElementById(oid);
-  const labels={social:'✦ Generate Post',email:'✦ Generate Email',admin:'✦ Generate'};
 
-  btn.disabled=true;
-  btn.innerHTML='<div class="spinner"></div> Generating…';
-  out.classList.add('show');
-  res.innerHTML='<div class="loading-msg"><div class="spinner"></div> Writing your content…</div>';
+// ── ADMIN TASK SELECT ──
+function selectAdminTask(el, task) {
+  document.querySelectorAll('.admin-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedAdminTask = task;
+  const btn = document.getElementById('admin-generate-btn');
+  btn.disabled = false;
+  document.getElementById('admin-hint').style.display = 'none';
+}
 
-  // 30-second timeout so spinner never hangs forever
-  const controller=new AbortController();
-  const timeout=setTimeout(()=>controller.abort(),30000);
+// ── BUILD PROMPT PER TYPE ──
+function buildPrompt(type) {
+  if (type === 'social') {
+    const platform = document.getElementById('social-platform').value;
+    const topic = document.getElementById('social-topic').value;
+    const tone = document.getElementById('social-tone').value;
+    const lang = document.getElementById('social-lang').value;
+    const extra = document.getElementById('social-extra').value;
+    return `Generate a ${platform} post for ME Shield Financial Services (Miguelson Etienne, Florida).\nTopic: ${topic}\nTone: ${tone}\nLanguage: ${lang}\nInclude a clear call-to-action and relevant emojis.${extra ? '\nExtra notes: ' + extra : ''}\nOutput only the post text, ready to publish.`;
+  }
+  if (type === 'email') {
+    const name = document.getElementById('email-name').value || 'there';
+    const service = document.getElementById('email-service').value;
+    const scenario = document.getElementById('email-scenario').value;
+    const notes = document.getElementById('email-notes').value;
+    return `Write a professional follow-up email for Miguelson Etienne at ME Shield Financial Services, Florida.\nClient name: ${name}\nService: ${service}\nScenario: ${scenario}${notes ? '\nDetails: ' + notes : ''}\nFormat: Subject line first, then email body. Sign off warmly as Miguelson Etienne. Output only the email.`;
+  }
+  if (type === 'admin') {
+    const ctx = document.getElementById('admin-context').value;
+    const prompts = {
+      weekly: `Create a weekly business summary template for ME Shield Financial Services. Sections: Clients contacted, Services sold, Follow-ups pending, Tasks completed, Goals for next week.${ctx ? '\nContext: ' + ctx : ''}`,
+      checklist: `Create a client onboarding checklist for ME Shield Financial Services solo agent. Cover: gathering info, explaining services, collecting documents, setting expectations, scheduling follow-ups.${ctx ? '\nContext: ' + ctx : ''}`,
+      calendar: `Create a 7-day social media content plan for ME Shield Financial Services. Each day: Day, Platform, Topic, one-line post idea.${ctx ? '\nContext: ' + ctx : ''}`,
+      referral: `Write a referral ask script for Miguelson Etienne, ME Shield Financial Services. Friendly, not salesy. Include SMS and verbal versions.${ctx ? '\nContext: ' + ctx : ''}`
+    };
+    return prompts[selectedAdminTask];
+  }
+  return '';
+}
 
-  try{
-    const r=await fetch('/api/generate',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({prompt:buildPrompt(t)}),
-      signal:controller.signal
-    });
-    clearTimeout(timeout);
+// ── ESCAPE HTML ──
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\n/g, '<br>');
+}
 
-    if(!r.ok){
-      const errText=await r.text();
-      throw new Error('Server error '+r.status+': '+errText.substring(0,300));
-    }
+// ── MAIN GENERATE FUNCTION ──
+async function generateContent(type) {
+  if (type === 'admin' && !selectedAdminTask) return;
 
-    const d=await r.json();
-    if(d.error) throw new Error(d.error);
-    if(!d.result||d.result.trim()==='') throw new Error('AI returned empty content — please try again.');
+  const btn = document.getElementById(type + '-generate-btn');
+  const card = document.getElementById(type + '-output-card');
+  const textEl = document.getElementById(type + '-output-text');
 
-    res.innerHTML='<div class="output-text">'+esc(d.result)+'</div>';
-
-  }catch(e){
-    clearTimeout(timeout);
-    const msg=e.name==='AbortError'?'Request timed out after 30s. Please try again.':e.message;
-    res.innerHTML='<div class="error-msg">⚠️ '+esc(msg)+'</div>';
+  if (!btn || !card || !textEl) {
+    console.error('Missing DOM element for type:', type);
+    return;
   }
 
-  btn.disabled=false;
-  btn.innerHTML=labels[t];
+  const labels = { social: '✦ Generate Post', email: '✦ Generate Email', admin: '✦ Generate' };
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Generating…';
+  card.classList.add('show');
+  textEl.innerHTML = '<div class="loading-msg"><span class="spinner"></span> Writing your content…</div>';
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 45000);
+
+  try {
+    const prompt = buildPrompt(type);
+
+    const response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: prompt }),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errText = await response.text();
+      throw new Error('Server error ' + response.status + ': ' + errText.substring(0, 300));
+    }
+
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error(data.error);
+    }
+
+    if (!data.result || data.result.trim() === '') {
+      throw new Error('AI returned empty content. Please try again.');
+    }
+
+    textEl.innerHTML = '<div class="output-text">' + escapeHtml(data.result) + '</div>';
+
+  } catch (err) {
+    clearTimeout(timeoutId);
+    const msg = err.name === 'AbortError'
+      ? 'Request timed out after 45 seconds. Please try again.'
+      : err.message;
+    textEl.innerHTML = '<div class="error-msg">⚠️ ' + escapeHtml(msg) + '</div>';
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = labels[type];
 }
-function copyOut(rid,bid){const t=document.getElementById(rid).innerText;navigator.clipboard.writeText(t).then(()=>{const b=document.getElementById(bid);b.textContent='Copied!';b.classList.add('copied');setTimeout(()=>{b.textContent='Copy';b.classList.remove('copied');},2000);});}
-function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+
+// ── COPY OUTPUT ──
+function copyOutput(type) {
+  const textEl = document.getElementById(type + '-output-text');
+  const btn = document.getElementById(type + '-copy-btn');
+  if (!textEl || !btn) return;
+
+  navigator.clipboard.writeText(textEl.innerText).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
 </script>
 </body>
 </html>
