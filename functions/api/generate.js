@@ -1,6 +1,25 @@
 // functions/api/generate.js
-// Cloudflare Pages Function — Workers AI
-// Required binding: Name = AI, Type = Workers AI (in Pages > Settings > Bindings)
+// Cloudflare Pages Function — Workers AI with model fallback
+
+const MODELS = [
+  "@cf/zai-org/glm-4.7-flash",
+  "@cf/meta/llama-3.1-8b-instruct",
+  "@cf/mistral/mistral-7b-instruct-v0.1",
+];
+
+function extractText(aiRes) {
+  if (!aiRes) return "";
+  if (typeof aiRes === "string") return aiRes;
+  return (
+    aiRes?.response ??
+    aiRes?.result?.response ??
+    aiRes?.message?.content ??
+    aiRes?.content ??
+    aiRes?.text ??
+    (Array.isArray(aiRes) ? (aiRes[0]?.generated_text ?? aiRes[0]?.response ?? "") : "") ??
+    ""
+  );
+}
 
 export async function onRequestPost(context) {
   const headers = {
@@ -11,57 +30,62 @@ export async function onRequestPost(context) {
   };
 
   try {
-    // Parse body
     let prompt;
     try {
       const body = await context.request.json();
-      prompt = body?.prompt;
+      prompt = body?.prompt?.trim();
     } catch {
-      return new Response(JSON.stringify({ error: "Invalid request" }), { status: 400, headers });
+      return new Response(JSON.stringify({ error: "Invalid request body" }), { status: 400, headers });
     }
 
-    if (!prompt?.trim()) {
+    if (!prompt) {
       return new Response(JSON.stringify({ error: "Missing prompt" }), { status: 400, headers });
     }
 
-    // Check AI binding
     if (!context.env.AI) {
       return new Response(
-        JSON.stringify({ error: "Workers AI binding missing. Go to Cloudflare Pages > Settings > Bindings > Add binding > Workers AI > Name it 'AI'" }),
+        JSON.stringify({ error: "Workers AI binding missing. Add it in Cloudflare Pages > Settings > Bindings > Workers AI > name it 'AI'" }),
         { status: 500, headers }
       );
     }
 
-    // Run the AI model
-    const result = await context.env.AI.run("@cf/zai-org/glm-4.7-flash", {
-      messages: [
-        {
-          role: "system",
-          content: "You are a professional content writer for ME Shield Financial Services (Miguelson Etienne, Apopka FL). Write clear, professional content for insurance, tax preparation, business filing, immigration forms, and Infinite Banking. Be warm and concise. Never use 'advisor', 'paralegal', or 'attorney'."
-        },
-        { role: "user", content: prompt.trim() }
-      ],
-      max_tokens: 800,
-    });
+    const systemPrompt = "You are a professional content writer for ME Shield Financial Services (Miguelson Etienne, Apopka FL). Write clear, professional, warm content for insurance, tax preparation, business filing, immigration forms filing, and Infinite Banking. Never use 'advisor', 'paralegal', or 'attorney'. Keep it concise and ready to use.";
 
-    // Extract text from any response format
-    let text =
-      typeof result === "string" ? result :
-      result?.response ?? result?.result?.response ??
-      result?.message?.content ?? result?.content ?? result?.text ??
-      (Array.isArray(result) ? result[0]?.generated_text ?? result[0]?.response : null) ??
-      JSON.stringify(result);
+    let lastError = "";
 
-    text = (text ?? "").trim();
+    // Try each model until one works
+    for (const model of MODELS) {
+      try {
+        const aiRes = await context.env.AI.run(model, {
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: prompt }
+          ],
+          max_tokens: 800,
+        });
 
-    if (!text) {
-      return new Response(
-        JSON.stringify({ error: "AI returned empty response. Raw: " + JSON.stringify(result).substring(0, 200) }),
-        { status: 500, headers }
-      );
+        const text = extractText(aiRes)?.trim();
+
+        if (text) {
+          return new Response(
+            JSON.stringify({ result: text, model_used: model }),
+            { status: 200, headers }
+          );
+        }
+
+        lastError = "Model " + model + " returned empty response. Raw: " + JSON.stringify(aiRes).substring(0, 150);
+
+      } catch (modelErr) {
+        lastError = "Model " + model + " error: " + modelErr.message;
+        continue; // try next model
+      }
     }
 
-    return new Response(JSON.stringify({ result: text }), { status: 200, headers });
+    // All models failed
+    return new Response(
+      JSON.stringify({ error: "All AI models failed. Last error: " + lastError }),
+      { status: 500, headers }
+    );
 
   } catch (err) {
     return new Response(
