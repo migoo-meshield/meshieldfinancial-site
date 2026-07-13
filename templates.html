@@ -1,488 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Templates | ME Shield Team Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --navy:   #0B1F3A;
-      --navy2:  #112240;
-      --gold:   #C9A14A;
-      --blue:   #1E4D8C;
-      --accent: #2563EB;
-      --light:  #EEF4FF;
-      --white:  #FFFFFF;
-      --muted:  #7A90B0;
-      --border: rgba(201,161,74,0.18);
-      --card:   #132040;
-    }
-
-    body {
-      background: var(--navy);
-      color: var(--white);
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-    }
-
-    /* Background glow */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 60% 40% at 80% 5%, rgba(37,99,235,0.12) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 50% at 5% 90%, rgba(201,161,74,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: relative; z-index: 10;
-      background: rgba(11,31,58,0.95);
-      border-bottom: 1px solid var(--border);
-      padding: 0 32px;
-      display: flex; align-items: center; gap: 0;
-      height: 62px;
-      backdrop-filter: blur(8px);
-    }
-
-    .nav-logo {
-      display: flex; align-items: center; gap: 12px;
-      text-decoration: none; margin-right: 32px;
-    }
-
-    .shield {
-      width: 34px; height: 34px;
-      background: linear-gradient(135deg, var(--accent), var(--gold));
-      clip-path: polygon(50% 0%, 100% 20%, 100% 70%, 50% 100%, 0% 70%, 0% 20%);
-      flex-shrink: 0;
-    }
-
-    .nav-brand { line-height: 1.1; }
-    .nav-brand-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--white); }
-    .nav-brand-sub  { font-size: 9px; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; }
-
-    .nav-links { display: flex; align-items: center; gap: 4px; }
-    .nav-link {
-      color: var(--muted); font-size: 13px; font-weight: 500;
-      text-decoration: none; padding: 8px 14px; border-radius: 6px;
-      transition: all 0.2s; white-space: nowrap;
-    }
-    .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.06); }
-    .nav-link.active { color: var(--gold); background: rgba(201,161,74,0.1); }
-
-    .nav-badge {
-      margin-left: auto;
-      background: rgba(201,161,74,0.12);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 4px 14px;
-      font-size: 11px; color: var(--gold); font-weight: 500;
-      letter-spacing: 0.05em;
-    }
-
-    /* ── MAIN ── */
-    main {
-      position: relative; z-index: 5;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 48px 24px 80px;
-    }
-
-    /* Page header */
-    .page-header { margin-bottom: 40px; }
-    .page-tag {
-      display: inline-block;
-      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--gold);
-      background: rgba(201,161,74,0.1);
-      border: 1px solid var(--border);
-      border-radius: 20px; padding: 4px 14px; margin-bottom: 14px;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.4rem; font-weight: 900; line-height: 1.15;
-      margin-bottom: 10px;
-    }
-    h1 span { color: var(--gold); }
-
-    .page-sub { color: var(--muted); font-size: 14px; max-width: 560px; line-height: 1.6; }
-
-    /* ── SEARCH / FILTER BAR ── */
-    .filter-bar {
-      display: flex; gap: 10px; margin-bottom: 36px; flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      color: var(--muted); font-family: 'Inter', sans-serif;
-      font-size: 12px; font-weight: 500; padding: 7px 18px;
-      cursor: pointer; transition: all 0.2s;
-      letter-spacing: 0.04em;
-    }
-    .filter-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
-    .filter-btn.active {
-      background: var(--gold); color: var(--navy);
-      border-color: var(--gold); font-weight: 600;
-    }
-
-    /* ── GRID ── */
-    .templates-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-    }
-
-    /* ── TEMPLATE CARD ── */
-    .template-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
-      display: flex; flex-direction: column;
-    }
-    .template-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
-      border-color: rgba(201,161,74,0.4);
-    }
-
-    /* Card top color bar */
-    .card-bar { height: 5px; width: 100%; }
-    .bar-word  { background: linear-gradient(90deg, #2563EB, #1E4D8C); }
-    .bar-excel { background: linear-gradient(90deg, #1D6F42, #2E9E5E); }
-
-    .card-body { padding: 24px 24px 20px; flex: 1; }
-
-    .card-top {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; margin-bottom: 16px;
-    }
-
-    .card-icon {
-      width: 48px; height: 48px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px; flex-shrink: 0;
-    }
-    .icon-word  { background: rgba(37,99,235,0.15); }
-    .icon-excel { background: rgba(29,111,66,0.15); }
-
-    .card-type-badge {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
-    }
-    .badge-word  { background: rgba(37,99,235,0.15); color: #60A5FA; }
-    .badge-excel { background: rgba(29,111,66,0.15); color: #4ADE80; }
-
-    .card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem; font-weight: 700;
-      margin-bottom: 8px; line-height: 1.25;
-    }
-
-    .card-desc {
-      color: var(--muted); font-size: 13px;
-      line-height: 1.65; margin-bottom: 18px;
-    }
-
-    /* What's inside */
-    .whats-inside {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px; padding: 14px 16px; margin-bottom: 20px;
-    }
-    .inside-label {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
-    }
-    .inside-item {
-      display: flex; align-items: flex-start; gap: 8px;
-      font-size: 12px; color: #A8BDD6; line-height: 1.5; margin-bottom: 6px;
-    }
-    .inside-item:last-child { margin-bottom: 0; }
-    .check { color: var(--gold); font-size: 11px; margin-top: 2px; flex-shrink: 0; }
-
-    /* Card footer */
-    .card-footer {
-      padding: 0 24px 22px;
-      display: flex; gap: 10px; align-items: center;
-    }
-
-    .btn-download {
-      flex: 1;
-      background: linear-gradient(135deg, var(--accent), var(--blue));
-      color: var(--white); border: none; border-radius: 9px;
-      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
-      padding: 12px 20px; cursor: pointer; text-decoration: none;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      transition: opacity 0.2s, transform 0.15s;
-    }
-    .btn-download:hover { opacity: 0.88; transform: translateY(-1px); }
-
-    .btn-drive {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--muted); border-radius: 9px;
-      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
-      padding: 12px 14px; cursor: pointer; text-decoration: none;
-      display: flex; align-items: center; gap: 6px;
-      transition: all 0.2s; white-space: nowrap;
-    }
-    .btn-drive:hover { color: var(--white); border-color: rgba(255,255,255,0.25); }
-
-    /* ── INFO BANNER ── */
-    .info-banner {
-      background: rgba(37,99,235,0.07);
-      border: 1px solid rgba(37,99,235,0.2);
-      border-radius: 12px; padding: 16px 22px;
-      display: flex; align-items: flex-start; gap: 14px;
-      margin-bottom: 36px;
-    }
-    .info-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-    .info-text { font-size: 13px; color: #A8BDD6; line-height: 1.6; }
-    .info-text strong { color: var(--white); }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative; z-index: 5;
-      border-top: 1px solid var(--border);
-      padding: 22px 32px;
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 12px; color: var(--muted);
-    }
-
-    @media (max-width: 640px) {
-      nav { padding: 0 16px; }
-      main { padding: 32px 16px 60px; }
-      h1 { font-size: 1.8rem; }
-      .templates-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Templates | ME Shield Internal Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#070C17;--card:#0E1A2E;--gold:#C9A14A;--white:#E8EDF5;--muted:#4A5A78;--dim:#8A9BB5;--border:rgba(255,255,255,0.06);--green:#22C55E;}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 50% 35% at 70% 0%,rgba(201,161,74,0.05) 0%,transparent 70%)}
+nav{position:relative;z-index:10;background:rgba(7,12,23,0.97);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;height:58px;backdrop-filter:blur(10px)}
+.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:28px;flex-shrink:0}
+.nav-shield{width:30px;height:30px;background:linear-gradient(135deg,#1E4D8C,var(--gold));clip-path:polygon(50% 0%,100% 20%,100% 70%,50% 100%,0% 70%,0% 20%);flex-shrink:0}
+.nav-brand-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--white);line-height:1.1;white-space:nowrap}
+.nav-brand-sub{font-size:8px;color:var(--muted);letter-spacing:0.16em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2px;overflow-x:auto;flex:1}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-link{color:var(--muted);font-size:11px;font-weight:500;text-decoration:none;padding:6px 12px;border-radius:5px;transition:all .2s;white-space:nowrap}
+.nav-link:hover{color:var(--white);background:rgba(255,255,255,0.05)}
+.nav-link.active{color:var(--gold);background:rgba(201,161,74,0.08)}
+.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
+.nav-live{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--green);font-weight:500}
+.nav-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.nav-private{border:1px solid rgba(255,255,255,0.15);border-radius:5px;color:var(--dim);font-size:10px;font-weight:600;letter-spacing:0.08em;padding:4px 10px;text-transform:uppercase}
+main{position:relative;z-index:5;max-width:1060px;margin:0 auto;padding:36px 24px 80px}
+.page-greeting{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;line-height:1.2;margin-bottom:4px}
+.page-greeting span{color:var(--gold);font-style:italic}
+.page-sub{color:var(--muted);font-size:11px;letter-spacing:0.04em;margin-bottom:28px}
+.section-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.filter-btn{background:none;border:1px solid var(--border);border-radius:20px;color:var(--muted);font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:5px 14px;cursor:pointer;transition:all .2s}
+.filter-btn:hover{color:var(--white);border-color:rgba(255,255,255,0.15)}
+.filter-btn.active{background:rgba(201,161,74,0.1);color:var(--gold);border-color:rgba(201,161,74,0.3)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.tmpl-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s;display:flex;flex-direction:column}
+.tmpl-card:hover{border-color:rgba(201,161,74,0.25)}
+.tmpl-bar{height:3px}
+.bar-ai{background:linear-gradient(90deg,var(--gold),#1E4D8C)}
+.bar-word{background:linear-gradient(90deg,#2563EB,#1E4D8C)}
+.bar-excel{background:linear-gradient(90deg,#1D6F42,#2E9E5E)}
+.tmpl-body{padding:18px;flex:1}
+.tmpl-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.tmpl-icon{font-size:22px}
+.badge{font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-radius:10px}
+.badge-ai{background:rgba(201,161,74,0.1);color:var(--gold)}
+.badge-word{background:rgba(37,99,235,0.1);color:#60A5FA}
+.badge-excel{background:rgba(29,111,66,0.1);color:#4ADE80}
+.tmpl-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:6px}
+.tmpl-desc{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:12px}
+.inside-box{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:7px;padding:10px 12px;margin-bottom:0}
+.inside-label{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px}
+.inside-item{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:var(--dim);line-height:1.5;margin-bottom:4px}
+.inside-check{color:var(--gold);font-size:9px;margin-top:2px;flex-shrink:0}
+.tmpl-footer{padding:14px 18px;display:flex;gap:8px;border-top:1px solid var(--border)}
+.btn-open{flex:1;background:rgba(201,161,74,0.08);color:var(--gold);border:1px solid rgba(201,161,74,0.2);border-radius:7px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;padding:9px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .2s}
+.btn-open:hover{background:rgba(201,161,74,0.16);border-color:rgba(201,161,74,0.4)}
+.btn-dl{flex:1;background:rgba(37,99,235,0.08);color:#60A5FA;border:1px solid rgba(37,99,235,0.2);border-radius:7px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;padding:9px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .2s}
+.btn-dl:hover{background:rgba(37,99,235,0.16)}
+.btn-drive{background:none;border:1px solid var(--border);border-radius:7px;color:var(--muted);font-family:'Inter',sans-serif;font-size:10px;padding:9px 12px;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:4px;transition:all .2s;white-space:nowrap}
+.btn-drive:hover{color:var(--white);border-color:rgba(255,255,255,0.15)}
+footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);letter-spacing:0.04em}
+@media(max-width:600px){nav{padding:0 14px}main{padding:24px 14px 60px}.page-greeting{font-size:1.5rem}.grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-
-<!-- NAV -->
 <nav>
   <a href="team.html" class="nav-logo">
-    <div class="shield"></div>
-    <div class="nav-brand">
-      <div class="nav-brand-name">ME Shield</div>
-      <div class="nav-brand-sub">Team Portal</div>
-    </div>
+    <div class="nav-shield"></div>
+    <div><div class="nav-brand-name">ME Shield Financial Services</div><div class="nav-brand-sub">Internal Portal</div></div>
   </a>
   <div class="nav-links">
-    <a href="team.html"      class="nav-link">Dashboard</a>
-    <a href="templates.html" class="nav-link active">Templates</a>
-    <a href="client-portal.html" class="nav-link">Client Portal</a>
+    <a href="team.html" class="nav-link">🏠 Dashboard</a>
+    <a href="automation-hub.html" class="nav-link">🤖 Automation Hub</a>
+    <a href="prompt-builder.html" class="nav-link">⚡ Prompt Builder</a>
+    <a href="templates.html" class="nav-link active">📄 Templates</a>
   </div>
-  <div class="nav-badge">Internal Use Only</div>
+  <div class="nav-right">
+    <div class="nav-live"><div class="nav-live-dot"></div>Site Live</div>
+    <div class="nav-private">Private</div>
+  </div>
 </nav>
-
-<!-- MAIN -->
 <main>
+  <div class="page-greeting">Tools & <span>Templates.</span></div>
+  <p class="page-sub">AI tools, fill-in Word templates, and Excel workbooks — everything you need to run ME Shield efficiently.</p>
 
-  <!-- Page Header -->
-  <div class="page-header">
-    <div class="page-tag">Business Templates</div>
-    <h1>Your <span>Ready-to-Use</span> Templates</h1>
-    <p class="page-sub">Fill-in templates for social media posts, email follow-ups, and admin tasks. Download, fill in the blanks, and you're done.</p>
-  </div>
-
-  <!-- Info Banner -->
-  <div class="info-banner">
-    <div class="info-icon">💡</div>
-    <div class="info-text">
-      <strong>How to use:</strong> Click <strong>Download</strong> to get the file directly from the site. Click <strong>Google Drive</strong> to open the backup copy. Fill in the fields, save your own copy, and reuse every week.
+  <!-- AI TOOLS -->
+  <div class="section-label">AI Tools</div>
+  <div class="grid" style="margin-bottom:32px">
+    <div class="tmpl-card" data-tags="all ai">
+      <div class="tmpl-bar bar-ai"></div>
+      <div class="tmpl-body">
+        <div class="tmpl-top"><span class="tmpl-icon">🤖</span><span class="badge badge-ai">AI Tool</span></div>
+        <div class="tmpl-title">Automation Hub</div>
+        <div class="tmpl-desc">Generate social posts, emails, and admin content automatically. Fill the form, hit Generate — content appears instantly on the page.</div>
+        <div class="inside-box">
+          <div class="inside-label">What's Inside</div>
+          <div class="inside-item"><span class="inside-check">✦</span>📱 Social Media — any platform, topic & tone</div>
+          <div class="inside-item"><span class="inside-check">✦</span>✉️ Email Follow-Up — client, scenario, service</div>
+          <div class="inside-item"><span class="inside-check">✦</span>🗂️ Admin Tasks — summary, checklist, calendar, referral</div>
+        </div>
+      </div>
+      <div class="tmpl-footer"><a href="automation-hub.html" class="btn-open">🚀 Open Hub</a></div>
+    </div>
+    <div class="tmpl-card" data-tags="all ai">
+      <div class="tmpl-bar bar-ai"></div>
+      <div class="tmpl-body">
+        <div class="tmpl-top"><span class="tmpl-icon">⚡</span><span class="badge badge-ai">AI Tool</span></div>
+        <div class="tmpl-title">Quick Prompt Builder</div>
+        <div class="tmpl-desc">Build a ready-to-paste Claude prompt in seconds. Best when you want the highest quality output using your Claude Pro subscription.</div>
+        <div class="inside-box">
+          <div class="inside-label">What's Inside</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Choose Social, Email, or Admin task</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Fill 3–4 fields, click Build</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Copy → paste to Claude → done</div>
+        </div>
+      </div>
+      <div class="tmpl-footer"><a href="prompt-builder.html" class="btn-open">⚡ Open Builder</a></div>
     </div>
   </div>
 
-  <!-- Filter bar -->
+  <!-- FILL-IN TEMPLATES -->
+  <div class="section-label">Fill-In Templates</div>
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterCards('all', this)">All Templates</button>
-    <button class="filter-btn" onclick="filterCards('word', this)">📄 Word</button>
-    <button class="filter-btn" onclick="filterCards('excel', this)">📊 Excel</button>
-    <button class="filter-btn" onclick="filterCards('social', this)">📱 Social Media</button>
-    <button class="filter-btn" onclick="filterCards('email', this)">✉️ Email</button>
-    <button class="filter-btn" onclick="filterCards('admin', this)">🗂️ Admin</button>
+    <button class="filter-btn active" onclick="filter('all',this)">All</button>
+    <button class="filter-btn" onclick="filter('word',this)">Word</button>
+    <button class="filter-btn" onclick="filter('excel',this)">Excel</button>
+    <button class="filter-btn" onclick="filter('social',this)">Social</button>
+    <button class="filter-btn" onclick="filter('email',this)">Email</button>
+    <button class="filter-btn" onclick="filter('admin',this)">Admin</button>
   </div>
-
-  <!-- AI TOOLS SECTION -->
-  <div style="margin-bottom:36px">
-    <div class="page-tag" style="margin-bottom:14px">AI Tools</div>
-    <div class="templates-grid">
-
-      <!-- Automation Hub -->
-      <div class="template-card" data-tags="all social email admin">
-        <div class="card-bar" style="background:linear-gradient(90deg,#C9A14A,#2563EB)"></div>
-        <div class="card-body">
-          <div class="card-top">
-            <div class="card-icon" style="background:rgba(201,161,74,0.15);font-size:24px;width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center">🤖</div>
-            <span class="card-type-badge" style="background:rgba(201,161,74,0.15);color:#F0C96A">AI Tool</span>
-          </div>
-          <div class="card-title">Automation Hub</div>
-          <div class="card-desc">3-in-1 prompt builder for social posts, email follow-ups, and admin tasks. Fill in the form, copy the prompt, paste to Claude.</div>
-          <div class="whats-inside">
-            <div class="inside-label">What's Inside</div>
-            <div class="inside-item"><span class="check">✦</span>📱 Social Media tab — platform, topic, tone, language</div>
-            <div class="inside-item"><span class="check">✦</span>✉️ Email Follow-Up tab — client, scenario, service line</div>
-            <div class="inside-item"><span class="check">✦</span>🗂️ Admin Tasks tab — weekly summary, checklist, calendar, referral</div>
-            <div class="inside-item"><span class="check">✦</span>One-click copy — paste to Claude, done in seconds</div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <a href="automation-hub.html" class="btn-download" style="background:linear-gradient(135deg,#C9A14A,#a07828);text-decoration:none">🚀 Open Hub</a>
-        </div>
-      </div>
-
-      <!-- Prompt Builder -->
-      <div class="template-card" data-tags="all social email admin">
-        <div class="card-bar" style="background:linear-gradient(90deg,#2563EB,#1E4D8C)"></div>
-        <div class="card-body">
-          <div class="card-top">
-            <div class="card-icon" style="background:rgba(37,99,235,0.15);font-size:24px;width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center">⚡</div>
-            <span class="card-type-badge badge-word">AI Tool</span>
-          </div>
-          <div class="card-title">Quick Prompt Builder</div>
-          <div class="card-desc">Single-task prompt generator. Select what you need, fill in 3–4 fields, copy the prompt, paste to Claude.</div>
-          <div class="whats-inside">
-            <div class="inside-label">What's Inside</div>
-            <div class="inside-item"><span class="check">✦</span>Choose: Social Post, Email, or Admin task</div>
-            <div class="inside-item"><span class="check">✦</span>Minimal fields — fast to fill in</div>
-            <div class="inside-item"><span class="check">✦</span>Instant prompt output with copy button</div>
-            <div class="inside-item"><span class="check">✦</span>Link to Automation Hub for full access</div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <a href="prompt-builder.html" class="btn-download" style="text-decoration:none">⚡ Open Builder</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div style="margin-bottom:18px">
-    <div class="page-tag" style="margin-bottom:14px">Fill-in Templates</div>
-  </div>
-
-  <!-- Templates Grid -->
-  <div class="templates-grid" id="grid">
-
-    <!-- Social Media Template -->
-    <div class="template-card" data-tags="word social">
-      <div class="card-bar bar-word"></div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-icon icon-word">📄</div>
-          <span class="card-type-badge badge-word">Word · .docx</span>
-        </div>
-        <div class="card-title">Social Media Post Template</div>
-        <div class="card-desc">A reusable fill-in form for every social media post. Covers all platforms and content types.</div>
-        <div class="whats-inside">
+  <div class="grid" id="tmpl-grid">
+    <div class="tmpl-card" data-tags="all word social">
+      <div class="tmpl-bar bar-word"></div>
+      <div class="tmpl-body">
+        <div class="tmpl-top"><span class="tmpl-icon">📄</span><span class="badge badge-word">Word · .docx</span></div>
+        <div class="tmpl-title">Social Media Post Template</div>
+        <div class="tmpl-desc">Fill-in form for every social post. Covers all platforms, languages, and content types.</div>
+        <div class="inside-box">
           <div class="inside-label">What's Inside</div>
-          <div class="inside-item"><span class="check">✦</span>Platform, date & topic fields</div>
-          <div class="inside-item"><span class="check">✦</span>Opening hook + main message sections</div>
-          <div class="inside-item"><span class="check">✦</span>Call-to-action & hashtag fields</div>
-          <div class="inside-item"><span class="check">✦</span>Language selector (English / Spanish / Kreyòl)</div>
-          <div class="inside-item"><span class="check">✦</span>Image, link & notes section</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Platform, date & topic fields</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Hook, body, CTA & hashtags</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Language selector (EN / Kreyòl / ES)</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Image & link section</div>
         </div>
       </div>
-      <div class="card-footer">
-        <a href="/templates/MEShield_Social_Media_Template.docx" class="btn-download" download>
-          ⬇ Download
-        </a>
-        <a href="YOUR_GOOGLE_DRIVE_LINK_HERE" target="_blank" class="btn-drive">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 19h20L12 2z"/></svg>
-          Drive
-        </a>
+      <div class="tmpl-footer">
+        <a href="/templates/MEShield_Social_Media_Template.docx" class="btn-dl" download>⬇ Download</a>
+        <a href="YOUR_GOOGLE_DRIVE_LINK" target="_blank" class="btn-drive">Drive</a>
       </div>
     </div>
-
-    <!-- Email Follow-Up Template -->
-    <div class="template-card" data-tags="word email">
-      <div class="card-bar bar-word"></div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-icon icon-word">✉️</div>
-          <span class="card-type-badge badge-word">Word · .docx</span>
-        </div>
-        <div class="card-title">Email Follow-Up Template</div>
-        <div class="card-desc">Professional email drafts for every client scenario — after a quote, consultation, no response, and more.</div>
-        <div class="whats-inside">
+    <div class="tmpl-card" data-tags="all word email">
+      <div class="tmpl-bar bar-word"></div>
+      <div class="tmpl-body">
+        <div class="tmpl-top"><span class="tmpl-icon">✉️</span><span class="badge badge-word">Word · .docx</span></div>
+        <div class="tmpl-title">Email Follow-Up Template</div>
+        <div class="tmpl-desc">Professional email for every client scenario — after quote, consultation, no response, and more.</div>
+        <div class="inside-box">
           <div class="inside-label">What's Inside</div>
-          <div class="inside-item"><span class="check">✦</span>Client info & scenario fields</div>
-          <div class="inside-item"><span class="check">✦</span>Subject line field</div>
-          <div class="inside-item"><span class="check">✦</span>Opening, body & CTA sections</div>
-          <div class="inside-item"><span class="check">✦</span>Pre-built signature block (yours)</div>
-          <div class="inside-item"><span class="check">✦</span>Follow-up date & notes tracker</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Client info & scenario fields</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Subject line, body & CTA</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Pre-built signature block</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Follow-up date tracker</div>
         </div>
       </div>
-      <div class="card-footer">
-        <a href="/templates/MEShield_Email_FollowUp_Template.docx" class="btn-download" download>
-          ⬇ Download
-        </a>
-        <a href="YOUR_GOOGLE_DRIVE_LINK_HERE" target="_blank" class="btn-drive">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 19h20L12 2z"/></svg>
-          Drive
-        </a>
+      <div class="tmpl-footer">
+        <a href="/templates/MEShield_Email_FollowUp_Template.docx" class="btn-dl" download>⬇ Download</a>
+        <a href="YOUR_GOOGLE_DRIVE_LINK" target="_blank" class="btn-drive">Drive</a>
       </div>
     </div>
-
-    <!-- Admin Templates -->
-    <div class="template-card" data-tags="excel admin social email">
-      <div class="card-bar bar-excel"></div>
-      <div class="card-body">
-        <div class="card-top">
-          <div class="card-icon icon-excel">📊</div>
-          <span class="card-type-badge badge-excel">Excel · .xlsx</span>
-        </div>
-        <div class="card-title">Admin Templates Pack</div>
-        <div class="card-desc">4-tab Excel workbook for your weekly operations — summary, onboarding checklist, content calendar, and referral scripts.</div>
-        <div class="whats-inside">
+    <div class="tmpl-card" data-tags="all excel admin social email">
+      <div class="tmpl-bar bar-excel"></div>
+      <div class="tmpl-body">
+        <div class="tmpl-top"><span class="tmpl-icon">📊</span><span class="badge badge-excel">Excel · .xlsx</span></div>
+        <div class="tmpl-title">Admin Templates Pack</div>
+        <div class="tmpl-desc">4-tab Excel workbook for your weekly operations — everything in one file.</div>
+        <div class="inside-box">
           <div class="inside-label">4 Tabs Inside</div>
-          <div class="inside-item"><span class="check">✦</span>Weekly Business Summary tracker</div>
-          <div class="inside-item"><span class="check">✦</span>Client Onboarding Checklist (5 steps)</div>
-          <div class="inside-item"><span class="check">✦</span>7-Day Social Media Content Calendar</div>
-          <div class="inside-item"><span class="check">✦</span>Referral Ask Script (SMS + verbal)</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Weekly Business Summary tracker</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Client Onboarding Checklist (5 steps)</div>
+          <div class="inside-item"><span class="inside-check">✦</span>7-Day Content Calendar</div>
+          <div class="inside-item"><span class="inside-check">✦</span>Referral Script (SMS + verbal)</div>
         </div>
       </div>
-      <div class="card-footer">
-        <a href="/templates/MEShield_Admin_Templates.xlsx" class="btn-download" download>
-          ⬇ Download
-        </a>
-        <a href="YOUR_GOOGLE_DRIVE_LINK_HERE" target="_blank" class="btn-drive">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 19h20L12 2z"/></svg>
-          Drive
-        </a>
+      <div class="tmpl-footer">
+        <a href="/templates/MEShield_Admin_Templates.xlsx" class="btn-dl" download>⬇ Download</a>
+        <a href="YOUR_GOOGLE_DRIVE_LINK" target="_blank" class="btn-drive">Drive</a>
       </div>
     </div>
-
   </div>
 </main>
-
-<!-- FOOTER -->
-<footer>
-  <span>ME Shield Financial Services — Internal Team Portal</span>
-  <span>© 2026 ME Shield Group LLC · Apopka, FL</span>
-</footer>
-
+<footer><span>ME Shield Financial Services — Internal Portal</span><span>© 2026 ME Shield Group LLC · Apopka, FL</span></footer>
 <script>
-  function filterCards(tag, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.template-card').forEach(card => {
-      const tags = card.getAttribute('data-tags') || '';
-      card.style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
-    });
-  }
+function filter(tag,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#tmpl-grid .tmpl-card').forEach(c=>{
+    c.style.display=(tag==='all'||c.dataset.tags.includes(tag))?'':'none'})
+}
 </script>
-
 </body>
 </html>
