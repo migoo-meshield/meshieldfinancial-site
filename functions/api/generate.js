@@ -20,7 +20,7 @@ export async function onRequestPost(context) {
 
     // Call Cloudflare Workers AI — no API key needed!
     const response = await context.env.AI.run(
-      "@cf/meta/llama-3.1-8b-instruct",
+      "@cf/zai-org/glm-4.7-flash",
       {
         messages: [
           {
