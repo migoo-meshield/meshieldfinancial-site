@@ -138,6 +138,60 @@
     .utility-promo { color: var(--gold); font-weight: 700; letter-spacing: .04em; }
     .utility-promo a { color: var(--white); font-weight: 600; margin-left: 6px; text-decoration: underline; }
     @media (max-width: 700px) { .utility-promos { display: none; } }
+
+    /* ── ADDED: field helper text ── */
+    .field-hint {
+      display: block;
+      font-size: .78rem;
+      color: rgba(0,0,0,.55);
+      margin-top: 5px;
+      line-height: 1.45;
+    }
+
+    /* ── ADDED: consent checkbox ── */
+    .consent-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      background: rgba(201,168,76,.06);
+      border: 1px solid rgba(201,168,76,.22);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 4px 0 22px;
+    }
+    .consent-box input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin: 2px 0 0;
+      flex-shrink: 0;
+      accent-color: var(--gold, #c9a84c);
+      cursor: pointer;
+    }
+    .consent-box label {
+      font-size: .82rem;
+      line-height: 1.5;
+      color: var(--text-dark);
+      cursor: pointer;
+      margin: 0;
+      font-weight: 400;
+    }
+
+    /* ── ADDED: error message ── */
+    .alert-error {
+      display: none;
+      background: rgba(190,40,40,.07);
+      border: 1px solid rgba(190,40,40,.35);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 18px;
+      font-size: .88rem;
+      color: #8c1f1f;
+      line-height: 1.5;
+    }
+    .alert-error a { color: #8c1f1f; font-weight: 700; }
+
+    /* ── ADDED: submit button busy state ── */
+    .btn[disabled] { opacity: .6; cursor: not-allowed; }
   </style>
 </head>
 <body class="lang-en">
@@ -255,6 +309,70 @@
             <label data-ht>Nimewo Telefòn</label>
             <input type="tel" id="phone" placeholder="(305) 000-0000"/>
           </div>
+
+          <!-- ═══ ADDED: State — required by the Licensing Gate ═══ -->
+          <div class="form-group">
+            <label data-en>State *</label>
+            <label data-ht>Eta *</label>
+            <select id="state" required>
+              <option value="" data-en-text="— Select your state —" data-ht-text="— Chwazi eta ou —">— Select your state —</option>
+              <option value="FL">Florida</option>
+              <option value="MA">Massachusetts</option>
+              <option value="NJ">New Jersey</option>
+              <option value="" disabled data-en-text="──────────" data-ht-text="──────────">──────────</option>
+              <option value="AL">Alabama</option>
+              <option value="AK">Alaska</option>
+              <option value="AZ">Arizona</option>
+              <option value="AR">Arkansas</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="DE">Delaware</option>
+              <option value="DC">District of Columbia</option>
+              <option value="GA">Georgia</option>
+              <option value="HI">Hawaii</option>
+              <option value="ID">Idaho</option>
+              <option value="IL">Illinois</option>
+              <option value="IN">Indiana</option>
+              <option value="IA">Iowa</option>
+              <option value="KS">Kansas</option>
+              <option value="KY">Kentucky</option>
+              <option value="LA">Louisiana</option>
+              <option value="ME">Maine</option>
+              <option value="MD">Maryland</option>
+              <option value="MI">Michigan</option>
+              <option value="MN">Minnesota</option>
+              <option value="MS">Mississippi</option>
+              <option value="MO">Missouri</option>
+              <option value="MT">Montana</option>
+              <option value="NE">Nebraska</option>
+              <option value="NV">Nevada</option>
+              <option value="NH">New Hampshire</option>
+              <option value="NM">New Mexico</option>
+              <option value="NY">New York</option>
+              <option value="NC">North Carolina</option>
+              <option value="ND">North Dakota</option>
+              <option value="OH">Ohio</option>
+              <option value="OK">Oklahoma</option>
+              <option value="OR">Oregon</option>
+              <option value="PA">Pennsylvania</option>
+              <option value="RI">Rhode Island</option>
+              <option value="SC">South Carolina</option>
+              <option value="SD">South Dakota</option>
+              <option value="TN">Tennessee</option>
+              <option value="TX">Texas</option>
+              <option value="UT">Utah</option>
+              <option value="VT">Vermont</option>
+              <option value="VA">Virginia</option>
+              <option value="WA">Washington</option>
+              <option value="WV">West Virginia</option>
+              <option value="WI">Wisconsin</option>
+              <option value="WY">Wyoming</option>
+            </select>
+            <span class="field-hint" data-en>Insurance is available in FL, MA, and NJ. Tax preparation, immigration forms filing, and business filing are available nationwide.</span>
+            <span class="field-hint" data-ht>Asirans disponib nan FL, MA, ak NJ. Preparasyon taks, ranpli fòmilè imigrasyon, ak depo biznis disponib nan tout peyi a.</span>
+          </div>
+
           <div class="form-group">
             <label data-en>Service Interested In *</label>
             <label data-ht>Sèvis Ki Enterese Ou *</label>
@@ -284,17 +402,35 @@
             <label data-ht>Mesaj</label>
             <textarea id="message" data-en-placeholder="Tell us a bit about your needs or questions..." data-ht-placeholder="Di nou yon ti bagay sou bezwen oswa kesyon ou yo..."></textarea>
           </div>
+
           <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
             <label for="company_website">Company Website</label>
             <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off"/>
           </div>
-          <button class="btn btn-gold" style="width:100%;" onclick="submitForm()">
+
+          <!-- ═══ ADDED: consent — required, and recorded with a timestamp ═══ -->
+          <div class="consent-box">
+            <input type="checkbox" id="consent"/>
+            <label for="consent">
+              <span data-en>I agree that ME Shield Financial Services may contact me by phone, text message, or email about my request. Message and data rates may apply. I can withdraw my consent at any time.</span>
+              <span data-ht>Mwen dakò pou ME Shield Financial Services kontakte m pa telefòn, mesaj tèks, oswa imel konsènan demann mwen an. Frè mesaj ak done ka aplike. Mwen ka retire konsantman mwen nenpòt lè.</span>
+            </label>
+          </div>
+
+          <button class="btn btn-gold" id="submit-btn" style="width:100%;" onclick="submitForm()">
             <span data-en>Send Message</span>
             <span data-ht>Voye Mesaj</span>
           </button>
+
           <div class="alert-success" id="success-msg">
             <span data-en><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Thank you! We'll be in touch within 1 business day.</span>
             <span data-ht><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Mèsi! Nou pral kontakte ou nan 1 jou ouvrab.</span>
+          </div>
+
+          <!-- ═══ ADDED: a real error message, shown only when delivery fails ═══ -->
+          <div class="alert-error" id="error-msg">
+            <span data-en><strong>We couldn't send your message.</strong><br/>Please call us at <a href="tel:+14072672652">(407) 267-2652</a> or message us on <a href="https://wa.me/14072672652">WhatsApp</a>, and we'll take care of it right away.</span>
+            <span data-ht><strong>Nou pa t ka voye mesaj ou a.</strong><br/>Tanpri rele nou nan <a href="tel:+14072672652">(407) 267-2652</a> oswa voye mesaj sou <a href="https://wa.me/14072672652">WhatsApp</a>, epi n ap regle sa touswit.</span>
           </div>
         </div>
       </div>
@@ -447,25 +583,44 @@
 <script src="shared.js"></script>
 <script>
 
-  // Update textarea placeholder based on language
+  // ═══════════════════════════════════════════════════════════════════════
+  // ME Shield OS — Contact form
+  // Sends to the Cloudflare Worker ("MES Front Door"), which validates the
+  // submission, runs the Licensing Gate, and forwards it to Make.com.
+  // ═══════════════════════════════════════════════════════════════════════
+
+  /**
+   * The Worker lives on your own domain, so this is a relative path.
+   * Same domain = no CORS problems.
+   */
+  const INTAKE_ENDPOINT = '/api/intake';
+
+  /**
+   * LAST-RESORT FALLBACK ONLY.
+   *
+   * This is the original Brevo endpoint. It is used only if the Worker itself
+   * cannot be reached at all — for example if the route is misconfigured.
+   * Normal submissions never touch this. It exists so a lead is never lost.
+   */
+  const BREVO_FORM_ACTION = 'https://d95daacd.sibforms.com/serve/MUIFACd7YFqLXYG0XOA8_c20xGK2g_iaRfVc4T114GY1SYFmI36Nx5vPWVh8K0lot2Sy1KIy1wO82kqSW-co316oWCb2482wlJt9iAF7G8eHchmcRBGIi2rk824Wj6ElpczgC6U0SHVYMzd10EzCXtyCInHIrKkIkuZCUC28WIFyhxFT7DDU7aQL0lIlFmFg3uZIMrfwHuI4GPD6Aw==';
+
+
+  // ── Language helpers (unchanged behaviour) ──────────────────────────────
+
   function updatePlaceholders() {
     const ta = document.getElementById('message');
     const lang = localStorage.getItem('me-shield-lang') || 'en';
     if (ta) ta.placeholder = lang === 'ht' ? ta.dataset.htPlaceholder : ta.dataset.enPlaceholder;
   }
 
-  // Update dropdown option text based on language (the <option> itself carries
-  // both translations as data attributes — this avoids relying on CSS to hide
-  // options, which mobile browsers' native select pickers often ignore)
   function updateSelectOptions() {
     const lang = localStorage.getItem('me-shield-lang') || 'en';
-    document.querySelectorAll('#service option, #lang-pref option').forEach(opt => {
+    document.querySelectorAll('#service option, #lang-pref option, #state option').forEach(opt => {
       const text = lang === 'ht' ? opt.dataset.htText : opt.dataset.enText;
       if (text) opt.textContent = text;
     });
   }
 
-  // Override setLang to also update placeholders and dropdown text
   const _origSetLang = window.setLang;
   window.setLang = function(lang, save) {
     if (_origSetLang) _origSetLang(lang, save);
@@ -473,72 +628,154 @@
     updateSelectOptions();
   };
 
-  // Your Brevo "Contact Page Form" submission endpoint
-  const BREVO_FORM_ACTION = 'https://d95daacd.sibforms.com/serve/MUIFACd7YFqLXYG0XOA8_c20xGK2g_iaRfVc4T114GY1SYFmI36Nx5vPWVh8K0lot2Sy1KIy1wO82kqSW-co316oWCb2482wlJt9iAF7G8eHchmcRBGIi2rk824Wj6ElpczgC6U0SHVYMzd10EzCXtyCInHIrKkIkuZCUC28WIFyhxFT7DDU7aQL0lIlFmFg3uZIMrfwHuI4GPD6Aw==';
+  function currentLang() {
+    return localStorage.getItem('me-shield-lang') || 'en';
+  }
+
+
+  // ── Showing results ─────────────────────────────────────────────────────
 
   function showSuccessAndReset() {
+    document.getElementById('error-msg').style.display = 'none';
     const msg = document.getElementById('success-msg');
     msg.style.display = 'block';
     window.scrollTo({ top: msg.offsetTop - 100, behavior: 'smooth' });
+
     ['fname', 'lname', 'email', 'phone', 'message'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
     document.getElementById('service').value = '';
+    document.getElementById('state').value = '';
     document.getElementById('lang-pref').value = 'english';
+    document.getElementById('consent').checked = false;
   }
 
-  function submitForm() {
-    const fname = document.getElementById('fname').value.trim();
-    const lname = document.getElementById('lname').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const service = document.getElementById('service').value;
+  /**
+   * This is the part your form could never do before: tell the truth when
+   * something goes wrong, and give the visitor another way to reach you.
+   */
+  function showError() {
+    document.getElementById('success-msg').style.display = 'none';
+    const box = document.getElementById('error-msg');
+    box.style.display = 'block';
+    window.scrollTo({ top: box.offsetTop - 100, behavior: 'smooth' });
+  }
+
+  function setBusy(isBusy) {
+    const btn = document.getElementById('submit-btn');
+    if (btn) btn.disabled = isBusy;
+  }
+
+
+  // ── Submit ──────────────────────────────────────────────────────────────
+
+  async function submitForm() {
+    const fname    = document.getElementById('fname').value.trim();
+    const lname    = document.getElementById('lname').value.trim();
+    const email    = document.getElementById('email').value.trim();
+    const phone    = document.getElementById('phone').value.trim();
+    const state    = document.getElementById('state').value;
+    const service  = document.getElementById('service').value;
     const langPref = document.getElementById('lang-pref').value;
-    const message = document.getElementById('message').value.trim();
+    const message  = document.getElementById('message').value.trim();
+    const consent  = document.getElementById('consent').checked;
     const honeypot = document.getElementById('company_website').value;
 
-    if (!fname || !email || !service) {
-      const lang = localStorage.getItem('me-shield-lang') || 'en';
-      alert(lang === 'ht' ? 'Tanpri ranpli tout chan obligatwa yo.' : 'Please fill in all required fields.');
+    const ht = currentLang() === 'ht';
+
+    // Required fields — now including state
+    if (!fname || !email || !service || !state) {
+      alert(ht ? 'Tanpri ranpli tout chan obligatwa yo.'
+               : 'Please fill in all required fields.');
       return;
     }
 
-    // Honeypot: invisible to real visitors, but bots tend to fill every field
-    // they find. If it's populated, silently pretend success without sending
-    // anything to Brevo.
+    // Consent must be given before we may contact anyone
+    if (!consent) {
+      alert(ht ? 'Tanpri bay konsantman ou pou nou ka kontakte ou.'
+               : 'Please check the consent box so we can contact you.');
+      return;
+    }
+
+    // Honeypot — invisible to people, filled in by bots. Fake success.
     if (honeypot) {
       showSuccessAndReset();
       return;
     }
 
-    const params = new URLSearchParams();
-    params.append('EMAIL', email);
-    params.append('FIRSTNAME', fname);
-    params.append('LASTNAME', lname);
-    if (phone) {
-      const digits = phone.replace(/\D/g, '');
-      params.append('SMS__COUNTRY_CODE', '+1');
-      params.append('SMS', digits.length === 10 ? '1' + digits : digits);
+    setBusy(true);
+
+    // ── Attempt 1: the Worker (normal path) ──────────────────────────────
+    try {
+      const res = await fetch(INTAKE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: fname,
+          last_name:  lname,
+          email:      email,
+          phone:      phone,
+          state:      state,
+          service:    service,
+          language:   langPref,
+          message:    message,
+          consent:    true,
+          company_website: '',
+          page_url:   window.location.href
+        })
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.ok) {
+        showSuccessAndReset();
+        setBusy(false);
+        return;
+      }
+
+      // The Worker answered, but rejected it. Show the real error.
+      showError();
+      setBusy(false);
+      return;
+
+    } catch (err) {
+      // The Worker could not be reached at all (network error, bad route).
+      // Fall through to the last-resort path below.
     }
-    params.append('SERVICE_INTERESTED', service);
-    params.append('LANG_PREF', langPref);
-    if (message) params.append('MESSAGE', message);
-    params.append('email_address_check', ''); // Brevo's own honeypot — must stay blank
-    params.append('locale', 'en');
-    params.append('html_type', 'simple');
 
-    // mode: 'no-cors' lets this POST land on Brevo's domain without a CORS
-    // preflight. We can't read the response, so we always show success — but
-    // the request itself still reaches Brevo and the contact gets created.
-    fetch(BREVO_FORM_ACTION, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params.toString()
-    }).catch(() => {});
+    // ── Attempt 2: last resort — straight to Brevo, the original way ─────
+    try {
+      const params = new URLSearchParams();
+      params.append('EMAIL', email);
+      params.append('FIRSTNAME', fname);
+      params.append('LASTNAME', lname);
+      if (phone) {
+        const digits = phone.replace(/\D/g, '');
+        params.append('SMS__COUNTRY_CODE', '+1');
+        params.append('SMS', digits.length === 10 ? '1' + digits : digits);
+      }
+      params.append('SERVICE_INTERESTED', service);
+      params.append('LANG_PREF', langPref);
+      params.append('STATE', state);
+      if (message) params.append('MESSAGE', message);
+      params.append('email_address_check', ''); // Brevo's own honeypot — stays blank
+      params.append('locale', 'en');
+      params.append('html_type', 'simple');
 
-    showSuccessAndReset();
+      await fetch(BREVO_FORM_ACTION, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString()
+      });
+
+      showSuccessAndReset();
+    } catch (err) {
+      showError();
+    }
+
+    setBusy(false);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
