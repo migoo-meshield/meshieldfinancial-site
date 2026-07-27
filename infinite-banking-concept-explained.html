@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Infinite Banking, Explained Simply — ME Shield Financial Services</title>
+  <meta name="description" content="A plain-language breakdown of the Infinite Banking Concept: how it works, what it isn't, and who tends to benefit from it. Educational content only."/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .article-hero {
+      background-image: url('article-ibc-explained.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 64px 0 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(11,28,58,.82) 0%, rgba(11,28,58,.94) 100%);
+      z-index: 0;
+    }
+    .article-hero .container { position: relative; z-index: 1; }
+    .article-hero .container { max-width: 760px; }
+    .article-meta { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+    .article-tag {
+      font-size:.72rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase;
+      padding:4px 12px; border-radius:12px; background:rgba(201,168,76,.18); color:var(--gold-light,#e8d5a3);
+    }
+    .article-date { font-size:.82rem; color:rgba(255,255,255,.55); }
+    .article-hero h1 { color:var(--white); font-size:clamp(1.6rem,3.4vw,2.3rem); line-height:1.25; }
+    .article-body { max-width:760px; margin:0 auto; }
+    .article-body p { font-size:1.02rem; line-height:1.75; margin-bottom:20px; color:var(--text-dark); }
+    .article-body h2 { color:var(--navy); font-size:1.35rem; margin:40px 0 16px; }
+    .article-body ul, .article-body ol { margin: 0 0 24px 22px; }
+    .article-body li { font-size:1.02rem; line-height:1.7; margin-bottom:10px; color:var(--text-dark); }
+    .article-body strong { color: var(--navy); }
+    .back-link { display:inline-flex; align-items:center; gap:6px; color:var(--gold); font-weight:600; font-size:.9rem; margin-bottom:28px; text-decoration:none; }
+    .article-disclaimer-box {
+      background: var(--offwhite); border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0;
+      padding: 16px 20px; margin: 32px 0; font-size: .88rem; color: var(--text-dark);
+    }
+    .article-cta {
+      background: var(--navy); border-radius: 12px; padding: 36px 32px; text-align:center; margin-top:48px; border:1px solid var(--border);
+    }
+    .article-cta h3 { color: var(--gold); margin-bottom: 8px; }
+    .article-cta p { color: rgba(255,255,255,.7); margin-bottom: 20px; }
+    .author-row { display:flex; align-items:center; gap:12px; margin:28px 0 8px; }
+    .author-row img { width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); }
+    .author-row .name { font-weight:700; color:var(--navy); font-size:.92rem; }
+    .author-row .role { font-size:.8rem; color:var(--text-light); }
+  </style>
+</head>
+<body class="lang-en">
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
+      <div>
+        <div class="nav-logo-text">ME Shield Financial</div>
+        <div class="nav-logo-sub">Services</div>
+      </div>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+      <li><a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a></li>
+      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">HT</button>
+      </div>
+      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
+        <span data-en>Book Free Consult</span>
+        <span data-ht>Rezève Konsiltasyon</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="article-hero">
+  <div class="container">
+    <a href="blog.html" class="back-link" data-en>← Back to Blog</a>
+    <a href="blog.html" class="back-link" data-ht>← Tounen nan Blòg</a>
+    <div class="article-meta">
+      <span class="article-tag" data-en>Infinite Banking</span>
+      <span class="article-tag" data-ht>Bankin Enfini</span>
+      <span class="article-date">August 2026</span>
+    </div>
+    <h1 data-en>Infinite Banking, Explained Simply</h1>
+    <h1 data-ht>Bankin Enfini, Eksplike Senpleman</h1>
+  </div>
+</div>
+
+<section class="section section-white">
+  <div class="container">
+    <div class="article-body">
+
+      <div class="author-row">
+        <img src="headshot.jpg" alt="Miguelson Etienne"/>
+        <div>
+          <div class="name">Miguelson Etienne</div>
+          <div class="role" data-en>Founder, ME Shield Financial Services</div>
+          <div class="role" data-ht>Fondatè, ME Shield Financial Services</div>
+        </div>
+      </div>
+
+      <p data-en>Every time I bring up Infinite Banking with a new client, I get the same reaction: raised eyebrows and "wait, how does that actually work?" So let's slow down and go through it in plain language, without the jargon.</p>
+      <p data-ht>Chak fwa mwen pale de Bankin Enfini ak yon nouvo kliyan, mwen jwenn menm reyaksyon an: sousi leve ak "tann, kijan sa reyèlman fonksyone?" Ann ralanti epi ale nan li nan lang senp, san jagon.</p>
+
+      <div class="article-disclaimer-box">
+        <span data-en><strong>Educational content only — this is not financial advice, and IBC isn't the right fit for everyone.</strong></span>
+        <span data-ht><strong>Kontni edikatif sèlman — sa a se pa konsèy finansye, epi IBC pa apwopriye pou tout moun.</strong></span>
+      </div>
+
+      <h2 data-en>The Core Idea</h2>
+      <h2 data-ht>Lide Santral la</h2>
+      <p data-en>Infinite Banking Concept (IBC) is a strategy built around using a specially designed whole life insurance policy as your own personal banking system. Instead of borrowing from a traditional bank and paying them interest, you build cash value inside your policy, then borrow against that cash value when you need funds — paying interest back to your own policy instead of an outside lender.</p>
+      <p data-ht>Konsèp Bankin Enfini (IBC) se yon estrateji ki bati alantou itilize yon kontra asirans vi antye espesyalman fèt kòm pwòp sistèm bankin pèsonèl ou. Olye prete nan yon bank tradisyonèl epi peye yo enterè, ou bati valè lajan anndan kontra ou, epi apre prete kont valè lajan sa a lè ou bezwen fon — peye enterè tounen nan pwòp kontra ou olye yon prèt deyò.</p>
+      <p data-en>You're not avoiding debt. You're changing who benefits from the interest you're already paying throughout your life.</p>
+      <p data-ht>Ou pa evite dèt. Ou ap chanje ki moun ki benefisye nan enterè ou deja peye pandan tout lavi ou.</p>
+
+      <h2 data-en>Why Whole Life Insurance (Not Term)</h2>
+      <h2 data-ht>Poukisa Asirans Vi Antye (Pa Term)</h2>
+      <p data-en>Term life insurance is pure protection — it doesn't build cash value, and it expires. Whole life insurance is different: a portion of your premium builds cash value over time, and that cash value grows in a way that's generally protected from market volatility. That stability is what makes it usable as a banking tool.</p>
+      <p data-ht>Asirans vi term se pwoteksyon pi — li pa bati valè lajan, epi li ekspire. Asirans vi antye diferan: yon pòsyon prim ou bati valè lajan avèk tan, epi valè lajan sa a grandi nan yon fason ki jeneralman pwoteje kont vòlatilite mache a. Estabilite sa a se sa ki fè li itilizab kòm yon zouti bankin.</p>
+
+      <h2 data-en>How the "Banking" Part Actually Works</h2>
+      <h2 data-ht>Kijan Pati "Bankin" an Reyèlman Fonksyone</h2>
+      <ol>
+        <li data-en>You pay premiums into a properly structured whole life policy.</li>
+        <li data-ht>Ou peye prim nan yon kontra vi antye byen estriktire.</li>
+        <li data-en>Cash value builds inside the policy over time.</li>
+        <li data-ht>Valè lajan bati anndan kontra a avèk tan.</li>
+        <li data-en>When you need funds, you take a policy loan against that cash value instead of going to a bank.</li>
+        <li data-ht>Lè ou bezwen fon, ou pran yon prè kontra kont valè lajan sa a olye ale nan yon bank.</li>
+        <li data-en>You repay the loan on your own terms, with interest that effectively goes back into your own financial system.</li>
+        <li data-ht>Ou ranbouse prè a nan pwòp tèm ou, ak enterè ki efektivman tounen nan pwòp sistèm finansye ou.</li>
+        <li data-en>Meanwhile, your full cash value typically continues earning inside the policy, even while a portion is loaned out.</li>
+        <li data-ht>Antretan, valè lajan konplè ou tipikman kontinye touche anndan kontra a, menm pandan yon pòsyon prete deyò.</li>
+      </ol>
+
+      <h2 data-en>What IBC Is Not</h2>
+      <h2 data-ht>Sa IBC Pa Ye</h2>
+      <p data-en>I want to be clear about this, because there's a lot of misinformation out there. IBC is not a way to get rich quick. It's not a replacement for having no debt at all. It's not guaranteed to outperform every other financial strategy. It's a long-term discipline — the policies are usually structured over years, and the real benefit compounds over time, not overnight.</p>
+      <p data-ht>Mwen vle klè sou sa a, paske gen anpil move enfòmasyon deyò a. IBC se pa yon fason pou vin rich vit. Li se pa yon ranplasman pou pa gen okenn dèt ditou. Li pa garanti pou depase tout lòt estrateji finansye. Se yon disiplin alontèm — kontra yo tipikman estriktire sou plizyè ane, epi vrè benefis la konpoze avèk tan, se pa yon jou pou lòt.</p>
+
+      <h2 data-en>Who Tends to Benefit From This Strategy</h2>
+      <h2 data-ht>Ki Moun ki Tipikman Benefisye de Estrateji Sa a</h2>
+      <p data-en>IBC tends to make the most sense for people who already have consistent income, who are disciplined about consistently funding a policy, and who want more control over their own capital instead of routing every major purchase through a traditional bank. It's not for someone looking for a quick return or who can't commit to consistent premium payments.</p>
+      <p data-ht>IBC tipikman fè plis sans pou moun ki deja gen revni konsistan, ki disipline sou finanse yon kontra konsistaman, epi ki vle plis kontwòl sou pwòp kapital yo olye wout chak gwo acha atravè yon bank tradisyonèl. Li se pa pou yon moun k ap chèche yon retou rapid oswa ki pa ka angaje pou peman prim konsistan.</p>
+
+      <h2 data-en>Is This Right for You?</h2>
+      <h2 data-ht>Èske Sa a Bon pou Ou?</h2>
+      <p data-en>Honestly, that depends entirely on your financial picture, your goals, and your discipline with money. This article is meant to demystify the concept, not convince you it's automatically the right move. The best next step is a conversation where we look at your actual numbers together.</p>
+      <p data-ht>Onètman, sa depann antyèman sou tablo finansye ou, objektif ou, ak disiplin ou ak lajan. Atik sa a fèt pou demistifye konsèp la, se pa konvenk ou li otomatikman bon mouvman an. Pi bon pwochen etap la se yon konvèsasyon kote nou gade nimewo reyèl ou ansanm.</p>
+
+      <div class="article-disclaimer-box">
+        <span data-en>Educational content only, not financial advice. This article is for general informational purposes and does not constitute a recommendation. Please consult with a licensed professional to determine whether this strategy fits your specific financial situation.</span>
+        <span data-ht>Kontni edikatif sèlman, pa konsèy finansye. Atik sa a se pou objektif enfòmasyon jeneral epi li pa konstitiye yon rekòmandasyon. Tanpri konsilte yon pwofesyonèl lisansye pou detèmine si estrateji sa a apwopriye pou sitiyasyon finansye espesifik ou.</span>
+      </div>
+
+      <div class="article-cta">
+        <h3 data-en>Curious Whether Infinite Banking Fits Your Situation?</h3>
+        <h3 data-ht>Ou Kirye Si Bankin Enfini Apwopriye pou Sitiyasyon Ou?</h3>
+        <p data-en>Book a free consultation and let's look at your numbers together.</p>
+        <p data-ht>Rezève yon konsiltasyon gratis epi ann gade nimewo ou ansanm.</p>
+        <a href="book.html" class="btn btn-gold" data-en>Book Free Consultation</a>
+        <a href="book.html" class="btn btn-gold" data-ht>Rezève Konsiltasyon Gratis</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <img src="logo.png" alt="ME Shield Financial Services logo" style="height:48px;width:auto;object-fit:contain;"/>
+          <div>
+            <div style="color:var(--white);font-family:var(--font-display);font-weight:700;">ME Shield Financial Services</div>
+            <div style="color:var(--gold);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div>
+          </div>
+        </div>
+        <p style="font-size:.88rem;max-width:280px;" data-en>Insurance (FL, MA, NJ) · Tax Preparation & Immigration Forms Filing (Nationwide) — bilingual service.</p>
+        <p style="font-size:.88rem;max-width:280px;" data-ht>Asirans (FL, MA, NJ) · Taks & Depo Fòm Imigrasyon (Nasyonal) — sèvis bileng.</p>
+        <div style="margin-top:20px;font-size:.87rem;">
+          <div><a href="tel:+14072672652" style="color:rgba(255,255,255,.6);">(407) 267-2652</a></div>
+          <div style="margin-top:6px;"><a href="mailto:info@meshieldfinancial.com" style="color:rgba(255,255,255,.6);">info@meshieldfinancial.com</a></div>
+        </div>
+      </div>
+      <div>
+        <h4 data-en>Services</h4><h4 data-ht>Sèvis</h4>
+        <ul>
+          <li><a href="services.html#insurance" data-en>Insurance</a><a href="services.html#insurance" data-ht>Asirans</a></li>
+          <li><a href="services.html#tax" data-en>Tax Prep</a><a href="services.html#tax" data-ht>Taks</a></li>
+          <li><a href="services.html#immigration" data-en>Immigration Forms Filing</a><a href="services.html#immigration" data-ht>Depo Fòm Imigrasyon</a></li>
+          <li><a href="services.html#business" data-en>Business Filing</a><a href="services.html#business" data-ht>Depo Biznis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Resources</h4><h4 data-ht>Resous</h4>
+        <ul>
+          <li><a href="blog.html" data-en>Blog</a><a href="blog.html" data-ht>Blòg</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="book.html" data-en>Book Appointment</a><a href="book.html" data-ht>Rezève Randevou</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en>Company</h4><h4 data-ht>Konpayi</h4>
+        <ul>
+          <li><a href="about.html" data-en>About Us</a><a href="about.html" data-ht>Sou Nou</a></li>
+          <li><a href="contact.html" data-en>Contact</a><a href="contact.html" data-ht>Kontakte</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA ("doing business as") of ME Shield Group LLC, a Florida-registered limited liability company.</div>
+    <div class="footer-disclaimer" data-en>ME Shield provides Immigration Forms Filing Assistance — document preparation and filing support only, not representation in immigration proceedings. This article is for general education only and does not constitute personalized insurance, tax, or immigration guidance.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA ("ap fonksyone kòm") pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield bay Asistans Depo Fòm Imigrasyon — sèlman preparasyon dokiman ak sipò depo, se pa reprezantasyon nan pwosedi imigrasyon. Atik sa a se pou edikasyon jeneral sèlman epi li pa konstitiye konsèy asirans, taks, oswa imigrasyon pèsonalize.</div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
+      <span data-en>All rights reserved.</span><span data-ht>Tout dwa rezève.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>
