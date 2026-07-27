@@ -87,6 +87,20 @@ function initFooterYear() {
   const el = document.getElementById('year');
   if (el) el.textContent = new Date().getFullYear();
 }
+/* ── Load Brevo live chat (NEW) ── */
+/* Same Brevo widget you had before, just loaded from here so it runs   */
+/* on every page automatically instead of being pasted into each file. */
+function loadBrevoChat() {
+  if (window.BrevoConversations) return; // avoid loading twice
+  window.BrevoConversationsID = '6a3f025e8e97f1611b09f8cc';
+  window.BrevoConversations = window.BrevoConversations || function () {
+    (window.BrevoConversations.q = window.BrevoConversations.q || []).push(arguments);
+  };
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
+  document.head.appendChild(s);
+}
 document.addEventListener('DOMContentLoaded', () => {
   initLang();
   initHamburger();
@@ -94,4 +108,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   initBackToTop();
   initFooterYear();
+  loadBrevoChat();
 });
