@@ -12,167 +12,44 @@
   <link rel="alternate" type="application/rss+xml" title="ME Shield Financial Services Blog" href="rss.xml"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
-    /* ── FILTER BAR ── */
-    .filter-bar {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-      align-items: center;
-    }
-    .filter-label {
-      font-size: .8rem;
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      margin-right: 4px;
-    }
-    .filter-btn {
-      background: var(--white);
-      border: 1.5px solid #ddd;
-      border-radius: 20px;
-      padding: 6px 16px;
-      font-size: .84rem;
-      font-weight: 600;
-      color: var(--text-mid);
-      cursor: pointer;
-      transition: all .18s;
-    }
+    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; align-items: center; }
+    .filter-label { font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-light); margin-right: 4px; }
+    .filter-btn { background: var(--white); border: 1.5px solid #ddd; border-radius: 20px; padding: 6px 16px; font-size: .84rem; font-weight: 600; color: var(--text-mid); cursor: pointer; transition: all .18s; }
     .filter-btn:hover { border-color: var(--gold); color: var(--navy); }
     .filter-btn.active { background: var(--navy); border-color: var(--navy); color: var(--white); }
-
-    /* ── BLOG GRID ── */
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-    }
-    .blog-card {
-      background: var(--white);
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(201,168,76,.12);
-      box-shadow: var(--shadow);
-      transition: transform .22s, box-shadow .22s;
-      display: flex;
-      flex-direction: column;
-    }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .blog-card { background: var(--white); border-radius: 10px; overflow: hidden; border: 1px solid rgba(201,168,76,.12); box-shadow: var(--shadow); transition: transform .22s, box-shadow .22s; display: flex; flex-direction: column; }
     .blog-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-
-    .blog-card-thumb {
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .blog-card-thumb .thumb-pattern {
-      position: absolute; inset: 0;
-      opacity: .15;
-      background-size: 30px 30px;
-    }
-
+    .blog-card-thumb { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; }
+    .blog-card-thumb .thumb-pattern { position: absolute; inset: 0; opacity: .15; background-size: 30px 30px; }
     .blog-card-body { padding: 24px 22px; flex: 1; display: flex; flex-direction: column; }
-    .blog-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .blog-tag {
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 12px;
-      background: rgba(201,168,76,.12);
-      color: var(--navy);
-    }
-    .blog-date {
-      font-size: .78rem;
-      color: var(--text-light);
-    }
-    .blog-card h3 {
-      color: var(--navy);
-      font-size: 1.05rem;
-      margin-bottom: 8px;
-      line-height: 1.35;
-    }
+    .blog-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .blog-tag { font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: 3px 10px; border-radius: 12px; background: rgba(201,168,76,.12); color: var(--navy); }
+    .blog-date { font-size: .78rem; color: var(--text-light); }
+    .blog-card h3 { color: var(--navy); font-size: 1.05rem; margin-bottom: 8px; line-height: 1.35; }
     .blog-card p { font-size: .88rem; color: var(--text-mid); flex: 1; margin-bottom: 18px; }
-    .blog-read-more {
-      font-size: .85rem;
-      font-weight: 600;
-      color: var(--gold);
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      text-decoration: none;
-    }
+    .blog-read-more { font-size: .85rem; font-weight: 600; color: var(--gold); display: inline-flex; align-items: center; gap: 5px; text-decoration: none; }
     .blog-read-more:hover { color: var(--navy); }
-
-    /* Featured post */
-    .blog-card.featured {
-      grid-column: span 3;
-      flex-direction: row;
-    }
-    .blog-card.featured .blog-card-thumb {
-      width: 320px;
-      height: auto;
-      flex-shrink: 0;
-    }
+    .blog-card.featured { grid-column: span 3; flex-direction: row; }
+    .blog-card.featured .blog-card-thumb { width: 320px; height: auto; flex-shrink: 0; }
     .blog-card.featured .blog-card-body { padding: 32px 32px; }
     .blog-card.featured h3 { font-size: 1.35rem; }
     .blog-card.featured p { font-size: .95rem; }
-
-    /* ── NEWSLETTER BAND ── */
-    .newsletter-band {
-      background: var(--navy);
-      border-radius: 12px;
-      padding: 48px 44px;
-      margin-top: 56px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 40px;
-      align-items: center;
-      border: 1px solid var(--border);
-    }
+    .newsletter-band { background: var(--navy); border-radius: 12px; padding: 48px 44px; margin-top: 56px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; border: 1px solid var(--border); }
     .newsletter-band h3 { color: var(--gold); margin-bottom: 8px; }
     .newsletter-band p  { color: rgba(255,255,255,.7); font-size: .95rem; }
     .newsletter-form { display: flex; gap: 10px; }
-    .newsletter-form input {
-      padding: 12px 18px;
-      border-radius: 6px;
-      border: 1.5px solid rgba(255,255,255,.2);
-      background: rgba(255,255,255,.08);
-      color: var(--white);
-      font-size: .9rem;
-      width: 260px;
-      outline: none;
-      transition: border-color .2s;
-    }
+    .newsletter-form input { padding: 12px 18px; border-radius: 6px; border: 1.5px solid rgba(255,255,255,.2); background: rgba(255,255,255,.08); color: var(--white); font-size: .9rem; width: 260px; outline: none; transition: border-color .2s; }
     .newsletter-form input::placeholder { color: rgba(255,255,255,.4); }
     .newsletter-form input:focus { border-color: var(--gold); }
-
-    /* ── UTILITY BAR (matches homepage) ── */
-    .utility-bar {
-      background: var(--navy-mid, #16284f);
-      padding: 8px 0;
-      font-size: .8rem;
-    }
-    .utility-bar-inner {
-      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    }
+    .utility-bar { background: var(--navy-mid, #16284f); padding: 8px 0; font-size: .8rem; }
+    .utility-bar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
     .utility-left { display: flex; align-items: center; gap: 18px; color: rgba(255,255,255,.7); }
     .utility-left a { color: rgba(255,255,255,.7); }
     .utility-promos { display: flex; gap: 18px; flex-wrap: wrap; }
     .utility-promo { color: var(--gold); font-weight: 700; letter-spacing: .04em; }
     .utility-promo a { color: var(--white); font-weight: 600; margin-left: 6px; text-decoration: underline; }
     @media (max-width: 700px) { .utility-promos { display: none; } }
-
     @media (max-width: 900px) {
       .blog-grid { grid-template-columns: repeat(2,1fr); }
       .blog-card.featured { grid-column: span 2; flex-direction: column; }
@@ -185,14 +62,10 @@
       .blog-card.featured { grid-column: span 1; }
       .updates-strip > div:last-child { grid-template-columns: 1fr !important; }
     }
-
-
-
   </style>
 </head>
 <body class="lang-en">
 
-<!-- ── UTILITY BAR ── -->
 <div class="utility-bar">
   <div class="container utility-bar-inner">
     <div class="utility-left">
@@ -209,7 +82,6 @@
   </div>
 </div>
 
-<!-- ── NAVBAR (matches homepage) ── -->
 <nav class="navbar">
   <div class="container nav-inner">
     <a href="index.html" class="nav-logo">
@@ -264,7 +136,6 @@
 <section class="section section-white">
   <div class="container">
 
-    <!-- FILTER BAR -->
     <div class="filter-bar reveal">
       <span class="filter-label" data-en>Filter:</span>
       <span class="filter-label" data-ht>Filtre:</span>
@@ -290,33 +161,22 @@
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:18px;">
         <div class="eyebrow" style="margin-bottom:0;" data-en>RECENT UPDATES</div>
         <div class="eyebrow" style="margin-bottom:0;" data-ht>DÈNYE MIZAJOU</div>
-        <span style="font-size:.78rem;color:var(--text-light);" data-en>Last checked: July 7, 2026</span>
-        <span style="font-size:.78rem;color:var(--text-light);" data-ht>Dènye verifye: 7 Jiyè 2026</span>
+        <span id="ru-last-checked" style="font-size:.78rem;color:var(--text-light);">Loading...</span>
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
         <div>
           <h4 style="font-size:.92rem;color:var(--navy);margin-bottom:10px;" data-en>IRS &amp; Tax</h4>
           <h4 style="font-size:.92rem;color:var(--navy);margin-bottom:10px;" data-ht>IRS &amp; Taks</h4>
-          <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;">
-            <li style="font-size:.88rem;color:var(--text-mid);" data-en><strong>Deadline: July 10, 2026</strong> — if you paid IRS penalties or interest between Jan. 2020 and July 2023, a recent court decision (Kwong) may entitle you to a refund, but you generally must file a claim (Form 843) by this date — <a href="https://www.taxpayeradvocate.irs.gov/news/nta-blog/act-on-or-before-july-10-2026-to-protect-potential-covid-19-disaster-relief-refund-claims/2026/07/" target="_blank" rel="noopener" style="color:var(--gold);">Taxpayer Advocate source</a></li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-ht><strong>Dat limit: 10 Jiyè 2026</strong> — si ou te peye penalite oswa enterè IRS ant Janvye 2020 ak Jiyè 2023, yon desizyon tribinal resan (Kwong) ka fè ou kalifye pou yon ranbousman, men jeneralman ou dwe depoze yon reklamasyon (Fòm 843) anvan dat sa a — <a href="https://www.taxpayeradvocate.irs.gov/news/nta-blog/act-on-or-before-july-10-2026-to-protect-potential-covid-19-disaster-relief-refund-claims/2026/07/" target="_blank" rel="noopener" style="color:var(--gold);">Sous Taxpayer Advocate</a></li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-en>IRS issued Revenue Procedure 2026-25 (June 29, 2026) clarifying gift-tax reporting for contributions to Trump Accounts, and taxpayers can now view and manage Trump Account elections in their IRS Individual Online Account.</li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>IRS pibliye Revenue Procedure 2026-25 (29 Jen 2026) ki klarifye rapò taks sou kado pou kontribisyon nan Trump Accounts, epi kontribyab yo ka kounye a gade ak jere eleksyon Trump Account yo nan Kont Endividyèl anliy IRS yo.</li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-en>2026 standard deduction is now $16,100 (single) / $32,200 (married filing jointly) — <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener" style="color:var(--gold);">IRS source</a></li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>Dediksyon estanda 2026 kounye a se $16,100 (sèl) / $32,200 (marye, depo ansanm) — <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener" style="color:var(--gold);">Sous IRS</a></li>
+          <ul id="ru-irs-list" style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;">
+            <li style="font-size:.88rem;color:var(--text-mid);">Loading latest updates...</li>
           </ul>
         </div>
         <div>
           <h4 style="font-size:.92rem;color:var(--navy);margin-bottom:10px;" data-en>Immigration</h4>
           <h4 style="font-size:.92rem;color:var(--navy);margin-bottom:10px;" data-ht>Imigrasyon</h4>
-          <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;">
-            <li style="font-size:.88rem;color:var(--text-mid);" data-en>USCIS issued new guidance (July 1, 2026) on <strong>Temporary Protected Status (TPS) for Haiti</strong>, superseding the earlier March 2026 termination notice. This remains an actively evolving situation — <a href="https://www.uscis.gov/save/current-user-agencies/news-alerts" target="_blank" rel="noopener" style="color:var(--gold);">USCIS source</a></li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>USCIS pibliye nouvo direktiv (1 Jiyè 2026) sou <strong>Estati Pwoteje Tanporè (TPS) pou Ayiti</strong>, ki ranplase avi terminezon Mas 2026 anvan an. Sitiyasyon sa a ap kontinye chanje — <a href="https://www.uscis.gov/save/current-user-agencies/news-alerts" target="_blank" rel="noopener" style="color:var(--gold);">Sous USCIS</a></li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-en>Some TPS-linked work permit (EAD) extensions are currently only confirmed through <strong>July 10, 2026</strong> pending ongoing court proceedings — if this may affect you, confirm your specific status directly with USCIS or a licensed attorney.</li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>Kèk ekstansyon pèmi travay (EAD) ki konekte ak TPS konfime sèlman jiska <strong>10 Jiyè 2026</strong> pandan pwosedi tribinal yo ap kontinye — si sa ka afekte ou, konfime estati espesifik ou dirèkteman ak USCIS oswa yon avoka lisansye.</li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-en>USCIS opened a new asylum office location in Atlanta (beginning July 8, 2026) as part of continued expansion of interview capacity nationwide.</li>
-            <li style="font-size:.88rem;color:var(--text-mid);" data-ht>USCIS louvri yon nouvo biwo azil nan Atlanta (kòmanse 8 Jiyè 2026) kòm pati nan ekspansyon kontinyèl kapasite entèvyou nan tout peyi a.</li>
+          <ul id="ru-immigration-list" style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;">
+            <li style="font-size:.88rem;color:var(--text-mid);">Loading latest updates...</li>
           </ul>
         </div>
       </div>
@@ -324,7 +184,6 @@
 
     <div class="blog-grid reveal" id="blog-grid">
 
-      <!-- POST FEATURED — TRUMP ACCOUNT -->
       <article class="blog-card featured" data-category="finance">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1745620984337-68456aa154fb?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -342,7 +201,6 @@
         </div>
       </article>
 
-      <!-- POST 2 — IBC -->
       <article class="blog-card" data-category="ibc">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1601051297657-39a9b2ce2cdc?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -360,7 +218,6 @@
         </div>
       </article>
 
-      <!-- POST 3 -->
       <article class="blog-card" data-category="tax">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -378,7 +235,6 @@
         </div>
       </article>
 
-      <!-- POST 4 -->
       <article class="blog-card" data-category="immigration">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -396,7 +252,6 @@
         </div>
       </article>
 
-      <!-- POST 5 -->
       <article class="blog-card" data-category="finance">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -414,7 +269,6 @@
         </div>
       </article>
 
-      <!-- POST 6 -->
       <article class="blog-card" data-category="tax">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -432,7 +286,6 @@
         </div>
       </article>
 
-      <!-- POST 7 -->
       <article class="blog-card" data-category="community">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -450,7 +303,6 @@
         </div>
       </article>
 
-      <!-- POST 8 -->
       <article class="blog-card" data-category="business">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -468,7 +320,6 @@
         </div>
       </article>
 
-      <!-- POST 9 -->
       <article class="blog-card" data-category="insurance">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -486,7 +337,6 @@
         </div>
       </article>
 
-      <!-- POST 10 -->
       <article class="blog-card" data-category="community">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -504,7 +354,6 @@
         </div>
       </article>
 
-      <!-- POST 11 -->
       <article class="blog-card" data-category="finance">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1554774853-b415df9eeb92?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -522,7 +371,6 @@
         </div>
       </article>
 
-      <!-- POST 12 -->
       <article class="blog-card" data-category="immigration">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1768326530593-00a0b2627063?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -540,7 +388,6 @@
         </div>
       </article>
 
-      <!-- POST 13 -->
       <article class="blog-card" data-category="insurance">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1589178941221-136be7711c99?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -558,7 +405,6 @@
         </div>
       </article>
 
-      <!-- ══ NEW ARTICLE — IBC ══ -->
       <article class="blog-card" data-category="ibc">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -576,7 +422,6 @@
         </div>
       </article>
 
-      <!-- ══ NEW ARTICLE — TAX TIPS ══ -->
       <article class="blog-card" data-category="tax">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -594,7 +439,6 @@
         </div>
       </article>
 
-      <!-- ══ NEW ARTICLE — IMMIGRATION ══ -->
       <article class="blog-card" data-category="immigration">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -612,7 +456,6 @@
         </div>
       </article>
 
-      <!-- ══ NEW ARTICLE — FINANCIAL EDUCATION ══ -->
       <article class="blog-card" data-category="finance">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -630,7 +473,6 @@
         </div>
       </article>
 
-      <!-- ══ NEW ARTICLE — COMMUNITY ══ -->
       <article class="blog-card" data-category="community">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1609220136736-443140cffec6?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -648,7 +490,6 @@
         </div>
       </article>
 
-      <!-- ══ NEW ARTICLE — BUSINESS FILING ══ -->
       <article class="blog-card" data-category="business">
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
@@ -666,9 +507,110 @@
         </div>
       </article>
 
-    </div><!-- end blog-grid -->
+      <article class="blog-card" data-category="insurance">
+        <div class="blog-card-thumb" style="background-image:url('article-hurricane-insurance.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Insurance</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Asirans</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>Is Your Florida Home Insurance Ready for Hurricane Season?</h3>
+          <h3 data-ht>Èske Asirans Kay Florid Ou Pare pou Sezon Siklòn?</h3>
+          <p data-en>What changed with Florida home insurance in 2026: new wind mitigation inspections, a shorter claim filing window, and understanding your hurricane deductible.</p>
+          <p data-ht>Sa ki chanje ak asirans kay Florid an 2026: nouvo enspeksyon atenyasyon van, yon fenèt depo reklamasyon pi kout, ak konprann dediktib siklòn ou.</p>
+          <a href="hurricane-season-home-insurance-checklist.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="hurricane-season-home-insurance-checklist.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
 
-    <!-- NEWSLETTER -->
+      <article class="blog-card" data-category="tax">
+        <div class="blog-card-thumb" style="background-image:url('article-tax-prep.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Tax Tips</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Konsèy Taks</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>What to Gather Before Your Tax Appointment</h3>
+          <h3 data-ht>Sa Pou Ranmase Anvan Randevou Taks Ou</h3>
+          <p data-en>A complete checklist of documents to bring so we can find every deduction and credit you qualify for — no more shoebox of receipts.</p>
+          <p data-ht>Yon lis konplè dokiman pou pote pou nou ka jwenn chak dediksyon ak kredi ou kalifye pou li — pa gen plis bwat resi.</p>
+          <a href="tax-prep-checklist.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="tax-prep-checklist.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <article class="blog-card" data-category="business">
+        <div class="blog-card-thumb" style="background-image:url('article-business-filing.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Business Filing</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Depo Biznis</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>5 Common Mistakes When Registering Your LLC in Florida</h3>
+          <h3 data-ht>5 Erè Komen Lè W ap Anrejistre LLC Ou nan Florid</h3>
+          <p data-en>The mistakes I see most often when new business owners register their LLC — and how to avoid the ones that cost real time and money.</p>
+          <p data-ht>Erè mwen wè pi souvan lè nouvo pwopriyetè biznis anrejistre LLC yo — ak kijan pou evite sa ki koute vrè tan ak lajan.</p>
+          <a href="llc-registration-mistakes-florida.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="llc-registration-mistakes-florida.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <article class="blog-card" data-category="immigration">
+        <div class="blog-card-thumb" style="background-image:url('article-immigration-forms.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Immigration</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Imigrasyon</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>What You Need Before Starting Your Immigration Paperwork</h3>
+          <h3 data-ht>Sa Ou Bezwen Anvan Ou Kòmanse Papye Imigrasyon Ou</h3>
+          <p data-en>A checklist of documents to gather before you start, and why getting organized early protects your timeline with USCIS.</p>
+          <p data-ht>Yon lis dokiman pou ranmase anvan ou kòmanse, ak poukisa òganize bonè pwoteje tan ou ak USCIS.</p>
+          <a href="immigration-forms-checklist.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="immigration-forms-checklist.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <article class="blog-card" data-category="ibc">
+        <div class="blog-card-thumb" style="background-image:url('article-ibc-explained.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Infinite Banking</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Bank Enfini</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>Infinite Banking, Explained Simply</h3>
+          <h3 data-ht>Bankin Enfini, Eksplike Senpleman</h3>
+          <p data-en>A plain-language breakdown of how the Infinite Banking Concept actually works, what it isn't, and who tends to benefit from it. Educational content only.</p>
+          <p data-ht>Yon eksplikasyon nan lang senp de kijan Konsèp Bankin Enfini reyèlman fonksyone, sa li pa ye, ak ki moun ki tipikman benefisye de li. Kontni edikatif sèlman.</p>
+          <a href="infinite-banking-concept-explained.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="infinite-banking-concept-explained.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <article class="blog-card" data-category="finance">
+        <div class="blog-card-thumb" style="background-image:url('article-hurricane-prep.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Financial Education</span>
+            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Edikasyon Finansye</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>Beyond Insurance: A Financial Preparedness Checklist for Hurricane Season</h3>
+          <h3 data-ht>Pi Lwen pase Asirans: Yon Lis Verifikasyon Preparasyon Finansye pou Sezon Siklòn</h3>
+          <p data-en>Insurance is only one piece of hurricane preparedness. Here's the fuller financial picture — emergency funds, documents, deductibles, and more.</p>
+          <p data-ht>Asirans se sèlman yon moso nan preparasyon siklòn. Men tablo finansye pi konplè — fon ijans, dokiman, dediktib, ak plis ankò.</p>
+          <a href="hurricane-season-financial-preparedness.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="hurricane-season-financial-preparedness.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+    </div>
+
     <div class="newsletter-band reveal">
       <div>
         <h3 data-en>Get Articles in Your Inbox</h3>
@@ -700,7 +642,6 @@
   </div>
 </section>
 
-<!-- ── FOOTER (matches homepage) ── -->
 <footer>
   <div class="container">
     <div class="footer-grid">
@@ -759,9 +700,9 @@
       </div>
     </div>
     <div class="footer-disclaimer" data-en>ME Shield Financial Services is a DBA ("doing business as") of ME Shield Group LLC, a Florida-registered limited liability company.</div>
-    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a Florida-registered company. Insurance products are subject to policy terms and conditions. Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Tax preparation services provided by an IRS PTIN-registered preparer. Immigration forms filing services are document preparation assistance only and do not constitute legal advice. Insurance and tax content on this blog is general education, not personalized advice.</div>
+    <div class="footer-disclaimer" data-en>ME Shield Financial Services is a Florida-registered company. Insurance products are subject to policy terms and conditions. Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Tax preparation services provided by an IRS PTIN-registered preparer. Immigration forms filing services are document preparation assistance only and do not constitute personalized guidance. Insurance and tax content on this blog is general education, not personalized advice.</div>
     <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon DBA ("ap fonksyone kòm") pou ME Shield Group LLC, yon konpayi sosyete reskonsabilite limite anrejistre ann Florid.</div>
-    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon konpayi anrejistre ann Florid. Pwodui asirans yo sijè a tèm ak kondisyon polis la. Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP. Sèvis preparasyon taks yo bay pa yon preparatè anrejistre nan IRS PTIN. Sèvis ranpli fòmilè imigrasyon yo se asistans preparasyon dokiman sèlman epi yo pa reprezante konsèy legal. Kontni asirans ak taks sou blòg sa a se edikasyon jeneral, se pa konsèy pèsonalize.</div>
+    <div class="footer-disclaimer" data-ht>ME Shield Financial Services se yon konpayi anrejistre ann Florid. Pwodui asirans yo sijè a tèm ak kondisyon polis la. Sèvis asirans yo ofri pa Miguelson Etienne, Ajan Asirans Endepandan Lisansye, afilye ak JWANAIX GROUP. Sèvis preparasyon taks yo bay pa yon preparatè anrejistre nan IRS PTIN. Sèvis ranpli fòmilè imigrasyon yo se asistans preparasyon dokiman sèlman epi yo pa reprezante konsèy pèsonalize. Kontni asirans ak taks sou blòg sa a se edikasyon jeneral, se pa konsèy pèsonalize.</div>
     <div class="footer-bottom">
       <span>© <span id="year"></span> <span class="footer-brand">ME Shield Financial Services</span></span>
       <span data-en>All rights reserved.</span><span data-ht>Tout dwa rezève.</span>
@@ -771,7 +712,55 @@
 
 <script src="shared.js"></script>
 <script>
+(async function loadRecentUpdates() {
+  const lang = localStorage.getItem('me-shield-lang') || 'en';
 
+  try {
+    const res = await fetch('/api/recent-updates');
+    const data = await res.json();
+
+    const lastCheckedEl = document.getElementById('ru-last-checked');
+    if (data.lastChecked) {
+      const label = lang === 'ht' ? 'Dènye verifye: ' : 'Last checked: ';
+      lastCheckedEl.textContent = label + data.lastChecked;
+    } else {
+      lastCheckedEl.textContent = lang === 'ht' ? 'Poko disponib' : 'Not available yet';
+    }
+
+    renderUpdatesList('ru-irs-list', data.irs, lang);
+    renderUpdatesList('ru-immigration-list', data.immigration, lang);
+
+  } catch (err) {
+    console.error('Failed to load recent updates:', err);
+    document.getElementById('ru-last-checked').textContent =
+      lang === 'ht' ? 'Pa ka chaje mizajou yo' : 'Unable to load updates';
+  }
+})();
+
+function renderUpdatesList(elementId, items, lang) {
+  const list = document.getElementById(elementId);
+  if (!items || items.length === 0) {
+    list.innerHTML = `<li style="font-size:.88rem;color:var(--text-mid);">${
+      lang === 'ht' ? 'Pa gen mizajou kounye a.' : 'No updates available right now.'
+    }</li>`;
+    return;
+  }
+
+  list.innerHTML = items
+    .map(item => {
+      const text = lang === 'ht' ? item.ht : item.en;
+      return `<li style="font-size:.88rem;color:var(--text-mid);">${escapeUpdatesHtml(text)}</li>`;
+    })
+    .join('');
+}
+
+function escapeUpdatesHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+</script>
+<script>
   function filterPosts(cat, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -792,7 +781,6 @@
       e.preventDefault();
       return false;
     }
-    // Let the real submission go through to the hidden iframe, then show success.
     setTimeout(() => {
       document.getElementById('nl-form').style.display = 'none';
       if (lang === 'ht') {
