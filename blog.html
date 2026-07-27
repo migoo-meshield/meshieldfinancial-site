@@ -50,6 +50,21 @@
     .utility-promo { color: var(--gold); font-weight: 700; letter-spacing: .04em; }
     .utility-promo a { color: var(--white); font-weight: 600; margin-left: 6px; text-decoration: underline; }
     @media (max-width: 700px) { .utility-promos { display: none; } }
+    .blog-card.latest-post {
+      border: 1px solid var(--gold);
+      box-shadow: 0 0 0 1px rgba(201,168,76,.25), var(--shadow);
+      position: relative;
+    }
+    .latest-badge {
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: var(--gold);
+      color: var(--navy);
+    }
     @media (max-width: 900px) {
       .blog-grid { grid-template-columns: repeat(2,1fr); }
       .blog-card.featured { grid-column: span 2; flex-direction: column; }
@@ -188,8 +203,8 @@
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1745620984337-68456aa154fb?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Financial Education</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Edikasyon Finansye</span>
+            <span class="blog-tag" data-en>Financial Education</span>
+            <span class="blog-tag" data-ht>Edikasyon Finansye</span>
             <span class="blog-date">July 2026</span>
           </div>
           <h3 data-en>The Trump Account: What Every Parent Needs to Know Right Now</h3>
@@ -198,6 +213,120 @@
           <p data-ht>Gouvènman Etazini fèk kreye yon nouvo kont epay pou timoun — epi si pitit ou fèt an 2025 oswa apre, yo gen dwa pou resevwa $1,000 gratis. Men egzakteman sa sa vle di pou fanmi ou.</p>
           <a href="trump-account.html" class="blog-read-more" data-en>Read full article →</a>
           <a href="trump-account.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <article class="blog-card latest-post" data-category="insurance">
+        <div class="blog-card-thumb" style="background-image:url('article-hurricane-insurance.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="latest-badge" data-en>Latest</span>
+            <span class="latest-badge" data-ht>Pi Resan</span>
+            <span class="blog-tag" data-en>Insurance</span>
+            <span class="blog-tag" data-ht>Asirans</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>Is Your Florida Home Insurance Ready for Hurricane Season?</h3>
+          <h3 data-ht>Èske Asirans Kay Florid Ou Pare pou Sezon Siklòn?</h3>
+          <p data-en>What changed with Florida home insurance in 2026: new wind mitigation inspections, a shorter claim filing window, and understanding your hurricane deductible.</p>
+          <p data-ht>Sa ki chanje ak asirans kay Florid an 2026: nouvo enspeksyon atenyasyon van, yon fenèt depo reklamasyon pi kout, ak konprann dediktib siklòn ou.</p>
+          <a href="hurricane-season-home-insurance-checklist.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="hurricane-season-home-insurance-checklist.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <article class="blog-card latest-post" data-category="tax">
+        <div class="blog-card-thumb" style="background-image:url('article-tax-prep.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="latest-badge" data-en>Latest</span>
+            <span class="latest-badge" data-ht>Pi Resan</span>
+            <span class="blog-tag" data-en>Tax Tips</span>
+            <span class="blog-tag" data-ht>Konsèy Taks</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>What to Gather Before Your Tax Appointment</h3>
+          <h3 data-ht>Sa Pou Ranmase Anvan Randevou Taks Ou</h3>
+          <p data-en>A complete checklist of documents to bring so we can find every deduction and credit you qualify for — no more shoebox of receipts.</p>
+          <p data-ht>Yon lis konplè dokiman pou pote pou nou ka jwenn chak dediksyon ak kredi ou kalifye pou li — pa gen plis bwat resi.</p>
+          <a href="tax-prep-checklist.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="tax-prep-checklist.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <article class="blog-card latest-post" data-category="business">
+        <div class="blog-card-thumb" style="background-image:url('article-business-filing.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="latest-badge" data-en>Latest</span>
+            <span class="latest-badge" data-ht>Pi Resan</span>
+            <span class="blog-tag" data-en>Business Filing</span>
+            <span class="blog-tag" data-ht>Depo Biznis</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>5 Common Mistakes When Registering Your LLC in Florida</h3>
+          <h3 data-ht>5 Erè Komen Lè W ap Anrejistre LLC Ou nan Florid</h3>
+          <p data-en>The mistakes I see most often when new business owners register their LLC — and how to avoid the ones that cost real time and money.</p>
+          <p data-ht>Erè mwen wè pi souvan lè nouvo pwopriyetè biznis anrejistre LLC yo — ak kijan pou evite sa ki koute vrè tan ak lajan.</p>
+          <a href="llc-registration-mistakes-florida.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="llc-registration-mistakes-florida.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <article class="blog-card latest-post" data-category="immigration">
+        <div class="blog-card-thumb" style="background-image:url('article-immigration-forms.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="latest-badge" data-en>Latest</span>
+            <span class="latest-badge" data-ht>Pi Resan</span>
+            <span class="blog-tag" data-en>Immigration</span>
+            <span class="blog-tag" data-ht>Imigrasyon</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>What You Need Before Starting Your Immigration Paperwork</h3>
+          <h3 data-ht>Sa Ou Bezwen Anvan Ou Kòmanse Papye Imigrasyon Ou</h3>
+          <p data-en>A checklist of documents to gather before you start, and why getting organized early protects your timeline with USCIS.</p>
+          <p data-ht>Yon lis dokiman pou ranmase anvan ou kòmanse, ak poukisa òganize bonè pwoteje tan ou ak USCIS.</p>
+          <a href="immigration-forms-checklist.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="immigration-forms-checklist.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <article class="blog-card latest-post" data-category="ibc">
+        <div class="blog-card-thumb" style="background-image:url('article-ibc-explained.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="latest-badge" data-en>Latest</span>
+            <span class="latest-badge" data-ht>Pi Resan</span>
+            <span class="blog-tag" data-en>Infinite Banking</span>
+            <span class="blog-tag" data-ht>Bank Enfini</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>Infinite Banking, Explained Simply</h3>
+          <h3 data-ht>Bankin Enfini, Eksplike Senpleman</h3>
+          <p data-en>A plain-language breakdown of how the Infinite Banking Concept actually works, what it isn't, and who tends to benefit from it. Educational content only.</p>
+          <p data-ht>Yon eksplikasyon nan lang senp de kijan Konsèp Bankin Enfini reyèlman fonksyone, sa li pa ye, ak ki moun ki tipikman benefisye de li. Kontni edikatif sèlman.</p>
+          <a href="infinite-banking-concept-explained.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="infinite-banking-concept-explained.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
+        </div>
+      </article>
+
+      <article class="blog-card latest-post" data-category="finance">
+        <div class="blog-card-thumb" style="background-image:url('article-hurricane-prep.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-meta">
+            <span class="latest-badge" data-en>Latest</span>
+            <span class="latest-badge" data-ht>Pi Resan</span>
+            <span class="blog-tag" data-en>Financial Education</span>
+            <span class="blog-tag" data-ht>Edikasyon Finansye</span>
+            <span class="blog-date">August 2026</span>
+          </div>
+          <h3 data-en>Beyond Insurance: A Financial Preparedness Checklist for Hurricane Season</h3>
+          <h3 data-ht>Pi Lwen pase Asirans: Yon Lis Verifikasyon Preparasyon Finansye pou Sezon Siklòn</h3>
+          <p data-en>Insurance is only one piece of hurricane preparedness. Here's the fuller financial picture — emergency funds, documents, deductibles, and more.</p>
+          <p data-ht>Asirans se sèlman yon moso nan preparasyon siklòn. Men tablo finansye pi konplè — fon ijans, dokiman, dediktib, ak plis ankò.</p>
+          <a href="hurricane-season-financial-preparedness.html" class="blog-read-more" data-en>Read full article →</a>
+          <a href="hurricane-season-financial-preparedness.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
         </div>
       </article>
 
@@ -409,8 +538,8 @@
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Infinite Banking</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Bank Enfini</span>
+            <span class="blog-tag" data-en>Infinite Banking</span>
+            <span class="blog-tag" data-ht>Bank Enfini</span>
             <span class="blog-date">July 2026</span>
           </div>
           <h3 data-en>Whole Life vs. Universal Life: Which One Actually Builds Cash Value Faster?</h3>
@@ -426,8 +555,8 @@
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Tax Tips</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Konsèy Taks</span>
+            <span class="blog-tag" data-en>Tax Tips</span>
+            <span class="blog-tag" data-ht>Konsèy Taks</span>
             <span class="blog-date">July 2026</span>
           </div>
           <h3 data-en>The 2026 Standard Deduction Just Went Up — Here's What It Means for Your Refund</h3>
@@ -443,8 +572,8 @@
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Immigration</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Imigrasyon</span>
+            <span class="blog-tag" data-en>Immigration</span>
+            <span class="blog-tag" data-ht>Imigrasyon</span>
             <span class="blog-date">July 2026</span>
           </div>
           <h3 data-en>TPS for Haiti in 2026: What the Latest USCIS Guidance Actually Means for You</h3>
@@ -460,8 +589,8 @@
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Financial Education</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Edikasyon Finansye</span>
+            <span class="blog-tag" data-en>Financial Education</span>
+            <span class="blog-tag" data-ht>Edikasyon Finansyè</span>
             <span class="blog-date">July 2026</span>
           </div>
           <h3 data-en>Does the 50/30/20 Budget Rule Actually Work for Real Families?</h3>
@@ -477,8 +606,8 @@
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1609220136736-443140cffec6?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Community</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Kominote</span>
+            <span class="blog-tag" data-en>Community</span>
+            <span class="blog-tag" data-ht>Kominote</span>
             <span class="blog-date">July 2026</span>
           </div>
           <h3 data-en>5 Money Habits Passed Down in Haitian Households — And Which Ones to Keep</h3>
@@ -494,8 +623,8 @@
         <div class="blog-card-thumb" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=640&q=70');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Business Filing</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Depo Biznis</span>
+            <span class="blog-tag" data-en>Business Filing</span>
+            <span class="blog-tag" data-ht>Depo Biznis</span>
             <span class="blog-date">July 2026</span>
           </div>
           <h3 data-en>Registered Agent 101: Why Every Florida LLC Needs One (And Who Can Serve)</h3>
@@ -504,108 +633,6 @@
           <p data-ht>Se yon pati obligatwa nan chak depo LLC Florid, men anpil mèt pa konprann konplètman sa yon Ajan Anrejistre reyèlman fè — oswa risk pou pa kenbe youn ajou.</p>
           <a href="registered-agent-florida-llc.html" class="blog-read-more" data-en>Read full article →</a>
           <a href="registered-agent-florida-llc.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
-        </div>
-      </article>
-
-      <article class="blog-card" data-category="insurance">
-        <div class="blog-card-thumb" style="background-image:url('article-hurricane-insurance.jpg');background-size:cover;background-position:center;"></div>
-        <div class="blog-card-body">
-          <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Insurance</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Asirans</span>
-            <span class="blog-date">August 2026</span>
-          </div>
-          <h3 data-en>Is Your Florida Home Insurance Ready for Hurricane Season?</h3>
-          <h3 data-ht>Èske Asirans Kay Florid Ou Pare pou Sezon Siklòn?</h3>
-          <p data-en>What changed with Florida home insurance in 2026: new wind mitigation inspections, a shorter claim filing window, and understanding your hurricane deductible.</p>
-          <p data-ht>Sa ki chanje ak asirans kay Florid an 2026: nouvo enspeksyon atenyasyon van, yon fenèt depo reklamasyon pi kout, ak konprann dediktib siklòn ou.</p>
-          <a href="hurricane-season-home-insurance-checklist.html" class="blog-read-more" data-en>Read full article →</a>
-          <a href="hurricane-season-home-insurance-checklist.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
-        </div>
-      </article>
-
-      <article class="blog-card" data-category="tax">
-        <div class="blog-card-thumb" style="background-image:url('article-tax-prep.jpg');background-size:cover;background-position:center;"></div>
-        <div class="blog-card-body">
-          <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Tax Tips</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Konsèy Taks</span>
-            <span class="blog-date">August 2026</span>
-          </div>
-          <h3 data-en>What to Gather Before Your Tax Appointment</h3>
-          <h3 data-ht>Sa Pou Ranmase Anvan Randevou Taks Ou</h3>
-          <p data-en>A complete checklist of documents to bring so we can find every deduction and credit you qualify for — no more shoebox of receipts.</p>
-          <p data-ht>Yon lis konplè dokiman pou pote pou nou ka jwenn chak dediksyon ak kredi ou kalifye pou li — pa gen plis bwat resi.</p>
-          <a href="tax-prep-checklist.html" class="blog-read-more" data-en>Read full article →</a>
-          <a href="tax-prep-checklist.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
-        </div>
-      </article>
-
-      <article class="blog-card" data-category="business">
-        <div class="blog-card-thumb" style="background-image:url('article-business-filing.jpg');background-size:cover;background-position:center;"></div>
-        <div class="blog-card-body">
-          <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Business Filing</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Depo Biznis</span>
-            <span class="blog-date">August 2026</span>
-          </div>
-          <h3 data-en>5 Common Mistakes When Registering Your LLC in Florida</h3>
-          <h3 data-ht>5 Erè Komen Lè W ap Anrejistre LLC Ou nan Florid</h3>
-          <p data-en>The mistakes I see most often when new business owners register their LLC — and how to avoid the ones that cost real time and money.</p>
-          <p data-ht>Erè mwen wè pi souvan lè nouvo pwopriyetè biznis anrejistre LLC yo — ak kijan pou evite sa ki koute vrè tan ak lajan.</p>
-          <a href="llc-registration-mistakes-florida.html" class="blog-read-more" data-en>Read full article →</a>
-          <a href="llc-registration-mistakes-florida.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
-        </div>
-      </article>
-
-      <article class="blog-card" data-category="immigration">
-        <div class="blog-card-thumb" style="background-image:url('article-immigration-forms.jpg');background-size:cover;background-position:center;"></div>
-        <div class="blog-card-body">
-          <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Immigration</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Imigrasyon</span>
-            <span class="blog-date">August 2026</span>
-          </div>
-          <h3 data-en>What You Need Before Starting Your Immigration Paperwork</h3>
-          <h3 data-ht>Sa Ou Bezwen Anvan Ou Kòmanse Papye Imigrasyon Ou</h3>
-          <p data-en>A checklist of documents to gather before you start, and why getting organized early protects your timeline with USCIS.</p>
-          <p data-ht>Yon lis dokiman pou ranmase anvan ou kòmanse, ak poukisa òganize bonè pwoteje tan ou ak USCIS.</p>
-          <a href="immigration-forms-checklist.html" class="blog-read-more" data-en>Read full article →</a>
-          <a href="immigration-forms-checklist.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
-        </div>
-      </article>
-
-      <article class="blog-card" data-category="ibc">
-        <div class="blog-card-thumb" style="background-image:url('article-ibc-explained.jpg');background-size:cover;background-position:center;"></div>
-        <div class="blog-card-body">
-          <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Infinite Banking</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Bank Enfini</span>
-            <span class="blog-date">August 2026</span>
-          </div>
-          <h3 data-en>Infinite Banking, Explained Simply</h3>
-          <h3 data-ht>Bankin Enfini, Eksplike Senpleman</h3>
-          <p data-en>A plain-language breakdown of how the Infinite Banking Concept actually works, what it isn't, and who tends to benefit from it. Educational content only.</p>
-          <p data-ht>Yon eksplikasyon nan lang senp de kijan Konsèp Bankin Enfini reyèlman fonksyone, sa li pa ye, ak ki moun ki tipikman benefisye de li. Kontni edikatif sèlman.</p>
-          <a href="infinite-banking-concept-explained.html" class="blog-read-more" data-en>Read full article →</a>
-          <a href="infinite-banking-concept-explained.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
-        </div>
-      </article>
-
-      <article class="blog-card" data-category="finance">
-        <div class="blog-card-thumb" style="background-image:url('article-hurricane-prep.jpg');background-size:cover;background-position:center;"></div>
-        <div class="blog-card-body">
-          <div class="blog-meta">
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-en>🆕 New · Financial Education</span>
-            <span class="blog-tag" style="background:rgba(201,168,76,.2);color:#0b1d3a;font-weight:800;" data-ht>🆕 Nouvo · Edikasyon Finansye</span>
-            <span class="blog-date">August 2026</span>
-          </div>
-          <h3 data-en>Beyond Insurance: A Financial Preparedness Checklist for Hurricane Season</h3>
-          <h3 data-ht>Pi Lwen pase Asirans: Yon Lis Verifikasyon Preparasyon Finansye pou Sezon Siklòn</h3>
-          <p data-en>Insurance is only one piece of hurricane preparedness. Here's the fuller financial picture — emergency funds, documents, deductibles, and more.</p>
-          <p data-ht>Asirans se sèlman yon moso nan preparasyon siklòn. Men tablo finansye pi konplè — fon ijans, dokiman, dediktib, ak plis ankò.</p>
-          <a href="hurricane-season-financial-preparedness.html" class="blog-read-more" data-en>Read full article →</a>
-          <a href="hurricane-season-financial-preparedness.html" class="blog-read-more" data-ht>Li atik konplè a →</a>
         </div>
       </article>
 
