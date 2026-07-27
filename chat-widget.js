@@ -3,6 +3,13 @@
    Place just before </body> */
 
 (function(){
+  // ── ON/OFF SWITCH ──────────────────────────────────────────────────────
+  // Set to false to turn this widget off (Brevo live chat is replacing it).
+  // Set back to true anytime to bring the Call/Email/WhatsApp button back —
+  // nothing else in this file needs to change.
+  const WIDGET_ENABLED = false;
+  if (!WIDGET_ENABLED) return;
+
   // ── Styles ──────────────────────────────────────────────────────────────
   const css = `
 #me-chat-wrap{position:fixed;bottom:24px;right:20px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:10px;font-family:'Inter',system-ui,sans-serif;}
