@@ -87,19 +87,15 @@ function initFooterYear() {
   const el = document.getElementById('year');
   if (el) el.textContent = new Date().getFullYear();
 }
-/* ── Load Brevo live chat (NEW) ── */
-/* Same Brevo widget you had before, just loaded from here so it runs   */
-/* on every page automatically instead of being pasted into each file. */
-function loadBrevoChat() {
-  if (window.BrevoConversations) return; // avoid loading twice
-  window.BrevoConversationsID = '6a3f025e8e97f1611b09f8cc';
-  window.BrevoConversations = window.BrevoConversations || function () {
-    (window.BrevoConversations.q = window.BrevoConversations.q || []).push(arguments);
-  };
+/* ── Load AI Chatbot widget ── */
+/* Replaces Brevo live chat — answers visitors automatically, day or night,   */
+/* and hands off to Miguelson directly when needed.                          */
+function loadChatbot() {
+  if (document.querySelector('script[src="/chatbot-widget.js"]')) return; // avoid loading twice
   const s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
-  document.head.appendChild(s);
+  s.src = '/chatbot-widget.js';
+  s.defer = true;
+  document.body.appendChild(s);
 }
 document.addEventListener('DOMContentLoaded', () => {
   initLang();
@@ -108,5 +104,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   initBackToTop();
   initFooterYear();
-  loadBrevoChat();
+  loadChatbot();
 });
