@@ -1,173 +1,143 @@
 // chatbot-widget.js
 //
-// This file draws the chat bubble and chat window on your website, and talks
-// to the "brain" file (functions/api/chatbot.js).
+// Draws the chat bubble + window on your site and talks to /api/chatbot.
 //
-// HOW IT WORKS, IN PLAIN ENGLISH:
-// 1. When this file loads, it builds the bubble + chat window and adds them
-//    to the bottom of every page.
-// 2. When a visitor picks a language and types a message, it sends the
-//    conversation so far to /api/chatbot (your brain file).
-// 3. It shows the AI's reply in the chat window.
-// 4. If anything fails, it shows your contact info instead of breaking.
+// HOW IT WORKS:
+// 1. Builds the bubble + chat window, adds them to every page.
+// 2. Visitor picks a language, types a message.
+// 3. Sends the conversation to /api/chatbot, shows the reply.
+// 4. If anything fails, shows your contact info instead of breaking.
+
+// ============================================================
+// SETTINGS — edit these anytime, nothing else needs to change
+// ============================================================
+const AVATAR_URL = "/miguelson-headshot.jpeg"; // change this path to swap the photo/icon
+const BOT_NAME = "Ask ME Shield";
+const BOT_SUBTITLE = "Insurance · Tax · IBC · Immigration";
+const CONTACT_PHONE_LINK = "tel:+14072672652";
+// ============================================================
 
 (function () {
   "use strict";
 
-  // ---------- 1. STYLES ----------
+  // ---------- 1. STYLES (simple, clean — Brevo-style) ----------
   const style = document.createElement("style");
   style.textContent = `
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
     .msc-bubble {
-      position: fixed; bottom: 24px; right: 20px; width: 66px; height: 66px;
+      position: fixed; bottom: 22px; right: 20px; width: 58px; height: 58px;
       border-radius: 50%;
-      background: linear-gradient(155deg, #D4AF5F 0%, #C9A14A 60%, #B08838 100%);
-      box-shadow: 0 8px 26px rgba(201,161,74,0.5), 0 0 0 4px rgba(255,255,255,0.9);
+      background: #0B1F3A;
+      box-shadow: 0 4px 16px rgba(11,31,58,0.3);
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; border: none; z-index: 999999; padding: 0; overflow: hidden;
-      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
+      transition: transform 0.2s ease;
     }
-    .msc-bubble:hover { transform: scale(1.07); }
-    .msc-bubble img {
-      width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
-    }
+    .msc-bubble:hover { transform: scale(1.05); }
+    .msc-bubble img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
     .msc-bubble .msc-badge {
-      position: absolute; bottom: -2px; right: -2px; width: 22px; height: 22px;
-      background: #0B1F3A; border: 2.5px solid #fff; border-radius: 50%;
+      position: absolute; bottom: -1px; right: -1px; width: 18px; height: 18px;
+      background: #C9A14A; border: 2px solid #fff; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
     }
-    .msc-bubble .msc-badge svg { width: 11px; height: 11px; }
-    .msc-ring {
-      position: absolute; inset: -4px; border-radius: 50%;
-      border: 1.5px solid #C9A14A; animation: msc-ringpulse 2.6s infinite;
-    }
-    @keyframes msc-ringpulse { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(1.45); opacity: 0; } }
+    .msc-bubble .msc-badge svg { width: 9px; height: 9px; }
 
     .msc-window {
-      position: fixed; bottom: 100px; right: 20px; width: 336px;
-      max-width: calc(100vw - 40px); height: 508px; max-height: 74vh;
-      background: #fff; border-radius: 22px;
-      box-shadow: 0 24px 64px rgba(11,31,58,0.32), 0 0 0 1px rgba(201,161,74,0.12);
+      position: fixed; bottom: 90px; right: 20px; width: 320px;
+      max-width: calc(100vw - 40px); height: 460px; max-height: 70vh;
+      background: #fff; border-radius: 14px;
+      box-shadow: 0 12px 40px rgba(11,31,58,0.22);
       display: none; flex-direction: column; overflow: hidden; z-index: 999998;
-      opacity: 0; transform: translateY(20px) scale(0.96);
-      transition: opacity .3s ease, transform .3s cubic-bezier(.2,.9,.3,1.2);
+      opacity: 0; transform: translateY(14px);
+      transition: opacity .22s ease, transform .22s ease;
       font-family: 'Inter', sans-serif;
     }
-    .msc-window.msc-open { display: flex; opacity: 1; transform: translateY(0) scale(1); }
+    .msc-window.msc-open { display: flex; opacity: 1; transform: translateY(0); }
 
     .msc-header {
-      background: linear-gradient(135deg, #0B1F3A 0%, #16305A 100%);
-      color: #fff; padding: 22px 20px 18px; position: relative; overflow: hidden;
+      background: #0B1F3A; color: #fff; padding: 16px 16px 14px;
+      display: flex; align-items: center; gap: 11px;
     }
-    .msc-header::before {
-      content: ''; position: absolute; top: -30px; right: -30px; width: 140px; height: 140px;
-      background: radial-gradient(circle, rgba(201,161,74,0.18) 0%, transparent 70%);
-    }
-    .msc-header::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, transparent, #C9A14A 30%, #DDBE79 50%, #C9A14A 70%, transparent);
-    }
-    .msc-header-top { display: flex; align-items: center; gap: 13px; position: relative; }
-    .msc-avatar {
-      width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
-      border: 2px solid #C9A14A; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-    }
+    .msc-avatar { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; overflow: hidden; }
     .msc-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .msc-title { flex: 1; min-width: 0; }
-    .msc-title strong { font-family: 'Playfair Display', serif; font-size: 16.5px; display: block; }
-    .msc-subtitle { font-size: 11px; color: #DDBE79; margin-top: 1px; }
-    .msc-status { font-size: 10.5px; color: #B9C4D6; display: flex; align-items: center; gap: 5px; margin-top: 6px; }
-    .msc-status-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ADE80; box-shadow: 0 0 0 2px rgba(74,222,128,.25); }
+    .msc-title strong { font-size: 14.5px; font-weight: 700; display: block; }
+    .msc-subtitle { font-size: 10.5px; color: #A8B4C8; margin-top: 1px; }
     .msc-close {
-      position: absolute; top: 20px; right: 18px; background: rgba(255,255,255,.1);
-      border: none; color: #ffffffcc; width: 28px; height: 28px; border-radius: 50%;
-      font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      background: none; border: none; color: #ffffffaa; width: 24px; height: 24px;
+      border-radius: 50%; font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
     }
-    .msc-close:hover { background: rgba(255,255,255,.18); }
+    .msc-close:hover { background: rgba(255,255,255,.1); }
 
     .msc-lang-screen {
       flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 18px; padding: 32px 28px; text-align: center;
-      background: linear-gradient(180deg, #FFFBF2 0%, #fff 100%);
+      gap: 14px; padding: 28px 24px; text-align: center;
     }
-    .msc-lang-avatar {
-      width: 72px; height: 72px; border-radius: 50%; border: 3px solid #C9A14A;
-      overflow: hidden; box-shadow: 0 8px 22px rgba(201,161,74,0.3);
-    }
-    .msc-lang-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .msc-lang-screen p { font-size: 13.5px; color: #6B7280; line-height: 1.6; font-weight: 500; }
+    .msc-lang-screen p { font-size: 13px; color: #666; line-height: 1.5; }
     .msc-lang-btn {
-      width: 100%; padding: 14px 16px; border-radius: 13px; border: 1.5px solid #EDE3CC;
+      width: 100%; padding: 11px 14px; border-radius: 8px; border: 1px solid #E0E0E0;
       background: #fff; color: #0B1F3A; font-family: 'Inter', sans-serif; font-weight: 600;
-      font-size: 14px; cursor: pointer; transition: all .18s ease;
-      display: flex; align-items: center; justify-content: center; gap: 9px;
+      font-size: 13.5px; cursor: pointer; transition: all .15s ease;
     }
-    .msc-lang-btn:hover { border-color: #C9A14A; background: #FFF8E8; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(201,161,74,0.2); }
+    .msc-lang-btn:hover { border-color: #C9A14A; background: #FAF7F0; }
 
-    .msc-body { flex: 1; overflow-y: auto; padding: 18px 15px; display: none; flex-direction: column; gap: 3px; background: #FFFBF2; }
+    .msc-body { flex: 1; overflow-y: auto; padding: 14px; display: none; flex-direction: column; gap: 2px; background: #F7F8FA; }
     .msc-body.msc-open { display: flex; }
-    .msc-row { display: flex; flex-direction: column; margin-bottom: 12px; animation: msc-in .3s ease; }
-    @keyframes msc-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .msc-row { display: flex; flex-direction: column; margin-bottom: 10px; }
     .msc-row.msc-user { align-items: flex-end; }
     .msc-row.msc-bot { align-items: flex-start; }
-    .msc-msg { max-width: 82%; padding: 11px 14px; border-radius: 15px; font-size: 13.5px; line-height: 1.55; white-space: pre-wrap; }
-    .msc-msg.msc-bot { background: #fff; color: #1A1D24; border-bottom-left-radius: 4px; box-shadow: 0 2px 8px rgba(11,31,58,.08); border: 1px solid #F2EBD8; }
-    .msc-msg.msc-user { background: linear-gradient(135deg, #C9A14A 0%, #B08838 100%); color: #fff; border-bottom-right-radius: 4px; }
-    .msc-time { font-size: 10px; color: #B0A88E; margin-top: 4px; padding: 0 4px; }
+    .msc-msg { max-width: 82%; padding: 9px 12px; border-radius: 12px; font-size: 13.5px; line-height: 1.5; white-space: pre-wrap; }
+    .msc-msg.msc-bot { background: #fff; color: #222; border-bottom-left-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+    .msc-msg.msc-user { background: #0B1F3A; color: #fff; border-bottom-right-radius: 3px; }
+    .msc-time { font-size: 9.5px; color: #ADB5BD; margin-top: 3px; padding: 0 3px; }
     .msc-row.msc-user .msc-time { text-align: right; }
 
-    .msc-typing { align-self: flex-start; display: flex; gap: 4px; padding: 13px 15px; background: #fff; border-radius: 15px; border: 1px solid #F2EBD8; box-shadow: 0 2px 8px rgba(11,31,58,.08); }
-    .msc-typing span { width: 6px; height: 6px; border-radius: 50%; background: #C9A14A; animation: msc-blink 1.3s infinite; }
+    .msc-typing { align-self: flex-start; display: flex; gap: 4px; padding: 10px 12px; background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+    .msc-typing span { width: 5px; height: 5px; border-radius: 50%; background: #C9A14A; animation: msc-blink 1.3s infinite; }
     .msc-typing span:nth-child(2) { animation-delay: .2s; }
     .msc-typing span:nth-child(3) { animation-delay: .4s; }
     @keyframes msc-blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
 
-    .msc-input-row { display: none; border-top: 1px solid #F2EBD8; padding: 13px; gap: 10px; background: #fff; }
+    .msc-input-row { display: none; border-top: 1px solid #EEE; padding: 10px; gap: 8px; background: #fff; }
     .msc-input-row.msc-open { display: flex; }
-    .msc-input-row input { flex: 1; border: 1.5px solid #EDE3CC; border-radius: 24px; padding: 11px 17px; font-size: 13.5px; font-family: 'Inter', sans-serif; outline: none; }
+    .msc-input-row input { flex: 1; border: 1px solid #E0E0E0; border-radius: 20px; padding: 9px 14px; font-size: 13.5px; font-family: 'Inter', sans-serif; outline: none; }
     .msc-input-row input:focus { border-color: #C9A14A; }
-    .msc-input-row button { background: linear-gradient(135deg, #C9A14A 0%, #B08838 100%); border: none; color: #fff; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 12px rgba(201,161,74,0.35); }
-    .msc-input-row button svg { width: 17px; height: 17px; }
+    .msc-input-row button { background: #0B1F3A; border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .msc-input-row button svg { width: 15px; height: 15px; }
 
-    .msc-footer { display: none; padding: 8px 14px 11px; background: #fff; border-top: 1px solid #f7f2e4; text-align: center; }
+    .msc-footer { display: none; padding: 6px 12px 9px; background: #fff; border-top: 1px solid #f2f2f2; text-align: center; }
     .msc-footer.msc-open { display: block; }
-    .msc-footer .msc-disc { font-size: 9.5px; color: #B8B0A0; margin-bottom: 6px; }
-    .msc-contact-link { font-size: 12px; font-weight: 700; color: #0B1F3A; text-decoration: none; border-bottom: 1.5px solid #C9A14A; padding-bottom: 1px; }
+    .msc-footer .msc-disc { font-size: 9px; color: #BBB; margin-bottom: 4px; }
+    .msc-contact-link { font-size: 11px; font-weight: 600; color: #0B1F3A; text-decoration: underline; }
   `;
   document.head.appendChild(style);
 
   // ---------- 2. HTML ----------
-  const checkBadge = `<svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#C9A14A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-  // Uses your real headshot — same file already on your site (brand rule: real photos only).
-  const HEADSHOT = "/miguelson-headshot.jpeg";
+  const checkBadge = `<svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#0B1F3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
   const wrapper = document.createElement("div");
   wrapper.innerHTML = `
     <button class="msc-bubble" id="mscBubble">
-      <div class="msc-ring"></div>
-      <img src="${HEADSHOT}" alt="Miguelson Etienne" onerror="this.style.display='none'">
+      <img src="${AVATAR_URL}" alt="Chat" onerror="this.style.display='none'">
       <div class="msc-badge">${checkBadge}</div>
     </button>
 
     <div class="msc-window" id="mscWindow">
       <div class="msc-header">
-        <div class="msc-header-top">
-          <div class="msc-avatar"><img src="${HEADSHOT}" alt="Miguelson Etienne" onerror="this.style.display='none'"></div>
-          <div class="msc-title">
-            <strong>Ask ME Shield</strong>
-            <div class="msc-subtitle">Insurance · Tax · IBC · Immigration</div>
-            <div class="msc-status"><span class="msc-status-dot"></span> Here to help, anytime</div>
-          </div>
+        <div class="msc-avatar"><img src="${AVATAR_URL}" alt="" onerror="this.style.display='none'"></div>
+        <div class="msc-title">
+          <strong>${BOT_NAME}</strong>
+          <div class="msc-subtitle">${BOT_SUBTITLE}</div>
         </div>
         <button class="msc-close" id="mscClose">&times;</button>
       </div>
 
       <div class="msc-lang-screen" id="mscLangScreen">
-        <div class="msc-lang-avatar"><img src="${HEADSHOT}" alt="Miguelson Etienne" onerror="this.style.display='none'"></div>
         <p>Which language would you like to chat in?<br>Nan ki lang ou vle chat la?</p>
-        <button class="msc-lang-btn" data-lang="en">🇺🇸&nbsp; English</button>
-        <button class="msc-lang-btn" data-lang="ht">🇭🇹&nbsp; Kreyòl Ayisyen</button>
+        <button class="msc-lang-btn" data-lang="en">🇺🇸 English</button>
+        <button class="msc-lang-btn" data-lang="ht">🇭🇹 Kreyòl Ayisyen</button>
       </div>
 
       <div class="msc-body" id="mscBody"></div>
@@ -181,7 +151,7 @@
       </div>
       <div class="msc-footer" id="mscFooter">
         <div class="msc-disc" id="mscDisc"></div>
-        <a href="tel:+14072672652" class="msc-contact-link" id="mscContactLink">Contact Miguelson directly</a>
+        <a href="${CONTACT_PHONE_LINK}" class="msc-contact-link" id="mscContactLink">Contact Miguelson directly</a>
       </div>
     </div>
   `;
@@ -204,13 +174,13 @@
 
   const TEXT = {
     en: {
-      greeting: "Hi there! 👋 I'm here to help with Insurance, Tax Prep, Business Filing, Immigration Forms, or Infinite Banking (IBC) — whenever you need, day or night. What can I help with?",
+      greeting: "Hi there! I'm here to help with Insurance, Tax Prep, Business Filing, Immigration Forms, or Infinite Banking (IBC) — anytime, day or night. What can I help with?",
       disclaimer: "Educational information only — not personalized advice.",
       contact: "Contact Miguelson directly",
       error: "Sorry, I'm having trouble right now. Please contact Miguelson directly at meshieldservices@gmail.com or (407) 267-2652."
     },
     ht: {
-      greeting: "Bonjou! 👋 Mwen la pou ede w ak Asirans, Preparasyon Taks, Anrejistreman Biznis, Fòm Imigrasyon, oswa Infinite Banking (IBC) — nenpòt lè, lajounen kou lannwit. Kijan mwen ka ede w?",
+      greeting: "Bonjou! Mwen la pou ede w ak Asirans, Preparasyon Taks, Anrejistreman Biznis, Fòm Imigrasyon, oswa Infinite Banking (IBC) — nenpòt lè. Kijan mwen ka ede w?",
       disclaimer: "Enfòmasyon edikasyonèl sèlman — se pa konsèy pèsonalize.",
       contact: "Kontakte Miguelson dirèkteman",
       error: "Padon, mwen gen yon pwoblèm kounye a. Tanpri kontakte Miguelson dirèkteman nan meshieldservices@gmail.com oswa (407) 267-2652."
