@@ -1,14 +1,20 @@
 // functions/api/chatbot.js
 //
 // This is the "brain" of your AI chatbot.
-// Cloudflare automatically turns this file into a live web address:
-//   https://meshieldfinancial.com/api/chatbot
-// It runs on Cloudflare's servers (not in the visitor's browser), so your
-// business rules below are never visible to visitors — only the replies are.
+// Cloudflare turns this file into a live web address: /api/chatbot
+// It runs on Cloudflare's servers — visitors never see this code, only replies.
+
+// ============================================================
+// SETTINGS — edit these anytime, nothing else needs to change
+// ============================================================
+const AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"; // a well-established, reliable model
+const MAX_REPLY_LENGTH = 400; // roughly how long a reply can be
+const SUPPORT_EMAIL = "meshieldservices@gmail.com";
+const SUPPORT_PHONE = "(407) 267-2652";
+// ============================================================
 
 export async function onRequestPost(context) {
   try {
-    // STEP 1: Read what the visitor's browser sent us.
     const { messages, language } = await context.request.json();
 
     if (!Array.isArray(messages) || messages.length === 0) {
@@ -18,7 +24,6 @@ export async function onRequestPost(context) {
       );
     }
 
-    // STEP 2: The "training manual" the AI reads before every reply.
     const SYSTEM_PROMPT = `
 You are the official AI assistant for ME Shield Financial Services, a bilingual (English & Haitian Creole) financial services practice run by Miguelson Etienne, based in Apopka, FL 32712.
 
@@ -58,8 +63,8 @@ YOUR BOUNDARIES (very important):
 - Never make up information you don't have here. If unsure, say so and offer to connect them with Miguelson.
 
 CONTACT INFO (only share when relevant to the conversation):
-- Email: meshieldservices@gmail.com
-- Phone: (407) 267-2652
+- Email: ${SUPPORT_EMAIL}
+- Phone: ${SUPPORT_PHONE}
 - Digital business card: connect.meshieldfinancial.com
 
 LANGUAGE: ${language === "ht" ? "Respond ONLY in Haitian Creole for this entire conversation, regardless of what language the visitor types in." : "Respond ONLY in English for this entire conversation, regardless of what language the visitor types in."}
@@ -67,17 +72,35 @@ LANGUAGE: ${language === "ht" ? "Respond ONLY in Haitian Creole for this entire 
 
     const recentMessages = messages.slice(-10);
 
-    const aiResponse = await context.env.AI.run("@cf/zai-org/glm-4.7-flash", {
+    const aiResponse = await context.env.AI.run(AI_MODEL, {
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         ...recentMessages
       ],
-      max_tokens: 350,
-      temperature: 0.5
+      max_tokens: MAX_REPLY_LENGTH
     });
 
+    // Defensive parsing: different models sometimes package their answer
+    // slightly differently. This checks the common possible spots so a
+    // format quirk never results in a blank reply.
+    const replyText =
+      aiResponse?.response ||
+      aiResponse?.result?.response ||
+      aiResponse?.choices?.[0]?.message?.content ||
+      "";
+
+    if (!replyText.trim()) {
+      // The AI ran but gave nothing usable — fail gracefully instead of blank.
+      return new Response(
+        JSON.stringify({
+          reply: `Sorry, I couldn't quite process that. Please contact Miguelson directly at ${SUPPORT_EMAIL} or ${SUPPORT_PHONE}.`
+        }),
+        { headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     return new Response(
-      JSON.stringify({ reply: aiResponse.response }),
+      JSON.stringify({ reply: replyText }),
       { headers: { "Content-Type": "application/json" } }
     );
 
@@ -85,7 +108,7 @@ LANGUAGE: ${language === "ht" ? "Respond ONLY in Haitian Creole for this entire 
     console.error("Chatbot error:", err);
     return new Response(
       JSON.stringify({
-        reply: "Sorry, I'm having trouble right now. Please contact Miguelson directly at meshieldservices@gmail.com or (407) 267-2652."
+        reply: `Sorry, I'm having trouble right now. Please contact Miguelson directly at ${SUPPORT_EMAIL} or ${SUPPORT_PHONE}.`
       }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
