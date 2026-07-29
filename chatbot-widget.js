@@ -43,6 +43,21 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
     }
     .msc-bubble .msc-badge svg { width: 9px; height: 9px; }
 
+    .msc-tooltip {
+      position: fixed; bottom: 90px; right: 20px; max-width: 200px;
+      background: #fff; color: #0B1F3A; padding: 10px 14px; border-radius: 12px;
+      font-size: 12.5px; font-weight: 600; line-height: 1.4;
+      box-shadow: 0 6px 20px rgba(11,31,58,0.18); z-index: 999997;
+      opacity: 0; transform: translateY(8px); pointer-events: none;
+      transition: opacity .4s ease, transform .4s ease;
+    }
+    .msc-tooltip.msc-show { opacity: 1; transform: translateY(0); pointer-events: auto; cursor: pointer; }
+    .msc-tooltip::after {
+      content: ''; position: absolute; bottom: -6px; right: 24px;
+      width: 12px; height: 12px; background: #fff; transform: rotate(45deg);
+      box-shadow: 3px 3px 6px rgba(11,31,58,0.06);
+    }
+
     .msc-window {
       position: fixed; bottom: 90px; right: 20px; width: 320px;
       max-width: calc(100vw - 40px); height: 460px; max-height: 70vh;
@@ -91,6 +106,12 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
     .msc-msg { max-width: 82%; padding: 9px 12px; border-radius: 12px; font-size: 13.5px; line-height: 1.5; white-space: pre-wrap; }
     .msc-msg.msc-bot { background: #fff; color: #222; border-bottom-left-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
     .msc-msg.msc-user { background: #0B1F3A; color: #fff; border-bottom-right-radius: 3px; }
+    .msc-link {
+      display: inline-block; margin-top: 6px; padding: 5px 12px; border-radius: 14px;
+      background: #C9A14A; color: #fff !important; font-size: 12px; font-weight: 700;
+      text-decoration: none;
+    }
+    .msc-link:hover { background: #B08838; }
     .msc-time { font-size: 9.5px; color: #ADB5BD; margin-top: 3px; padding: 0 3px; }
     .msc-row.msc-user .msc-time { text-align: right; }
 
@@ -119,6 +140,7 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
 
   const wrapper = document.createElement("div");
   wrapper.innerHTML = `
+    <div class="msc-tooltip" id="mscTooltip">Need help? Chat with us 💬</div>
     <button class="msc-bubble" id="mscBubble">
       <img src="${AVATAR_URL}" alt="Chat" onerror="this.style.display='none'">
       <div class="msc-badge">${checkBadge}</div>
@@ -177,18 +199,36 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
       greeting: "Hi there! I'm here to help with Insurance, Tax Prep, Business Filing, Immigration Forms, or Infinite Banking (IBC) — anytime, day or night. What can I help with?",
       disclaimer: "Educational information only — not personalized advice.",
       contact: "Contact Miguelson directly",
-      error: "Sorry, I'm having trouble right now. Please contact Miguelson directly at meshieldservices@gmail.com or (407) 267-2652."
+      error: "Sorry, I'm having trouble right now. Please contact Miguelson directly at info@meshieldfinancial.com or (407) 267-2652."
     },
     ht: {
       greeting: "Bonjou! Mwen la pou ede w ak Asirans, Preparasyon Taks, Anrejistreman Biznis, Fòm Imigrasyon, oswa Infinite Banking (IBC) — nenpòt lè. Kijan mwen ka ede w?",
       disclaimer: "Enfòmasyon edikasyonèl sèlman — se pa konsèy pèsonalize.",
       contact: "Kontakte Miguelson dirèkteman",
-      error: "Padon, mwen gen yon pwoblèm kounye a. Tanpri kontakte Miguelson dirèkteman nan meshieldservices@gmail.com oswa (407) 267-2652."
+      error: "Padon, mwen gen yon pwoblèm kounye a. Tanpri kontakte Miguelson dirèkteman nan info@meshieldfinancial.com oswa (407) 267-2652."
     }
   };
 
   bubble.addEventListener("click", () => win.classList.toggle("msc-open"));
   closeBtn.addEventListener("click", () => win.classList.remove("msc-open"));
+
+  // ---------- Gentle one-time tooltip ----------
+  // Shows once, a few seconds after the page loads, so new visitors notice
+  // the chat exists — then fades away and never shows again for that visitor.
+  const tooltip = document.getElementById("mscTooltip");
+  if (tooltip && !sessionStorage.getItem("msc-tooltip-shown")) {
+    setTimeout(() => {
+      tooltip.classList.add("msc-show");
+      sessionStorage.setItem("msc-tooltip-shown", "1");
+    }, 3000);
+    setTimeout(() => tooltip.classList.remove("msc-show"), 9000); // fades on its own
+  }
+  if (tooltip) {
+    tooltip.addEventListener("click", () => {
+      tooltip.classList.remove("msc-show");
+      win.classList.add("msc-open");
+    });
+  }
 
   document.querySelectorAll(".msc-lang-btn").forEach(btn => {
     btn.addEventListener("click", () => pickLang(btn.dataset.lang));
@@ -210,12 +250,33 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
     return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   }
 
+  // Turns any "https://..." link in the AI's reply into a clickable,
+  // readable button instead of showing the raw URL as plain text.
+  function linkify(text) {
+    const escaped = text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+    return escaped.replace(
+      /(https?:\/\/[^\s]+)/g,
+      (url) => {
+        const clean = url.replace(/[.,)]+$/, ""); // trim trailing punctuation
+        const label = "Learn more →";
+        return `<a href="${clean}" target="_blank" rel="noopener" class="msc-link">${label}</a>`;
+      }
+    );
+  }
+
   function addMessage(text, type) {
     const row = document.createElement("div");
     row.className = "msc-row msc-" + type;
     const msg = document.createElement("div");
     msg.className = "msc-msg msc-" + type;
-    msg.textContent = text;
+    if (type === "bot") {
+      msg.innerHTML = linkify(text); // bot replies may contain links
+    } else {
+      msg.textContent = text; // visitor's own message, shown as-is
+    }
     const time = document.createElement("div");
     time.className = "msc-time";
     time.textContent = timeNow();
