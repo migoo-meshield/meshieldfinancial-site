@@ -80,6 +80,52 @@ export async function onRequestPost(context) {
       return json({ success: true }, CORS);
     }
 
+    // ── SUBMIT INTAKE (from intake.html) ─────────────────────────────────
+    // Added by Claude, July 2026 — this action previously fell through to
+    // "Unknown action" below, meaning every intake submission was silently
+    // failing. This delivers it to your inbox the same way portal messages
+    // already work, with any attached documents included as email attachments.
+    if (action === 'submit_intake') {
+      const { email, name, service, fields, documents } = body;
+      if (!email || !service) return json({ success: false, message: 'Missing required information.' }, CORS);
+
+      const submission_id = makeSubmissionId('INT');
+      const emailResult = await sendSubmissionEmail(BREVO_KEY, {
+        kind: 'Full Client Intake',
+        submission_id, email, name, service, fields,
+        files: documents || [],
+      });
+
+      if (!emailResult.ok) {
+        console.log('BREVO ERROR (submit_intake):', emailResult.status, emailResult.body);
+        return json({ success: false, message: 'Could not deliver your intake. Please call or text us so nothing is lost.' }, CORS);
+      }
+      return json({ success: true, submission_id }, CORS);
+    }
+
+    // ── SUBMIT REQUEST / CLAIM (from claim.html) ─────────────────────────
+    // Added by Claude, July 2026 — same gap as above. Also delivers any
+    // evidence files and the signature (with its date/time/location stamp)
+    // as attachments.
+    if (action === 'submit_request') {
+      const { email, name, service, fields, evidence, signature, signature_meta } = body;
+      if (!email || !service) return json({ success: false, message: 'Missing required information.' }, CORS);
+
+      const submission_id = makeSubmissionId('REQ');
+      const emailResult = await sendSubmissionEmail(BREVO_KEY, {
+        kind: 'Service Request / Claim',
+        submission_id, email, name, service, fields,
+        files: evidence || [],
+        signature, signature_meta,
+      });
+
+      if (!emailResult.ok) {
+        console.log('BREVO ERROR (submit_request):', emailResult.status, emailResult.body);
+        return json({ success: false, message: 'Could not deliver your request. Please call or text us so nothing is lost.' }, CORS);
+      }
+      return json({ success: true, submission_id }, CORS);
+    }
+
     return json({ success: false, message: 'Unknown action' }, CORS);
 
   } catch (e) {
@@ -139,6 +185,91 @@ async function sendMagicLinkEmail(apiKey, to, name, link) {
           </div>
         </div>
       `,
+    }),
+  });
+  const bodyText = await res.text();
+  return { ok: res.ok, status: res.status, body: bodyText };
+}
+
+// ── Submission ID — same style as functions/api/intake.js so every
+// reference number across the site follows one pattern (e.g. MES-INT-2026-K7F2M9).
+function makeSubmissionId(prefix) {
+  const year = new Date().getUTCFullYear();
+  const time = Date.now().toString(36).slice(-4).toUpperCase();
+  const rand = Math.random().toString(36).slice(2, 4).toUpperCase();
+  return `MES-${prefix}-${year}-${time}${rand}`;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// Turns the flat { field_name: value } object from intake.html / claim.html
+// into a readable HTML table for the email body. Handles the flattened
+// repeater field names (e.g. "vehicles[0][ymm]") without any special parsing.
+function formatFieldsHtml(fields) {
+  if (!fields || typeof fields !== 'object' || !Object.keys(fields).length) {
+    return '<p style="color:#888;font-size:12px;">(no additional fields submitted)</p>';
+  }
+  const rows = Object.entries(fields).map(([k, v]) => {
+    const val = (v === true) ? 'Yes' : (v === false) ? 'No' : (v === '' || v == null) ? '—' : String(v);
+    return `<tr><td style="padding:6px 10px;border-bottom:1px solid #eee;font-weight:600;color:#0B1D3A;white-space:nowrap;vertical-align:top;font-size:12px;">${escapeHtml(k)}</td><td style="padding:6px 10px;border-bottom:1px solid #eee;color:#333;font-size:12px;">${escapeHtml(val)}</td></tr>`;
+  }).join('');
+  return `<table style="width:100%;border-collapse:collapse;">${rows}</table>`;
+}
+
+/**
+ * Delivers an intake.html or claim.html submission to your inbox via Brevo,
+ * with any attached documents / evidence / signature included as real email
+ * attachments (Brevo's attachment field takes plain base64, no data: prefix —
+ * intake.html/claim.html already strip that client-side for documents and
+ * evidence; the signature comes through as a full data URL, so it's stripped
+ * here instead).
+ *
+ * NOTE: Brevo's transactional email API has a request size ceiling (their
+ * docs cite ~10MB total). Three 5MB documents plus a signature could in rare
+ * cases approach that. If a submission with large attachments ever fails to
+ * send, that's the likely cause — worth keeping an eye on.
+ */
+async function sendSubmissionEmail(apiKey, { kind, submission_id, email, name, service, fields, files, signature, signature_meta }) {
+  const attachments = [];
+  (files || []).forEach(f => {
+    if (f && f.data) attachments.push({ name: f.filename || 'attachment', content: f.data });
+  });
+  if (signature) {
+    const raw = signature.includes(',') ? signature.split(',')[1] : signature;
+    attachments.push({ name: 'signature.png', content: raw });
+  }
+
+  let stampLine = '';
+  if (signature_meta && (signature_meta.timestamp || signature_meta.location)) {
+    const parts = [];
+    if (signature_meta.timestamp) parts.push('Signed ' + signature_meta.timestamp);
+    if (signature_meta.location) parts.push('Location ' + signature_meta.location);
+    stampLine = `<p style="font-size:12px;color:#657789;margin:4px 0 0;">${escapeHtml(parts.join(' · '))}</p>`;
+  }
+
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: { 'api-key': apiKey, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      sender: { name: 'ME Shield Portal', email: 'info@meshieldfinancial.com' },
+      to: [{ email: 'info@meshieldfinancial.com', name: 'Miguelson Etienne' }],
+      replyTo: { email: email || 'client@unknown.com', name: name || 'Client' },
+      subject: `${kind} — ${service} — ${name || email} (${submission_id})`,
+      htmlContent: `
+        <div style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto;">
+          <p><strong>Type:</strong> ${escapeHtml(kind)}</p>
+          <p><strong>Service:</strong> ${escapeHtml(service)}</p>
+          <p><strong>Client:</strong> ${escapeHtml(name || '')} (${escapeHtml(email || '')})</p>
+          <p><strong>Reference:</strong> ${submission_id}</p>
+          ${stampLine}
+          <p style="margin-top:18px;"><strong>Details:</strong></p>
+          ${formatFieldsHtml(fields)}
+          ${attachments.length ? `<p style="margin-top:14px;font-size:12px;color:#657789;">${attachments.length} file(s) attached to this email — ${attachments.map(a => escapeHtml(a.name)).join(', ')}.</p>` : ''}
+        </div>
+      `,
+      attachment: attachments.length ? attachments : undefined,
     }),
   });
   const bodyText = await res.text();
