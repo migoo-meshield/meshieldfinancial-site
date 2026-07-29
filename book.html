@@ -4,6 +4,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Book an Appointment — ME Shield Financial Services</title>
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="theme-color" content="#0B1D3A"/>
   <meta name="description" content="Schedule a free consultation with ME Shield Financial Services for insurance, tax, business filing, immigration forms filing, or Infinite Banking in Florida."/>
   <link rel="icon" type="image/x-icon" href="favicon.ico"/>
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
@@ -390,6 +392,7 @@
   }
 </script>
 
-<script src="chat-widget.js"></script>
+<script src="chatbot-widget.js"></script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>
 </html>

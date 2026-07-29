@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Immigration Forms Filing — ME Shield Financial Services</title>
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="theme-color" content="#0B1D3A"/>
 <meta name="description" content="We help you fill out and file DACA, I-130, I-485, N-400, I-765 and more — step by step in English and Haitian Creole. Apopka, FL."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -765,6 +767,7 @@ function submitImm(){
 }
 window.addEventListener('load',calcImm);</script>
 
-<script src="chat-widget.js"></script>
+<script src="chatbot-widget.js"></script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>
 </html>

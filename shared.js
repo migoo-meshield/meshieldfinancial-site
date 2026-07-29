@@ -225,6 +225,34 @@ function initTabs() {
   });
 }
 
+/* ── Installable app (PWA) — added by Claude, July 2026 ──
+   Injects the manifest link, theme-color, and service worker registration
+   from this one shared file, so every page that already loads shared.js
+   becomes "Add to Home Screen"-eligible without editing each page by hand.
+   (The 5 standalone Division pages and trump-account.html don't load
+   shared.js, so they won't pick this up — same scope limit as the rest of
+   the modern-interaction-layer work.) */
+function initPWA() {
+  if (!document.querySelector('link[rel="manifest"]')) {
+    const link = document.createElement('link');
+    link.rel = 'manifest';
+    link.href = '/manifest.json';
+    document.head.appendChild(link);
+  }
+  if (!document.querySelector('meta[name="theme-color"]')) {
+    const meta = document.createElement('meta');
+    meta.name = 'theme-color';
+    meta.content = '#0B1D3A';
+    document.head.appendChild(meta);
+  }
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      // Fails silently — the site works fine without it, it just won't
+      // be installable on that visit.
+    });
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initLang();
   initHamburger();
@@ -237,4 +265,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initParallax();
   initFormEnhancer();
   initTabs();
+  initPWA();
 });

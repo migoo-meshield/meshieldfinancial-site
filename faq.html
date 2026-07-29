@@ -4,6 +4,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FAQ — ME Shield Financial Services</title>
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="theme-color" content="#0B1D3A"/>
   <meta name="description" content="Frequently asked questions about insurance, tax preparation, business filing, immigration forms filing, and Infinite Banking at ME Shield Financial Services, Florida."/>
   <link rel="icon" type="image/x-icon" href="favicon.ico"/>
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
@@ -854,6 +856,7 @@
   // Initialize: show only the first category on page load
   document.addEventListener('DOMContentLoaded', () => showCategory('general'));
 </script>
-<script src="chat-widget.js"></script>
+<script src="chatbot-widget.js"></script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>
 </html>

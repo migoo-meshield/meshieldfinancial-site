@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Business Filing — ME Shield Financial Services</title>
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="theme-color" content="#0B1D3A"/>
 <meta name="description" content="LLC formation, EIN application, Operating Agreement, and business plans in English and Kreyòl. Get your business started right."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -777,6 +779,7 @@ function submitBiz(){
 }
 window.addEventListener('load',calcBiz);</script>
 
-<script src="chat-widget.js"></script>
+<script src="chatbot-widget.js"></script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>
 </html>
