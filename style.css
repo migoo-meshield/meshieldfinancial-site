@@ -687,20 +687,11 @@ body { animation: pageIn .5s var(--ease); }
   justify-content: center; cursor: pointer; font-size: 1.1rem; transition: background .2s var(--ease);
 }
 .modal-close:hover { background: var(--gold-soft); color: var(--navy); }
-.alert-success[data-qq-success] { display: none; align-items: center; }
-
-/* ── Floating Quick Quote trigger ── */
-.quick-quote-fab {
-  position: fixed; bottom: 24px; right: 24px; z-index: 150;
-  background: var(--gold); color: var(--navy); border-radius: var(--radius-pill);
-  padding: 14px 22px; font-weight: 700; font-size: .85rem; display: flex; align-items: center; gap: 8px;
-  box-shadow: 0 14px 30px rgba(201,168,76,.4); cursor: pointer;
-  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
-}
-.quick-quote-fab:hover { transform: translateY(-4px); box-shadow: 0 18px 38px rgba(201,168,76,.5); }
-@media (max-width: 640px) {
-  .quick-quote-fab { bottom: 16px; right: 16px; padding: 12px 18px; font-size: .8rem; }
-}
+/* Note: the floating "Quick Quote" trigger button was removed on request —
+   it sat in the same bottom-right corner as the existing AI chatbot and
+   duplicated its job. The .modal-scrim/.modal-box system above is still
+   here, unused, ready to wire up to any other popup later (e.g. a photo
+   lightbox or a "request an illustration" prompt) without new CSS. */
 
 /* ── Parallax + video-style photo zoom on hero sections ── */
 .page-hero.has-photo,
