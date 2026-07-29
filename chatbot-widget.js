@@ -209,7 +209,13 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
     }
   };
 
-  bubble.addEventListener("click", () => win.classList.toggle("msc-open"));
+  bubble.addEventListener("click", () => {
+    win.classList.toggle("msc-open");
+    if (win.classList.contains("msc-open")) {
+      // Count this open — fire and forget, never blocks or breaks the chat.
+      fetch("/api/track-chat-open", { method: "POST" }).catch(() => {});
+    }
+  });
   closeBtn.addEventListener("click", () => win.classList.remove("msc-open"));
 
   // ---------- Gentle one-time tooltip ----------
