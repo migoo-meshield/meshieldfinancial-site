@@ -11,6 +11,57 @@ const AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"; // a well-establish
 const MAX_REPLY_LENGTH = 400; // roughly how long a reply can be
 const SUPPORT_EMAIL = "meshieldservices@gmail.com";
 const SUPPORT_PHONE = "(407) 267-2652";
+const BLOG_BASE_URL = "https://www.meshieldfinancial.com/";
+
+// Blog articles the bot may naturally reference when a topic comes up in
+// conversation — grouped by which of the 5 services they relate to. Add a
+// new article here any time a new blog post goes live and the bot will
+// start offering it on its own; no other change needed.
+const ARTICLE_LIBRARY = {
+  "Insurance": [
+    "how-much-life-insurance-do-i-need.html",
+    "hurricane-season-home-insurance-checklist.html",
+    "hurricane-season-financial-preparedness.html",
+    "health-insurance-open-enrollment-florida.html",
+  ],
+  "Tax Preparation": [
+    "tax-deductions-self-employed.html",
+    "tax-prep-checklist.html",
+    "2026-standard-deduction-increase.html",
+    "50-30-20-budget-rule.html",
+  ],
+  "Business Filing": [
+    "llc-formation-florida-guide.html",
+    "llc-registration-mistakes-florida.html",
+    "registered-agent-florida-llc.html",
+  ],
+  "Immigration Forms Filing": [
+    "immigration-forms-checklist.html",
+    "daca-2026-renewal-guide.html",
+    "naturalization-process-guide.html",
+    "itin-guide-florida.html",
+    "tps-haiti-2026-update.html",
+  ],
+  "Infinite Banking (IBC)": [
+    "infinite-banking-concept-explained.html",
+    "term-vs-whole-life-ibc.html",
+    "whole-life-vs-universal-life.html",
+  ],
+  "General money habits / wealth building": [
+    "haitian-diaspora-wealth-building.html",
+    "haitian-household-money-habits.html",
+    "building-an-emergency-fund.html",
+    "choosing-a-trustworthy-financial-advisor.html",
+  ],
+};
+
+function buildArticleLibraryText() {
+  return Object.entries(ARTICLE_LIBRARY)
+    .map(([category, files]) =>
+      `${category}:\n` + files.map(f => `  - ${BLOG_BASE_URL}${f}`).join("\n")
+    )
+    .join("\n\n");
+}
 // ============================================================
 
 export async function onRequestPost(context) {
@@ -54,6 +105,11 @@ YOUR JOB:
 - Explain what each service is in simple, friendly terms
 - Help visitors decide which service fits their need
 - Point visitors toward a free quote or contacting Miguelson directly for their specific situation
+- When a blog article below is genuinely relevant to what the visitor is asking about, mention it naturally (e.g., "We actually have a short guide on this: [link]") — never force one in if nothing fits, and never share more than one link per reply
+- Always still end by offering to connect the visitor with Miguelson for anything specific to their situation — the article is a helpful extra, never a replacement for that
+
+BLOG ARTICLES YOU CAN REFERENCE (grouped by service — only share the full URL, never invent one that isn't listed here):
+${buildArticleLibraryText()}
 
 YOUR BOUNDARIES (very important):
 - NEVER give specific tax, insurance, legal, or immigration advice for someone's personal situation. General/educational information only.
