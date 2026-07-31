@@ -154,6 +154,7 @@ async function handleIntake(request, env) {
     const message    = clean(body.message, 2000);
     const rawService = clean(body.service, 40);
     const language   = clean(body.language, 20) || "english";
+    const referredBy = clean(body.referred_by, 200); // referral code from a client's personal link, if any
 
     const missing = [];
     if (!first_name)          missing.push("first_name");
@@ -198,6 +199,7 @@ async function handleIntake(request, env) {
     const payload = {
       submission_id: makeSubmissionId(),
       timestamp: now,
+      timestamp_et: easternTimestamp(now),
       source: "website",
       service_type: service_type,
 
@@ -229,7 +231,8 @@ async function handleIntake(request, env) {
       meta: {
         page_url: clean(body.page_url, 300),
         country: request.headers.get("CF-IPCountry") || "",
-        received_at: now
+        received_at: now,
+        referred_by: referredBy
       }
     };
 
@@ -268,6 +271,32 @@ async function handleIntake(request, env) {
     }
 
     // -----------------------------------------------------------------------
+    // STEP 7.5 — Referral tracking (best effort)
+    //
+    // If this lead came in through a client's personal referral link, tell
+    // the Client Portal so it can log the referral on that client's own
+    // record. This is a "nice to have" — if it fails for any reason (portal
+    // down, code invalid, etc.) it must NEVER block or fail the actual lead
+    // submission above. That's why every error here is swallowed silently.
+    // -----------------------------------------------------------------------
+    if (referredBy) {
+      try {
+        await fetch("https://clientportal.meshieldfinancial.com/api/log-referral", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            code: referredBy,
+            lead_name: `${first_name} ${last_name}`.trim(),
+            lead_email: email,
+            service: rawService
+          })
+        });
+      } catch (err) {
+        // Swallowed on purpose — see comment above.
+      }
+    }
+
+    // -----------------------------------------------------------------------
     // STEP 8 — Tell the website the truth
     //
     // This is the part your site could never do before. A real answer, so the
@@ -291,6 +320,21 @@ async function handleIntake(request, env) {
 // ===========================================================================
 
 /** Trims whitespace and enforces a maximum length. */
+// The "timestamp"/"received_at"/"consent.at" fields above stay raw UTC ISO
+// on purpose (the documented ME Shield OS payload shape — Make.com and any
+// downstream automation may already parse those as ISO). This helper adds a
+// SEPARATE, human-readable Eastern Time string alongside them, purely for
+// display in the Master Log sheet. Point the sheet's timestamp column at
+// "timestamp_et" instead of "timestamp" to show Florida-local time.
+function easternTimestamp(isoString) {
+  const d = isoString ? new Date(isoString) : new Date();
+  return d.toLocaleString('en-US', {
+    timeZone: 'America/New_York',
+    month: 'short', day: 'numeric', year: 'numeric',
+    hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true,
+  }) + ' ET';
+}
+
 function clean(value, maxLength) {
   if (typeof value !== "string") return "";
   return value.trim().slice(0, maxLength);
