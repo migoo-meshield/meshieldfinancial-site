@@ -18,8 +18,8 @@
     .home-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 70% at 75% 50%, rgba(201,168,76,.09) 0%, transparent 65%); }
     .home-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); }
     .hero-content { position: relative; max-width: 640px; }
-    .hero-content h1 { color: var(--white); margin-bottom: 22px; }
-    .hero-content h1 em { color: var(--gold); font-style: normal; }
+    .hero-content h1, .hero-content .hero-h-style { color: var(--white); margin-bottom: 22px; }
+    .hero-content h1 em, .hero-content .hero-h-style em { color: var(--gold); font-style: normal; }
     .hero-content p { color: rgba(255,255,255,.72); font-size: 1.08rem; margin-bottom: 36px; max-width: 520px; }
     .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
     .hero-stat-row { display: flex; gap: 40px; margin-top: 52px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,.1); flex-wrap: wrap; }
@@ -221,8 +221,8 @@
   <img class="hero-logo-watermark" src="logo.png" alt=""/>
   <div class="container" style="position:relative;z-index:1;">
     <div class="hero-content">
-      <h1 data-en>Protecting What <em>Matters Most</em> to Your Family</h1>
-      <h1 data-ht>Pwoteje Sa Ki <em>Pi Enpòtan</em> Pou Fanmi Ou</h1>
+      <h1 data-en class="hero-h-style">Protecting What <em>Matters Most</em> to Your Family</h1>
+      <div data-ht class="hero-h-style" role="heading" aria-level="1">Pwoteje Sa Ki <em>Pi Enpòtan</em> Pou Fanmi Ou</div>
       <p data-en>Insurance, tax preparation, and immigration forms filing — all under one roof. We serve Florida families and small businesses in English and Haitian Creole.</p>
       <p data-ht>Asirans, preparasyon taks, ak ranpli fòmilè imigrasyon — tout sou yon sèl do. Nou sèvi fanmi Florid ak ti biznis yo an Anglè ak Kreyòl Ayisyen.</p>
       <div class="hero-ctas">
