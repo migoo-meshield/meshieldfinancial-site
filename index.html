@@ -30,6 +30,13 @@
     .trust-bar-inner { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; }
     .trust-item { display: flex; align-items: center; gap: 10px; font-size: .85rem; font-weight: 600; color: var(--text-dark); }
     .trust-item .icon { color: var(--gold); font-weight: 700; font-size: 1rem; }
+    @media (max-width: 900px) {
+      .trust-bar { overflow:hidden; padding:14px 0; }
+      .trust-bar-inner { display:block; position:relative; height:30px; }
+      .trust-item { position:absolute; inset:0; justify-content:center; opacity:0; transform:translateY(12px); animation:trustCycle 16s infinite; white-space:nowrap; font-size:.78rem; }
+      .trust-item:nth-child(2){animation-delay:4s}.trust-item:nth-child(3){animation-delay:8s}.trust-item:nth-child(4){animation-delay:12s}
+      @keyframes trustCycle { 0%,4%{opacity:0;transform:translateY(12px)} 8%,22%{opacity:1;transform:translateY(0)} 26%,100%{opacity:0;transform:translateY(-12px)} }
+    }
     .service-card { text-align: left; }
     .service-card h3 { color: var(--navy); margin-bottom: 10px; }
     .service-card p { font-size: .92rem; margin-bottom: 18px; }
@@ -65,6 +72,8 @@
     .slider-dots { position: absolute; bottom: 18px; right: 40px; z-index: 3; display: flex; gap: 8px; }
     .slider-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.4); cursor: pointer; transition: background .2s, width .2s; }
     .slider-dot.active { background: var(--gold); width: 22px; border-radius: 4px; }
+    .slider-play { position:absolute; top:18px; right:18px; z-index:4; border:1px solid rgba(255,255,255,.45); background:rgba(11,28,58,.82); color:#fff; border-radius:999px; padding:8px 13px; cursor:pointer; font-weight:700; }
+    .img-slide { color:inherit; text-decoration:none; }
     @media (max-width: 640px) { .img-slider { height: 360px; } .img-slide-caption { padding: 24px 22px; } .img-slide-caption h3 { font-size: 1.2rem; } .slider-arrow { width: 36px; height: 36px; } }
     .reveal-stagger.is-visible .stagger-item:nth-child(1) { transition-delay: .05s; }
     .reveal-stagger.is-visible .stagger-item:nth-child(2) { transition-delay: .15s; }
@@ -219,8 +228,8 @@
     </div>
     <div class="trust-item">
       <span class="icon">✓</span>
-      <span data-en>Infinite Banking Specialist</span>
-      <span data-ht>Espesyalis Bank Enfini</span>
+      <span data-en>Infinite Banking Practitioner · Life Insurance Consultant</span>
+      <span data-ht>Pratikan Bank Enfini · Konsiltan Asirans Lavi</span>
     </div>
   </div>
 </div>
@@ -251,7 +260,7 @@
   <div class="container">
     <div class="img-slider" id="home-slider">
       <div class="img-slider-track" id="slider-track">
-        <div class="img-slide" style="background-image:url('https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=1200&q=75');">
+        <a class="img-slide" href="insurance.html" style="background-image:url('slider-life-insurance.jpg');">
           <div class="img-slide-caption">
             <div class="eyebrow-slide" data-en>INSURANCE</div>
             <div class="eyebrow-slide" data-ht>ASIRANS</div>
@@ -260,8 +269,8 @@
             <p data-en>Life, health, and property coverage tailored to what your household actually needs.</p>
             <p data-ht>Kouvèti lavi, sante, ak pwopriyete adapte a sa kay ou reyèlman bezwen.</p>
           </div>
-        </div>
-        <div class="img-slide" style="background-image:url('https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1200&q=75');">
+        </a>
+        <a class="img-slide" href="tax-preparation.html" style="background-image:url('slider-tax.jpg');">
           <div class="img-slide-caption">
             <div class="eyebrow-slide" data-en>TAX PREPARATION</div>
             <div class="eyebrow-slide" data-ht>PREPARASYON TAKS</div>
@@ -270,8 +279,8 @@
             <p data-en>IRS PTIN-registered preparation for individuals, self-employed, and small businesses.</p>
             <p data-ht>Preparasyon anrejistre nan IRS PTIN pou endividyèl, travayè endepandan, ak ti biznis.</p>
           </div>
-        </div>
-        <div class="img-slide" style="background-image:url('https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=1200&q=75');">
+        </a>
+        <a class="img-slide" href="immigration-forms.html" style="background-image:url('slider-immigration.jpg');">
           <div class="img-slide-caption">
             <div class="eyebrow-slide" data-en>IMMIGRATION FORMS FILING</div>
             <div class="eyebrow-slide" data-ht>RANPLI FÒMILÈ IMIGRASYON</div>
@@ -280,14 +289,21 @@
             <p data-en>USCIS forms, DACA renewals, and document preparation — clear steps in your language.</p>
             <p data-ht>Fòm USCIS, renouvèlman DACA, ak preparasyon dokiman — etap klè nan lang ou.</p>
           </div>
-        </div>
+        </a>
+        <a class="img-slide" href="business-filing.html" style="background-image:url('slider-business.jpg');"><div class="img-slide-caption"><div class="eyebrow-slide" data-en>BUSINESS FILING</div><div class="eyebrow-slide" data-ht>DEPO BIZNIS</div><h3 data-en>Start Your Business the Right Way</h3><h3 data-ht>Kòmanse Biznis Ou nan Bon Fason</h3><p data-en>LLC, EIN, DBA, and filing support explained clearly.</p><p data-ht>Sipò pou LLC, EIN, DBA ak depo, eksplike klèman.</p></div></a>
+        <a class="img-slide" href="infinite-banking.html" style="background-image:url('slider-ibc.jpg');"><div class="img-slide-caption"><div class="eyebrow-slide" data-en>INFINITE BANKING</div><div class="eyebrow-slide" data-ht>BANK ENFINI</div><h3 data-en>Learn a Long-Term Financial Strategy</h3><h3 data-ht>Aprann Yon Estrateji Finansye Alontèm</h3><p data-en>Education-first guidance built around properly designed life insurance.</p><p data-ht>Konsèy edikatif ki baze sou asirans lavi byen estriktire.</p></div></a>
+        <a class="img-slide" href="book.html" style="background-image:url('slider-consultation.jpg');"><div class="img-slide-caption"><div class="eyebrow-slide" data-en>FREE CONSULTATION</div><div class="eyebrow-slide" data-ht>KONSILTASYON GRATIS</div><h3 data-en>Let’s Talk About What You Need</h3><h3 data-ht>Ann Pale Sou Sa Ou Bezwen</h3><p data-en>Start with a friendly, no-pressure conversation in English or Kreyòl.</p><p data-ht>Kòmanse ak yon konvèsasyon san presyon an Anglè oswa Kreyòl.</p></div></a>
       </div>
       <button class="slider-arrow prev" id="slider-prev" aria-label="Previous">‹</button>
       <button class="slider-arrow next" id="slider-next" aria-label="Next">›</button>
+      <button class="slider-play" id="slider-play" type="button" aria-label="Pause slideshow">❚❚ <span data-en>Pause</span><span data-ht>Poz</span></button>
       <div class="slider-dots" id="slider-dots">
         <div class="slider-dot active" data-index="0"></div>
         <div class="slider-dot" data-index="1"></div>
         <div class="slider-dot" data-index="2"></div>
+        <div class="slider-dot" data-index="3"></div>
+        <div class="slider-dot" data-index="4"></div>
+        <div class="slider-dot" data-index="5"></div>
       </div>
     </div>
   </div>
@@ -630,6 +646,7 @@
     const slides = document.querySelectorAll('.img-slide');
     let current = 0;
     let autoTimer;
+    let playing = true;
 
     function goTo(i) {
       current = (i + slides.length) % slides.length;
@@ -640,7 +657,13 @@
     function prev() { goTo(current - 1); }
     function startAuto() {
       clearInterval(autoTimer);
-      autoTimer = setInterval(next, 5500);
+      if (playing) autoTimer = setInterval(next, 6500);
+    }
+    function pauseAuto() { clearInterval(autoTimer); }
+    function updatePlayButton() {
+      const b = document.getElementById('slider-play');
+      b.innerHTML = playing ? '❚❚ <span data-en>Pause</span><span data-ht>Poz</span>' : '▶ <span data-en>Play</span><span data-ht>Jwe</span>';
+      b.setAttribute('aria-label', playing ? 'Pause slideshow' : 'Play slideshow');
     }
 
     document.getElementById('slider-next').addEventListener('click', () => { next(); startAuto(); });
@@ -649,13 +672,24 @@
 
     let touchStartX = 0;
     const slider = document.getElementById('home-slider');
-    slider.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX, {passive:true});
+    slider.addEventListener('mouseenter', pauseAuto);
+    slider.addEventListener('mouseleave', startAuto);
+    slider.addEventListener('touchstart', e => { pauseAuto(); touchStartX = e.touches[0].clientX; }, {passive:true});
     slider.addEventListener('touchend', e => {
       const diff = e.changedTouches[0].clientX - touchStartX;
-      if (diff > 40) { prev(); startAuto(); }
-      else if (diff < -40) { next(); startAuto(); }
+      if (diff > 40) prev();
+      else if (diff < -40) next();
+      setTimeout(startAuto, 1200);
     }, {passive:true});
 
+    document.getElementById('slider-play').addEventListener('click', e => {
+      e.preventDefault();
+      playing = !playing;
+      updatePlayButton();
+      playing ? startAuto() : pauseAuto();
+    });
+
+    updatePlayButton();
     startAuto();
   })();
 </script>

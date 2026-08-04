@@ -22,6 +22,15 @@ function initHamburger() {
   // New side-panel pages don't use #nav-links — skip
   if (!btn || !links) return;
 
+  btn.innerHTML = '<span data-en>MENU</span><span data-ht>MENI</span>';
+  btn.setAttribute('aria-label', 'Open navigation menu');
+  if (!links.querySelector('.mobile-book-item')) {
+    const item = document.createElement('li');
+    item.className = 'mobile-book-item';
+    item.innerHTML = '<a class="mobile-book-link" href="book.html"><span data-en>Book Free Consult</span><span data-ht>Rezève Konsiltasyon Gratis</span></a>';
+    links.insertBefore(item, links.firstChild);
+  }
+
   let scrim = document.querySelector('.nav-scrim');
   if (!scrim) {
     scrim = document.createElement('div');
@@ -35,6 +44,7 @@ function initHamburger() {
     scrim.classList.remove('show');
     btn.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('menu-open');
+    btn.setAttribute('aria-label', 'Open navigation menu');
   }
   function openMenu() {
     links.classList.add('open');
@@ -42,6 +52,7 @@ function initHamburger() {
     scrim.classList.add('show');
     btn.setAttribute('aria-expanded', 'true');
     document.body.classList.add('menu-open');
+    btn.setAttribute('aria-label', 'Close navigation menu');
   }
 
   btn.addEventListener('click', () => {
@@ -264,6 +275,33 @@ function initPWA() {
       // be installable on that visit.
     });
   }
+
+  let installPrompt;
+  const install = document.createElement('button');
+  install.className = 'pwa-install';
+  install.hidden = true;
+  install.innerHTML = '<span data-en>Install ME Shield</span><span data-ht>Enstale ME Shield</span>';
+  document.body.appendChild(install);
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    installPrompt = event;
+    install.hidden = false;
+  });
+  install.addEventListener('click', async () => {
+    if (installPrompt) {
+      installPrompt.prompt();
+      await installPrompt.userChoice;
+      installPrompt = null;
+      install.hidden = true;
+      return;
+    }
+    if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+      alert(document.body.classList.contains('lang-ht') ? 'Sou iPhone: peze Share, epi chwazi Add to Home Screen.' : 'On iPhone: tap Share, then choose Add to Home Screen.');
+    }
+  });
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if (ios && !standalone) install.hidden = false;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

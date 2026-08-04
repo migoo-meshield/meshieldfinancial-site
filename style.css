@@ -295,20 +295,21 @@ a:hover { color: var(--gold-light); }
 /* Hamburger */
 .hamburger {
   display: none;
-  flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   background: none;
   border: none;
-  padding: 6px;
+  padding: 8px 12px;
+  border: 1px solid rgba(201,168,76,.65);
+  border-radius: var(--radius-pill);
+  color: var(--gold);
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .08em;
 }
-.hamburger span {
-  display: block;
-  width: 24px; height: 2px;
-  background: var(--white);
-  border-radius: 2px;
-  transition: all .3s var(--ease);
-}
+.hamburger:hover, .hamburger.active { background: var(--gold); color: var(--navy); }
+.mobile-book-item { display: none; }
 
 /* ── HERO (shared base) ── */
 .hero {
@@ -652,6 +653,8 @@ body.lang-en [data-ht] { display: none !important; }
   }
   .nav-links.open { transform: translateX(0); }
   .nav-links a { padding: 12px 16px; }
+  .mobile-book-item { display: block; width: 100%; margin-bottom: 10px; }
+  .nav-links .mobile-book-link { display: block; background: var(--gold); color: var(--navy); text-align: center; font-weight: 800; border-radius: var(--radius-pill); padding: 13px 18px; }
 
   .nav-dropdown-menu {
     position: static; display: block; box-shadow: none; border: none;
@@ -680,9 +683,8 @@ body.lang-en [data-ht] { display: none !important; }
 }
 .nav-scrim.show { opacity: 1; pointer-events: auto; }
 body.menu-open { overflow: hidden; }
-.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.pwa-install { position:fixed; left:18px; bottom:18px; z-index:88; border:1px solid rgba(201,168,76,.7); background:var(--navy); color:var(--gold); border-radius:999px; padding:11px 16px; box-shadow:var(--shadow-lg); font-weight:700; cursor:pointer; }
+.pwa-install[hidden] { display:none; }
 
 /* ── Page transitions ── */
 .page-fade {
