@@ -261,7 +261,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
   initFooterYear();
   loadChatbot();
-  initPageTransitions();
+  // initPageTransitions(); — disabled (Aug 2026): the fade-to-navy on link
+  // clicks made navigation feel slow. The initPageTransitions() function
+  // above is left in place, just no longer called, in case you want it back.
   initParallax();
   initFormEnhancer();
   initTabs();
