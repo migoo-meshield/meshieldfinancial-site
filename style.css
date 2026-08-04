@@ -662,10 +662,10 @@ body.lang-en [data-ht] { display: none !important; }
   opacity: 0; pointer-events: none; transition: opacity .3s var(--ease);
 }
 .page-fade.active { opacity: 1; pointer-events: auto; }
-/* Safe entrance fade — animates on its own via CSS, never gated behind
-   JS running first, so the page is never at risk of staying blank if a
-   script is slow, blocked, or errors. */
-body { animation: pageIn .5s var(--ease); }
+/* Entrance fade on page load — disabled (Aug 2026), navigation felt slow.
+   @keyframes rule kept, just no longer applied to body, in case you want
+   it back. */
+body { }
 @keyframes pageIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ── Modal popups ── */
