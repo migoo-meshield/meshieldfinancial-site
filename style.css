@@ -605,6 +605,14 @@ footer ul a:hover { color: var(--gold); }
      on the same breakpoint, which is what was causing the broken mobile
      menu (Aug 2026 fix). */
   .nav-links a { padding: 12px 16px; }
+  /* "Book Free Consult" hidden in the top bar on mobile (Aug 2026 fix):
+     .nav-right had no flex-wrap, so logo + lang toggle + this gold button +
+     hamburger all fought for one row with no space to shrink. In Kreyòl,
+     "Rezève Konsiltasyon" is longer than the English text and pushed the
+     hamburger icon off the edge of the screen — invisible/untappable.
+     The same booking CTA is already in the hero and off-canvas menu, so
+     dropping it from the header on small screens costs nothing. */
+  .nav-right .btn-gold { display: none; }
   .hamburger { display: flex; }
   .nav-dropdown-menu { position: static; display: block; box-shadow: none; border: none; background: none; padding: 0 0 0 16px; margin: 0; min-width: 0; }
   .nav-dropdown > a::after { display: none; }
