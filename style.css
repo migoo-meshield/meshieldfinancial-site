@@ -151,7 +151,7 @@ a:hover { color: var(--gold-light); }
 
 /* ── NAVIGATION ── */
 .navbar {
-  position: sticky; top: 0; z-index: 100;
+  position: sticky; top: 0; z-index: 300;
   background: rgba(11,28,58,.94);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
@@ -599,23 +599,6 @@ footer ul a:hover { color: var(--gold); }
   .footer-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-  /* .nav-links base positioning now lives only in the off-canvas block
-     below (~line 633) — this old absolute-dropdown version was left in
-     place after that upgrade and was fighting it for position/display
-     on the same breakpoint, which is what was causing the broken mobile
-     menu (Aug 2026 fix). */
-  .nav-links a { padding: 12px 16px; }
-  /* "Book Free Consult" hidden in the top bar on mobile (Aug 2026 fix):
-     .nav-right had no flex-wrap, so logo + lang toggle + this gold button +
-     hamburger all fought for one row with no space to shrink. In Kreyòl,
-     "Rezève Konsiltasyon" is longer than the English text and pushed the
-     hamburger icon off the edge of the screen — invisible/untappable.
-     The same booking CTA is already in the hero and off-canvas menu, so
-     dropping it from the header on small screens costs nothing. */
-  .nav-right .btn-gold { display: none; }
-  .hamburger { display: flex; }
-  .nav-dropdown-menu { position: static; display: block; box-shadow: none; border: none; background: none; padding: 0 0 0 16px; margin: 0; min-width: 0; }
-  .nav-dropdown > a::after { display: none; }
   .section { padding: 64px 0; }
   .back-to-top { bottom: 18px; right: 18px; width: 42px; height: 42px; }
 }
@@ -638,16 +621,26 @@ body.lang-en [data-ht] { display: none !important; }
    those two files — no per-page HTML changes required.
    ============================================================ */
 
-/* ── Off-canvas mobile menu (upgrades the old dropdown panel) ── */
-@media (max-width: 640px) {
+/* ── MOBILE NAVIGATION (consolidated Aug 2026) ──
+   Everything that controls the mobile hamburger menu lives in this one
+   block now — it used to be split across three separate places in this
+   file (an old dropdown-panel version, a newer off-canvas version, and a
+   patch on top of that), and those pieces were fighting each other and
+   causing the menu to break in different ways. This replaces all of it.
+
+   Behavior: hamburger icon is always visible on mobile, in English AND
+   Kreyòl. Tapping it slides in a solid navy panel from the right with
+   every link (Home, About, Services + its 5 sub-links, Blog, FAQ,
+   Contact), fully readable and tappable. No backdrop-filter/blur is used
+   anywhere in this block — nested blur layers on iOS Safari were causing
+   the menu to render hazy AND stop registering taps entirely, so it's
+   removed on mobile even where other parts of the site use it. */
+@media (max-width: 900px) {
+  .hamburger { display: flex; }
+  .nav-right .btn-gold { display: none; } /* frees up header space so the hamburger never gets pushed off-screen, even with longer Kreyòl text */
+
   .nav-links {
-    position: fixed; top: 0; right: 0; height: 100vh; width: min(300px, 82vw);
-    /* Solid navy, no backdrop-filter (Aug 2026 fix): a blurred nav-links
-       panel stacked on top of the blurred .nav-scrim below caused iOS
-       Safari to render the whole menu hazy AND stop registering taps on
-       the links — a known WebKit bug with overlapping backdrop-filter
-       layers inside position:fixed elements. Panel is already ~opaque
-       navy, so the blur added no real visual value anyway. */
+    position: fixed; top: 0; right: 0; height: 100vh; height: 100dvh; width: min(320px, 86vw);
     background: var(--navy);
     transform: translateX(100%);
     transition: transform .4s var(--ease);
@@ -658,13 +651,35 @@ body.lang-en [data-ht] { display: none !important; }
     overflow-y: auto;
   }
   .nav-links.open { transform: translateX(0); }
+  .nav-links a { padding: 12px 16px; }
+
+  .nav-dropdown-menu {
+    position: static; display: block; box-shadow: none; border: none;
+    padding: 0 0 0 16px; margin: 0; min-width: 0;
+    /* Overrides the .glass-effect version of this rule further down this
+       file, which sets background+blur with !important — that version is
+       meant for the desktop hover dropdown and was leaking onto mobile,
+       giving the Services sub-links their own separate blur layer. */
+    background: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .nav-dropdown > a::after { display: none; }
+
+  .nav-inner { gap: 8px; }
+  .nav-logo { min-width: 0; gap: 8px; }
+  .nav-logo-text { font-size: .94rem; white-space: nowrap; }
+  .nav-logo-sub { display: none; }
+  .nav-right { gap: 8px; flex-shrink: 0; }
+  .lang-btn { padding: 5px 8px; }
+  .hamburger { flex-shrink: 0; position: relative; z-index: 202; }
 }
 .nav-scrim {
   position: fixed; inset: 0; background: rgba(6,12,26,.55);
-  /* backdrop-filter removed here too (Aug 2026) — see .nav-links comment above. */
   opacity: 0; pointer-events: none; transition: opacity .35s var(--ease); z-index: 199;
 }
 .nav-scrim.show { opacity: 1; pointer-events: auto; }
+body.menu-open { overflow: hidden; }
 .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }

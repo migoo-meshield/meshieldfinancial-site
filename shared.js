@@ -34,12 +34,14 @@ function initHamburger() {
     btn.classList.remove('active');
     scrim.classList.remove('show');
     btn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
   }
   function openMenu() {
     links.classList.add('open');
     btn.classList.add('active');
     scrim.classList.add('show');
     btn.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-open');
   }
 
   btn.addEventListener('click', () => {
@@ -47,6 +49,8 @@ function initHamburger() {
   });
   scrim.addEventListener('click', closeMenu);
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMenu(); });
 }
 /* ── Active nav link (works for both old nav and new panel) ── */
 function initActiveNav() {
@@ -111,6 +115,15 @@ function initBackToTop() {
 function initFooterYear() {
   const el = document.getElementById('year');
   if (el) el.textContent = new Date().getFullYear();
+}
+function initLegalLinks() {
+  document.querySelectorAll('.footer-bottom').forEach(footer => {
+    if (footer.querySelector('.footer-legal')) return;
+    const links = document.createElement('span');
+    links.className = 'footer-legal';
+    links.innerHTML = '<a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="accessibility.html">Accessibility</a>';
+    footer.appendChild(links);
+  });
 }
 /* ── Load AI Chatbot widget ── */
 /* Replaces Brevo live chat — answers visitors automatically, day or night,   */
@@ -260,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   initBackToTop();
   initFooterYear();
+  initLegalLinks();
   loadChatbot();
   // initPageTransitions(); — disabled (Aug 2026): the fade-to-navy on link
   // clicks made navigation feel slow. The initPageTransitions() function

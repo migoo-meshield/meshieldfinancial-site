@@ -1,0 +1,5 @@
+/intake /contact 301
+/intake.html /contact 301
+/claim /contact 301
+/claim.html /contact 301
+/*.html /:splat 301

@@ -195,6 +195,13 @@
     /* ── ADDED: submit button busy state ── */
     .btn[disabled] { opacity: .6; cursor: not-allowed; }
   </style>
+  <link rel="canonical" href="https://meshieldfinancial.com/contact"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Contact — ME Shield Financial Services"/>
+  <meta property="og:description" content="Contact ME Shield Financial Services for a free consultation on insurance, tax preparation, or immigration forms filing services in Florida."/>
+  <meta property="og:url" content="https://meshieldfinancial.com/contact"/>
+  <meta property="og:image" content="https://meshieldfinancial.com/logo.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
 </head>
 <body class="lang-en">
 
@@ -418,6 +425,8 @@
               <span data-ht>Mwen dakò pou ME Shield Financial Services kontakte m pa telefòn, mesaj tèks, oswa imel konsènan demann mwen an. Frè mesaj ak done ka aplike. Mwen ka retire konsantman mwen nenpòt lè.</span>
             </label>
           </div>
+          <p style="font-size:.78rem;margin:-10px 0 18px;color:var(--text-light);" data-en>Do not send Social Security numbers or sensitive documents here. See our <a href="privacy.html">Privacy Policy</a>.</p>
+          <p style="font-size:.78rem;margin:-10px 0 18px;color:var(--text-light);" data-ht>Pa voye nimewo Sekirite Sosyal oswa dokiman sansib isit la. Gade <a href="privacy.html">Règleman Konfidansyalite</a> nou an.</p>
 
           <button class="btn btn-gold" id="submit-btn" style="width:100%;" onclick="submitForm()">
             <span data-en>Send Message</span>
@@ -595,7 +604,7 @@
    * The Worker lives on your own domain, so this is a relative path.
    * Same domain = no CORS problems.
    */
-  const INTAKE_ENDPOINT = '/api/intake';
+  const INTAKE_ENDPOINT = '/api/contact';
 
   /**
    * LAST-RESORT FALLBACK ONLY.
