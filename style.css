@@ -634,9 +634,13 @@ body.lang-en [data-ht] { display: none !important; }
 @media (max-width: 640px) {
   .nav-links {
     position: fixed; top: 0; right: 0; height: 100vh; width: min(300px, 82vw);
-    background: rgba(11,28,58,.98);
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    /* Solid navy, no backdrop-filter (Aug 2026 fix): a blurred nav-links
+       panel stacked on top of the blurred .nav-scrim below caused iOS
+       Safari to render the whole menu hazy AND stop registering taps on
+       the links — a known WebKit bug with overlapping backdrop-filter
+       layers inside position:fixed elements. Panel is already ~opaque
+       navy, so the blur added no real visual value anyway. */
+    background: var(--navy);
     transform: translateX(100%);
     transition: transform .4s var(--ease);
     display: flex !important; flex-direction: column; justify-content: flex-start;
@@ -649,7 +653,7 @@ body.lang-en [data-ht] { display: none !important; }
 }
 .nav-scrim {
   position: fixed; inset: 0; background: rgba(6,12,26,.55);
-  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+  /* backdrop-filter removed here too (Aug 2026) — see .nav-links comment above. */
   opacity: 0; pointer-events: none; transition: opacity .35s var(--ease); z-index: 199;
 }
 .nav-scrim.show { opacity: 1; pointer-events: auto; }
