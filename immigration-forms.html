@@ -303,10 +303,10 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
   <div class="sec-inner" style="max-width:860px;">
     <div class="en block"><span class="eyebrow">Immigration Forms Fee Estimator</span>
       <h2 class="sec-h">Which form do you need help with?</h2>
-      <p class="sec-p">Select the form type to see the official government filing fee plus our document assistance fee. We help you fill out and file each form step by step.</p></div>
+      <p class="sec-p">Select the form type to estimate our document-assistance fee. Verify the current government fee directly with USCIS before filing.</p></div>
     <div class="ht block"><span class="eyebrow">Estimatè Frè Fòmilè Imigrasyon</span>
       <h2 class="sec-h">Ki fòmilè ou bezwen èd pou?</h2>
-      <p class="sec-p">Chwazi tip fòmilè a pou wè frè deklarasyon gouvènman ofisyèl la ansanm ak frè asistans dokiman nou. Nou ede ou ranpli epi depoze chak fòmilè etap pa etap.</p></div>
+      <p class="sec-p">Chwazi fòmilè a pou estime frè asistans dokiman nou. Verifye frè gouvènman aktyèl la dirèkteman ak USCIS anvan depo.</p></div>
     <div class="calc-card">
       <div class="cgrid">
         <div class="fg" style="grid-column:span 2;">
@@ -712,28 +712,22 @@ function submitReview(){
 }
 
 const IMM_FEES={
-  daca:{gov:0,svc:199,name:"DACA Renewal"},
-  i765:{gov:520,svc:149,name:"I-765 Work Permit"},
-  i130:{gov:675,svc:199,name:"I-130 Family Petition"},
-  i485:{gov:1440,svc:299,name:"I-485 Adjustment of Status"},
-  n400:{gov:725,svc:249,name:"N-400 Citizenship"},
-  i131:{gov:630,svc:149,name:"I-131 Travel Document"},
-  i90:{gov:540,svc:149,name:"I-90 Green Card Renewal"},
+  daca:{svc:199,name:"DACA Renewal"}, i765:{svc:149,name:"I-765 Work Permit"},
+  i130:{svc:199,name:"I-130 Family Petition"}, i485:{svc:299,name:"I-485 Adjustment of Status"},
+  n400:{svc:249,name:"N-400 Citizenship"}, i131:{svc:149,name:"I-131 Travel Document"}, i90:{svc:149,name:"I-90 Green Card Renewal"}
 };
 function calcImm(){
   const form=document.getElementById('imm-form').value;
   const count=parseInt(document.getElementById('imm-count').value)||1;
   const trans=document.getElementById('imm-trans').value==='yes';
   const f=IMM_FEES[form]||IMM_FEES.daca;
-  const gov=f.gov*count;
   const svc=f.svc+(count>1?(count-1)*99:0);
   const tr=trans?75*count:0;
-  const total=gov+svc+tr;
-  document.getElementById('imm-result').textContent='$'+Math.round(total*0.95)+' – $'+Math.round(total*1.05);
-  let bd='';
-  if(gov>0)bd+='USCIS Gov. Fee: $'+gov+' &nbsp;·&nbsp; ';
-  bd+='ME Shield Assistance: $'+svc;
+  const total=svc+tr;
+  document.getElementById('imm-result').textContent='$'+total+' ME Shield fee';
+  let bd='ME Shield Assistance: $'+svc;
   if(tr>0)bd+=' &nbsp;·&nbsp; Translation: $'+tr;
+  bd+=' &nbsp;·&nbsp; <a href="https://www.uscis.gov/g-1055" target="_blank" rel="noopener">Verify current USCIS government fee</a>';
   document.getElementById('imm-breakdown').innerHTML=bd;
 }
 
@@ -774,6 +768,7 @@ function submitImm(){
 }
 window.addEventListener('load',calcImm);</script>
 
+<script src="service-pages.js"></script>
 <script src="chatbot-widget.js"></script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>

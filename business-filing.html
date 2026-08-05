@@ -293,10 +293,10 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
   <div class="sec-inner" style="max-width:860px;">
     <div class="en block"><span class="eyebrow">Business Filing Cost Estimator</span>
       <h2 class="sec-h">How much does it cost to start your business?</h2>
-      <p class="sec-p">Select your entity type and add-ons to see a real estimate — including state fees and our service fee.</p></div>
+      <p class="sec-p">Select your entity type and add-ons to see a planning estimate with government and ME Shield fees separated.</p></div>
     <div class="ht block"><span class="eyebrow">Estimatè Depans Enskripsyon Biznis</span>
       <h2 class="sec-h">Konbyen li koute pou kòmanse biznis ou?</h2>
-      <p class="sec-p">Chwazi tip antite ou ak opsyon siplemantè yo pou wè yon estimasyon reyèl — enkli frè eta ak frè sèvis nou.</p></div>
+      <p class="sec-p">Chwazi tip antite ak opsyon yo pou wè yon estimasyon planifikasyon ki separe frè gouvènman ak frè ME Shield.</p></div>
     <div class="calc-card">
       <div class="cgrid">
         <div class="fg">
@@ -734,6 +734,11 @@ function calcBiz(){
   const ra=document.getElementById('biz-ra').checked;
   const bp=document.getElementById('biz-bp').checked;
   let stFee=0,svcFee=0,lines=[];
+  if(state!=='fl'){
+    document.getElementById('biz-result').textContent='Consultation required';
+    document.getElementById('biz-breakdown').textContent='Government fees differ by state. We will verify the official state fee before confirming your quote.';
+    return;
+  }
   if(type==='llc'){stFee=state==='fl'?125:150;svcFee=149;lines.push('FL Articles of Organization: $'+stFee);}
   else if(type==='solo'){stFee=0;svcFee=99;lines.push('DBA Registration (county): $50–$80');}
   else if(type==='corp'){stFee=state==='fl'?70:100;svcFee=249;lines.push('Articles of Incorporation: $'+stFee);}
@@ -745,7 +750,8 @@ function calcBiz(){
   if(ra){extras+=99;lines.push('Registered Agent (1yr): $99');}
   if(bp){extras+=349;lines.push('Business Plan: $349');}
   const total=stFee+svcFee+extras;
-  document.getElementById('biz-result').textContent='$'+Math.round(total*0.9)+' – $'+Math.round(total*1.1);
+  document.getElementById('biz-result').textContent='$'+total+' estimated total';
+  lines.push('<a href="https://dos.fl.gov/sunbiz/start-business/" target="_blank" rel="noopener">Verify Florida filing fee on Sunbiz</a>');
   document.getElementById('biz-breakdown').innerHTML=lines.join(' &nbsp;·&nbsp; ');
 }
 
@@ -786,6 +792,7 @@ function submitBiz(){
 }
 window.addEventListener('load',calcBiz);</script>
 
+<script src="service-pages.js"></script>
 <script src="chatbot-widget.js"></script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>

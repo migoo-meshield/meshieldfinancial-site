@@ -287,9 +287,9 @@ nav .nav-home:hover { color: #C9A84C !important; background: rgba(255,255,255,.0
     </div>
     <div class="hero-stats">
       <div>
-        <div class="hs-num">4–5%</div>
-        <div class="hs-label en">Average guaranteed growth</div>
-        <div class="hs-label ht">Kwasans garanti mwayen</div>
+        <div class="hs-num">IBC</div>
+        <div class="hs-label en">Education-first planning</div>
+        <div class="hs-label ht">Planifikasyon ki kòmanse ak edikasyon</div>
       </div>
       <div>
         <div class="hs-num">Tax</div>
@@ -306,12 +306,12 @@ nav .nav-home:hover { color: #C9A84C !important; background: rgba(255,255,255,.0
 
 <section class="pad ibc-alt" id="calculator">
   <div class="sec-inner" style="max-width:900px;">
-    <div class="en block"><span class="eyebrow">IBC Wealth Projection Calculator</span>
-      <h2 class="sec-h white">See your projected cash value growth</h2>
-      <p class="sec-p dim">Enter your age and how much you want to contribute monthly. We'll show you a projected total at 1, 5, 10, and 20 years.</p></div>
-    <div class="ht block"><span class="eyebrow">Kalkilatè Pwojeksyon Richès IBC</span>
-      <h2 class="sec-h white">Wè kwasans valè lajan pwojete ou</h2>
-      <p class="sec-p dim">Antre laj ou ak konbyen ou vle kontribye chak mwa. Nou pral montre ou yon total pwojete nan 1, 5, 10, ak 20 an.</p></div>
+    <div class="en block"><span class="eyebrow">IBC Contribution Planning Tool</span>
+      <h2 class="sec-h white">Plan a possible contribution budget</h2>
+      <p class="sec-p dim">Enter your age and a possible monthly contribution. We show contribution totals only; cash value requires an official carrier illustration.</p></div>
+    <div class="ht block"><span class="eyebrow">Zouti Planifikasyon Kontribisyon IBC</span>
+      <h2 class="sec-h white">Planifye yon bidjè kontribisyon posib</h2>
+      <p class="sec-p dim">Antre laj ou ak yon kontribisyon mansyèl posib. Nou montre total kontribisyon sèlman; valè kach bezwen yon ilustrasyon ofisyèl konpayi asirans.</p></div>
     <div class="calc-card" style="background:rgba(255,255,255,.05);border-color:rgba(201,168,76,.25);">
       <div class="cgrid">
         <div class="fg">
@@ -320,8 +320,8 @@ nav .nav-home:hover { color: #C9A84C !important; background: rgba(255,255,255,.0
           <input type="number" class="fi" id="ibc-age" value="32" min="18" max="65" style="background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.2);color:#fff;" oninput="calcIBC()"/>
         </div>
         <div class="fg">
-          <label class="fl en" style="color:rgba(255,255,255,.7);">Monthly Premium</label>
-          <label class="fl ht" style="color:rgba(255,255,255,.7);">Prim Mansyèl</label>
+          <label class="fl en" style="color:rgba(255,255,255,.7);">Monthly Planning Amount</label>
+          <label class="fl ht" style="color:rgba(255,255,255,.7);">Montan Planifikasyon Mansyèl</label>
           <select class="fs" id="ibc-prem" style="background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.2);color:#fff;" onchange="calcIBC()">
             <option value="200">$200 / month</option>
             <option value="300">$300 / month</option>
@@ -339,8 +339,8 @@ nav .nav-home:hover { color: #C9A84C !important; background: rgba(255,255,255,.0
         <div class="result-box" style="padding:18px 10px;"><div class="rb-label en">10 Years</div><div class="rb-label ht">10 An</div><div class="rb-range" id="ibc-10" style="font-size:1.3rem;">--</div></div>
         <div class="result-box" style="padding:18px 10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);"><div class="rb-label en">20 Years</div><div class="rb-label ht">20 An</div><div class="rb-range" id="ibc-20" style="font-size:1.3rem;">--</div></div>
       </div>
-      <p style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;margin-bottom:20px;" class="en">These are educational estimates based on a typical 4–5% whole life compound growth rate. Actual results vary by policy design and insurer.</p>
-      <p style="font-size:.72rem;color:rgba(255,255,255,.3);text-align:center;margin-bottom:20px;" class="ht">Sa yo se estimasyon edikasyonèl baze sou yon to kwasans konpoze lavi antye tipik 4-5%. Rezilta reyèl yo varye selon konsepsyon polis ak konpayi asirans.</p>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.55);text-align:center;margin-bottom:20px;" class="en">Contribution totals only—not cash value, premium, return, or policy projections. Actual policy values require a carrier-approved illustration and underwriting.</p>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.55);text-align:center;margin-bottom:20px;" class="ht">Sa yo se total kontribisyon sèlman—se pa valè kach, prim, rannman oswa pwojeksyon polis. Valè polis reyèl bezwen yon ilustrasyon konpayi asirans apwouve ak underwriting.</p>
 
       <div class="lfgrid">
         <div class="fg"><label class="fl en" style="color:rgba(255,255,255,.7);">Full Name</label><label class="fl ht" style="color:rgba(255,255,255,.7);">Non Konplè</label><input type="text" class="fi" id="ib-name" placeholder="Your name" style="background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.2);color:#fff;"/></div>
@@ -734,24 +734,15 @@ function submitReview(){
 
 // Calculator: monthly premium compounds together at ~4.5%/yr across
 // 1, 5, 10, and 20 years — a straightforward projected total, like before.
-function totalAt(annual, years, rate){
-  let val = 0;
-  for (let y = 1; y <= years; y++){
-    val += annual;
-    val *= (1 + rate);
-  }
-  return val;
-}
 function fmt(n){ return '$' + Math.round(n).toLocaleString(); }
 
 function calcIBC(){
   const prem = parseInt(document.getElementById('ibc-prem').value) || 500;
   const annual = prem * 12;
-  const rate = 0.045; // middle of the 4-5% guaranteed range
   const periods = [1, 5, 10, 20];
 
   periods.forEach(function(yrs){
-    const total = totalAt(annual, yrs, rate);
+    const total = annual * yrs;
     document.getElementById('ibc-' + yrs).textContent = fmt(total);
   });
 }
@@ -794,6 +785,7 @@ function submitIBC(){
 }
 window.addEventListener('load',calcIBC);</script>
 
+<script src="service-pages.js"></script>
 <script src="chatbot-widget.js"></script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>
