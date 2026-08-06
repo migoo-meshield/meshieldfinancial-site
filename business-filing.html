@@ -20,25 +20,61 @@ body.lang-ht .ht{display:revert!important;}
 body.lang-ht .ht.block{display:block!important;}
 body.lang-ht .ht.flex{display:flex!important;}
 body.lang-ht .ht.inline{display:inline!important;}
-.topbar{background:var(--navy);padding:9px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-.topbar-left{font-size:.72rem;color:rgba(255,255,255,.5);}
-.topbar-left a{color:var(--gold);text-decoration:none;}
-.topbar-right{display:flex;align-items:center;gap:16px;}
-.tb-phone{font-size:.72rem;color:rgba(255,255,255,.65);text-decoration:none;}
-.tb-phone:hover{color:var(--gold);}
-.lang-toggle{display:flex;border:1px solid rgba(201,168,76,.3);border-radius:6px;overflow:hidden;}
-.lt-btn{padding:5px 12px;font-size:.68rem;font-weight:700;cursor:pointer;background:transparent;border:none;color:rgba(255,255,255,.45);font-family:inherit;transition:all .2s;}
-.lt-btn.active{background:var(--gold);color:var(--navy);}
-nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 32px;background:rgba(250,247,241,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,.14);box-shadow:0 2px 20px rgba(11,29,58,.06);}
-.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.nav-logo{height:38px;width:auto;}
-.nav-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--navy);}
-.nav-sub{font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:var(--light);margin-top:1px;}
-.nav-right{display:flex;align-items:center;gap:12px;}
-.nav-home{font-size:.78rem;color:var(--mid);text-decoration:none;padding:8px 14px;border-radius:8px;transition:background .2s;}
-.nav-home:hover{background:rgba(11,29,58,.06);}
-.nav-cta{background:var(--navy);color:var(--gold);font-weight:700;font-size:.82rem;padding:10px 22px;border-radius:50px;text-decoration:none;box-shadow:0 4px 16px rgba(11,29,58,.18);transition:all .2s;}
-.nav-cta:hover{background:var(--navy2);transform:translateY(-1px);}
+[data-en],[data-ht]{}
+body.lang-ht [data-en]{display:none!important;}
+body.lang-en [data-ht]{display:none!important;}
+.utility-bar{background:#122348;padding:8px 0;font-size:.8rem;}
+.utility-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.utility-left{display:flex;align-items:center;gap:18px;color:rgba(255,255,255,.7);}
+.utility-left a{color:rgba(255,255,255,.7);}
+.utility-promos{display:flex;gap:18px;flex-wrap:wrap;}
+.utility-promo{color:#C9A84C;font-weight:700;letter-spacing:.04em;}
+.utility-promo a{color:#fff;font-weight:600;margin-left:6px;text-decoration:underline;}
+@media (max-width:700px){.utility-promos{display:none;}}
+.container{max-width:1180px;margin:0 auto;padding:0 28px;}
+.navbar{position:sticky;top:0;z-index:300;background:rgba(11,28,58,.94);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgba(201,168,76,.16);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:78px;}
+.navbar .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo-icon{width:40px;height:40px;background:#C9A84C;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;font-weight:700;color:#0B1D3A;flex-shrink:0;}
+.nav-logo-text{font-family:'Playfair Display',Georgia,serif;font-size:1.12rem;font-weight:700;color:#fff;line-height:1.2;}
+.nav-logo-sub{font-family:'Inter',system-ui,sans-serif;font-size:.66rem;font-weight:500;color:#C9A84C;letter-spacing:.1em;text-transform:uppercase;}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
+.nav-links a{color:rgba(255,255,255,.78);font-size:.89rem;font-weight:500;padding:9px 16px;border-radius:999px;transition:all .25s ease;text-decoration:none;position:relative;}
+.nav-links a:hover{color:#fff;background:rgba(201,168,76,.14);}
+.nav-links a.active{color:#C9A84C;background:rgba(201,168,76,.12);}
+.navbar .nav-right{display:flex;align-items:center;gap:16px;}
+.nav-dropdown{position:relative;}
+.nav-dropdown>a::after{content:'';display:inline-block;margin-left:5px;width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);opacity:.7;}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;left:0;margin:4px 0 0;background:#0B1C3A;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:6px;min-width:220px;box-shadow:0 12px 28px rgba(0,0,0,.35);list-style:none;z-index:50;}
+.nav-dropdown:hover .nav-dropdown-menu,.nav-dropdown:focus-within .nav-dropdown-menu{display:block;}
+.nav-dropdown-menu li a{display:block;padding:9px 14px;font-size:.85rem;white-space:nowrap;border-radius:7px;color:rgba(255,255,255,.78);}
+.nav-dropdown-menu li a:hover{color:#fff;background:rgba(201,168,76,.14);}
+.navbar .lang-toggle{display:flex;background:rgba(255,255,255,.08);border-radius:999px;padding:3px;gap:2px;}
+.navbar .lang-btn{background:none;border:none;color:rgba(255,255,255,.55);font-size:.76rem;font-weight:600;padding:5px 12px;border-radius:999px;cursor:pointer;transition:all .25s ease;letter-spacing:.05em;}
+.navbar .lang-btn.active{background:#C9A84C;color:#0B1D3A;}
+.hamburger{display:none;align-items:center;justify-content:center;cursor:pointer;background:none;border:1px solid rgba(201,168,76,.65);border-radius:999px;color:#C9A84C;font-size:.74rem;font-weight:800;letter-spacing:.08em;padding:8px 12px;}
+.hamburger:hover,.hamburger.active{background:#C9A84C;color:#0B1D3A;}
+.mobile-book-item{display:none;}
+@media (max-width:900px){
+.hamburger{display:flex;}
+.nav-links{position:fixed;top:0;right:0;height:100vh;height:100dvh;width:min(320px,86vw);background:var(--navy);transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);display:flex!important;flex-direction:column;justify-content:flex-start;padding:96px 26px 24px;gap:4px;box-shadow:-20px 0 50px rgba(0,0,0,.35);z-index:200;border-left:1px solid rgba(201,168,76,.2);overflow-y:auto;}
+.nav-links.open{transform:translateX(0);}
+.nav-links a{padding:12px 16px;}
+.mobile-book-item{display:block;width:100%;margin-bottom:10px;}
+.nav-links .mobile-book-link{display:block;background:var(--gold);color:var(--navy);text-align:center;font-weight:800;border-radius:999px;padding:13px 18px;text-decoration:none;}
+.nav-dropdown-menu{position:static;display:block;box-shadow:none;border:none;padding:0 0 0 16px;margin:0;min-width:0;background:none!important;}
+.nav-dropdown>a::after{display:none;}
+.nav-inner{gap:8px;}
+.navbar .nav-logo{min-width:0;gap:8px;}
+.nav-logo-text{font-size:.94rem;white-space:nowrap;}
+.nav-logo-sub{display:none;}
+.navbar .nav-right{gap:8px;flex-shrink:0;}
+.navbar .lang-btn{padding:5px 8px;}
+.hamburger{flex-shrink:0;position:relative;z-index:202;}
+}
+.nav-scrim{position:fixed;inset:0;background:rgba(6,12,26,.55);opacity:0;pointer-events:none;transition:opacity .35s cubic-bezier(.16,1,.3,1);z-index:199;}
+.nav-scrim.show{opacity:1;pointer-events:auto;}
+body.menu-open{overflow:hidden;}
 .hero{position:relative;min-height:80vh;display:flex;align-items:center;overflow:hidden;}
 .hero-bg{position:absolute;inset:0;z-index:0;}
 .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center;}
@@ -209,6 +245,17 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
   .cgrid{grid-template-columns:1fr !important;}
 }
 
+/* ── SERVICE INFO (what business filing includes) ── */
+.svcinfo-intro{font-size:1.05rem;line-height:1.75;color:var(--text);max-width:760px;margin:0 auto 32px;text-align:center;}
+.svcinfo{display:flex;gap:32px;align-items:flex-start;}
+.svcinfo-img{width:280px;height:200px;object-fit:cover;border-radius:18px;flex-shrink:0;box-shadow:0 4px 20px rgba(11,29,58,.08);}
+.svcinfo-text h3{color:var(--navy);font-size:1.25rem;margin-bottom:10px;font-family:'Playfair Display',Georgia,serif;}
+.svcinfo-text p{font-size:1rem;line-height:1.7;color:var(--text);margin-bottom:0;}
+.svcinfo-links{display:flex;flex-direction:column;gap:6px;margin-top:14px;}
+.svcinfo-links a{color:var(--gold2,#b8933a);font-weight:600;font-size:.88rem;text-decoration:none;}
+.svcinfo-links a:hover{text-decoration:underline;}
+@media(max-width:700px){.svcinfo{flex-direction:column;}.svcinfo-img{width:100%;height:190px;}}
+
 </style>
   <link rel="canonical" href="https://meshieldfinancial.com/business-filing"/>
   <meta property="og:type" content="website"/>
@@ -220,34 +267,61 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
 </head>
 <body class="lang-en">
 
-<div class="topbar">
-  <div class="topbar-left">
-    <a href="index.html">meshieldfinancial.com</a> &nbsp;·&nbsp;
-    <span class="en">Business Filing</span><span class="ht">Enskripsyon Biznis</span>
-  </div>
-  <div class="topbar-right">
-    <a href="tel:4072672652" class="tb-phone">(407) 267-2652</a>
-    <div class="lang-toggle">
-      <button class="lt-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-      <button class="lt-btn" id="btn-ht" onclick="setLang('ht')">HT</button>
+<div class="utility-bar">
+  <div class="container utility-bar-inner">
+    <div class="utility-left">
+      <span><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652">(407) 267-2652</a></span>
+      <span class="en">Mon–Fri 9am–6pm · Sat by appointment</span>
+      <span class="ht">Lendi–Vandredi 9am–6pm · Samdi sou randevou</span>
+    </div>
+    <div class="utility-promos">
+      <span class="utility-promo en">FREE CONSULTATION<a href="book.html">Book Now</a></span>
+      <span class="utility-promo ht">KONSILTASYON GRATIS<a href="book.html">Rezève</a></span>
+      <span class="utility-promo en">TAX SEASON READY<a href="tax-preparation.html">Get Started</a></span>
+      <span class="utility-promo ht">SEZON TAKS PARE<a href="tax-preparation.html">Kòmanse</a></span>
     </div>
   </div>
 </div>
 
-<nav>
-  <a href="index.html" class="nav-brand">
-    <img src="logo.png" alt="ME Shield" class="nav-logo" onerror="this.style.display='none'"/>
-    <div>
-      <div class="nav-name">ME Shield Financial Services</div>
-      <div class="nav-sub en">Business Division</div>
-      <div class="nav-sub ht">Divizyon Biznis</div>
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
+      <div>
+        <div class="nav-logo-text">ME Shield Financial</div>
+        <div class="nav-logo-sub">Services</div>
+      </div>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" class="en">Home</a><a href="index.html" class="ht">Akèy</a></li>
+      <li><a href="about.html" class="en">About</a><a href="about.html" class="ht">Sou nou</a></li>
+      <li class="nav-dropdown">
+        <a href="services.html" class="en">Services</a><a href="services.html" class="ht">Sèvis</a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="insurance.html" class="en">Insurance</a><a href="insurance.html" class="ht">Asirans</a></li>
+          <li><a href="tax-preparation.html" class="en">Tax Preparation</a><a href="tax-preparation.html" class="ht">Preparasyon Taks</a></li>
+          <li><a href="immigration-forms.html" class="en">Immigration Forms Filing</a><a href="immigration-forms.html" class="ht">Ranpli Fòmilè Imigrasyon</a></li>
+          <li><a href="business-filing.html" class="en">Business Filing</a><a href="business-filing.html" class="ht">Depo Biznis</a></li>
+          <li><a href="infinite-banking.html" class="en">Infinite Banking</a><a href="infinite-banking.html" class="ht">Bank Enfini</a></li>
+        </ul>
+      </li>
+      <li><a href="blog.html" class="en">Blog</a><a href="blog.html" class="ht">Blòg</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html" class="en">Contact</a><a href="contact.html" class="ht">Kontakte</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-en" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btn-ht" data-lang="ht" onclick="setLang('ht')">HT</button>
+      </div>
+      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
+        <span class="en">Book Free Consult</span>
+        <span class="ht">Rezève Konsiltasyon</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </a>
-  <div class="nav-right">
-    <a href="index.html" class="nav-home en">← Main Site</a>
-    <a href="index.html" class="nav-home ht">← Sit Prensipal</a>
-    <a href="book.html" class="nav-cta en">Book Free Consult</a>
-    <a href="book.html" class="nav-cta ht">Rezève Konsiltasyon</a>
   </div>
 </nav>
 <section class="hero">
@@ -286,6 +360,29 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
         <div class="hs-label en">Quick Turnaround</div>
         <div class="hs-label ht">Rezilta Rapid</div>
       </div></div>
+  </div>
+</section>
+
+<!-- WHAT BUSINESS FILING COVERS -->
+<section class="pad" style="background:var(--white);">
+  <div class="container" style="max-width:900px;">
+    <h2 style="text-align:center;color:var(--navy);font-family:'Playfair Display',Georgia,serif;font-size:1.7rem;margin-bottom:16px;" class="en">Starting a Business the Right Way — From Day One</h2>
+    <h2 style="text-align:center;color:var(--navy);font-family:'Playfair Display',Georgia,serif;font-size:1.7rem;margin-bottom:16px;" class="ht">Kòmanse yon Biznis Byen — Depi Premye Jou</h2>
+    <div class="svcinfo">
+      <img src="article-business-filing.jpg" alt="Starting a business in Florida" class="svcinfo-img"/>
+      <div class="svcinfo-text">
+        <p class="en">Every business — from a one-person cleaning company to a growing family restaurant — needs the right foundation before it opens its doors. That means choosing the right structure (usually an LLC for small businesses), registering it correctly with the State of Florida, appointing a registered agent, and getting your EIN so you can open a business bank account and file taxes separately from your personal finances.</p>
+        <p class="ht">Chak biznis — soti nan yon konpayi netwayaj yon sèl moun rive nan yon restoran fanmi k ap grandi — bezwen bon fondasyon anvan li louvri pòt li. Sa vle di chwazi bon estrikti a (anjeneral yon LLC pou ti biznis), anrejistre li kòrèkteman ak Eta Florid, nonmen yon ajan anrejistre, epi jwenn EIN ou pou ou ka ouvri yon kont bank biznis epi depoze taks separeman de finans pèsonèl ou.</p>
+        <p class="en" style="margin-top:14px;">Skipping steps or filing incorrectly is one of the most common — and costly — mistakes new business owners make. It can mean personal liability for business debts, rejected filings, or compliance problems down the road. We help you file your LLC correctly the first time, explain what a registered agent actually does and why you need one, and make sure your new business starts on solid ground — in English or Kreyòl, explained clearly at every step.</p>
+        <p class="ht" style="margin-top:14px;">Sote etap oswa depoze enkòrèkteman se youn nan erè ki pi komen — epi ki pi chè — nouvo pwopriyetè biznis fè. Sa ka vle di responsablite pèsonèl pou dèt biznis, depo rejte, oswa pwoblèm konfòmite pi devan. Nou ede ou depoze LLC ou kòrèkteman premye fwa a, eksplike sa yon ajan anrejistre reyèlman fè ak poukisa ou bezwen youn, epi asire nouvo biznis ou kòmanse sou yon baz solid — an Anglè oswa Kreyòl, eksplike klèman nan chak etap.</p>
+        <div class="svcinfo-links">
+          <a href="llc-formation-florida-guide.html" class="en">LLC Formation in Florida: A Step-by-Step Guide →</a>
+          <a href="llc-formation-florida-guide.html" class="ht">Fòmasyon LLC nan Florid: Yon Gid Etap pa Etap →</a>
+          <a href="llc-registration-mistakes-florida.html" class="en">Common LLC Registration Mistakes in Florida →</a>
+          <a href="llc-registration-mistakes-florida.html" class="ht">Erè Komen nan Anrejistreman LLC nan Florid →</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -663,13 +760,6 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
 </style>
 
 <script>
-function setLang(l){
-  document.body.className='lang-'+l;
-  document.getElementById('btn-en').classList.toggle('active',l==='en');
-  document.getElementById('btn-ht').classList.toggle('active',l==='ht');
-  document.documentElement.lang=l==='ht'?'ht':'en';
-}
-
 document.addEventListener('DOMContentLoaded', function(){
   const y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
@@ -792,6 +882,7 @@ function submitBiz(){
 }
 window.addEventListener('load',calcBiz);</script>
 
+<script src="shared.js"></script>
 <script src="service-pages.js"></script>
 <script src="chatbot-widget.js"></script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
