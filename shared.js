@@ -1,4 +1,36 @@
 /* shared.js — nav, language switcher, scroll reveal, footer */
+/* ── SEO / clean URL normalization ──
+   Cloudflare redirects legacy *.html URLs to extensionless URLs. Keep the
+   DOM aligned with the sitemap so crawlers and visitors link directly to the
+   canonical destination instead of discovering a redirect first. */
+function initCleanUrls() {
+  const cleanPath = (pathname) => {
+    if (pathname === '/index.html') return '/';
+    return pathname.replace(/\.html$/, '');
+  };
+
+  document.querySelectorAll('a[href]').forEach((a) => {
+    const raw = a.getAttribute('href');
+    if (!raw || raw.startsWith('#') || raw.startsWith('mailto:') ||
+        raw.startsWith('tel:') || raw.startsWith('javascript:')) return;
+    try {
+      const url = new URL(raw, window.location.href);
+      if (url.origin !== window.location.origin || !/\.html$/.test(url.pathname)) return;
+      url.pathname = cleanPath(url.pathname);
+      a.setAttribute('href', url.pathname + url.search + url.hash);
+    } catch (_) {
+      // Ignore malformed/non-navigation href values.
+    }
+  });
+
+  if (!document.querySelector('link[rel="canonical"]')) {
+    const canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    canonical.href = window.location.origin + cleanPath(window.location.pathname);
+    document.head.appendChild(canonical);
+  }
+}
+
 /* ── Language Switcher ── */
 function initLang() {
   const saved = localStorage.getItem('me-shield-lang') || 'en';
@@ -12,14 +44,10 @@ function setLang(lang, save = true) {
   });
   if (save) localStorage.setItem('me-shield-lang', lang);
 }
-/* ── Hamburger / off-canvas mobile menu ──
-   Upgraded by Claude: adds a dark scrim behind the panel, closes on
-   scrim click or link click, and drives the slide-in animation defined
-   in style.css (.nav-links transform). */
+/* ── Hamburger / off-canvas mobile menu ── */
 function initHamburger() {
   const btn   = document.getElementById('hamburger');
   const links = document.getElementById('nav-links');
-  // New side-panel pages don't use #nav-links — skip
   if (!btn || !links) return;
 
   btn.innerHTML = '<span data-en>MENU</span><span data-ht>MENI</span>';
@@ -27,7 +55,7 @@ function initHamburger() {
   if (!links.querySelector('.mobile-book-item')) {
     const item = document.createElement('li');
     item.className = 'mobile-book-item';
-    item.innerHTML = '<a class="mobile-book-link" href="book.html"><span data-en>Book Free Consult</span><span data-ht>Rezève Konsiltasyon Gratis</span></a>';
+    item.innerHTML = '<a class="mobile-book-link" href="/book"><span data-en>Book Free Consult</span><span data-ht>Rezève Konsiltasyon Gratis</span></a>';
     links.insertBefore(item, links.firstChild);
   }
 
@@ -66,32 +94,32 @@ function initHamburger() {
 /* ── Active nav link (works for both old nav and new panel) ── */
 function initActiveNav() {
   let page = location.pathname.split('/').pop();
-  if (!page) page = 'index.html';
+  if (!page) page = 'index';
   const articlePages = [
-    'infinite-banking-concept.html',
-    'tax-deductions-self-employed.html',
-    'daca-2026-renewal-guide.html',
-    'term-vs-whole-life-ibc.html',
-    'itin-guide-florida.html',
-    'haitian-diaspora-wealth-building.html',
-    'llc-formation-florida-guide.html',
-    'health-insurance-open-enrollment-florida.html',
-    'choosing-a-trustworthy-financial-advisor.html',
-    'building-an-emergency-fund.html',
-    'naturalization-process-guide.html',
-    'how-much-life-insurance-do-i-need.html',
-    'trump-account.html',
+    'infinite-banking-concept',
+    'tax-deductions-self-employed',
+    'daca-2026-renewal-guide',
+    'term-vs-whole-life-ibc',
+    'itin-guide-florida',
+    'haitian-diaspora-wealth-building',
+    'llc-formation-florida-guide',
+    'health-insurance-open-enrollment-florida',
+    'choosing-a-trustworthy-financial-advisor',
+    'building-an-emergency-fund',
+    'naturalization-process-guide',
+    'how-much-life-insurance-do-i-need',
+    'trump-account',
   ];
-  if (articlePages.includes(page)) page = 'blog.html';
-  // Old nav
+  if (articlePages.includes(page)) page = 'blog';
   document.querySelectorAll('.nav-links a').forEach(a => {
-    if (a.getAttribute('href') === page) a.classList.add('active');
+    const hrefPage = (a.getAttribute('href') || '').replace(/^\//, '').replace(/\.html$/, '') || 'index';
+    if (hrefPage === page) a.classList.add('active');
   });
-  // New side panel nav
   const panel = document.getElementById('nav-panel');
   if (panel) {
     panel.querySelectorAll('.nav-panel-link').forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === page);
+      const hrefPage = (a.getAttribute('href') || '').replace(/^\//, '').replace(/\.html$/, '') || 'index';
+      a.classList.toggle('active', hrefPage === page);
     });
   }
 }
@@ -109,7 +137,6 @@ function initReveal() {
   }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
   targets.forEach(t => obs.observe(t));
 }
-/* ── Back to top button ── */
 function initBackToTop() {
   if (document.querySelector('.back-to-top')) return;
   const btn = document.createElement('button');
@@ -122,7 +149,6 @@ function initBackToTop() {
     btn.classList.toggle('visible', window.scrollY > 500);
   });
 }
-/* ── Footer year ── */
 function initFooterYear() {
   const el = document.getElementById('year');
   if (el) el.textContent = new Date().getFullYear();
@@ -132,35 +158,17 @@ function initLegalLinks() {
     if (footer.querySelector('.footer-legal')) return;
     const links = document.createElement('span');
     links.className = 'footer-legal';
-    links.innerHTML = '<a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="accessibility.html">Accessibility</a>';
+    links.innerHTML = '<a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/accessibility">Accessibility</a>';
     footer.appendChild(links);
   });
 }
-/* ── Load AI Chatbot widget ── */
-/* Replaces Brevo live chat — answers visitors automatically, day or night,   */
-/* and hands off to Miguelson directly when needed.                          */
 function loadChatbot() {
-  if (document.querySelector('script[src="/chatbot-widget.js"]')) return; // avoid loading twice
+  if (document.querySelector('script[src="/chatbot-widget.js"]')) return;
   const s = document.createElement('script');
   s.src = '/chatbot-widget.js';
   s.defer = true;
   document.body.appendChild(s);
 }
-
-/* ============================================================
-   MODERN INTERACTION LAYER — added by Claude, July 2026
-   Page transitions, parallax on hero photos, and a generic
-   form-validation enhancer. All of this is additive — nothing
-   above was changed in a way that removes existing behavior.
-   (A floating Quick Quote button + modal was built here too, but
-   removed on request since it duplicated the existing AI chatbot's
-   spot and job — the reusable .modal-scrim/.modal-box CSS is still
-   in style.css if you want a popup for something else later.)
-   ============================================================ */
-
-/* ── Page transitions ──
-   Fades to navy, then navigates, on same-site link clicks. Skips
-   anchors, new tabs, mailto/tel, and external links. */
 function initPageTransitions() {
   let fade = document.querySelector('.page-fade');
   if (!fade) {
@@ -168,25 +176,19 @@ function initPageTransitions() {
     fade.className = 'page-fade';
     document.body.appendChild(fade);
   }
-
   document.querySelectorAll('a[href]').forEach((a) => {
     const href = a.getAttribute('href');
     if (!href || href.startsWith('#') || href.startsWith('http') ||
         href.startsWith('mailto:') || href.startsWith('tel:') ||
         a.target === '_blank' || a.hasAttribute('download')) return;
     a.addEventListener('click', (e) => {
-      if (e.metaKey || e.ctrlKey || e.shiftKey) return; // let cmd/ctrl-click open new tab normally
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
       e.preventDefault();
       fade.classList.add('active');
       setTimeout(() => { window.location.href = href; }, 300);
     });
   });
 }
-
-/* ── Subtle parallax on hero photo backgrounds ──
-   Shifts background-position slightly as the hero scrolls past,
-   using background-position (not background-attachment:fixed,
-   which is unreliable on iOS Safari — Migoo's primary device). */
 function initParallax() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const els = document.querySelectorAll('.page-hero.has-photo, .article-hero');
@@ -205,11 +207,6 @@ function initParallax() {
   }, { passive: true });
   update();
 }
-
-/* ── Generic interactive-form feedback ──
-   Adds live "required" checking to any .form-group input on the page
-   (contact.html, book.html, etc.) without needing per-page markup
-   changes — it just watches whatever .form-group fields already exist. */
 function initFormEnhancer() {
   document.querySelectorAll('form').forEach((form) => {
     form.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach((field) => {
@@ -227,12 +224,6 @@ function initFormEnhancer() {
     });
   });
 }
-
-/* ── Tabs / switchable sections engine ──
-   Generic: initializes any block marked up as:
-   <div class="tabs-nav"><button data-tab="a" class="active">A</button>...</div>
-   <div class="tab-panel active" data-tab-panel="a">...</div>
-   Currently a no-op until a page adds this markup — ready to use. */
 function initTabs() {
   document.querySelectorAll('.tabs-nav').forEach((nav) => {
     const group = nav.closest('[data-tabs]') || nav.parentElement;
@@ -248,14 +239,6 @@ function initTabs() {
     });
   });
 }
-
-/* ── Installable app (PWA) — added by Claude, July 2026 ──
-   Injects the manifest link, theme-color, and service worker registration
-   from this one shared file, so every page that already loads shared.js
-   becomes "Add to Home Screen"-eligible without editing each page by hand.
-   (The 5 standalone Division pages and trump-account.html don't load
-   shared.js, so they won't pick this up — same scope limit as the rest of
-   the modern-interaction-layer work.) */
 function initPWA() {
   if (!document.querySelector('link[rel="manifest"]')) {
     const link = document.createElement('link');
@@ -270,12 +253,8 @@ function initPWA() {
     document.head.appendChild(meta);
   }
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').catch(() => {
-      // Fails silently — the site works fine without it, it just won't
-      // be installable on that visit.
-    });
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
   }
-
   let installPrompt;
   const install = document.createElement('button');
   install.className = 'pwa-install';
@@ -305,17 +284,17 @@ function initPWA() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initCleanUrls();
   initLang();
   initHamburger();
+  initCleanUrls(); // normalize links injected by the mobile menu before nav matching
   initActiveNav();
   initReveal();
   initBackToTop();
   initFooterYear();
   initLegalLinks();
+  initCleanUrls(); // normalize legal links injected above
   loadChatbot();
-  // initPageTransitions(); — disabled (Aug 2026): the fade-to-navy on link
-  // clicks made navigation feel slow. The initPageTransitions() function
-  // above is left in place, just no longer called, in case you want it back.
   initParallax();
   initFormEnhancer();
   initTabs();
