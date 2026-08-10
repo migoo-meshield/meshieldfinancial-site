@@ -4,3 +4,21 @@
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: frame-ancestors 'self'; base-uri 'self'; object-src 'none'
+
+/insurance
+  Link: <https://meshieldfinancial.com/insurance>; rel="canonical"
+
+/tax-preparation
+  Link: <https://meshieldfinancial.com/tax-preparation>; rel="canonical"
+
+/immigration-forms
+  Link: <https://meshieldfinancial.com/immigration-forms>; rel="canonical"
+
+/business-filing
+  Link: <https://meshieldfinancial.com/business-filing>; rel="canonical"
+
+/infinite-banking
+  Link: <https://meshieldfinancial.com/infinite-banking>; rel="canonical"
+
+/trump-account
+  Link: <https://meshieldfinancial.com/trump-account>; rel="canonical"
