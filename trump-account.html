@@ -30,8 +30,8 @@
   .lang-btn.active{background:#C9A84C;color:#0b1d3a;}
 
   /* Content visibility */
-  .lang-en,.lang-ht{display:none;}
-  .lang-en.visible,.lang-ht.visible{display:block;}
+  .article-content.lang-en,.article-content.lang-ht{display:none;}
+  .article-content.lang-en.visible,.article-content.lang-ht.visible{display:block;}
 
   /* Article typography */
   .article-content h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.5rem,3vw,2rem);color:#0b1d3a;margin:48px 0 16px;padding-bottom:12px;border-bottom:2px solid rgba(201,168,76,.25);}
@@ -540,15 +540,16 @@
 <script src="shared.js"></script>
 <script>
 function setLang(lang) {
-  document.querySelectorAll('.lang-en,.lang-ht').forEach(el => el.classList.remove('visible'));
-  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelector('.lang-' + lang).classList.add('visible');
+  document.querySelectorAll('.article-content.lang-en,.article-content.lang-ht').forEach(el => el.classList.remove('visible'));
+  document.querySelectorAll('.article-body .lang-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector('.article-content.lang-' + lang).classList.add('visible');
   document.getElementById('btn-' + lang).classList.add('active');
+  if (window.setSiteLang) setSiteLang(lang);
   // Update HTML lang attribute
   document.documentElement.lang = lang === 'ht' ? 'ht' : 'en';
 }
 // Init
-document.querySelector('.lang-en').classList.add('visible');
+document.querySelector('.article-content.lang-en').classList.add('visible');
 </script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>

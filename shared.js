@@ -1,4 +1,74 @@
 /* shared.js — nav, language switcher, scroll reveal, footer */
+/* ── Shared site header ──
+   Keep one canonical header for every page. Older pages may still contain a
+   local copy; replace it at runtime so navigation, promos, language controls,
+   and the mobile menu stay identical site-wide. */
+function initSharedHeader() {
+  document.querySelectorAll('body > .utility-bar, body > nav.navbar, body > .service-global-header')
+    .forEach((element) => element.remove());
+
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = `
+    <div class="utility-bar">
+      <div class="container utility-bar-inner">
+        <div class="utility-left">
+          <span><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><a href="tel:+14072672652">(407) 267-2652</a></span>
+          <span data-en>Mon–Fri 9am–6pm · Sat by appointment</span>
+          <span data-ht>Lendi–Vandredi 9am–6pm · Samdi sou randevou</span>
+        </div>
+        <div class="utility-promos">
+          <span class="utility-promo" data-en>FREE CONSULTATION<a href="/book">Book Now</a></span>
+          <span class="utility-promo" data-ht>KONSILTASYON GRATIS<a href="/book">Rezève</a></span>
+          <span class="utility-promo" data-en>TAX SEASON READY<a href="/tax-preparation">Get Started</a></span>
+          <span class="utility-promo" data-ht>SEZON TAKS PARE<a href="/tax-preparation">Kòmanse</a></span>
+        </div>
+      </div>
+    </div>
+    <nav class="navbar" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a href="/" class="nav-logo">
+          <img src="/logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
+          <div>
+            <div class="nav-logo-text">ME Shield Financial</div>
+            <div class="nav-logo-sub">Services</div>
+          </div>
+        </a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="/"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+          <li><a href="/about"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+          <li class="nav-dropdown">
+            <a href="/services"><span data-en>Services</span><span data-ht>Sèvis</span></a>
+            <ul class="nav-dropdown-menu">
+              <li><a href="/insurance"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li>
+              <li><a href="/tax-preparation"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li>
+              <li><a href="/immigration-forms"><span data-en>Immigration Forms Filing</span><span data-ht>Ranpli Fòmilè Imigrasyon</span></a></li>
+              <li><a href="/business-filing"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li>
+              <li><a href="/infinite-banking"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li>
+            </ul>
+          </li>
+          <li><a href="/blog"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/contact"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+        </ul>
+        <div class="nav-right">
+          <div class="lang-toggle" aria-label="Language">
+            <button class="lang-btn active" data-lang="en" type="button" onclick="setSiteLang('en')">EN</button>
+            <button class="lang-btn" data-lang="ht" type="button" onclick="setSiteLang('ht')">HT</button>
+          </div>
+          <a href="/book" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
+            <span data-en>Book Free Consult</span>
+            <span data-ht>Rezève Konsiltasyon</span>
+          </a>
+          <button class="hamburger" id="hamburger" type="button" aria-label="Open navigation menu" aria-expanded="false"></button>
+        </div>
+      </div>
+    </nav>`;
+
+  const fragment = document.createDocumentFragment();
+  while (wrapper.firstChild) fragment.appendChild(wrapper.firstChild);
+  document.body.prepend(fragment);
+}
+
 /* ── SEO / clean URL normalization ──
    Cloudflare redirects legacy *.html URLs to extensionless URLs. Keep the
    DOM aligned with the sitemap so crawlers and visitors link directly to the
@@ -34,14 +104,24 @@ function initCleanUrls() {
 /* ── Language Switcher ── */
 function initLang() {
   const saved = localStorage.getItem('me-shield-lang') || 'en';
-  setLang(saved, false);
+  setSiteLang(saved, false);
 }
-function setLang(lang, save = true) {
+function setSiteLang(lang, save = true) {
   document.body.classList.remove('lang-en', 'lang-ht');
   document.body.classList.add('lang-' + lang);
+  document.documentElement.lang = lang === 'ht' ? 'ht' : 'en';
   document.querySelectorAll('.lang-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.lang === lang);
   });
+  const articleTranslations = document.querySelectorAll('.article-content.lang-en, .article-content.lang-ht');
+  if (articleTranslations.length) {
+    articleTranslations.forEach((section) => {
+      section.classList.toggle('visible', section.classList.contains('lang-' + lang));
+    });
+    document.querySelectorAll('.article-body .lang-btn').forEach((button) => {
+      button.classList.toggle('active', button.id === 'btn-' + lang);
+    });
+  }
   if (save) localStorage.setItem('me-shield-lang', lang);
 }
 /* ── Hamburger / off-canvas mobile menu ── */
@@ -284,6 +364,7 @@ function initPWA() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initSharedHeader();
   initCleanUrls();
   initLang();
   initHamburger();
