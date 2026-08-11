@@ -59,7 +59,38 @@
     .author-row .role { font-size:.8rem; color:var(--text-light); }
 
 
-  </style>
+  
+  /* --- footer fix: missing bespoke-footer + language-toggle CSS (added) --- */
+  body.lang-ht .en{display:none!important;}
+  body.lang-ht .ht{display:revert!important;}
+  body.lang-ht .ht.block{display:block!important;}
+  body.lang-ht .ht.flex{display:flex!important;}
+  body.lang-ht .ht.grid{display:grid!important;}
+  body.lang-ht .ht.inline{display:inline!important;}
+  body.lang-en .en{display:revert;}
+  body.lang-en .en.block{display:block;}
+  body.lang-en .en.flex{display:flex;}
+  body.lang-en .en.grid{display:grid;}
+  body.lang-en .en.inline{display:inline;}
+  .footer-grid2{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:36px;}
+  @media(max-width:860px){.footer-grid2{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.footer-grid2{grid-template-columns:1fr;}}
+  .footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .footer-logo{height:32px;width:auto;}
+  .footer-name{font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;font-weight:700;}
+  .footer-dba{font-size:.62rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;}
+  .footer-col h4{color:#fff;font-size:.8rem;font-weight:700;margin-bottom:14px;}
+  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+  .footer-col a{font-size:.78rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;}
+  .footer-col a:hover{color:var(--gold);}
+  .footer-social{display:flex;gap:10px;margin-top:16px;}
+  .footer-social a{width:32px;height:32px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .2s;}
+  .footer-social a:hover{background:rgba(201,168,76,.25);}
+  .footer-trust{display:flex;align-items:center;gap:6px;color:var(--gold);font-size:.72rem;font-weight:700;margin-top:16px;}
+  .footer-bottom-strip{max-width:1100px;margin:36px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);}
+  .footer-disc{font-size:.66rem;color:rgba(255,255,255,.35);line-height:1.7;margin-bottom:6px;}
+  .footer-copy{font-size:.7rem;color:rgba(255,255,255,.3);margin-top:14px;}
+</style>
   <link rel="canonical" href="https://meshieldfinancial.com/infinite-banking-concept"/>
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="What Is the Infinite Banking Concept — and Why Every Family Should Know About It — ME Shield Financial Services"/>
