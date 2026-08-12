@@ -132,6 +132,7 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
     .msc-footer.msc-open { display: block; }
     .msc-footer .msc-disc { font-size: 9px; color: #BBB; margin-bottom: 4px; }
     .msc-contact-link { font-size: 11px; font-weight: 600; color: #0B1F3A; text-decoration: underline; }
+    .msc-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
   `;
   document.head.appendChild(style);
 
@@ -141,9 +142,9 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
   const wrapper = document.createElement("div");
   wrapper.innerHTML = `
     <div class="msc-tooltip" id="mscTooltip">Need help? Chat with us 💬</div>
-    <button class="msc-bubble" id="mscBubble">
-      <img src="${AVATAR_URL}" alt="Chat" onerror="this.style.display='none'">
-      <div class="msc-badge">${checkBadge}</div>
+    <button class="msc-bubble" id="mscBubble" type="button" aria-label="Open chat" aria-expanded="false" aria-controls="mscWindow">
+      <img src="${AVATAR_URL}" alt="" onerror="this.style.display='none'">
+      <div class="msc-badge" aria-hidden="true">${checkBadge}</div>
     </button>
 
     <div class="msc-window" id="mscWindow">
@@ -153,7 +154,7 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
           <strong>${BOT_NAME}</strong>
           <div class="msc-subtitle">${BOT_SUBTITLE}</div>
         </div>
-        <button class="msc-close" id="mscClose">&times;</button>
+        <button class="msc-close" id="mscClose" type="button" aria-label="Close chat">&times;</button>
       </div>
 
       <div class="msc-lang-screen" id="mscLangScreen">
@@ -164,8 +165,9 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
 
       <div class="msc-body" id="mscBody"></div>
       <div class="msc-input-row" id="mscInputRow">
-        <input type="text" id="mscInput" placeholder="Type your message...">
-        <button id="mscSend">
+        <label for="mscInput" class="msc-sr-only">Chat message</label>
+        <input type="text" id="mscInput" placeholder="Type your message..." autocomplete="off">
+        <button id="mscSend" type="button" aria-label="Send chat message">
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
           </svg>
@@ -211,12 +213,17 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
 
   bubble.addEventListener("click", () => {
     win.classList.toggle("msc-open");
+    bubble.setAttribute("aria-expanded", win.classList.contains("msc-open") ? "true" : "false");
     if (win.classList.contains("msc-open")) {
       // Count this open — fire and forget, never blocks or breaks the chat.
       fetch("/api/track-chat-open", { method: "POST" }).catch(() => {});
     }
   });
-  closeBtn.addEventListener("click", () => win.classList.remove("msc-open"));
+  closeBtn.addEventListener("click", () => {
+    win.classList.remove("msc-open");
+    bubble.setAttribute("aria-expanded", "false");
+    bubble.focus();
+  });
 
   // ---------- Gentle one-time tooltip ----------
   // Shows once, a few seconds after the page loads, so new visitors notice
