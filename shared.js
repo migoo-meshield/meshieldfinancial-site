@@ -69,6 +69,55 @@ function initSharedHeader() {
   document.body.prepend(fragment);
 }
 
+/* ── Accessibility foundations ── */
+function initAccessibility() {
+  let main = document.querySelector('main');
+  if (!main) {
+    main = document.createElement('main');
+    main.id = 'main-content';
+    const movable = Array.from(document.body.children).filter((element) =>
+      !element.matches('.utility-bar, nav.navbar, footer, script, .nav-scrim')
+    );
+    if (movable.length) {
+      movable[0].before(main);
+      movable.forEach((element) => main.appendChild(element));
+    }
+  } else if (!main.id) {
+    main.id = 'main-content';
+  }
+
+  if (main && !document.querySelector('.skip-link')) {
+    const skip = document.createElement('a');
+    skip.className = 'skip-link';
+    skip.href = '#main-content';
+    skip.innerHTML = '<span data-en>Skip to main content</span><span data-ht>Ale dirèk nan kontni prensipal</span>';
+    document.body.prepend(skip);
+  }
+
+  let generatedId = 0;
+  document.querySelectorAll('input:not([type="hidden"]), select, textarea').forEach((field) => {
+    if (!field.id) field.id = `accessible-field-${++generatedId}`;
+    const hasName = field.getAttribute('aria-label') || field.getAttribute('aria-labelledby') ||
+      Array.from(field.labels || []).some((label) => label.textContent.trim());
+    if (hasName) return;
+
+    const group = field.closest('.form-group, .fg');
+    const labels = group ? Array.from(group.querySelectorAll(':scope > label')) : [];
+    if (labels.length) {
+      labels.forEach((label) => label.setAttribute('for', field.id));
+      return;
+    }
+
+    const appointment = field.closest('.appt-type');
+    const appointmentName = appointment && appointment.querySelector('.appt-type-title, strong');
+    if (appointmentName) field.setAttribute('aria-label', appointmentName.textContent.trim());
+  });
+
+  document.querySelectorAll('.star-row input[type="radio"]').forEach((radio) => {
+    radio.setAttribute('aria-label', `${radio.value} out of 5 stars`);
+  });
+}
+
 /* ── SEO / clean URL normalization ──
    Cloudflare redirects legacy *.html URLs to extensionless URLs. Keep the
    DOM aligned with the sitemap so crawlers and visitors link directly to the
@@ -365,6 +414,7 @@ function initPWA() {
 
 document.addEventListener('DOMContentLoaded', () => {
   initSharedHeader();
+  initAccessibility();
   initCleanUrls();
   initLang();
   initHamburger();
