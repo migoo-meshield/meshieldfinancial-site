@@ -816,3 +816,27 @@ body { }
 @media (prefers-reduced-motion: reduce) {
   body { opacity: 1; animation: none; }
 }
+/* Accessibility foundations */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1000001;
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: #fff;
+  color: #081a35;
+  font-weight: 700;
+  transform: translateY(-160%);
+}
+.skip-link:focus { transform: translateY(0); }
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid #005fcc !important;
+  outline-offset: 3px !important;
+}
+.legal-page { line-height: 1.75; }
+.legal-page h2 { margin-top: 2rem; }
+.legal-page address { font-style: normal; }
+.legal-nav { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 8px; }
+.legal-nav a { padding: 7px 11px; border: 1px solid #d9dee8; border-radius: 999px; color: #14345f; font-weight: 700; }
+.legal-nav a[aria-current="page"] { color: #fff; background: #14345f; border-color: #14345f; }
