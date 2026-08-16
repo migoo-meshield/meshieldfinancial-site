@@ -210,10 +210,10 @@
       <span data-ht>Lendi–Vandredi 9am–6pm · Samdi sou randevou</span>
     </div>
     <div class="utility-promos">
-      <span class="utility-promo" data-en>FREE CONSULTATION<a href="book.html">Book Now</a></span>
-      <span class="utility-promo" data-ht>KONSILTASYON GRATIS<a href="book.html">Rezève</a></span>
-      <span class="utility-promo" data-en>TAX SEASON READY<a href="tax-preparation.html">Get Started</a></span>
-      <span class="utility-promo" data-ht>SEZON TAKS PARE<a href="tax-preparation.html">Kòmanse</a></span>
+      <span class="utility-promo" data-en>FREE CONSULTATION<a href="/book">Book Now</a></span>
+      <span class="utility-promo" data-ht>KONSILTASYON GRATIS<a href="/book">Rezève</a></span>
+      <span class="utility-promo" data-en>TAX SEASON READY<a href="/tax-preparation">Get Started</a></span>
+      <span class="utility-promo" data-ht>SEZON TAKS PARE<a href="/tax-preparation">Kòmanse</a></span>
     </div>
   </div>
 </div>
@@ -221,7 +221,7 @@
 <!-- ── NAVBAR (matches homepage) ── -->
 <nav class="navbar">
   <div class="container nav-inner">
-    <a href="index.html" class="nav-logo">
+    <a href="/" class="nav-logo">
       <img src="logo.png" alt="ME Shield Financial Services logo" class="nav-logo-icon" style="height:42px;width:auto;object-fit:contain;background:none;border-radius:0;"/>
       <div>
         <div class="nav-logo-text">ME Shield Financial</div>
@@ -229,28 +229,28 @@
       </div>
     </a>
     <ul class="nav-links" id="nav-links">
-      <li><a href="index.html"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
-      <li><a href="about.html"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
+      <li><a href="/"><span data-en>Home</span><span data-ht>Akèy</span></a></li>
+      <li><a href="/about"><span data-en>About</span><span data-ht>Sou nou</span></a></li>
       <li class="nav-dropdown">
-        <a href="services.html"><span data-en>Services</span><span data-ht>Sèvis</span></a>
+        <a href="/services"><span data-en>Services</span><span data-ht>Sèvis</span></a>
         <ul class="nav-dropdown-menu">
-          <li><a href="insurance.html"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li>
-          <li><a href="tax-preparation.html"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li>
-          <li><a href="immigration-forms.html"><span data-en>Immigration Forms Filing</span><span data-ht>Ranpli Fòmilè Imigrasyon</span></a></li>
-          <li><a href="business-filing.html"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li>
-          <li><a href="infinite-banking.html"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li>
+          <li><a href="/insurance"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li>
+          <li><a href="/tax-preparation"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li>
+          <li><a href="/immigration-forms"><span data-en>Immigration Forms Filing</span><span data-ht>Ranpli Fòmilè Imigrasyon</span></a></li>
+          <li><a href="/business-filing"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li>
+          <li><a href="/infinite-banking"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li>
         </ul>
       </li>
-      <li><a href="blog.html"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
-      <li><a href="faq.html">FAQ</a></li>
-      <li><a href="contact.html"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
+      <li><a href="/blog"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+      <li><a href="/faq">FAQ</a></li>
+      <li><a href="/contact"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
     </ul>
     <div class="nav-right">
       <div class="lang-toggle">
         <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
         <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">HT</button>
       </div>
-      <a href="book.html" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
+      <a href="/book" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
         <span data-en>Book Free Consult</span>
         <span data-ht>Rezève Konsiltasyon</span>
       </a>
@@ -276,7 +276,7 @@
       <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--text-light);"><path d="M10 2a8 8 0 1 0 4.9 14.32l5.39 5.39 1.41-1.42-5.39-5.39A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z"/></svg>
       <input type="text" id="faq-search" placeholder="Search questions... / Chèche kesyon..." style="width:100%;padding:14px 18px 14px 48px;border-radius:30px;border:1px solid var(--border);font-size:.95rem;font-family:var(--font-body);outline:none;transition:border-color .2s;" oninput="searchFAQ(this.value)"/>
     </div>
-    <p id="faq-no-results" style="display:none;text-align:center;color:var(--text-light);margin-bottom:32px;">No matching questions found. Try a different search, or <a href="contact.html" style="color:var(--gold);">contact us directly</a>.</p>
+    <p id="faq-no-results" style="display:none;text-align:center;color:var(--text-light);margin-bottom:32px;">No matching questions found. Try a different search, or <a href="/contact" style="color:var(--gold);">contact us directly</a>.</p>
 
     <div class="faq-tabs" id="faq-tabs">
       <button class="faq-tab active" data-cat="general" onclick="showCategory('general')"><span data-en>General</span><span data-ht>Jeneral</span></button>
@@ -375,8 +375,8 @@
               </button>
               <div class="accordion-body">
                 <div class="accordion-answer">
-                  <p data-en><strong>Term life</strong> covers you for a set period (10, 20, or 30 years) and is generally the most affordable option. It's ideal for income replacement while raising a family or paying off a mortgage.<br><br><strong>Whole life</strong> covers you permanently and builds cash value over time — making it a powerful financial tool as well as protection. It's the foundation of the <a href="infinite-banking.html">Infinite Banking Concept (IBC)</a>.</p>
-                  <p data-ht><strong>Lavi tèm</strong> kouvri ou pou yon peryòd defini (10, 20, oswa 30 an) epi li se jeneralman opsyon ki pi abòdab la. Li ideal pou ranplasman revni pandan w ap elve yon fanmi oswa peye yon prè kay.<br><br><strong>Lavi antye</strong> kouvri ou pou tout tan epi li bati valè kach avèk tan — sa ki fè li yon zouti finansyè pisan ansanm ak pwoteksyon. Se fondasyon <a href="infinite-banking.html">Konsèp Bank Enfini (IBC)</a> a.</p>
+                  <p data-en><strong>Term life</strong> covers you for a set period (10, 20, or 30 years) and is generally the most affordable option. It's ideal for income replacement while raising a family or paying off a mortgage.<br><br><strong>Whole life</strong> covers you permanently and builds cash value over time — making it a powerful financial tool as well as protection. It's the foundation of the <a href="/infinite-banking">Infinite Banking Concept (IBC)</a>.</p>
+                  <p data-ht><strong>Lavi tèm</strong> kouvri ou pou yon peryòd defini (10, 20, oswa 30 an) epi li se jeneralman opsyon ki pi abòdab la. Li ideal pou ranplasman revni pandan w ap elve yon fanmi oswa peye yon prè kay.<br><br><strong>Lavi antye</strong> kouvri ou pou tout tan epi li bati valè kach avèk tan — sa ki fè li yon zouti finansyè pisan ansanm ak pwoteksyon. Se fondasyon <a href="/infinite-banking">Konsèp Bank Enfini (IBC)</a> a.</p>
                 </div>
               </div>
             </div>
@@ -731,10 +731,10 @@
           <p data-en>Book a free consultation and get answers specific to your situation — in English or Kreyòl.</p>
           <p data-ht>Rezève yon konsiltasyon gratis epi jwenn repons espesifik pou sitiyasyon ou — an Anglè oswa Kreyòl.</p>
           <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-            <a href="book.html" class="btn btn-gold" data-en>Book Free Consultation</a>
-            <a href="book.html" class="btn btn-gold" data-ht>Rezève Konsiltasyon Gratis</a>
-            <a href="contact.html" class="btn btn-outline" style="color:var(--gold);border-color:var(--gold);" data-en>Send a Message</a>
-            <a href="contact.html" class="btn btn-outline" style="color:var(--gold);border-color:var(--gold);" data-ht>Voye yon Mesaj</a>
+            <a href="/book" class="btn btn-gold" data-en>Book Free Consultation</a>
+            <a href="/book" class="btn btn-gold" data-ht>Rezève Konsiltasyon Gratis</a>
+            <a href="/contact" class="btn btn-outline" style="color:var(--gold);border-color:var(--gold);" data-en>Send a Message</a>
+            <a href="/contact" class="btn btn-outline" style="color:var(--gold);border-color:var(--gold);" data-ht>Voye yon Mesaj</a>
           </div>
         </div>
 
@@ -772,20 +772,20 @@
         <h4 data-en>Services</h4>
         <h4 data-ht>Sèvis</h4>
         <ul>
-          <li><a href="insurance.html" data-en>Insurance</a><a href="insurance.html" data-ht>Asirans</a></li>
-          <li><a href="tax-preparation.html" data-en>Tax Preparation</a><a href="tax-preparation.html" data-ht>Preparasyon Taks</a></li>
-          <li><a href="immigration-forms.html" data-en>Immigration Forms Filing</a><a href="immigration-forms.html" data-ht>Ranpli Fòmilè Imigrasyon</a></li>
-          <li><a href="business-filing.html" data-en>Business Filing</a><a href="business-filing.html" data-ht>Depo Biznis</a></li>
-          <li><a href="infinite-banking.html" data-en>Infinite Banking</a><a href="infinite-banking.html" data-ht>Bank Enfini</a></li>
+          <li><a href="/insurance" data-en>Insurance</a><a href="/insurance" data-ht>Asirans</a></li>
+          <li><a href="/tax-preparation" data-en>Tax Preparation</a><a href="/tax-preparation" data-ht>Preparasyon Taks</a></li>
+          <li><a href="/immigration-forms" data-en>Immigration Forms Filing</a><a href="/immigration-forms" data-ht>Ranpli Fòmilè Imigrasyon</a></li>
+          <li><a href="/business-filing" data-en>Business Filing</a><a href="/business-filing" data-ht>Depo Biznis</a></li>
+          <li><a href="/infinite-banking" data-en>Infinite Banking</a><a href="/infinite-banking" data-ht>Bank Enfini</a></li>
         </ul>
       </div>
       <div>
         <h4 data-en>Company</h4>
         <h4 data-ht>Konpayi</h4>
         <ul>
-          <li><a href="about.html" data-en>About Us</a><a href="about.html" data-ht>Sou Nou</a></li>
-          <li><a href="contact.html" data-en>Contact</a><a href="contact.html" data-ht>Kontakte</a></li>
-          <li><a href="book.html" data-en>Free Consultation</a><a href="book.html" data-ht>Konsiltasyon Gratis</a></li>
+          <li><a href="/about" data-en>About Us</a><a href="/about" data-ht>Sou Nou</a></li>
+          <li><a href="/contact" data-en>Contact</a><a href="/contact" data-ht>Kontakte</a></li>
+          <li><a href="/book" data-en>Free Consultation</a><a href="/book" data-ht>Konsiltasyon Gratis</a></li>
         </ul>
       </div>
       <div>
