@@ -163,21 +163,63 @@ async function handleIntake(request, env) {
     const missing = [];
     if (!first_name)          missing.push("first_name");
     if (!email)               missing.push("email");
+    if (!phone)               missing.push("phone");
     if (!rawService)          missing.push("service");
     if (!state)               missing.push("state");
     if (body.consent !== true) missing.push("consent");
 
     if (missing.length > 0) {
-      return json({ ok: false, error: "missing_fields", fields: missing }, 400, cors);
+      const fieldErrors = Object.fromEntries(
+        missing.map((field) => [field, fieldMessage(field)])
+      );
+      return json({
+        ok: false,
+        error: "missing_fields",
+        fields: missing,
+        field_errors: fieldErrors,
+        message: "Please complete the highlighted required fields."
+      }, 400, cors);
     }
 
     if (!isValidEmail(email)) {
-      return json({ ok: false, error: "invalid_email" }, 400, cors);
+      return json({
+        ok: false,
+        error: "invalid_email",
+        field: "email",
+        field_errors: { email: "Enter a valid email address, such as name@example.com." },
+        message: "Please correct the email address."
+      }, 400, cors);
+    }
+
+    if (!isValidPhone(phone)) {
+      return json({
+        ok: false,
+        error: "invalid_phone",
+        field: "phone",
+        field_errors: { phone: "Enter a valid 10-digit U.S. phone number." },
+        message: "Please correct the phone number."
+      }, 400, cors);
+    }
+
+    if (dateOfBirth && !isValidDateOfBirth(dateOfBirth)) {
+      return json({
+        ok: false,
+        error: "invalid_date_of_birth",
+        field: "date_of_birth",
+        field_errors: { date_of_birth: "Enter a valid date of birth in YYYY-MM-DD format. It cannot be today or a future date." },
+        message: "Please correct the date of birth."
+      }, 400, cors);
     }
 
     const service_type = SERVICE_MAP[rawService];
     if (!service_type) {
-      return json({ ok: false, error: "unknown_service" }, 400, cors);
+      return json({
+        ok: false,
+        error: "unknown_service",
+        field: "service",
+        field_errors: { service: "Choose one of the services listed in the form." },
+        message: "Please select a valid service."
+      }, 400, cors);
     }
 
     // -----------------------------------------------------------------------
@@ -199,6 +241,10 @@ async function handleIntake(request, env) {
     // Documentation section 4.1.
     // -----------------------------------------------------------------------
     const now = new Date().toISOString();
+    const backupNotes = [];
+    if (message) backupNotes.push(message);
+    if (dateOfBirth) backupNotes.push(`Date of Birth: ${dateOfBirth}`);
+    const backupMessage = backupNotes.join(" | ");
 
     const payload = {
       submission_id: makeSubmissionId(),
@@ -218,7 +264,7 @@ async function handleIntake(request, env) {
       },
 
       payload: {
-        message: message,
+        message: backupMessage,
         service_raw: rawService
       },
 
@@ -308,7 +354,16 @@ async function handleIntake(request, env) {
     // form can show a real message instead of always saying "Thank you!".
     // -----------------------------------------------------------------------
     if (!ok) {
-      return json({ ok: false, error: "delivery_failed" }, 502, cors);
+      return json({
+        ok: false,
+        error: "delivery_failed",
+        message: "We could not safely submit your information right now. Your form entries are still saved on this device. Please try again, or contact ME Shield Financial Services at (407) 267-2652.",
+        retryable: true,
+        support: {
+          phone: "+14072672652",
+          email: "meshieldservices@gmail.com"
+        }
+      }, 502, cors);
     }
 
     return json({
@@ -348,6 +403,37 @@ function clean(value, maxLength) {
 /** A basic sanity check on email shape. */
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email);
+}
+
+function isValidPhone(phone) {
+  const digits = phone.replace(/\D/g, "");
+  return digits.length === 10 || (digits.length === 11 && digits.startsWith("1"));
+}
+
+function isValidDateOfBirth(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [year, month, day] = value.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  if (
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() !== month - 1 ||
+    date.getUTCDate() !== day
+  ) return false;
+  const today = new Date();
+  const todayUtc = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+  return date.getTime() < todayUtc && year >= 1900;
+}
+
+function fieldMessage(field) {
+  const messages = {
+    first_name: "Enter your first name.",
+    email: "Enter your email address.",
+    phone: "Enter your phone number.",
+    service: "Choose the service you need.",
+    state: "Choose your state.",
+    consent: "Check the consent box so ME Shield can contact you."
+  };
+  return messages[field] || "Complete this required field.";
 }
 
 /** Converts the form's language values into ME Shield OS codes. */
