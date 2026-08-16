@@ -144,6 +144,16 @@ async function handleIntake(request, env) {
     }
 
     // -----------------------------------------------------------------------
+    // STEP 2.5 — Durable backup before validation or delivery
+    //
+    // Store a server-side recovery copy before Make.com, Brevo, or field
+    // validation can fail. LEAD_BACKUP_KV is the dedicated binding; the
+    // already-provisioned CHATBOT_STATS namespace is a safe compatibility
+    // fallback while the dedicated namespace is being attached.
+    // -----------------------------------------------------------------------
+    const leadBackup = await saveLeadBackup(env, body, request);
+
+    // -----------------------------------------------------------------------
     // STEP 3 — Validate the required fields
     //
     // This is where we save your Make.com operations. Anything rejected here
@@ -177,7 +187,8 @@ async function handleIntake(request, env) {
         error: "missing_fields",
         fields: missing,
         field_errors: fieldErrors,
-        message: "Please complete the highlighted required fields."
+        message: "Please complete the highlighted required fields.",
+        ...backupReceipt(leadBackup)
       }, 400, cors);
     }
 
@@ -187,7 +198,8 @@ async function handleIntake(request, env) {
         error: "invalid_email",
         field: "email",
         field_errors: { email: "Enter a valid email address, such as name@example.com." },
-        message: "Please correct the email address."
+        message: "Please correct the email address.",
+        ...backupReceipt(leadBackup)
       }, 400, cors);
     }
 
@@ -197,7 +209,8 @@ async function handleIntake(request, env) {
         error: "invalid_phone",
         field: "phone",
         field_errors: { phone: "Enter a valid 10-digit U.S. phone number." },
-        message: "Please correct the phone number."
+        message: "Please correct the phone number.",
+        ...backupReceipt(leadBackup)
       }, 400, cors);
     }
 
@@ -207,7 +220,8 @@ async function handleIntake(request, env) {
         error: "invalid_date_of_birth",
         field: "date_of_birth",
         field_errors: { date_of_birth: "Enter a valid date of birth in YYYY-MM-DD format. It cannot be today or a future date." },
-        message: "Please correct the date of birth."
+        message: "Please correct the date of birth.",
+        ...backupReceipt(leadBackup)
       }, 400, cors);
     }
 
@@ -218,7 +232,8 @@ async function handleIntake(request, env) {
         error: "unknown_service",
         field: "service",
         field_errors: { service: "Choose one of the services listed in the form." },
-        message: "Please select a valid service."
+        message: "Please select a valid service.",
+        ...backupReceipt(leadBackup)
       }, 400, cors);
     }
 
@@ -354,6 +369,11 @@ async function handleIntake(request, env) {
     // form can show a real message instead of always saying "Thank you!".
     // -----------------------------------------------------------------------
     if (!ok) {
+      await updateLeadBackup(env, leadBackup, {
+        status: "delivery_failed",
+        submission_id: payload.submission_id,
+        delivered_to: null
+      });
       return json({
         ok: false,
         error: "delivery_failed",
@@ -362,15 +382,23 @@ async function handleIntake(request, env) {
         support: {
           phone: "+14072672652",
           email: "meshieldservices@gmail.com"
-        }
+        },
+        ...backupReceipt(leadBackup)
       }, 502, cors);
     }
+
+    await updateLeadBackup(env, leadBackup, {
+      status: "delivered",
+      submission_id: payload.submission_id,
+      delivered_to: deliveredTo
+    });
 
     return json({
       ok: true,
       submission_id: payload.submission_id,
       state_allowed: state_allowed,
-      delivered_to: deliveredTo
+      delivered_to: deliveredTo,
+      ...backupReceipt(leadBackup)
     }, 200, cors);
 }
 
@@ -378,6 +406,83 @@ async function handleIntake(request, env) {
 // ===========================================================================
 // HELPERS
 // ===========================================================================
+
+function leadBackupNamespace(env) {
+  return env.LEAD_BACKUP_KV || env.CHATBOT_STATS || null;
+}
+
+async function saveLeadBackup(env, body, request) {
+  const namespace = leadBackupNamespace(env);
+  const backupId = `MES-B-${new Date().toISOString().replace(/\D/g, "").slice(0, 14)}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+  if (!namespace) return { saved: false, id: backupId, record: null };
+
+  const now = new Date().toISOString();
+  const record = {
+    backup_id: backupId,
+    status: "received_unvalidated",
+    received_at: now,
+    updated_at: now,
+    source: "connect_form",
+    client: {
+      first_name: clean(body.first_name, 80),
+      last_name: clean(body.last_name, 80),
+      email: clean(body.email, 160).toLowerCase(),
+      phone: clean(body.phone, 40),
+      date_of_birth: clean(body.dob || body.date_of_birth, 10),
+      state: clean(body.state, 2).toUpperCase(),
+      language: clean(body.language, 20) || "english"
+    },
+    request: {
+      service: clean(body.service, 40),
+      message: clean(body.message, 2000),
+      consent: body.consent === true,
+      page_url: clean(body.page_url, 300),
+      country: request.headers.get("CF-IPCountry") || ""
+    },
+    delivery: {
+      submission_id: null,
+      delivered_to: null
+    }
+  };
+
+  try {
+    await namespace.put(`lead-backup:${backupId}`, JSON.stringify(record));
+    return { saved: true, id: backupId, record };
+  } catch (err) {
+    return { saved: false, id: backupId, record: null };
+  }
+}
+
+async function updateLeadBackup(env, backup, update) {
+  if (!backup || !backup.saved || !backup.record) return false;
+  const namespace = leadBackupNamespace(env);
+  if (!namespace) return false;
+
+  const record = {
+    ...backup.record,
+    status: update.status || backup.record.status,
+    updated_at: new Date().toISOString(),
+    delivery: {
+      submission_id: update.submission_id || null,
+      delivered_to: update.delivered_to || null
+    }
+  };
+
+  try {
+    await namespace.put(`lead-backup:${backup.id}`, JSON.stringify(record));
+    backup.record = record;
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+function backupReceipt(backup) {
+  return {
+    backup_saved: Boolean(backup && backup.saved),
+    backup_id: backup ? backup.id : null
+  };
+}
 
 /** Trims whitespace and enforces a maximum length. */
 // The "timestamp"/"received_at"/"consent.at" fields above stay raw UTC ISO
