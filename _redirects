@@ -2,4 +2,8 @@
 /intake.html /contact 301
 /claim /contact 301
 /claim.html /contact 301
+/index / 301
+/index.html / 301
+/paralegal-immigration /immigration-forms 301
+/paralegal-immigration.html /immigration-forms 301
 /*.html /:splat 301

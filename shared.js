@@ -292,7 +292,7 @@ function initLegalLinks() {
   });
 }
 function loadChatbot() {
-  if (document.querySelector('script[src="/chatbot-widget.js"]')) return;
+  if (document.querySelector('script[src$="chatbot-widget.js"]')) return;
   const s = document.createElement('script');
   s.src = '/chatbot-widget.js';
   s.defer = true;
