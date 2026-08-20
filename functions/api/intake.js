@@ -49,6 +49,22 @@
 
 /** States where ME Shield holds an active insurance license. */
 const LICENSED_STATES = ["FL", "MA", "NJ"];
+const VALID_STATES = new Set([
+  "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI",
+  "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN",
+  "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH",
+  "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
+  "WV", "WI", "WY"
+]);
+
+const COMMON_EMAIL_TYPOS = {
+  "gmail.co": "gmail.com", "gamil.com": "gmail.com", "gmial.com": "gmail.com",
+  "gmai.com": "gmail.com", "gmail.con": "gmail.com",
+  "yaho.com": "yahoo.com", "yahoo.co": "yahoo.com", "yahoo.con": "yahoo.com",
+  "hotmal.com": "hotmail.com", "hotmail.co": "hotmail.com", "hotmail.con": "hotmail.com",
+  "outlook.co": "outlook.com", "outlook.con": "outlook.com",
+  "icloud.co": "icloud.com", "icloud.con": "icloud.com"
+};
 
 /**
  * Translates the values your website form sends into the clean service names
@@ -203,6 +219,30 @@ async function handleIntake(request, env) {
       }, 400, cors);
     }
 
+    const suggestedEmail = emailTypoSuggestion(email);
+    if (suggestedEmail) {
+      return json({
+        ok: false,
+        error: "likely_email_typo",
+        field: "email",
+        suggestion: suggestedEmail,
+        field_errors: { email: `Did you mean ${suggestedEmail}? Please verify your email address.` },
+        message: "Please verify the email address.",
+        ...backupReceipt(leadBackup)
+      }, 400, cors);
+    }
+
+    if (!isValidFirstName(first_name)) {
+      return json({
+        ok: false,
+        error: "invalid_first_name",
+        field: "first_name",
+        field_errors: { first_name: "Enter a valid first name using letters, spaces, apostrophes, or hyphens." },
+        message: "Please correct the first name.",
+        ...backupReceipt(leadBackup)
+      }, 400, cors);
+    }
+
     if (!isValidPhone(phone)) {
       return json({
         ok: false,
@@ -221,6 +261,17 @@ async function handleIntake(request, env) {
         field: "date_of_birth",
         field_errors: { date_of_birth: "Enter a valid date of birth in YYYY-MM-DD format. It cannot be today or a future date." },
         message: "Please correct the date of birth.",
+        ...backupReceipt(leadBackup)
+      }, 400, cors);
+    }
+
+    if (!VALID_STATES.has(state)) {
+      return json({
+        ok: false,
+        error: "invalid_state",
+        field: "state",
+        field_errors: { state: "Select a valid U.S. state from the list." },
+        message: "Please select a valid state.",
         ...backupReceipt(leadBackup)
       }, 400, cors);
     }
@@ -508,6 +559,17 @@ function clean(value, maxLength) {
 /** A basic sanity check on email shape. */
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email);
+}
+
+function emailTypoSuggestion(email) {
+  const [localPart, domain, extra] = email.toLowerCase().split("@");
+  if (!localPart || !domain || extra) return null;
+  const correctedDomain = COMMON_EMAIL_TYPOS[domain];
+  return correctedDomain ? `${localPart}@${correctedDomain}` : null;
+}
+
+function isValidFirstName(name) {
+  return name.length >= 2 && /^[\p{L}\p{M}][\p{L}\p{M}'’ .-]*$/u.test(name);
 }
 
 function isValidPhone(phone) {
