@@ -11,7 +11,7 @@ function initSharedHeader() {
     const styles = document.createElement('style');
     styles.id = 'shared-header-runtime-styles';
     styles.textContent = `
-      .site-header-shell{position:fixed;top:0;left:0;right:0;z-index:1000;width:100%;}
+      .site-header-shell{position:fixed;top:0;left:0;right:0;z-index:1300;width:100%;}
       .site-header-shell .navbar{position:relative!important;top:auto!important;width:100%;}
       .site-header-spacer{width:100%;height:var(--site-header-height,110px);}
       .skip-link{position:fixed;top:8px;left:8px;z-index:1000001;padding:10px 14px;border-radius:8px;background:#fff;color:#081a35;font-weight:700;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.2);transform:translateY(-180%);transition:transform .2s ease;}
