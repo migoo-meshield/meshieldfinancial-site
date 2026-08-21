@@ -55,6 +55,10 @@ function initSharedHeader() {
             <button class="lang-btn active" data-lang="en" type="button" onclick="setSiteLang('en')">EN</button>
             <button class="lang-btn" data-lang="ht" type="button" onclick="setSiteLang('ht')">HT</button>
           </div>
+          <a href="https://clientportal.meshieldfinancial.com/public-intake" class="btn btn-outline nav-intake-btn">
+            <span data-en>Client Form</span>
+            <span data-ht>Fòm Kliyan</span>
+          </a>
           <a href="/book" class="btn btn-gold" style="padding:9px 20px;font-size:.85rem;">
             <span data-en>Book Free Consult</span>
             <span data-ht>Rezève Konsiltasyon</span>
@@ -181,6 +185,13 @@ function initHamburger() {
 
   btn.innerHTML = '<span data-en>MENU</span><span data-ht>MENI</span>';
   btn.setAttribute('aria-label', 'Open navigation menu');
+  if (!links.querySelector('.mobile-intake-item')) {
+    const intakeItem = document.createElement('li');
+    intakeItem.className = 'mobile-book-item mobile-intake-item';
+    intakeItem.innerHTML = '<a class="mobile-book-link mobile-intake-link" href="https://clientportal.meshieldfinancial.com/public-intake"><span data-en>Complete Client Form</span><span data-ht>Ranpli Fòm Kliyan</span></a>';
+    links.insertBefore(intakeItem, links.firstChild);
+  }
+
   if (!links.querySelector('.mobile-book-item')) {
     const item = document.createElement('li');
     item.className = 'mobile-book-item';
