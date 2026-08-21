@@ -4,11 +4,44 @@
    local copy; replace it at runtime so navigation, promos, language controls,
    and the mobile menu stay identical site-wide. */
 function initSharedHeader() {
-  document.querySelectorAll('body > .utility-bar, body > nav.navbar, body > .service-global-header')
+  document.querySelectorAll('body > .site-header-shell, body > .site-header-spacer, body > .utility-bar, body > nav.navbar, body > .service-global-header')
     .forEach((element) => element.remove());
+
+  if (!document.getElementById('shared-header-runtime-styles')) {
+    const styles = document.createElement('style');
+    styles.id = 'shared-header-runtime-styles';
+    styles.textContent = `
+      .site-header-shell{position:fixed;top:0;left:0;right:0;z-index:1000;width:100%;}
+      .site-header-shell .navbar{position:relative!important;top:auto!important;width:100%;}
+      .site-header-spacer{width:100%;height:var(--site-header-height,110px);}
+      .skip-link{position:fixed;top:8px;left:8px;z-index:1000001;padding:10px 14px;border-radius:8px;background:#fff;color:#081a35;font-weight:700;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.2);transform:translateY(-180%);transition:transform .2s ease;}
+      .skip-link:focus,.skip-link:focus-visible{transform:translateY(0);}
+      @media(max-width:900px){
+        .site-header-shell .nav-right>.btn-gold,.site-header-shell .nav-right>.nav-intake-btn{display:none!important;}
+        .site-header-shell .nav-inner{gap:8px;}
+        .site-header-shell .nav-logo{min-width:0;gap:8px;overflow:hidden;}
+        .site-header-shell .nav-logo-text{font-size:.94rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        .site-header-shell .nav-logo-sub{display:none;}
+        .site-header-shell .nav-right{gap:8px;flex-shrink:0;}
+        .site-header-shell .hamburger{display:flex;flex-shrink:0;position:relative;z-index:1202;}
+        .site-header-shell .nav-links{z-index:1200;}
+        .nav-scrim{z-index:1199;}
+      }
+      @media(max-width:700px){
+        .site-header-shell .utility-bar{display:none!important;}
+      }
+      @media(max-width:430px){
+        .site-header-shell .nav-logo-text{font-size:.82rem;}
+        .site-header-shell .nav-logo-icon{height:36px!important;max-width:44px;}
+        .site-header-shell .lang-btn{padding:5px 7px;}
+      }
+    `;
+    document.head.appendChild(styles);
+  }
 
   const wrapper = document.createElement('div');
   wrapper.innerHTML = `
+    <header class="site-header-shell">
     <div class="utility-bar">
       <div class="container utility-bar-inner">
         <div class="utility-left">
@@ -66,11 +99,22 @@ function initSharedHeader() {
           <button class="hamburger" id="hamburger" type="button" aria-label="Open navigation menu" aria-expanded="false"></button>
         </div>
       </div>
-    </nav>`;
+    </nav>
+    </header>
+    <div class="site-header-spacer" aria-hidden="true"></div>`;
 
   const fragment = document.createDocumentFragment();
   while (wrapper.firstChild) fragment.appendChild(wrapper.firstChild);
   document.body.prepend(fragment);
+
+  const header = document.querySelector('.site-header-shell');
+  const spacer = document.querySelector('.site-header-spacer');
+  const syncHeaderHeight = () => {
+    if (header && spacer) spacer.style.height = `${Math.ceil(header.getBoundingClientRect().height)}px`;
+  };
+  syncHeaderHeight();
+  window.addEventListener('load', syncHeaderHeight, { once: true });
+  window.addEventListener('resize', syncHeaderHeight);
 }
 
 /* ── Accessibility foundations ── */
@@ -80,7 +124,7 @@ function initAccessibility() {
     main = document.createElement('main');
     main.id = 'main-content';
     const movable = Array.from(document.body.children).filter((element) =>
-      !element.matches('.utility-bar, nav.navbar, footer, script, .nav-scrim')
+      !element.matches('.site-header-shell, .site-header-spacer, .utility-bar, nav.navbar, footer, script, .nav-scrim')
     );
     if (movable.length) {
       movable[0].before(main);
