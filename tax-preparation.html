@@ -508,8 +508,8 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
           <div class="rb-label en">Estimated Tax Preparation Fee</div>
           <div class="rb-label ht">Frè Preparasyon Taks Estimasyon</div>
           <div class="rb-range" id="tax-result">$-- – $--</div>
-          <div class="rb-note en">Educational estimate only. Final fee confirmed after review of your documents.</div>
-          <div class="rb-note ht">Estimasyon edikasyonèl sèlman. Frè final konfime apre revizyon dokiman ou.</div>
+          <div class="rb-note en">Estimate includes the 4% ME Shield operating/payment adjustment. Final fee is confirmed after document review; government and third-party charges, if any, remain separate.</div>
+          <div class="rb-note ht">Estimasyon an gen ajisteman 4% ME Shield pou operasyon/peman. Frè final la konfime apre revizyon dokiman; frè gouvènman ak lòt founisè, si genyen, rete apa.</div>
         </div>
         <p style="font-size:.86rem;color:var(--mid);margin-bottom:16px;text-align:center;" class="en">Enter your info and Miguelson will reach out within 24 hours with your exact quote.</p>
         <p style="font-size:.86rem;color:var(--mid);margin-bottom:16px;text-align:center;" class="ht">Antre enfòmasyon ou epi Miguelson ap kontakte ou nan 24 èdtan ak devis egzak ou.</p>
@@ -903,8 +903,8 @@ function calcTax(){
   if(prior)base+=150;
   if(itin)base+=80;
   base+=(states-1)*60;
-  const min=Math.round(base*0.85);
-  const max=Math.round(base*1.22);
+  const min=(base*0.85*1.04).toFixed(2);
+  const max=(base*1.22*1.04).toFixed(2);
   document.getElementById('tax-result').textContent='$'+min+' – $'+max;
   goStep(3,3);
 }

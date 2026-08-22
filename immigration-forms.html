@@ -458,12 +458,12 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
         </div>
       </div>
       <div class="result-box">
-        <div class="rb-label en">Estimated Total (Government + Assistance Fee)</div>
-        <div class="rb-label ht">Total Estimasyon (Gouvènman + Frè Asistans)</div>
+        <div class="rb-label en">Estimated ME Shield Assistance Fee</div>
+        <div class="rb-label ht">Frè Asistans ME Shield Estime</div>
         <div class="rb-range" id="imm-result">$-- – $--</div>
         <div id="imm-breakdown" style="font-size:.72rem;color:rgba(255,255,255,.45);margin-top:10px;line-height:1.8;"></div>
-        <div class="rb-note en">Government fees paid directly to USCIS. Assistance fee paid to ME Shield separately. Fees subject to USCIS changes.</div>
-        <div class="rb-note ht">Frè gouvènman peye dirèkteman nan USCIS. Frè asistans peye nan ME Shield separeman. Frè yo sijè a chanjman USCIS.</div>
+        <div class="rb-note en">ME Shield prices include a 4% operating/payment adjustment. USCIS, medical, translation, certification, notarization, and other third-party fees are separate and are never marked up.</div>
+        <div class="rb-note ht">Pri ME Shield yo gen yon ajisteman 4% pou operasyon/peman. Frè USCIS, medikal, tradiksyon, sètifikasyon, notè ak lòt founisè yo separe epi nou pa ogmante yo.</div>
       </div>
       <div class="lfgrid">
         <div class="fg"><label class="fl en">Full Name</label><label class="fl ht">Non Konplè</label><input type="text" class="fi" id="im-name" placeholder="Your name"/></div>
@@ -478,8 +478,8 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
         <p class="en" style="font-weight:700;color:var(--navy);">Request sent! We'll contact you within 24 hours.</p>
         <p class="ht" style="font-weight:700;color:var(--navy);">Demann voye! Nou pral kontakte ou nan 24 èdtan.</p>
       </div>
-      <div class="disc en">* Government (USCIS) filing fees are set by the federal government and may change. ME Shield Financial Services provides immigration document filling assistance only — we are not attorneys and do not provide immigration legal advice. For complex immigration situations, consult a licensed immigration attorney.</div>
-      <div class="disc ht">* Frè deklarasyon gouvènman (USCIS) yo fikse pa gouvènman federal la epi ka chanje. ME Shield Financial Services bay asistans ranpli fòmilè imigrasyon sèlman — nou pa avoka epi nou pa bay konsèy legal imigrasyon. Pou sitiyasyon imigrasyon konplèks, konsilte yon avoka imigrasyon lisansye.</div>
+      <div class="disc en">* USCIS and third-party fees are not ME Shield revenue and are non-refundable once paid or incurred. Verify current USCIS fees before filing. ME Shield provides clerical document-filling assistance only — we are not attorneys and do not provide immigration legal advice.</div>
+      <div class="disc ht">* Frè USCIS ak lòt founisè yo pa revni ME Shield epi yo pa ranbousab depi yo fin peye oswa fèt. Verifye frè USCIS aktyèl yo anvan depo. ME Shield bay asistans administratif pou ranpli dokiman sèlman — nou pa avoka epi nou pa bay konsèy legal imigrasyon.</div>
     </div>
   </div>
 </section>
@@ -825,21 +825,21 @@ function submitReview(){
 }
 
 const IMM_FEES={
-  daca:{svc:199,name:"DACA Renewal"}, i765:{svc:149,name:"I-765 Work Permit"},
-  i130:{svc:199,name:"I-130 Family Petition"}, i485:{svc:299,name:"I-485 Adjustment of Status"},
-  n400:{svc:249,name:"N-400 Citizenship"}, i131:{svc:149,name:"I-131 Travel Document"}, i90:{svc:149,name:"I-90 Green Card Renewal"}
+  daca:{svc:206.96,name:"DACA Renewal"}, i765:{svc:154.96,name:"I-765 Work Permit"},
+  i130:{svc:206.96,name:"I-130 Family Petition"}, i485:{svc:310.96,name:"I-485 Adjustment of Status"},
+  n400:{svc:258.96,name:"N-400 Citizenship"}, i131:{svc:154.96,name:"I-131 Travel Document"}, i90:{svc:154.96,name:"I-90 Green Card Renewal"}
 };
 function calcImm(){
   const form=document.getElementById('imm-form').value;
   const count=parseInt(document.getElementById('imm-count').value)||1;
   const trans=document.getElementById('imm-trans').value==='yes';
   const f=IMM_FEES[form]||IMM_FEES.daca;
-  const svc=f.svc+(count>1?(count-1)*99:0);
-  const tr=trans?75*count:0;
+  const svc=f.svc+(count>1?(count-1)*102.96:0);
+  const tr=trans?78*count:0;
   const total=svc+tr;
-  document.getElementById('imm-result').textContent='$'+total+' ME Shield fee';
-  let bd='ME Shield Assistance: $'+svc;
-  if(tr>0)bd+=' &nbsp;·&nbsp; Translation: $'+tr;
+  document.getElementById('imm-result').textContent='$'+total.toFixed(2)+' ME Shield fee';
+  let bd='ME Shield Assistance (includes 4% adjustment): $'+svc.toFixed(2);
+  if(tr>0)bd+=' &nbsp;·&nbsp; Translation: $'+tr.toFixed(2);
   bd+=' &nbsp;·&nbsp; <a href="https://www.uscis.gov/g-1055" target="_blank" rel="noopener">Verify current USCIS government fee</a>';
   document.getElementById('imm-breakdown').innerHTML=bd;
 }
