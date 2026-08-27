@@ -11,7 +11,10 @@
 // ============================================================
 // SETTINGS — edit these anytime, nothing else needs to change
 // ============================================================
-const AVATAR_URL = "/miguelson-headshot.jpeg"; // change this path to swap the photo/icon
+// Inline chat-bubble icon instead of a staff photo — a visitor should see
+// at a glance that this is an automated assistant they can ask questions,
+// not a direct line to a specific person.
+const AVATAR_ICON = `<svg class="msc-avatar-icon" viewBox="0 0 24 24" fill="none" stroke="#C9A14A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H9l-4.5 4v-4H6.5A2.5 2.5 0 0 1 4 13.5v-8Z"/><circle cx="8.3" cy="9.5" r="1" fill="#C9A14A" stroke="none"/><circle cx="12" cy="9.5" r="1" fill="#C9A14A" stroke="none"/><circle cx="15.7" cy="9.5" r="1" fill="#C9A14A" stroke="none"/></svg>`;
 const BOT_NAME = "Ask ME Shield";
 const BOT_SUBTITLE = "Insurance · Tax · IBC · Immigration";
 const CONTACT_PHONE_LINK = "tel:+14072672652";
@@ -35,7 +38,7 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
       transition: transform 0.2s ease;
     }
     .msc-bubble:hover { transform: scale(1.05); }
-    .msc-bubble img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .msc-bubble svg.msc-avatar-icon { width: 30px; height: 30px; }
     .msc-bubble .msc-badge {
       position: absolute; bottom: -1px; right: -1px; width: 18px; height: 18px;
       background: #C9A14A; border: 2px solid #fff; border-radius: 50%;
@@ -74,8 +77,8 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
       background: #0B1F3A; color: #fff; padding: 16px 16px 14px;
       display: flex; align-items: center; gap: 11px;
     }
-    .msc-avatar { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; overflow: hidden; }
-    .msc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .msc-avatar { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; }
+    .msc-avatar svg.msc-avatar-icon { width: 20px; height: 20px; }
     .msc-title { flex: 1; min-width: 0; }
     .msc-title strong { font-size: 14.5px; font-weight: 700; display: block; }
     .msc-subtitle { font-size: 10.5px; color: #A8B4C8; margin-top: 1px; }
@@ -143,13 +146,13 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
   wrapper.innerHTML = `
     <div class="msc-tooltip" id="mscTooltip">Need help? Chat with us 💬</div>
     <button class="msc-bubble" id="mscBubble" type="button" aria-label="Open chat" aria-expanded="false" aria-controls="mscWindow">
-      <img src="${AVATAR_URL}" alt="" onerror="this.style.display='none'">
+      ${AVATAR_ICON}
       <div class="msc-badge" aria-hidden="true">${checkBadge}</div>
     </button>
 
     <div class="msc-window" id="mscWindow">
       <div class="msc-header">
-        <div class="msc-avatar"><img src="${AVATAR_URL}" alt="" onerror="this.style.display='none'"></div>
+        <div class="msc-avatar">${AVATAR_ICON}</div>
         <div class="msc-title">
           <strong>${BOT_NAME}</strong>
           <div class="msc-subtitle">${BOT_SUBTITLE}</div>
