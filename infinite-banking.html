@@ -109,6 +109,8 @@ section.pad{padding:80px 32px;}
 .fs:focus,.fi:focus{border-color:var(--gold);}
 .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;}
 @media(max-width:540px){.cgrid{grid-template-columns:1fr;}}
+@media(max-width:760px){#ibc-results{grid-template-columns:1fr 1fr!important;}}
+@media(max-width:430px){#ibc-results{grid-template-columns:1fr!important;}}
 .result-box{background:var(--navy);border-radius:16px;padding:28px;text-align:center;margin-bottom:22px;}
 .rb-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin-bottom:10px;}
 .rb-range{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px;}
@@ -404,10 +406,10 @@ section.pad.ibc-alt{background:#0a1628;}
   <div class="sec-inner" style="max-width:900px;">
     <div class="en block"><span class="eyebrow">IBC Contribution Planning Tool</span>
       <h2 class="sec-h white">Plan a possible contribution budget</h2>
-      <p class="sec-p dim">Enter your age and a possible monthly contribution. We show contribution totals only; cash value requires an official carrier illustration.</p></div>
+      <p class="sec-p dim">Enter the main underwriting factors and a possible monthly premium to see an educational cash-value and death-benefit planning range at years 1, 2, 5 and 10.</p></div>
     <div class="ht block"><span class="eyebrow">Zouti Planifikasyon Kontribisyon IBC</span>
       <h2 class="sec-h white">Planifye yon bidjè kontribisyon posib</h2>
-      <p class="sec-p dim">Antre laj ou ak yon kontribisyon mansyèl posib. Nou montre total kontribisyon sèlman; valè kach bezwen yon ilustrasyon ofisyèl konpayi asirans.</p></div>
+      <p class="sec-p dim">Antre prensipal faktè underwriting yo ak yon prim mansyèl posib pou wè yon seri planifikasyon valè kach ak death benefit pou ane 1, 2, 5 ak 10.</p></div>
     <div class="calc-card" style="background:rgba(255,255,255,.05);border-color:rgba(201,168,76,.25);">
       <div class="cgrid">
         <div class="fg">
@@ -415,6 +417,10 @@ section.pad.ibc-alt{background:#0a1628;}
           <label class="fl ht" style="color:rgba(255,255,255,.7);">Laj Ou Kounye A</label>
           <input type="number" class="fi" id="ibc-age" value="32" min="18" max="65" style="background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.2);color:#fff;" oninput="calcIBC()"/>
         </div>
+        <div class="fg"><label class="fl en" style="color:rgba(255,255,255,.7);">Sex at Birth</label><label class="fl ht" style="color:rgba(255,255,255,.7);">Sèks nan Nesans</label><select class="fs" id="ibc-sex" style="background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.2);color:#fff;" onchange="calcIBC()"><option value="female">Female</option><option value="male" selected>Male</option></select></div>
+        <div class="fg"><label class="fl en" style="color:rgba(255,255,255,.7);">Health Class</label><label class="fl ht" style="color:rgba(255,255,255,.7);">Klas Sante</label><select class="fs" id="ibc-health" style="background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.2);color:#fff;" onchange="calcIBC()"><option value="preferred">Preferred / Excellent</option><option value="standard" selected>Standard / Good</option><option value="rated">Some health concerns</option></select></div>
+        <div class="fg"><label class="fl en" style="color:rgba(255,255,255,.7);">Tobacco Use</label><label class="fl ht" style="color:rgba(255,255,255,.7);">Itilizasyon Tabak</label><select class="fs" id="ibc-tobacco" style="background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.2);color:#fff;" onchange="calcIBC()"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
+        <div class="fg"><label class="fl en" style="color:rgba(255,255,255,.7);">State of Residence</label><label class="fl ht" style="color:rgba(255,255,255,.7);">Eta Rezidans</label><select class="fs" id="ibc-state" style="background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.2);color:#fff;" onchange="calcIBC()"><option value="FL" selected>Florida</option><option value="MA">Massachusetts</option><option value="NJ">New Jersey</option></select></div>
         <div class="fg">
           <label class="fl en" style="color:rgba(255,255,255,.7);">Monthly Planning Amount</label>
           <label class="fl ht" style="color:rgba(255,255,255,.7);">Montan Planifikasyon Mansyèl</label>
@@ -430,13 +436,13 @@ section.pad.ibc-alt{background:#0a1628;}
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px;" id="ibc-results">
-        <div class="result-box" style="padding:18px 10px;"><div class="rb-label en">1 Year</div><div class="rb-label ht">1 An</div><div class="rb-range" id="ibc-1" style="font-size:1.3rem;">--</div></div>
-        <div class="result-box" style="padding:18px 10px;"><div class="rb-label en">5 Years</div><div class="rb-label ht">5 An</div><div class="rb-range" id="ibc-5" style="font-size:1.3rem;">--</div></div>
-        <div class="result-box" style="padding:18px 10px;"><div class="rb-label en">10 Years</div><div class="rb-label ht">10 An</div><div class="rb-range" id="ibc-10" style="font-size:1.3rem;">--</div></div>
-        <div class="result-box" style="padding:18px 10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);"><div class="rb-label en">20 Years</div><div class="rb-label ht">20 An</div><div class="rb-range" id="ibc-20" style="font-size:1.3rem;">--</div></div>
+        <div class="result-box" style="padding:18px 10px;"><div class="rb-label">1 Year</div><div class="rb-range" id="ibc-cv-1" style="font-size:1rem;">--</div><div class="rb-note" id="ibc-db-1"></div></div>
+        <div class="result-box" style="padding:18px 10px;"><div class="rb-label">2 Years</div><div class="rb-range" id="ibc-cv-2" style="font-size:1rem;">--</div><div class="rb-note" id="ibc-db-2"></div></div>
+        <div class="result-box" style="padding:18px 10px;"><div class="rb-label">5 Years</div><div class="rb-range" id="ibc-cv-5" style="font-size:1rem;">--</div><div class="rb-note" id="ibc-db-5"></div></div>
+        <div class="result-box" style="padding:18px 10px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);"><div class="rb-label">10 Years</div><div class="rb-range" id="ibc-cv-10" style="font-size:1rem;">--</div><div class="rb-note" id="ibc-db-10"></div></div>
       </div>
-      <p style="font-size:.72rem;color:rgba(255,255,255,.55);text-align:center;margin-bottom:20px;" class="en">Contribution totals only—not cash value, premium, return, or policy projections. Actual policy values require a carrier-approved illustration and underwriting.</p>
-      <p style="font-size:.72rem;color:rgba(255,255,255,.55);text-align:center;margin-bottom:20px;" class="ht">Sa yo se total kontribisyon sèlman—se pa valè kach, prim, rannman oswa pwojeksyon polis. Valè polis reyèl bezwen yon ilustrasyon konpayi asirans apwouve ak underwriting.</p>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.65);text-align:center;margin-bottom:20px;" class="en">Educational range only—not a carrier illustration, guaranteed cash value, quote or promise of performance. Policy design, expenses, paid-up additions, underwriting class, carrier and dividends can materially change values. Obtain a carrier-approved illustration showing guaranteed and non-guaranteed values before applying.</p>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.65);text-align:center;margin-bottom:20px;" class="ht">Seri edikasyonèl sèlman—li pa yon ilustrasyon carrier, valè kach garanti, quote oswa pwomès rannman. Estrikti polis la, depans, paid-up additions, klas underwriting, carrier ak dividann ka chanje rezilta yo anpil. Mande yon ilustrasyon carrier apwouve ki montre valè garanti ak non-guaranteed anvan aplikasyon.</p>
 
       <div class="lfgrid">
         <div class="fg"><label class="fl en" style="color:rgba(255,255,255,.7);">Full Name</label><label class="fl ht" style="color:rgba(255,255,255,.7);">Non Konplè</label><input type="text" class="fi" id="ib-name" placeholder="Your name" style="background:rgba(255,255,255,.07);border-color:rgba(201,168,76,.2);color:#fff;"/></div>
@@ -707,8 +713,7 @@ section.pad.ibc-alt{background:#0a1628;}
           <a href="tel:4072672652" class="btn-gw">(407) 267-2652</a>
         </div>
       </div>
-      <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80" alt="Consultation" class="cta-img"
-           onerror="this.src='https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=700&q=80'"/>
+      <img src="ibc-own-bank-cta.png" alt="Business owner planning personal financing with an Infinite Banking strategy" class="cta-img"/>
     </div>
   </div>
 </section>
@@ -824,18 +829,31 @@ function submitReview(){
   document.getElementById('rv-text').value='';
 }
 
-// Calculator: monthly premium compounds together at ~4.5%/yr across
-// 1, 5, 10, and 20 years — a straightforward projected total, like before.
 function fmt(n){ return '$' + Math.round(n).toLocaleString(); }
 
 function calcIBC(){
   const prem = parseInt(document.getElementById('ibc-prem').value) || 500;
+  const age = Math.max(18, Math.min(65, parseInt(document.getElementById('ibc-age').value) || 32));
+  const sex = document.getElementById('ibc-sex').value;
+  const health = document.getElementById('ibc-health').value;
+  const tobacco = document.getElementById('ibc-tobacco').value;
   const annual = prem * 12;
-  const periods = [1, 5, 10, 20];
+  const periods = [1, 2, 5, 10];
+  const baseCv = {1:.50,2:.69,5:.91,10:1.08};
+  const healthFactor = health==='preferred' ? 1.04 : health==='rated' ? .90 : 1;
+  const tobaccoFactor = tobacco==='yes' ? .82 : 1;
+  const ageFactor = age<30 ? 1.04 : age<40 ? 1 : age<50 ? .94 : .86;
+  const sexFactor = sex==='female'?1.03:1;
+  const designFactor = healthFactor*tobaccoFactor*ageFactor*sexFactor;
+  const dbMultiple = Math.max(7, 29 - Math.max(0,age-25)*.48) * healthFactor * tobaccoFactor * sexFactor;
 
   periods.forEach(function(yrs){
-    const total = annual * yrs;
-    document.getElementById('ibc-' + yrs).textContent = fmt(total);
+    const midpoint = annual * yrs * baseCv[yrs] * designFactor;
+    const cvLow = midpoint * .88;
+    const cvHigh = midpoint * 1.08;
+    const dbMid = annual * dbMultiple * (1 + Math.min(yrs,10)*.012);
+    document.getElementById('ibc-cv-' + yrs).textContent = 'Cash value '+fmt(cvLow)+'–'+fmt(cvHigh);
+    document.getElementById('ibc-db-' + yrs).textContent = 'Est. death benefit '+fmt(dbMid*.9)+'–'+fmt(dbMid*1.1);
   });
 }
 
@@ -850,8 +868,8 @@ function submitIBC(){
 
   const age=document.getElementById('ibc-age').value;
   const prem=document.getElementById('ibc-prem').value;
-  const total20=document.getElementById('ibc-20').textContent;
-  const details = 'Age: '+age+', Monthly premium: $'+prem+', 20-year projected total: '+total20;
+  const total10=document.getElementById('ibc-cv-10').textContent;
+  const details = 'Age: '+age+', Sex: '+document.getElementById('ibc-sex').value+', Health: '+document.getElementById('ibc-health').value+', Tobacco: '+document.getElementById('ibc-tobacco').value+', State: '+document.getElementById('ibc-state').value+', Monthly planning premium: $'+prem+', 10-year educational range: '+total10;
 
   const digits = phone.replace(/\D/g, '');
   const params = new URLSearchParams();
@@ -877,8 +895,8 @@ function submitIBC(){
 }
 window.addEventListener('load',calcIBC);</script>
 
-<script src="/shared.js?v=20260821-2"></script>
-<script src="/service-pages.js?v=20260810-2"></script>
+<script src="/shared.js?v=20260830-1"></script>
+<script src="/service-pages.js?v=20260830-1"></script>
 <script src="chatbot-widget.js"></script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>
