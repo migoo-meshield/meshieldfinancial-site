@@ -109,6 +109,10 @@ section.pad{padding:80px 32px;}
 .fs:focus,.fi:focus{border-color:var(--gold);}
 .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;}
 @media(max-width:540px){.cgrid{grid-template-columns:1fr;}}
+#ibc-results .result-box{background:#0d2449!important;border:1px solid rgba(201,168,76,.24)!important;min-width:0!important;}
+#ibc-results .rb-label{color:rgba(255,255,255,.65)!important;font-family:Inter,Arial,sans-serif!important;font-size:.68rem!important;font-weight:800!important;letter-spacing:.08em!important;text-transform:uppercase!important;}
+#ibc-results .rb-range{color:#f0cf72!important;font-family:Inter,Arial,sans-serif!important;font-size:.84rem!important;font-weight:800!important;line-height:1.45!important;overflow-wrap:anywhere!important;}
+#ibc-results .rb-note{color:rgba(255,255,255,.82)!important;font-family:Inter,Arial,sans-serif!important;font-size:.72rem!important;line-height:1.45!important;margin-top:8px!important;overflow-wrap:anywhere!important;}
 @media(max-width:760px){#ibc-results{grid-template-columns:1fr 1fr!important;}}
 @media(max-width:430px){#ibc-results{grid-template-columns:1fr!important;}}
 .result-box{background:var(--navy);border-radius:16px;padding:28px;text-align:center;margin-bottom:22px;}
@@ -713,7 +717,7 @@ section.pad.ibc-alt{background:#0a1628;}
           <a href="tel:4072672652" class="btn-gw">(407) 267-2652</a>
         </div>
       </div>
-      <img src="ibc-own-bank-cta.png" alt="Business owner planning personal financing with an Infinite Banking strategy" class="cta-img"/>
+      <img src="https://images.unsplash.com/photo-1713946598456-a25ab3645730?auto=format&amp;fit=crop&amp;w=1200&amp;q=84" alt="Relaxed business owner enjoying greater financial control" class="cta-img"/>
     </div>
   </div>
 </section>
@@ -856,6 +860,7 @@ function calcIBC(){
     document.getElementById('ibc-db-' + yrs).textContent = 'Est. death benefit '+fmt(dbMid*.9)+'–'+fmt(dbMid*1.1);
   });
 }
+document.addEventListener('DOMContentLoaded', calcIBC);
 
 // Your Brevo "Quote Form" submission endpoint (shared across all service pages)
 const QUOTE_FORM_ACTION = 'https://d95daacd.sibforms.com/serve/MUIFAMqjH_cY1LbRSOMkgaHyh3AM8-YFTKECi52xHfqMLn-GuIdA_-AR79NKMutB8ClkLRVS6xTsE1rCP0ay371kFgxCGSXVTSFsfcp1iKMsvUPSeqh6yDtJbLiQd3216pI03uN9RbummyF4YxV-zWpiGY3n1Lff2FmR1WRCfgfoH6IBhMHe6JKvb-CgpPzfPbAkNeGZU9e9Pu7kAg==';
@@ -895,7 +900,7 @@ function submitIBC(){
 }
 window.addEventListener('load',calcIBC);</script>
 
-<script src="/shared.js?v=20260830-1"></script>
+<script src="/shared.js?v=20260830-2"></script>
 <script src="/service-pages.js?v=20260830-1"></script>
 <script src="chatbot-widget.js"></script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>

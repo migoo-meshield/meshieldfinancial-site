@@ -18,6 +18,24 @@ function initSharedHeader() {
       .site-header-shell .nav-intake-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:9px 18px!important;border:1px solid #c9a84c!important;border-radius:999px!important;background:transparent!important;color:#c9a84c!important;font-size:.82rem!important;font-weight:800!important;text-decoration:none!important;white-space:nowrap!important;}
       .site-header-shell .nav-intake-btn:hover{background:#c9a84c!important;color:#0b1d3a!important;}
       .pwa-install{position:fixed!important;left:18px!important;bottom:18px!important;z-index:1280!important;border:1px solid rgba(201,168,76,.8)!important;background:#0b1d3a!important;color:#c9a84c!important;border-radius:999px!important;padding:11px 16px!important;box-shadow:0 12px 30px rgba(11,29,58,.28)!important;font:700 .78rem Inter,Arial,sans-serif!important;cursor:pointer!important;}
+      .shared-footer{background:#0b1d3a!important;color:rgba(255,255,255,.68)!important;padding:58px 0 28px!important;border-top:1px solid rgba(255,255,255,.08)!important;font-family:Inter,Arial,sans-serif!important;font-size:16px!important;line-height:1.6!important;}
+      .shared-footer *{box-sizing:border-box!important;}
+      .shared-footer .shared-footer-inner{width:min(1120px,calc(100% - 40px))!important;margin:0 auto!important;}
+      .shared-footer .shared-footer-grid{display:grid!important;grid-template-columns:1.35fr .8fr .8fr .8fr!important;gap:46px!important;align-items:start!important;}
+      .shared-footer .shared-footer-brand{display:flex!important;align-items:center!important;gap:12px!important;margin-bottom:18px!important;}
+      .shared-footer .shared-footer-brand img{width:auto!important;height:48px!important;object-fit:contain!important;}
+      .shared-footer .shared-footer-name{color:#fff!important;font-family:Georgia,'Times New Roman',serif!important;font-size:1rem!important;font-weight:700!important;line-height:1.25!important;}
+      .shared-footer .shared-footer-dba{color:#c9a84c!important;font-size:.68rem!important;letter-spacing:.09em!important;text-transform:uppercase!important;}
+      .shared-footer h4{color:#fff!important;font-family:Georgia,'Times New Roman',serif!important;font-size:1rem!important;line-height:1.25!important;margin:0 0 17px!important;}
+      .shared-footer p{color:rgba(255,255,255,.62)!important;font-size:.82rem!important;line-height:1.7!important;margin:0 0 12px!important;}
+      .shared-footer ul{display:flex!important;flex-direction:column!important;gap:9px!important;list-style:none!important;margin:0!important;padding:0!important;}
+      .shared-footer li{color:rgba(255,255,255,.62)!important;font-size:.8rem!important;line-height:1.5!important;list-style:none!important;margin:0!important;padding:0!important;}
+      .shared-footer a{color:rgba(255,255,255,.68)!important;text-decoration:none!important;font-size:inherit!important;}
+      .shared-footer a:hover{color:#c9a84c!important;}
+      .shared-footer .shared-footer-contact a{color:#c9a84c!important;}
+      .shared-footer .shared-footer-disc{margin-top:34px!important;padding-top:22px!important;border-top:1px solid rgba(255,255,255,.1)!important;color:rgba(255,255,255,.42)!important;font-size:.68rem!important;line-height:1.65!important;}
+      .shared-footer .shared-footer-bottom{display:flex!important;justify-content:space-between!important;gap:18px!important;margin-top:20px!important;padding-top:18px!important;border-top:1px solid rgba(255,255,255,.1)!important;color:rgba(255,255,255,.55)!important;font-size:.72rem!important;}
+      .shared-footer .shared-footer-legal a{color:#c9a84c!important;}
       .skip-link{position:fixed;top:8px;left:8px;z-index:1000001;padding:10px 14px;border-radius:8px;background:#fff;color:#081a35;font-weight:700;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.2);transform:translateY(-180%);transition:transform .2s ease;}
       .skip-link:focus,.skip-link:focus-visible{transform:translateY(0);}
       @media(max-width:900px){
@@ -33,11 +51,14 @@ function initSharedHeader() {
       }
       @media(max-width:700px){
         .site-header-shell .utility-bar{display:none!important;}
+        .shared-footer .shared-footer-grid{grid-template-columns:1fr 1fr!important;gap:32px 24px!important;}
       }
       @media(max-width:430px){
         .site-header-shell .nav-logo-text{font-size:.82rem;}
         .site-header-shell .nav-logo-icon{height:36px!important;max-width:44px;}
         .site-header-shell .lang-btn{padding:5px 7px;}
+        .shared-footer .shared-footer-grid{grid-template-columns:1fr!important;}
+        .shared-footer .shared-footer-bottom{flex-direction:column!important;text-align:center!important;}
       }
     `;
     document.head.appendChild(styles);
@@ -345,12 +366,13 @@ function initSharedFooter() {
   const old = document.querySelector('body > footer');
   if (!old) return;
   const footer = document.createElement('footer');
-  footer.innerHTML = `<div class="container"><div class="footer-grid">
-    <div><div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;"><img src="/logo.png" alt="ME Shield Financial Services logo" style="height:48px;width:auto;object-fit:contain;"><div><div style="color:#fff;font-family:var(--font-display,Georgia,serif);font-weight:700;">ME Shield Financial Services</div><div style="color:#c9a84c;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;">A DBA of ME Shield Group LLC</div></div></div><p class="en" style="font-size:.88rem;max-width:300px;">Insurance (FL, MA, NJ), tax, immigration forms, business filing and financial education—in English and Haitian Creole.</p><p class="ht" style="font-size:.88rem;max-width:300px;">Asirans (FL, MA, NJ), taks, fòm imigrasyon, depo biznis ak edikasyon finansyè—an Anglè ak Kreyòl.</p><p><a href="tel:+14072672652">(407) 267-2652</a><br><a href="mailto:info@meshieldfinancial.com">info@meshieldfinancial.com</a></p></div>
-    <div><h4 class="en">Services</h4><h4 class="ht">Sèvis</h4><ul><li><a href="/insurance">Insurance</a></li><li><a href="/tax-preparation">Tax Preparation</a></li><li><a href="/immigration-forms">Immigration Forms</a></li><li><a href="/business-filing">Business Filing</a></li><li><a href="/infinite-banking">Infinite Banking</a></li></ul></div>
-    <div><h4 class="en">Company</h4><h4 class="ht">Konpayi</h4><ul><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/book">Free Consultation</a></li><li><a href="https://clientportal.meshieldfinancial.com/public-intake">Client Form</a></li></ul></div>
-    <div><h4 class="en">Contact</h4><h4 class="ht">Kontakte</h4><ul><li>Apopka, FL 32712</li><li class="en">Mon–Fri: 9am–6pm</li><li class="ht">Lendi–Vandredi: 9am–6pm</li><li><a href="https://www.facebook.com/profile.php?id=61590568017562">Facebook</a> · <a href="https://www.instagram.com/meshieldfinancial/">Instagram</a></li></ul></div>
-  </div><div class="footer-disclaimer en">ME Shield Financial Services is a DBA of ME Shield Group LLC. Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Tax services are provided by an IRS PTIN-registered preparer. Immigration form preparation is not legal advice.</div><div class="footer-disclaimer ht">ME Shield Financial Services se yon DBA pou ME Shield Group LLC. Miguelson Etienne bay sèvis asirans kòm Ajan Asirans Endepandan Lisansye ki afilye ak JWANAIX GROUP. Preparasyon fòm imigrasyon pa konsèy legal.</div><div class="footer-bottom"><span>© <span id="year"></span> ME Shield Financial Services</span><span class="footer-legal"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/accessibility">Accessibility</a></span></div></div>`;
+  footer.className = 'shared-footer';
+  footer.innerHTML = `<div class="shared-footer-inner"><div class="shared-footer-grid">
+    <div><div class="shared-footer-brand"><img src="/logo.png" alt="ME Shield Financial Services logo"><div><div class="shared-footer-name">ME Shield Financial Services</div><div class="shared-footer-dba">A DBA of ME Shield Group LLC</div></div></div><p data-en>Insurance (FL, MA, NJ), tax, immigration forms, business filing and financial education—in English and Haitian Creole.</p><p data-ht>Asirans (FL, MA, NJ), taks, fòm imigrasyon, depo biznis ak edikasyon finansyè—an Anglè ak Kreyòl.</p><p class="shared-footer-contact"><a href="tel:+14072672652">(407) 267-2652</a><br><a href="mailto:info@meshieldfinancial.com">info@meshieldfinancial.com</a></p></div>
+    <div><h4 data-en>Services</h4><h4 data-ht>Sèvis</h4><ul><li><a href="/insurance"><span data-en>Insurance</span><span data-ht>Asirans</span></a></li><li><a href="/tax-preparation"><span data-en>Tax Preparation</span><span data-ht>Preparasyon Taks</span></a></li><li><a href="/immigration-forms"><span data-en>Immigration Forms</span><span data-ht>Fòm Imigrasyon</span></a></li><li><a href="/business-filing"><span data-en>Business Filing</span><span data-ht>Depo Biznis</span></a></li><li><a href="/infinite-banking"><span data-en>Infinite Banking</span><span data-ht>Bank Enfini</span></a></li></ul></div>
+    <div><h4 data-en>Company</h4><h4 data-ht>Konpayi</h4><ul><li><a href="/about"><span data-en>About</span><span data-ht>Sou nou</span></a></li><li><a href="/contact"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li><li><a href="/book"><span data-en>Free Consultation</span><span data-ht>Konsiltasyon Gratis</span></a></li><li><a href="https://clientportal.meshieldfinancial.com/public-intake"><span data-en>Client Form</span><span data-ht>Fòm Kliyan</span></a></li></ul></div>
+    <div><h4 data-en>Contact</h4><h4 data-ht>Kontakte</h4><ul><li>Apopka, FL 32712</li><li data-en>Mon–Fri: 9am–6pm</li><li data-ht>Lendi–Vandredi: 9am–6pm</li><li><a href="https://www.facebook.com/profile.php?id=61590568017562">Facebook</a> · <a href="https://www.instagram.com/meshieldfinancial/">Instagram</a></li></ul></div>
+  </div><div class="shared-footer-disc"><span data-en>ME Shield Financial Services is a DBA of ME Shield Group LLC. Insurance services are offered by Miguelson Etienne, Licensed Independent Insurance Agent, affiliated with JWANAIX GROUP. Tax services are provided by an IRS PTIN-registered preparer. Immigration form preparation is not legal advice.</span><span data-ht>ME Shield Financial Services se yon DBA pou ME Shield Group LLC. Miguelson Etienne bay sèvis asirans kòm Ajan Asirans Endepandan Lisansye ki afilye ak JWANAIX GROUP. Preparasyon fòm imigrasyon pa konsèy legal.</span></div><div class="shared-footer-bottom"><span>© <span id="year"></span> ME Shield Financial Services</span><span class="shared-footer-legal"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/accessibility">Accessibility</a></span></div></div>`;
   old.replaceWith(footer);
 }
 function initLegalLinks() {
