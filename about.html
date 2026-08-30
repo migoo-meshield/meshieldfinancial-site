@@ -17,10 +17,14 @@
       display: grid;
       grid-template-columns: 1fr 1.1fr;
       gap: 72px;
-      align-items: center;
+      align-items: start;
     }
     .about-img-wrap {
-      position: relative;
+      position: sticky;
+      top: 118px;
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
     }
     .about-img-box {
       width: 100%;
@@ -32,6 +36,7 @@
       align-items: center;
       justify-content: center;
       position: relative;
+      box-shadow: 0 20px 46px rgba(11,29,58,.16);
     }
     .accent-card {
       position: absolute;
@@ -180,6 +185,7 @@
 
     @media (max-width: 820px) {
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-img-wrap { position: relative; top: auto; max-width: 420px; }
       .accent-card { right: 0; }
       .license-item { flex-basis: 88%; min-height: 230px; }
       .mission-block { padding: 32px 28px; }
