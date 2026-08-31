@@ -439,6 +439,8 @@ footer ul a:hover { color: var(--gold); }
   font-size: .82rem;
 }
 .footer-brand { color: var(--gold); font-weight: 600; }
+.footer-legal a { color: rgba(255,255,255,.55); text-decoration: none; transition: color .25s var(--ease); }
+.footer-legal a:hover { color: var(--gold); }
 .footer-disclaimer {
   font-size: .74rem;
   color: rgba(255,255,255,.38);
