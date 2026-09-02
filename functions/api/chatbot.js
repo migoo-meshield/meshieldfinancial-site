@@ -43,7 +43,6 @@ const ARTICLE_LIBRARY = {
     "tps-haiti-2026-update.html",
   ],
   "Infinite Banking (IBC)": [
-    "infinite-banking-concept-explained.html",
     "term-vs-whole-life-ibc.html",
     "whole-life-vs-universal-life.html",
   ],

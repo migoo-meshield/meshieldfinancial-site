@@ -528,7 +528,7 @@ function initTrustAndStructuredData() {
     '/health-insurance-open-enrollment-florida', '/homeowners-renters-insurance-florida-guide',
     '/how-much-life-insurance-do-i-need', '/hurricane-season-financial-preparedness',
     '/hurricane-season-home-insurance-checklist', '/immigration-forms-checklist',
-    '/infinite-banking-concept', '/infinite-banking-concept-explained',
+    '/infinite-banking-concept',
     '/itin-guide-florida', '/llc-formation-florida-guide',
     '/llc-registration-mistakes-florida', '/naturalization-process-guide',
     '/registered-agent-florida-llc', '/tax-deductions-self-employed',

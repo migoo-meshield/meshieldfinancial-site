@@ -6,4 +6,6 @@
 /index.html / 301
 /paralegal-immigration /immigration-forms 301
 /paralegal-immigration.html /immigration-forms 301
+/infinite-banking-concept-explained /infinite-banking-concept 301
+/infinite-banking-concept-explained.html /infinite-banking-concept 301
 /*.html /:splat 301
