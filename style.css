@@ -17,7 +17,7 @@
   --white:     #FFFFFF;
   --text-dark: #181826;
   --text-mid:  #54546C;
-  --text-light:#8A8AA0;
+  --text-light:#66667A;
   --border:    rgba(201,168,76,0.24);
   --border-soft: rgba(11,28,58,0.08);
 
@@ -139,6 +139,12 @@ a:hover { color: var(--gold-light); }
   color: var(--navy);
   transform: translateY(-3px);
 }
+.section-white .eyebrow,
+.section-white .btn-outline,
+.section-white a:not(.btn-gold):not(.btn-navy) .eyebrow {
+  color: #735B12;
+}
+.service-info .btn-outline { color:#735B12; }
 .btn-navy {
   background: var(--navy);
   color: var(--white);
@@ -414,16 +420,19 @@ footer {
   padding: 72px 0 32px;
   border-top: 1px solid rgba(201,168,76,.18);
 }
+footer p { color:rgba(255,255,255,.72)!important; }
 .footer-grid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 44px;
   margin-bottom: 48px;
 }
-footer h4 {
+footer h4,
+footer .footer-heading {
   color: var(--white);
   font-family: var(--font-display);
   font-size: 1.02rem;
+  font-weight: 700;
   margin-bottom: 18px;
   font-weight: 600;
 }
@@ -443,7 +452,7 @@ footer ul a:hover { color: var(--gold); }
 .footer-legal a:hover { color: var(--gold); }
 .footer-disclaimer {
   font-size: .74rem;
-  color: rgba(255,255,255,.38);
+  color: rgba(255,255,255,.68);
   margin-top: 12px;
   line-height: 1.6;
 }

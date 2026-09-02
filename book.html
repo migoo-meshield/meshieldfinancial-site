@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
-  <link rel="stylesheet" href="/style.css?v=20260810-2"/>
+  <link rel="stylesheet" href="/style.css?v=20260901-1"/>
   <style>
     .book-layout {
       display: grid;
@@ -83,6 +83,9 @@
       border: 1px solid rgba(201,168,76,.15);
       overflow: hidden;
     }
+    .calendar-consent{min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:36px 24px;background:var(--offwhite);border-radius:10px;}
+    .calendar-consent h2{color:var(--navy);margin-bottom:10px;font-size:1.35rem;}
+    .calendar-consent p{max-width:480px;color:var(--text-mid);margin-bottom:18px;line-height:1.65;}
 
     /* Info sidebar */
     .info-block {
@@ -92,7 +95,7 @@
       margin-bottom: 20px;
       border: 1px solid var(--border);
     }
-    .info-block h4 { color: var(--gold); margin-bottom: 14px; }
+    .info-block h2 { color: var(--gold); margin-bottom: 14px; font-size:1.25rem; }
     .info-row { display: flex; gap: 12px; margin-bottom: 12px; font-size: .9rem; color: rgba(255,255,255,.7); align-items: flex-start; }
     .info-row:last-child { margin-bottom: 0; }
     .info-row .ico { flex-shrink: 0; }
@@ -203,8 +206,8 @@
       <!-- LEFT: Info + Type -->
       <div>
         <div class="info-block reveal">
-          <h4 data-en>What to Expect</h4>
-          <h4 data-ht>Sa Pou Atann</h4>
+          <h2 data-en>What to Expect</h2>
+          <h2 data-ht>Sa Pou Atann</h2>
           <div class="info-row"><span class="ico">⏱️</span><span data-en>15 minute consultation, no charge</span><span data-ht>Konsiltasyon 15 minit, gratis</span></div>
           <div class="info-row"><span class="ico"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg></span><span data-en>Appointments are booked by video; prefer phone or WhatsApp? Contact us below</span><span data-ht>Randevou yo fèt pa videyo; ou prefere telefòn oswa WhatsApp? Kontakte nou anba a</span></div>
           <div class="info-row"><span class="ico"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-2.95a15.7 15.7 0 0 0-1.38-4.13A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.5 2.53 1.95 3.96h-3.9c.45-1.43 1.12-2.76 1.95-3.96zM4.26 14a8.07 8.07 0 0 1 0-4h3.38a16.3 16.3 0 0 0 0 4H4.26zm.81 2h2.95c.32 1.45.78 2.84 1.38 4.13A8.03 8.03 0 0 1 5.07 16zm2.95-8H5.07a8.03 8.03 0 0 1 4.33-4.13A15.7 15.7 0 0 0 8.02 8zM12 19.96A15.6 15.6 0 0 1 10.05 16h3.9A15.6 15.6 0 0 1 12 19.96zM14.36 14H9.64a14.3 14.3 0 0 1 0-4h4.72a14.3 14.3 0 0 1 0 4zm.25 5.13c.6-1.29 1.06-2.68 1.38-4.13h2.95a8.03 8.03 0 0 1-4.33 4.13zM16.36 14a16.3 16.3 0 0 0 0-4h3.38a8.07 8.07 0 0 1 0 4h-3.38z"/></svg></span><span data-en>Available in English or Haitian Creole</span><span data-ht>Disponib an Anglè oswa Kreyòl Ayisyen</span></div>
@@ -285,8 +288,8 @@
         </div>
 
         <div class="info-block" style="margin-top:24px;">
-          <h4 data-en>Prefer to reach us directly?</h4>
-          <h4 data-ht>Prefere kontakte nou dirèkteman?</h4>
+          <h2 data-en>Prefer to reach us directly?</h2>
+          <h2 data-ht>Prefere kontakte nou dirèkteman?</h2>
           <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
             <a href="tel:+14072672652" class="btn btn-gold" style="text-align:center;" data-en><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>Call (407) 267-2652</a>
             <a href="tel:+14072672652" class="btn btn-gold" style="text-align:center;" data-ht><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;margin-right:2px;"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>Rele (407) 267-2652</a>
@@ -300,7 +303,14 @@
       <div style="position:relative;">
 
         <div class="calendar-box reveal" style="padding:6px;">
-          <div id="my-cal-inline-15min" style="width:100%;height:650px;overflow:scroll;"></div>
+          <div id="calendar-consent" class="calendar-consent">
+            <h2 data-en>View Available Appointment Times</h2>
+            <h2 data-ht>Gade Lè Randevou Ki Disponib</h2>
+            <p data-en>The booking calendar is provided by Cal.com. Loading it connects your browser to Cal.com and may allow Cal.com to set cookies under its own privacy terms.</p>
+            <p data-ht>Kalandriye randevou a soti nan Cal.com. Lè ou chaje li, navigatè ou ap konekte ak Cal.com epi Cal.com ka mete cookies selon pwòp règleman konfidansyalite li.</p>
+            <button id="load-calendar" type="button" class="btn btn-navy"><span data-en>Load Booking Calendar</span><span data-ht>Chaje Kalandriye Randevou</span></button>
+          </div>
+          <div id="my-cal-inline-15min" style="display:none;width:100%;height:650px;overflow:scroll;"></div>
         </div>
 
       </div>
@@ -309,14 +319,22 @@
 </section>
 
 <script type="text/javascript">
-  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-  Cal("init", "15min", {origin:"https://cal.com"});
-  Cal.ns["15min"]("inline", {
-    elementOrSelector: "#my-cal-inline-15min",
-    config: {"layout":"month_view"},
-    calLink: "me-shield-financial-services/15min",
-  });
-  Cal.ns["15min"]("ui", {"hideEventTypeDetails": false, "layout": "month_view"});
+  document.getElementById('load-calendar').addEventListener('click', function () {
+    const button = this;
+    button.disabled = true;
+    button.querySelector('[data-en]').textContent = 'Loading Calendar…';
+    button.querySelector('[data-ht]').textContent = 'Kalandriye a ap chaje…';
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    document.getElementById('calendar-consent').style.display = 'none';
+    document.getElementById('my-cal-inline-15min').style.display = 'block';
+    Cal("init", "15min", {origin:"https://cal.com"});
+    Cal.ns["15min"]("inline", {
+      elementOrSelector: "#my-cal-inline-15min",
+      config: {"layout":"month_view"},
+      calLink: "me-shield-financial-services/15min",
+    });
+    Cal.ns["15min"]("ui", {"hideEventTypeDetails": false, "layout": "month_view"});
+  }, {once:true});
 </script>
 
 <!-- ── FOOTER (matches homepage) ── -->
@@ -343,7 +361,7 @@
           <a href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener" aria-label="TikTok" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
           <a href="https://wa.me/14072672652" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
         </div>
-        <div class="footer-trust-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3zm0 2.2 6 2.25v4.55c0 4-2.8 7.3-6 8.95-3.2-1.65-6-4.95-6-8.95V6.45l6-2.25z"/></svg> <span data-en>FL Licensed &amp; PTIN Registered</span><span data-ht>Lisansye FL &amp; Anrejistre PTIN</span></div>
+        <div class="footer-trust-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3zm0 2.2 6 2.25v4.55c0 4-2.8 7.3-6 8.95-3.2-1.65-6-4.95-6-8.95V6.45l6-2.25z"/></svg> <span data-en>Licensed Insurance Agent · Active IRS PTIN</span><span data-ht>Ajan Asirans Lisansye · PTIN IRS Aktif</span></div>
       </div>
       <div>
         <h4 data-en>Services</h4>
@@ -391,7 +409,7 @@
   </div>
 </footer>
 
-<script src="/shared.js?v=20260830-2"></script>
+<script src="/shared.js?v=20260901-1"></script>
 <script>
 
   function selectType(el) {

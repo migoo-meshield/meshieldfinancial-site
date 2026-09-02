@@ -189,6 +189,18 @@ function initAccessibility() {
   document.querySelectorAll('.star-row input[type="radio"]').forEach((radio) => {
     radio.setAttribute('aria-label', `${radio.value} out of 5 stars`);
   });
+
+  /* Footer column labels are visual labels, not subsections of page content.
+     Use neutral elements so they do not create skipped heading levels. */
+  document.querySelectorAll('footer h4').forEach((heading) => {
+    const label = document.createElement('div');
+    label.className = `${heading.className} footer-heading`.trim();
+    Array.from(heading.attributes).forEach((attribute) => {
+      if (attribute.name !== 'class') label.setAttribute(attribute.name, attribute.value);
+    });
+    label.innerHTML = heading.innerHTML;
+    heading.replaceWith(label);
+  });
 }
 
 /* ── SEO / clean URL normalization ──
@@ -505,6 +517,115 @@ function initPWA() {
   if (ios && !standalone) install.hidden = false;
 }
 
+/* ── Article trust signals + page structured data ── */
+function initTrustAndStructuredData() {
+  const path = window.location.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+  const articles = new Set([
+    '/2026-standard-deduction-increase', '/50-30-20-budget-rule',
+    '/building-an-emergency-fund', '/business-liability-insurance-florida',
+    '/choosing-a-trustworthy-financial-advisor', '/daca-2026-renewal-guide',
+    '/haitian-diaspora-wealth-building', '/haitian-household-money-habits',
+    '/health-insurance-open-enrollment-florida', '/homeowners-renters-insurance-florida-guide',
+    '/how-much-life-insurance-do-i-need', '/hurricane-season-financial-preparedness',
+    '/hurricane-season-home-insurance-checklist', '/immigration-forms-checklist',
+    '/infinite-banking-concept', '/infinite-banking-concept-explained',
+    '/itin-guide-florida', '/llc-formation-florida-guide',
+    '/llc-registration-mistakes-florida', '/naturalization-process-guide',
+    '/registered-agent-florida-llc', '/tax-deductions-self-employed',
+    '/tax-prep-checklist', '/term-vs-whole-life-ibc', '/tps-haiti-2026-update',
+    '/trump-account', '/umbrella-flood-insurance-florida',
+    '/uscis-processing-times-august-2026', '/whole-life-vs-universal-life'
+  ]);
+  const services = new Map([
+    ['/insurance', 'Insurance services'],
+    ['/tax-preparation', 'Tax return preparation'],
+    ['/immigration-forms', 'Immigration form and document preparation assistance'],
+    ['/business-filing', 'Business document preparation and filing assistance'],
+    ['/infinite-banking', 'Whole-life insurance education and consultation']
+  ]);
+  const canonical = document.querySelector('link[rel="canonical"]')?.href || window.location.origin + path;
+  const description = document.querySelector('meta[name="description"]')?.content || '';
+  const title = document.querySelector('h1')?.textContent.trim() || document.title.split('—')[0].trim();
+  const ogImage = document.querySelector('meta[property="og:image"]')?.content || `${window.location.origin}/logo.png`;
+  const hasSchemaType = (type) => Array.from(document.querySelectorAll('script[type="application/ld+json"]'))
+    .some((script) => script.textContent.includes(`"@type": "${type}"`) || script.textContent.includes(`"@type":"${type}"`));
+  const addSchema = (value, id) => {
+    if (document.getElementById(id)) return;
+    const script = document.createElement('script');
+    script.id = id;
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(value);
+    document.head.appendChild(script);
+  };
+
+  if (articles.has(path)) {
+    if (!document.getElementById('article-trust-runtime-styles')) {
+      const styles = document.createElement('style');
+      styles.id = 'article-trust-runtime-styles';
+      styles.textContent = `
+        .article-trust-card{max-width:760px;margin:36px auto 0;padding:20px 22px;border:1px solid rgba(11,28,58,.12);border-left:4px solid #c9a84c;border-radius:10px;background:#f8f5ee;color:#3f3f52;font-size:.9rem;line-height:1.65}
+        .article-trust-card strong{display:block;color:#0b1c3a;font-size:1rem;margin-bottom:4px}
+        .article-trust-card a{color:#735b12;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+      `;
+      document.head.appendChild(styles);
+    }
+    const body = document.querySelector('.article-body, .article-content, article');
+    if (body && !body.querySelector('.article-trust-card')) {
+      const card = document.createElement('aside');
+      card.className = 'article-trust-card';
+      card.setAttribute('aria-label', 'About the author');
+      card.innerHTML = `
+        <strong><span data-en>About the author</span><span data-ht>Konsènan otè a</span></strong>
+        <span data-en><a href="/about">Miguelson Etienne</a> is the founder of ME Shield Financial Services, a Licensed Independent Insurance Agent, and a tax return preparer with an active IRS PTIN. ME Shield provides insurance services, tax preparation, financial education, business filing, and immigration document-preparation assistance. ME Shield is not a law firm, CPA firm, broker-dealer, or registered investment adviser.</span>
+        <span data-ht><a href="/about">Miguelson Etienne</a> se fondatè ME Shield Financial Services, yon Ajan Asirans Endepandan Lisansye, ak yon preparatè deklarasyon taks ki gen yon PTIN IRS aktif. ME Shield bay sèvis asirans, preparasyon taks, edikasyon finansye, depo biznis ak asistans pou prepare dokiman imigrasyon. ME Shield pa yon kabinè avoka, kabinè CPA, broker-dealer oswa konseye envestisman anrejistre.</span>
+      `;
+      const cta = body.querySelector('.article-cta, .cta-box');
+      if (cta) cta.before(card); else body.appendChild(card);
+    }
+    document.querySelectorAll('.author-row .name').forEach((name) => {
+      if (name.querySelector('a')) return;
+      const link = document.createElement('a');
+      link.href = '/about';
+      link.textContent = name.textContent.trim();
+      link.style.color = 'inherit';
+      name.textContent = '';
+      name.appendChild(link);
+    });
+    if (!hasSchemaType('BlogPosting')) {
+      addSchema({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'BlogPosting', '@id': `${canonical}#article`, headline: title,
+            description, url: canonical, mainEntityOfPage: canonical,
+            image: ogImage,
+            author: {'@type': 'Person', name: 'Miguelson Etienne', url: `${window.location.origin}/about`},
+            publisher: {'@type': 'Organization', name: 'ME Shield Financial Services', url: `${window.location.origin}/`, logo: {'@type': 'ImageObject', url: `${window.location.origin}/logo.png`}}
+          },
+          {
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {'@type': 'ListItem', position: 1, name: 'Home', item: `${window.location.origin}/`},
+              {'@type': 'ListItem', position: 2, name: 'Blog', item: `${window.location.origin}/blog`},
+              {'@type': 'ListItem', position: 3, name: title, item: canonical}
+            ]
+          }
+        ]
+      }, 'generated-article-schema');
+    }
+  }
+
+  if (services.has(path) && !hasSchemaType('Service')) {
+    addSchema({
+      '@context': 'https://schema.org', '@type': 'Service',
+      '@id': `${canonical}#service`, name: services.get(path), url: canonical,
+      description, serviceType: services.get(path),
+      provider: {'@type': 'Organization', name: 'ME Shield Financial Services', url: `${window.location.origin}/`, telephone: '+1-407-267-2652'},
+      availableLanguage: ['English', 'Haitian Creole']
+    }, 'generated-service-schema');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initSharedFooter();
   initSharedHeader();
@@ -524,4 +645,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initFormEnhancer();
   initTabs();
   initPWA();
+  initTrustAndStructuredData();
 });

@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
-  <link rel="stylesheet" href="/style.css?v=20260810-2"/>
+  <link rel="stylesheet" href="/style.css?v=20260901-1"/>
   <style>
     /* ── SERVICE SECTIONS ── */
     .service-section {
@@ -49,7 +49,7 @@
       margin-bottom: 24px;
       display: block;
     }
-    .service-visual h3 { color: var(--gold); margin-bottom: 20px; }
+    .service-visual .service-visual-title { color: var(--gold); margin-bottom: 20px; font-family:var(--font-display); font-size:1.35rem; font-weight:700; }
 
     .feature-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
     .feature-list li {
@@ -69,7 +69,7 @@
 
     .service-info h2 { color: var(--navy); }
     .service-info p   { margin-bottom: 18px; }
-    .service-info h4  { color: var(--navy); margin: 28px 0 10px; }
+    .service-info h3  { color: var(--navy); margin: 28px 0 10px; }
 
     .product-pills {
       display: flex;
@@ -258,8 +258,8 @@
   <div class="container">
     <div class="service-layout reveal">
       <div class="service-visual has-photo" style="background-image:url('https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=900&q=75');">
-        <h3 data-en>Insurance Coverage</h3>
-        <h3 data-ht>Kouvèti Asirans</h3>
+        <div class="service-visual-title" data-en>Insurance Coverage</div>
+        <div class="service-visual-title" data-ht>Kouvèti Asirans</div>
         <ul class="feature-list">
           <li data-en>Term and whole life insurance</li>
           <li data-ht>Asirans lavi tèm ak antye</li>
@@ -289,8 +289,8 @@
         <p data-en>As an independent agent, we aren't tied to any single company. We shop the market to find the best coverage at the best price for your unique situation.</p>
         <p data-ht>Kòm yon ajan endepandan, nou pa mare ak okenn konpayi. Nou fouye mache a pou jwenn pi bon kouvèti nan pi bon pri pou sitiyasyon inik ou.</p>
 
-        <h4 data-en>Products We Offer</h4>
-        <h4 data-ht>Pwodui Nou Ofri</h4>
+        <h3 data-en>Products We Offer</h3>
+        <h3 data-ht>Pwodui Nou Ofri</h3>
         <div class="product-pills">
           <span class="pill" data-en>Term Life</span><span class="pill" data-ht>Lavi Tèm</span>
           <span class="pill" data-en>Whole Life</span><span class="pill" data-ht>Lavi Antye</span>
@@ -310,7 +310,7 @@
         <div style="margin-top:24px;">
           <a href="/contact" class="btn btn-gold" data-en>Get a Free Quote</a>
           <a href="/contact" class="btn btn-gold" data-ht>Jwenn Estimasyon Gratis</a>
-          <a href="/insurance" class="btn btn-outline" data-en>Learn More</a>
+          <a href="/insurance" class="btn btn-outline" data-en>Learn More About Insurance</a>
           <a href="/insurance" class="btn btn-outline" data-ht>Aprann Plis</a>
         </div>
       </div>
@@ -323,8 +323,8 @@
   <div class="container">
     <div class="service-layout reverse reveal">
       <div class="service-visual has-photo" style="background-image:url('https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=900&q=75');">
-        <h3 data-en>Tax Preparation</h3>
-        <h3 data-ht>Preparasyon Taks</h3>
+        <div class="service-visual-title" data-en>Tax Preparation</div>
+        <div class="service-visual-title" data-ht>Preparasyon Taks</div>
         <ul class="feature-list">
           <li data-en>Individual (W-2, 1099) returns</li>
           <li data-ht>Deklarasyon endividyèl (W-2, 1099)</li>
@@ -370,7 +370,7 @@
         <div style="margin-top:24px;">
           <a href="/contact" class="btn btn-gold" data-en>Book Your Tax Appointment</a>
           <a href="/contact" class="btn btn-gold" data-ht>Rezève Randevou Taks Ou</a>
-          <a href="/tax-preparation" class="btn btn-outline" data-en>Learn More</a>
+          <a href="/tax-preparation" class="btn btn-outline" data-en>Learn More About Tax Preparation</a>
           <a href="/tax-preparation" class="btn btn-outline" data-ht>Aprann Plis</a>
         </div>
       </div>
@@ -383,8 +383,8 @@
   <div class="container">
     <div class="service-layout reveal" id="immigration">
       <div class="service-visual has-photo" style="background-image:url('https://images.unsplash.com/photo-1487637419635-a2a471ff5c7b?auto=format&fit=crop&w=900&q=75');">
-        <h3 data-en>Immigration Forms Filing</h3>
-        <h3 data-ht>Ranpli Fòmilè Imigrasyon</h3>
+        <div class="service-visual-title" data-en>Immigration Forms Filing</div>
+        <div class="service-visual-title" data-ht>Ranpli Fòmilè Imigrasyon</div>
         <ul class="feature-list">
           <li data-en>USCIS form preparation & review</li>
           <li data-ht>Preparasyon & revizyon fòm USCIS</li>
@@ -413,8 +413,8 @@
         <p data-en>Our bilingual advantage means we can communicate with you clearly in English or Haitian Creole, reducing errors that could delay your case.</p>
         <p data-ht>Avantaj bileng nou an vle di nou ka kominike avèk ou klèman an Anglè oswa Kreyòl Ayisyen, ki redui erè ki ka retade ka ou a.</p>
 
-        <h4 data-en>Common Forms We Assist With</h4>
-        <h4 data-ht>Fòm Komen Nou Ede Avèk</h4>
+        <h3 data-en>Common Forms We Assist With</h3>
+        <h3 data-ht>Fòm Komen Nou Ede Avèk</h3>
         <div class="product-pills">
           <span class="pill">I-485</span>
           <span class="pill">I-130</span>
@@ -427,7 +427,7 @@
         <div style="margin-top:24px;">
           <a href="/contact" class="btn btn-gold" data-en>Schedule a Consultation</a>
           <a href="/contact" class="btn btn-gold" data-ht>Pwograme yon Konsiltasyon</a>
-          <a href="/immigration-forms" class="btn btn-outline" data-en>Learn More</a>
+          <a href="/immigration-forms" class="btn btn-outline" data-en>Learn More About Immigration Forms</a>
           <a href="/immigration-forms" class="btn btn-outline" data-ht>Aprann Plis</a>
         </div>
       </div>
@@ -440,8 +440,8 @@
   <div class="container">
     <div class="service-layout reverse">
       <div class="service-visual has-photo" style="background-image:url('https://images.unsplash.com/photo-1681505531034-8d67054e07f6?auto=format&fit=crop&w=900&q=75');">
-        <h3 data-en>Business Filing &amp; Formation</h3>
-        <h3 data-ht>Depo &amp; Fòmasyon Biznis</h3>
+        <div class="service-visual-title" data-en>Business Filing &amp; Formation</div>
+        <div class="service-visual-title" data-ht>Depo &amp; Fòmasyon Biznis</div>
         <ul class="feature-list">
           <li data-en>LLC formation document preparation &amp; filing</li>
           <li data-ht>Preparasyon &amp; depo dokiman fòmasyon LLC</li>
@@ -470,8 +470,8 @@
         <p data-en>Whether you're forming a new LLC, registering a DBA for an existing business, or just need help staying current on your Annual Report, we walk you through exactly what's needed — in English or Haitian Creole.</p>
         <p data-ht>Kit ou ap fòme yon nouvo LLC, enskri yon DBA pou yon biznis ki egziste deja, oswa ou jis bezwen èd pou rete ajou sou Rapò Anyèl ou, nou pase ou atravè egzakteman sa ki nesesè — an Anglè oswa Kreyòl Ayisyen.</p>
 
-        <h4 data-en>Common Filings We Assist With</h4>
-        <h4 data-ht>Depo Komen Nou Ede Avèk</h4>
+        <h3 data-en>Common Filings We Assist With</h3>
+        <h3 data-ht>Depo Komen Nou Ede Avèk</h3>
         <div class="product-pills">
           <span class="pill" data-en>LLC Formation</span><span class="pill" data-ht>Fòmasyon LLC</span>
           <span class="pill">EIN / SS-4</span>
@@ -488,7 +488,7 @@
         <div style="margin-top:24px;">
           <a href="/contact" class="btn btn-gold" data-en>Start Your Business Filing</a>
           <a href="/contact" class="btn btn-gold" data-ht>Kòmanse Depo Biznis Ou</a>
-          <a href="/business-filing" class="btn btn-outline" data-en>Learn More</a>
+          <a href="/business-filing" class="btn btn-outline" data-en>Learn More About Business Filing</a>
           <a href="/business-filing" class="btn btn-outline" data-ht>Aprann Plis</a>
         </div>
       </div>
@@ -503,8 +503,8 @@
       <div class="service-visual has-photo" style="background-image:url('https://images.unsplash.com/photo-1601051297657-39a9b2ce2cdc?auto=format&fit=crop&w=900&q=75');">
         <div class="ibc-special-badge" data-en>Special Standalone Service</div>
         <div class="ibc-special-badge" data-ht>Sèvis Espesyal Apa</div>
-        <h3 data-en>Infinite Banking Concept</h3>
-        <h3 data-ht>Konsèp Bank Enfini</h3>
+        <div class="service-visual-title" data-en>Infinite Banking Concept</div>
+        <div class="service-visual-title" data-ht>Konsèp Bank Enfini</div>
         <ul class="feature-list">
           <li data-en>Whole life policy design for cash value growth</li>
           <li data-ht>Konsepsyon polis lavi antye pou kwasans valè kach</li>
@@ -531,8 +531,8 @@
         <p data-en>This isn't a quick scheme — it's a long-term strategy that rewards patience and discipline. We'll walk you through exactly how it works before you decide if it's right for you.</p>
         <p data-ht>Sa a se pa yon konplo rapid — se yon estrateji alontèm ki rekonpanse pasyans ak disiplin. Nou pral pase ou atravè egzakteman kijan li fonksyone anvan ou deside si li bon pou ou.</p>
 
-        <h4 data-en>Who IBC Is Often a Fit For</h4>
-        <h4 data-ht>Pou Ki Moun IBC Souvan Yon Bon Chwa</h4>
+        <h3 data-en>Who IBC Is Often a Fit For</h3>
+        <h3 data-ht>Pou Ki Moun IBC Souvan Yon Bon Chwa</h3>
         <div class="product-pills">
           <span class="pill" data-en>Business Owners</span><span class="pill" data-ht>Mèt Biznis</span>
           <span class="pill" data-en>High Savers</span><span class="pill" data-ht>Moun Ki Ekonomize Anpil</span>
@@ -548,7 +548,7 @@
         <div style="margin-top:24px;">
           <a href="/contact" class="btn btn-gold" data-en>Book an IBC Strategy Session</a>
           <a href="/contact" class="btn btn-gold" data-ht>Rezève yon Sesyon Estrateji IBC</a>
-          <a href="/infinite-banking" class="btn btn-outline" data-en>Learn More</a>
+          <a href="/infinite-banking" class="btn btn-outline" data-en>Learn More About Infinite Banking</a>
           <a href="/infinite-banking" class="btn btn-outline" data-ht>Aprann Plis</a>
         </div>
       </div>
@@ -580,7 +580,7 @@
           <a href="https://www.tiktok.com/@me.shield.financial.serv" target="_blank" rel="noopener" aria-label="TikTok" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg></a>
           <a href="https://wa.me/14072672652" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.298-.347.446-.521.149-.174.198-.298.297-.497.099-.198.05-.371-.05-.52-.099-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.668-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.04 3.12 4.943 4.255 2.902 1.135 2.902.757 3.426.71.524-.05 1.758-.719 2.007-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.66 9.66 0 0 1-4.93-1.355l-.354-.21-3.665.962.978-3.575-.232-.367a9.65 9.65 0 0 1-1.479-5.176c0-5.345 4.35-9.694 9.69-9.694 2.588 0 5.02 1.007 6.85 2.838a9.62 9.62 0 0 1 2.84 6.85c-.003 5.344-4.353 9.694-9.694 9.694zm8.412-18.105A11.815 11.815 0 0 0 12.05 0C5.495 0 .157 5.337.157 11.892c0 2.096.547 4.142 1.587 5.937L0 24l6.305-1.654a11.86 11.86 0 0 0 5.74 1.46h.005c6.554 0 11.892-5.337 11.892-11.892a11.83 11.83 0 0 0-3.48-8.234z"/></svg></a>
         </div>
-        <div class="footer-trust-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3zm0 2.2 6 2.25v4.55c0 4-2.8 7.3-6 8.95-3.2-1.65-6-4.95-6-8.95V6.45l6-2.25z"/></svg> <span data-en>FL Licensed &amp; PTIN Registered</span><span data-ht>Lisansye FL &amp; Anrejistre PTIN</span></div>
+        <div class="footer-trust-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3zm0 2.2 6 2.25v4.55c0 4-2.8 7.3-6 8.95-3.2-1.65-6-4.95-6-8.95V6.45l6-2.25z"/></svg> <span data-en>Licensed Insurance Agent · Active IRS PTIN</span><span data-ht>Ajan Asirans Lisansye · PTIN IRS Aktif</span></div>
       </div>
       <div>
         <h4 data-en>Services</h4><h4 data-ht>Sèvis</h4>
@@ -623,7 +623,7 @@
   </div>
 </footer>
 
-<script src="/shared.js?v=20260830-2"></script>
+<script src="/shared.js?v=20260901-1"></script>
 <script src="chatbot-widget.js"></script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 </body>
