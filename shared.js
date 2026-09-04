@@ -644,6 +644,9 @@ function initGoogleReviewSection() {
       .google-review-cta-stars{color:#c9a84c;font-size:1.8rem;letter-spacing:.18em;line-height:1;margin-bottom:18px}
       .google-review-cta h2{margin:0 0 14px;color:#0b1d3a;font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.7rem,4vw,2.35rem)}
       .google-review-cta p{max-width:620px;margin:0 auto 24px;color:#4d5564;font-size:1rem;line-height:1.7}
+      .google-review-testimonial{max-width:620px;margin:24px auto;padding:24px 26px;background:#0b1d3a;border-radius:14px;text-align:left;color:#fff;box-shadow:0 12px 30px rgba(11,29,58,.14)}
+      .google-review-testimonial blockquote{margin:0 0 14px;color:#fff;font-size:1.02rem;font-style:italic;line-height:1.7}
+      .google-review-testimonial cite{color:#c9a84c;font-size:.86rem;font-style:normal;font-weight:700}
       .google-review-cta .google-review-button{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:999px;background:#c9a84c;color:#0b1d3a!important;text-decoration:none;font-weight:800;box-shadow:0 8px 22px rgba(201,168,76,.24);transition:transform .2s ease,box-shadow .2s ease}
       .google-review-cta .google-review-button:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(201,168,76,.34)}
       .google-review-cta-note{display:block;margin-top:15px;color:#6c7380;font-size:.78rem}
@@ -658,9 +661,13 @@ function initGoogleReviewSection() {
   section.innerHTML = `
     <div class="google-review-cta-inner">
       <div class="google-review-cta-stars" aria-label="5 stars">★★★★★</div>
-      <h2 id="google-review-heading"><span data-en>Share Your Experience on Google</span><span data-ht>Pataje Eksperyans Ou sou Google</span></h2>
+      <h2 id="google-review-heading"><span data-en>Reviews &amp; Testimonials</span><span data-ht>Reviews ak Temwayaj</span></h2>
       <p data-en>If ME Shield Financial Services helped you, your honest review can help another family or small-business owner find clear, trustworthy support.</p>
       <p data-ht>Si ME Shield Financial Services te ede ou, yon review onèt ka ede yon lòt fanmi oswa pwopriyetè ti biznis jwenn sèvis klè yo ka fè konfyans.</p>
+      <div class="google-review-testimonial">
+        <blockquote>“Mwen renmen sèvis la. Mesye Miguelson pran swen pou li eksplike m tout bagay nèt.”</blockquote>
+        <cite>— David E. · Client testimonial · ★★★★★</cite>
+      </div>
       <a class="google-review-button" href="https://g.page/r/CaF7fP4t8WEjEBM/review" target="_blank" rel="noopener">
         <span data-en>Leave a Google Review →</span><span data-ht>Kite yon Review sou Google →</span>
       </a>
