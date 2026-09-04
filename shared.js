@@ -626,9 +626,55 @@ function initTrustAndStructuredData() {
   }
 }
 
+/* ── Google review call-to-action ── */
+function initGoogleReviewSection() {
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+  const eligiblePages = new Set([
+    '/', '/insurance', '/tax-preparation', '/business-filing',
+    '/immigration-forms', '/infinite-banking'
+  ]);
+  if (!eligiblePages.has(path) || document.querySelector('.google-review-cta')) return;
+
+  if (!document.getElementById('google-review-cta-styles')) {
+    const styles = document.createElement('style');
+    styles.id = 'google-review-cta-styles';
+    styles.textContent = `
+      .google-review-cta{padding:72px 20px;background:#f8f5ee;text-align:center;border-top:1px solid rgba(201,168,76,.18)}
+      .google-review-cta-inner{width:min(760px,100%);margin:0 auto;padding:42px 34px;background:#fff;border:1px solid rgba(201,168,76,.24);border-radius:18px;box-shadow:0 16px 45px rgba(11,29,58,.08)}
+      .google-review-cta-stars{color:#c9a84c;font-size:1.8rem;letter-spacing:.18em;line-height:1;margin-bottom:18px}
+      .google-review-cta h2{margin:0 0 14px;color:#0b1d3a;font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.7rem,4vw,2.35rem)}
+      .google-review-cta p{max-width:620px;margin:0 auto 24px;color:#4d5564;font-size:1rem;line-height:1.7}
+      .google-review-cta .google-review-button{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:999px;background:#c9a84c;color:#0b1d3a!important;text-decoration:none;font-weight:800;box-shadow:0 8px 22px rgba(201,168,76,.24);transition:transform .2s ease,box-shadow .2s ease}
+      .google-review-cta .google-review-button:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(201,168,76,.34)}
+      .google-review-cta-note{display:block;margin-top:15px;color:#6c7380;font-size:.78rem}
+      @media(max-width:600px){.google-review-cta{padding:52px 16px}.google-review-cta-inner{padding:34px 22px}.google-review-cta .google-review-button{width:100%}}
+    `;
+    document.head.appendChild(styles);
+  }
+
+  const section = document.createElement('section');
+  section.className = 'google-review-cta reveal';
+  section.setAttribute('aria-labelledby', 'google-review-heading');
+  section.innerHTML = `
+    <div class="google-review-cta-inner">
+      <div class="google-review-cta-stars" aria-label="5 stars">★★★★★</div>
+      <h2 id="google-review-heading"><span data-en>Share Your Experience on Google</span><span data-ht>Pataje Eksperyans Ou sou Google</span></h2>
+      <p data-en>If ME Shield Financial Services helped you, your honest review can help another family or small-business owner find clear, trustworthy support.</p>
+      <p data-ht>Si ME Shield Financial Services te ede ou, yon review onèt ka ede yon lòt fanmi oswa pwopriyetè ti biznis jwenn sèvis klè yo ka fè konfyans.</p>
+      <a class="google-review-button" href="https://g.page/r/CaF7fP4t8WEjEBM/review" target="_blank" rel="noopener">
+        <span data-en>Leave a Google Review →</span><span data-ht>Kite yon Review sou Google →</span>
+      </a>
+      <span class="google-review-cta-note"><span data-en>Your review is posted directly on Google.</span><span data-ht>Review ou a ap poste dirèkteman sou Google.</span></span>
+    </div>`;
+
+  const footer = document.querySelector('body > footer');
+  if (footer) footer.before(section);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initSharedFooter();
   initSharedHeader();
+  initGoogleReviewSection();
   initAccessibility();
   initCleanUrls();
   initLang();
