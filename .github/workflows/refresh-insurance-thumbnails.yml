@@ -1,3 +1,4 @@
+# Triggered after workflow registration
 name: Refresh insurance article thumbnails
 
 on:
@@ -23,7 +24,7 @@ jobs:
         run: |
           set -euo pipefail
           curl -L --fail --retry 3 --retry-delay 2 \
-            'https://images.pexels.com/photos/30332492/pexels-photo-30332492.jpeg?cs=srgb&dl=pexels-jakubzerdicki-30332492.jpg&fm=jpg' \
+            'https://images.pexels.com/photos/30332492/pexels-photo-30332492.jpeg?cs=srgb&dl=pexels-jakubzerdzicki-30332492.jpg&fm=jpg' \
             -o article-homeowners-renters.jpg
           curl -L --fail --retry 3 --retry-delay 2 \
             'https://images.pexels.com/photos/28447774/pexels-photo-28447774.jpeg?cs=srgb&dl=pexels-helen1-28447774.jpg&fm=jpg' \
