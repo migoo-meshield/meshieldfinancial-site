@@ -1,0 +1,103 @@
+name: Refresh insurance article thumbnails
+
+on:
+  push:
+    paths:
+      - '.github/workflows/refresh-insurance-thumbnails.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-thumbnails:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download distinct article images
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 --retry-delay 2 \
+            'https://images.pexels.com/photos/30332492/pexels-photo-30332492.jpeg?cs=srgb&dl=pexels-jakubzerdicki-30332492.jpg&fm=jpg' \
+            -o article-homeowners-renters.jpg
+          curl -L --fail --retry 3 --retry-delay 2 \
+            'https://images.pexels.com/photos/28447774/pexels-photo-28447774.jpeg?cs=srgb&dl=pexels-helen1-28447774.jpg&fm=jpg' \
+            -o article-umbrella-flood.jpg
+          test $(stat -c%s article-homeowners-renters.jpg) -gt 10000
+          test $(stat -c%s article-umbrella-flood.jpg) -gt 10000
+          file article-homeowners-renters.jpg | grep -qi 'JPEG image data'
+          file article-umbrella-flood.jpg | grep -qi 'JPEG image data'
+
+      - name: Update article pages and blog cards
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          replacements = {
+              'homeowners-renters-insurance-florida-guide.html': 'article-homeowners-renters.jpg',
+              'umbrella-flood-insurance-florida.html': 'article-umbrella-flood.jpg',
+          }
+
+          for filename, image in replacements.items():
+              p = Path(filename)
+              text = p.read_text()
+              old = "background-image: url('article-hurricane-insurance.jpg');"
+              if old not in text:
+                  raise SystemExit(f'Expected hero image reference not found in {filename}')
+              text = text.replace(old, f"background-image: url('{image}');", 1)
+              text = text.replace(
+                  '<meta property="og:image" content="https://meshieldfinancial.com/logo.png"/>',
+                  f'<meta property="og:image" content="https://meshieldfinancial.com/{image}"/>',
+                  1,
+              )
+              p.write_text(text)
+
+          blog = Path('blog.html')
+          text = blog.read_text()
+
+          def update_card(html, href, image):
+              pattern = re.compile(
+                  r'(<article\b[^>]*>.*?)(<div class="blog-card-thumb" style="background-image:url\(\'article-hurricane-insurance\.jpg\'\);background-size:cover;background-position:center;"></div>)(.*?<a href="' + re.escape(href) + r'"[^>]*>)',
+                  re.S,
+              )
+              match = pattern.search(html)
+              if not match:
+                  raise SystemExit(f'Blog card not found for {href}')
+              new_thumb = f'<div class="blog-card-thumb" style="background-image:url(\'{image}\');background-size:cover;background-position:center;"></div>'
+              return html[:match.start()] + match.group(1) + new_thumb + match.group(3) + html[match.end():]
+
+          text = update_card(text, '/homeowners-renters-insurance-florida-guide', 'article-homeowners-renters.jpg')
+          text = update_card(text, '/umbrella-flood-insurance-florida', 'article-umbrella-flood.jpg')
+          blog.write_text(text)
+
+      - name: Verify hurricane image remains unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q "article-hurricane-insurance.jpg" hurricane-season-home-insurance-checklist.html
+          grep -q "article-homeowners-renters.jpg" homeowners-renters-insurance-florida-guide.html
+          grep -q "article-umbrella-flood.jpg" umbrella-flood-insurance-florida.html
+          grep -q "article-homeowners-renters.jpg" blog.html
+          grep -q "article-umbrella-flood.jpg" blog.html
+
+      - name: Commit updates
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add article-homeowners-renters.jpg article-umbrella-flood.jpg \
+                  homeowners-renters-insurance-florida-guide.html \
+                  umbrella-flood-insurance-florida.html blog.html
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Use distinct insurance article thumbnails'
+          git push origin HEAD:main
