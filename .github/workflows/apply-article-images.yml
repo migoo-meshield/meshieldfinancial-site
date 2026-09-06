@@ -36,14 +36,20 @@ jobs:
           def set_article_image(filename, image):
               p = Path(filename)
               text = p.read_text(encoding='utf-8')
-              hero = re.compile(r'(\.article-hero\s*\{.*?background-image:\s*url\([\'\"])([^\'\"]+)([\'\"]\);)', re.S)
-              text, count = hero.subn(lambda m: m.group(1) + image + m.group(3), text, count=1)
+
+              # Most newer articles use an inline .page-hero image; older ones may use .article-hero CSS.
+              inline = re.compile(r'(<div class="page-hero has-photo" style="[^"]*background-image:\s*url\([\'\"])([^\'\"]+)([\'\"]\)[^"]*">)', re.S)
+              text, count = inline.subn(lambda m: m.group(1) + image + m.group(3), text, count=1)
+              if count == 0:
+                  css = re.compile(r'(\.article-hero\s*\{.*?background-image:\s*url\([\'\"])([^\'\"]+)([\'\"]\);)', re.S)
+                  text, count = css.subn(lambda m: m.group(1) + image + m.group(3), text, count=1)
               if count != 1:
                   raise SystemExit(f'Could not update hero image in {filename}')
+
               og = re.compile(r'<meta property="og:image" content="[^"]*"\s*/>')
               replacement = f'<meta property="og:image" content="https://meshieldfinancial.com/{image}"/>'
-              text, count = og.subn(replacement, text, count=1)
-              if count != 1:
+              text, og_count = og.subn(replacement, text, count=1)
+              if og_count != 1:
                   raise SystemExit(f'Could not update og:image in {filename}')
               p.write_text(text, encoding='utf-8')
 
@@ -54,34 +60,32 @@ jobs:
           blog = blog_path.read_text(encoding='utf-8')
           for filename, (href, image) in mapping.items():
               article_pattern = re.compile(r'<article\b[^>]*>.*?</article>', re.S)
-              found = False
-              parts = []
-              last = 0
-              for match in article_pattern.finditer(blog):
+              updated = False
+              for match in list(article_pattern.finditer(blog)):
                   block = match.group(0)
                   if f'href="{href}"' not in block:
                       continue
                   thumb = re.compile(r'(class="blog-card-thumb"[^>]*style="[^"]*background-image:\s*url\([\'\"])([^\'\"]+)([\'\"]\)[^"]*")', re.S)
-                  new_block, count = thumb.subn(lambda m: m.group(1) + image + m.group(3), block, count=1)
-                  if count != 1:
+                  new_block, thumb_count = thumb.subn(lambda m: m.group(1) + image + m.group(3), block, count=1)
+                  if thumb_count != 1:
                       raise SystemExit(f'Could not update blog thumbnail for {href}')
                   blog = blog[:match.start()] + new_block + blog[match.end():]
-                  found = True
+                  updated = True
                   break
-              if not found:
+              if not updated:
                   raise SystemExit(f'Could not find blog card for {href}')
           blog_path.write_text(blog, encoding='utf-8')
 
-          # Validate exact final mappings before committing.
+          # Validate each image is present in its article, OG tag, and matching blog card.
           for filename, (href, image) in mapping.items():
               text = Path(filename).read_text(encoding='utf-8')
-              if f"background-image: url('{image}')" not in text and f'background-image:url(\'{image}\')' not in text:
-                  if image not in text:
-                      raise SystemExit(f'Validation failed for {filename}')
+              if image not in text:
+                  raise SystemExit(f'Article validation failed for {filename}')
               if f'https://meshieldfinancial.com/{image}' not in text:
                   raise SystemExit(f'og:image validation failed for {filename}')
-              if image not in blog_path.read_text(encoding='utf-8'):
-                  raise SystemExit(f'Blog validation failed for {image}')
+              blocks = [m.group(0) for m in re.finditer(r'<article\b[^>]*>.*?</article>', blog, re.S) if f'href="{href}"' in m.group(0)]
+              if len(blocks) != 1 or image not in blocks[0]:
+                  raise SystemExit(f'Blog card validation failed for {href}')
 
       - name: Commit validated mappings
         shell: bash
