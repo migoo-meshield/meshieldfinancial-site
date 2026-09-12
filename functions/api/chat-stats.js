@@ -8,6 +8,22 @@ export async function onRequestGet(context) {
   try {
     const count = (await context.env.CHATBOT_STATS.get("chat_opens")) || "0";
 
+    // The team portal dashboard reads the same counter. It asks for JSON, so
+    // give it JSON (with the portal allowed as an origin) instead of this page.
+    const url = new URL(context.request.url);
+    const wantsJson =
+      url.searchParams.get("format") === "json" ||
+      (context.request.headers.get("Accept") || "").includes("application/json");
+    if (wantsJson) {
+      return new Response(JSON.stringify({ success: true, count: parseInt(count, 10) || 0 }), {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "https://teamportal.meshieldfinancial.com",
+          "Cache-Control": "no-store",
+        },
+      });
+    }
+
     const html = `<!DOCTYPE html>
 <html lang="en">
 <head>

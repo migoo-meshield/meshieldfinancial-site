@@ -86,6 +86,12 @@
     .calendar-consent{min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:36px 24px;background:var(--offwhite);border-radius:10px;}
     .calendar-consent h2{color:var(--navy);margin-bottom:10px;font-size:1.35rem;}
     .calendar-consent p{max-width:480px;color:var(--text-mid);margin-bottom:18px;line-height:1.65;}
+    .calendar-spinner{width:34px;height:34px;border:3px solid rgba(11,31,58,.14);border-top-color:var(--gold);border-radius:50%;animation:calspin .9s linear infinite;margin-bottom:16px;}
+    @keyframes calspin{to{transform:rotate(360deg);}}
+    @media (prefers-reduced-motion: reduce){.calendar-spinner{animation-duration:3s;}}
+    /* Only shown if the embed has not appeared after a few seconds. */
+    #load-calendar[hidden]{display:none;}
+    .calendar-privacy{font-size:.74rem;color:var(--text-mid);text-align:center;padding:8px 14px 4px;line-height:1.5;opacity:.85;}
 
     /* Info sidebar */
     .info-block {
@@ -304,13 +310,18 @@
 
         <div class="calendar-box reveal" style="padding:6px;">
           <div id="calendar-consent" class="calendar-consent">
-            <h2 data-en>View Available Appointment Times</h2>
-            <h2 data-ht>Gade Lè Randevou Ki Disponib</h2>
-            <p data-en>The booking calendar is provided by Cal.com. Loading it connects your browser to Cal.com and may allow Cal.com to set cookies under its own privacy terms.</p>
-            <p data-ht>Kalandriye randevou a soti nan Cal.com. Lè ou chaje li, navigatè ou ap konekte ak Cal.com epi Cal.com ka mete cookies selon pwòp règleman konfidansyalite li.</p>
-            <button id="load-calendar" type="button" class="btn btn-navy"><span data-en>Load Booking Calendar</span><span data-ht>Chaje Kalandriye Randevou</span></button>
+            <div class="calendar-spinner" aria-hidden="true"></div>
+            <h2 data-en>Loading available appointment times…</h2>
+            <h2 data-ht>N ap chaje lè randevou ki disponib…</h2>
+            <p data-en>One moment — the booking calendar is opening.</p>
+            <p data-ht>Yon ti moman — kalandriye randevou a ap ouvri.</p>
+            <button id="load-calendar" type="button" class="btn btn-navy" hidden><span data-en>Open Booking Calendar</span><span data-ht>Ouvri Kalandriye Randevou</span></button>
           </div>
           <div id="my-cal-inline-15min" style="display:none;width:100%;height:650px;overflow:scroll;"></div>
+          <div class="calendar-privacy">
+            <span data-en>Booking is powered by Cal.com, which may set its own cookies under its privacy terms.</span>
+            <span data-ht>Rezèvasyon an mache ak Cal.com, ki ka mete pwòp cookies li selon règleman konfidansyalite li.</span>
+          </div>
         </div>
 
       </div>
@@ -319,22 +330,75 @@
 </section>
 
 <script type="text/javascript">
-  document.getElementById('load-calendar').addEventListener('click', function () {
-    const button = this;
-    button.disabled = true;
-    button.querySelector('[data-en]').textContent = 'Loading Calendar…';
-    button.querySelector('[data-ht]').textContent = 'Kalandriye a ap chaje…';
-    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-    document.getElementById('calendar-consent').style.display = 'none';
-    document.getElementById('my-cal-inline-15min').style.display = 'block';
-    Cal("init", "15min", {origin:"https://cal.com"});
-    Cal.ns["15min"]("inline", {
-      elementOrSelector: "#my-cal-inline-15min",
-      config: {"layout":"month_view"},
-      calLink: "me-shield-financial-services/15min",
-    });
-    Cal.ns["15min"]("ui", {"hideEventTypeDetails": false, "layout": "month_view"});
-  }, {once:true});
+  // The calendar used to sit behind a "Load Booking Calendar" button. Visitors
+  // read that as "the page is broken" and left, so it now opens on its own.
+  // The Cal.com disclosure lives under the calendar instead of in front of it.
+  (function () {
+    var consent = document.getElementById('calendar-consent');
+    var host = document.getElementById('my-cal-inline-15min');
+    var button = document.getElementById('load-calendar');
+    var started = false;
+
+    function loadCalendar() {
+      if (started) return;
+      started = true;
+      button.hidden = true;
+
+      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+
+      host.style.display = 'block';
+      Cal("init", "15min", {origin:"https://cal.com"});
+      Cal.ns["15min"]("inline", {
+        elementOrSelector: "#my-cal-inline-15min",
+        config: {"layout":"month_view"},
+        calLink: "me-shield-financial-services/15min",
+      });
+      Cal.ns["15min"]("ui", {"hideEventTypeDetails": false, "layout": "month_view"});
+
+      // Hide the "loading" card the moment Cal.com's iframe actually appears,
+      // so a blocked or slow embed never leaves a blank white box behind.
+      var waited = 0;
+      var poll = setInterval(function () {
+        waited += 250;
+        if (host.querySelector('iframe')) {
+          clearInterval(poll);
+          consent.style.display = 'none';
+        } else if (waited >= 12000) {
+          clearInterval(poll);
+          // Still nothing: offer a manual retry rather than spinning forever.
+          consent.querySelector('.calendar-spinner').style.display = 'none';
+          consent.querySelectorAll('h2').forEach(function (h) {
+            h.textContent = h.hasAttribute('data-ht')
+              ? 'Kalandriye a pran plis tan pase sa nou te panse'
+              : 'The calendar is taking longer than expected';
+          });
+          consent.querySelectorAll('p').forEach(function (el) {
+            el.textContent = el.hasAttribute('data-ht')
+              ? 'Ou ka eseye ankò, oswa rele nou nan (407) 267-2652.'
+              : 'You can try again, or call us at (407) 267-2652.';
+          });
+          started = false;
+          button.hidden = false;
+        }
+      }, 250);
+    }
+
+    button.addEventListener('click', loadCalendar);
+
+    // Start as soon as the calendar is on screen. On a phone it sits below the
+    // fold, so this holds the third-party request back until it is needed.
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) {
+          io.disconnect();
+          loadCalendar();
+        }
+      }, { rootMargin: '300px' });
+      io.observe(consent);
+    } else {
+      loadCalendar();
+    }
+  })();
 </script>
 
 <!-- ── FOOTER (matches homepage) ── -->
