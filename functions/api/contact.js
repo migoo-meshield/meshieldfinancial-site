@@ -156,6 +156,15 @@ async function handleIntake(request, env) {
     const language   = clean(body.language, 20) || "english";
     const referredBy = clean(body.referred_by, 200); // referral code from a client's personal link, if any
 
+    // Campaign tags travel as their own object so one bad field cannot break
+    // the submission. Everything is clipped and nothing is trusted.
+    const rawMarketing = (body.marketing && typeof body.marketing === "object") ? body.marketing : {};
+    const marketing = {};
+    for (const field of ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","landing_page","referrer"]) {
+      const value = clean(rawMarketing[field], 200);
+      if (value) marketing[field] = value;
+    }
+
     const missing = [];
     if (!first_name)          missing.push("first_name");
     if (!email)               missing.push("email");
@@ -232,7 +241,12 @@ async function handleIntake(request, env) {
         page_url: clean(body.page_url, 300),
         country: request.headers.get("CF-IPCountry") || "",
         received_at: now,
-        referred_by: referredBy
+        referred_by: referredBy,
+        // Which campaign actually produced this lead. Captured on the
+        // visitor's first page by marketing-source.js and passed through
+        // here so the CRM can attribute it to something other than
+        // "Website". No personal data — only where the click came from.
+        marketing: marketing
       }
     };
 

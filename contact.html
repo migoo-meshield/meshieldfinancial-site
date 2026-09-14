@@ -591,6 +591,7 @@
   </div>
 </footer>
 
+<script src="/marketing-source.js?v=20260914a-attribution" defer></script>
 <script src="/shared.js?v=20260901-2"></script>
 <script>
 
@@ -733,7 +734,11 @@
           message:    message,
           consent:    true,
           company_website: '',
-          page_url:   window.location.href
+          page_url:   window.location.href,
+          // Where this visitor actually came from, captured on their first
+          // page by marketing-source.js. Without it every lead reaches the
+          // CRM tagged "Website" and attribution can never say anything.
+          marketing:  (window.meshieldMarketingSource ? window.meshieldMarketingSource() : {})
         })
       });
 
