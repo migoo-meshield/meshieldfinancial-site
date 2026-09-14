@@ -38,6 +38,29 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
       transition: transform 0.2s ease;
     }
     .msc-bubble:hover { transform: scale(1.05); }
+
+    /* A visitor with a question has to notice the bubble is there. It gives a
+       short wave — a nudge and a tilt, not a jitter — a few seconds after the
+       page settles, then again now and then while nobody has opened it. The
+       ring behind it pulses once with each wave so it reads from the corner
+       of the eye. It stops for good the moment the chat is opened, and it
+       never runs for anyone who asked for reduced motion. */
+    @keyframes msc-wave {
+      0%, 60%, 100% { transform: translateY(0) rotate(0); }
+      8%            { transform: translateY(-9px) rotate(-9deg); }
+      16%           { transform: translateY(0)    rotate(8deg); }
+      24%           { transform: translateY(-5px) rotate(-6deg); }
+      32%           { transform: translateY(0)    rotate(5deg); }
+      40%           { transform: translateY(-2px) rotate(0); }
+    }
+    @keyframes msc-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(201,161,74,.55), 0 4px 16px rgba(11,31,58,0.3); }
+      70%  { box-shadow: 0 0 0 16px rgba(201,161,74,0), 0 4px 16px rgba(11,31,58,0.3); }
+      100% { box-shadow: 0 0 0 0 rgba(201,161,74,0),   0 4px 16px rgba(11,31,58,0.3); }
+    }
+    .msc-bubble.msc-wave { animation: msc-wave 2.2s ease-in-out, msc-ring 2.2s ease-out; }
+    .msc-bubble:hover, .msc-bubble:focus-visible { animation: none; }
+    @media (prefers-reduced-motion: reduce) { .msc-bubble.msc-wave { animation: none; } }
     .msc-bubble svg.msc-avatar-icon { width: 30px; height: 30px; }
     .msc-bubble .msc-badge {
       position: absolute; bottom: -1px; right: -1px; width: 18px; height: 18px;
@@ -214,10 +237,34 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
     }
   };
 
+  // ---------- The bubble waves ----------
+  // Waves shortly after the page settles, then every 45 seconds, so someone
+  // who is reading and hesitating sees it without being pestered. Once the
+  // chat has been opened this visitor is done being nudged.
+  let waveTimer = null;
+  function wave() {
+    if (win.classList.contains("msc-open")) return;
+    bubble.classList.remove("msc-wave");
+    void bubble.offsetWidth;            // restart the animation
+    bubble.classList.add("msc-wave");
+  }
+  function stopWaving() {
+    clearInterval(waveTimer);
+    waveTimer = null;
+    bubble.classList.remove("msc-wave");
+  }
+  bubble.addEventListener("animationend", () => bubble.classList.remove("msc-wave"));
+  if (!sessionStorage.getItem("msc-opened")) {
+    setTimeout(wave, 4500);
+    waveTimer = setInterval(wave, 45000);
+  }
+
   bubble.addEventListener("click", () => {
     win.classList.toggle("msc-open");
     bubble.setAttribute("aria-expanded", win.classList.contains("msc-open") ? "true" : "false");
     if (win.classList.contains("msc-open")) {
+      stopWaving();
+      try { sessionStorage.setItem("msc-opened", "1"); } catch (e) {}
       // Count this open — fire and forget, never blocks or breaks the chat.
       fetch("/api/track-chat-open", { method: "POST" }).catch(() => {});
     }
@@ -243,6 +290,8 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
     tooltip.addEventListener("click", () => {
       tooltip.classList.remove("msc-show");
       win.classList.add("msc-open");
+      stopWaving();
+      try { sessionStorage.setItem("msc-opened", "1"); } catch (e) {}
     });
   }
 
