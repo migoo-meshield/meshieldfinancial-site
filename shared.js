@@ -629,6 +629,8 @@ function initTrustAndStructuredData() {
 /* ── Google review call-to-action ── */
 function initGoogleReviewSection() {
   const path = window.location.pathname.replace(/\/$/, '') || '/';
+  // The homepage has its own combined Google review + testimonial carousel.
+  if (path === '/') return;
   const eligiblePages = new Set([
     '/', '/insurance', '/tax-preparation', '/business-filing',
     '/immigration-forms', '/infinite-banking'

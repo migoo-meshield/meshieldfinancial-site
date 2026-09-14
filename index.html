@@ -41,7 +41,8 @@
     .service-card h3 { color: var(--navy); margin-bottom: 10px; }
     .service-card p { font-size: .92rem; margin-bottom: 18px; }
     .service-card a { font-size: .88rem; font-weight: 600; color: var(--gold); }
-    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .why-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 0; }
+    .why-left, .why-right, .reviews-carousel { min-width:0; }
     .why-left { padding: 72px 56px 72px 0; }
     .why-right { background: var(--navy); padding: 72px 0 72px 56px; border-radius: 0 10px 10px 0; }
     .why-item { display: flex; gap: 16px; margin-bottom: 28px; }
@@ -51,6 +52,27 @@
     .why-item p  { font-size: .9rem; }
     .why-right .why-item h3 { color: var(--white); }
     .why-right .why-item p  { color: rgba(255,255,255,.6); }
+    .reviews-carousel { position:relative; overflow:hidden; }
+    .reviews-track { display:flex; transition:transform .62s cubic-bezier(.65,0,.35,1); }
+    .review-slide { min-width:100%; display:flex; flex-direction:column; justify-content:center; min-height:270px; padding:28px; border:1px solid rgba(255,255,255,.12); border-radius:16px; background:rgba(255,255,255,.06); }
+    .review-source { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:20px; }
+    .review-stars { color:var(--gold); letter-spacing:.13em; font-size:.95rem; white-space:nowrap; }
+    .review-badge { display:inline-flex; align-items:center; gap:7px; color:rgba(255,255,255,.72); font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    .review-badge-dot { width:9px; height:9px; border-radius:50%; background:#4285f4; box-shadow:10px 0 #ea4335,20px 0 #fbbc05,30px 0 #34a853; margin-right:30px; }
+    .review-slide blockquote { margin:0; color:var(--white); font-family:var(--font-display); font-size:clamp(1.08rem,2vw,1.35rem); line-height:1.55; }
+    .review-author { margin-top:22px; color:var(--gold); font-size:.83rem; font-weight:700; }
+    .review-controls { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:20px; }
+    .review-arrows { display:flex; gap:9px; }
+    .review-arrow,.review-pause { border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.06); color:#fff; cursor:pointer; border-radius:999px; min-height:38px; transition:background .2s,border-color .2s,transform .2s; }
+    .review-arrow { width:38px; font-size:1rem; }
+    .review-pause { padding:7px 13px; font:700 .7rem var(--font-body); }
+    .review-arrow:hover,.review-pause:hover,.review-arrow:focus-visible,.review-pause:focus-visible { background:rgba(201,168,76,.22); border-color:var(--gold); transform:translateY(-2px); outline:none; }
+    .review-dots { display:flex; justify-content:center; gap:7px; }
+    .review-dot { width:8px; height:8px; padding:0; border:0; border-radius:999px; background:rgba(255,255,255,.3); cursor:pointer; transition:width .2s,background .2s; }
+    .review-dot.active { width:22px; background:var(--gold); }
+    .review-google-link { display:inline-block; margin-top:20px; color:var(--gold); font-size:.78rem; font-weight:700; text-decoration:underline; }
+    @media (max-width:820px) { .review-slide { min-height:300px; padding:24px; } }
+    @media (prefers-reduced-motion:reduce) { .reviews-track,.review-arrow,.review-pause,.review-dot { transition:none!important; } }
     .cta-band { background: var(--gold); padding: 60px 0; text-align: center; }
     .cta-band h2 { color: var(--navy); font-size: clamp(1.5rem,3vw,2.2rem); }
     .cta-band p  { color: rgba(11,28,58,.7); margin: 10px 0 28px; font-size: 1.05rem; }
@@ -492,17 +514,54 @@
       <div class="why-right">
         <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-en>WHAT CLIENTS SAY</div>
         <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;" data-ht>SA KLIYAN DI</div>
-        <h2 style="color:var(--white);margin-bottom:28px;" data-en>Built on Trust</h2>
-        <h2 style="color:var(--white);margin-bottom:28px;" data-ht>Bati Sou Konfyans</h2>
-        <div class="testimonial" style="margin-bottom:20px;">
-          <p data-en>"Miguelson explained everything in Creole so my mother could understand. We finally have the right coverage."</p>
-          <p data-ht>"Miguelson eksplike tout bagay an Kreyòl pou manman m' ka konprann. Nou finalman gen bon kouvèti a."</p>
-          <div class="testimonial-name">— Marie-Flore D., Miami</div>
-        </div>
-        <div class="testimonial">
-          <p data-en>"Got a bigger refund than I expected, and he walked me through every line. Great service!"</p>
-          <p data-ht>"Mwen jwenn yon ranbousman pi gwo pase mwen te atann, epi li eksplike m' chak liy. Gwo sèvis!"</p>
-          <div class="testimonial-name">— Jean-Pierre B., Orlando</div>
+        <h2 style="color:var(--white);margin-bottom:28px;" data-en>Reviews &amp; Testimonials</h2>
+        <h2 style="color:var(--white);margin-bottom:28px;" data-ht>Reviews ak Temwayaj</h2>
+        <div class="reviews-carousel" id="reviews-carousel" role="region" aria-roledescription="carousel" aria-label="Client reviews and testimonials" tabindex="0">
+          <div class="reviews-track" id="reviews-track">
+            <!-- Google review excerpts verified against the public business profile on 2026-09-14. -->
+            <article class="review-slide" aria-label="1 of 5">
+              <div class="review-source"><span class="review-stars" aria-label="5 stars">★★★★★</span><span class="review-badge"><span class="review-badge-dot"></span>Google Review</span></div>
+              <blockquote>“Excellent service! Very professional, helpful, and knowledgeable. They took the time to explain everything clearly and made the whole process easy and stress-free.”</blockquote>
+              <div class="review-author">— Michelda Solitaire</div>
+            </article>
+            <article class="review-slide" aria-label="2 of 5">
+              <div class="review-source"><span class="review-stars" aria-label="5 stars">★★★★★</span><span class="review-badge"><span class="review-badge-dot"></span>Google Review</span></div>
+              <blockquote>“The service was done with professionalism, do not hesitate to contact him!”</blockquote>
+              <div class="review-author">— David Étienne</div>
+            </article>
+            <article class="review-slide" aria-label="3 of 5">
+              <div class="review-source"><span class="review-stars" aria-label="5 stars">★★★★★</span><span class="review-badge"><span class="review-badge-dot"></span>Google Review</span></div>
+              <blockquote>“Excellent service from start to finish! Very professional, knowledgeable, and easy to work with. He made the tax process simple.”</blockquote>
+              <div class="review-author">— Fendia Etienne</div>
+            </article>
+            <article class="review-slide" aria-label="4 of 5">
+              <div class="review-source"><span class="review-stars" aria-label="5 stars">★★★★★</span><span class="review-badge"><span data-en>Client testimonial</span><span data-ht>Temwayaj kliyan</span></span></div>
+              <blockquote data-en>“Miguelson explained everything in Creole so my mother could understand. We finally have the right coverage.”</blockquote>
+              <blockquote data-ht>“Miguelson eksplike tout bagay an Kreyòl pou manman m' ka konprann. Nou finalman gen bon kouvèti a.”</blockquote>
+              <div class="review-author">— Marie-Flore D., Miami</div>
+            </article>
+            <article class="review-slide" aria-label="5 of 5">
+              <div class="review-source"><span class="review-stars" aria-label="5 stars">★★★★★</span><span class="review-badge"><span data-en>Client testimonial</span><span data-ht>Temwayaj kliyan</span></span></div>
+              <blockquote data-en>“Got a bigger refund than I expected, and he walked me through every line. Great service!”</blockquote>
+              <blockquote data-ht>“Mwen jwenn yon ranbousman pi gwo pase mwen te atann, epi li eksplike m' chak liy. Gwo sèvis!”</blockquote>
+              <div class="review-author">— Jean-Pierre B., Orlando</div>
+            </article>
+          </div>
+          <div class="review-controls">
+            <div class="review-arrows">
+              <button class="review-arrow" id="review-prev" type="button" aria-label="Previous review">‹</button>
+              <button class="review-arrow" id="review-next" type="button" aria-label="Next review">›</button>
+            </div>
+            <div class="review-dots" id="review-dots" aria-label="Choose a review">
+              <button class="review-dot active" type="button" data-review-index="0" aria-label="Review 1"></button>
+              <button class="review-dot" type="button" data-review-index="1" aria-label="Review 2"></button>
+              <button class="review-dot" type="button" data-review-index="2" aria-label="Review 3"></button>
+              <button class="review-dot" type="button" data-review-index="3" aria-label="Review 4"></button>
+              <button class="review-dot" type="button" data-review-index="4" aria-label="Review 5"></button>
+            </div>
+            <button class="review-pause" id="review-pause" type="button" aria-label="Pause reviews"><span data-en>Pause</span><span data-ht>Poz</span></button>
+          </div>
+          <a class="review-google-link" href="https://g.page/r/CaF7fP4t8WEjEBM/review" target="_blank" rel="noopener"><span data-en>See or leave a Google review →</span><span data-ht>Gade oswa kite yon review sou Google →</span></a>
         </div>
       </div>
     </div>
@@ -644,7 +703,7 @@
 </footer>
 
 <script src="/marketing-source.js?v=20260914a-attribution" defer></script>
-<script src="/shared.js?v=20260904-reviews-2"></script>
+<script src="/shared.js?v=20260914-review-carousel-1"></script>
 <script>
   (function() {
     const track = document.getElementById('slider-track');
@@ -697,6 +756,74 @@
 
     updatePlayButton();
     startAuto();
+  })();
+</script>
+
+<script>
+  (function () {
+    const carousel = document.getElementById('reviews-carousel');
+    const track = document.getElementById('reviews-track');
+    if (!carousel || !track) return;
+
+    const slides = Array.from(track.querySelectorAll('.review-slide'));
+    const dots = Array.from(document.querySelectorAll('[data-review-index]'));
+    const pauseButton = document.getElementById('review-pause');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = 0;
+    let playing = !reduceMotion;
+    let timer;
+    let touchStartX = 0;
+
+    function show(index) {
+      current = (index + slides.length) % slides.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      slides.forEach((slide, slideIndex) => slide.setAttribute('aria-hidden', slideIndex === current ? 'false' : 'true'));
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle('active', dotIndex === current);
+        dot.setAttribute('aria-current', dotIndex === current ? 'true' : 'false');
+      });
+    }
+    function updatePauseButton() {
+      pauseButton.innerHTML = playing
+        ? '<span data-en>Pause</span><span data-ht>Poz</span>'
+        : '<span data-en>Play</span><span data-ht>Jwe</span>';
+      pauseButton.setAttribute('aria-label', playing ? 'Pause reviews' : 'Play reviews');
+    }
+    function stop() { clearInterval(timer); }
+    function start() {
+      stop();
+      if (playing) timer = setInterval(() => show(current + 1), 8000);
+    }
+    function moveBy(amount) { show(current + amount); start(); }
+
+    document.getElementById('review-prev').addEventListener('click', () => moveBy(-1));
+    document.getElementById('review-next').addEventListener('click', () => moveBy(1));
+    dots.forEach(dot => dot.addEventListener('click', () => { show(Number(dot.dataset.reviewIndex)); start(); }));
+    pauseButton.addEventListener('click', () => {
+      playing = !playing;
+      updatePauseButton();
+      start();
+    });
+    carousel.addEventListener('mouseenter', stop);
+    carousel.addEventListener('mouseleave', start);
+    carousel.addEventListener('focusin', stop);
+    carousel.addEventListener('focusout', start);
+    carousel.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft') { event.preventDefault(); moveBy(-1); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); moveBy(1); }
+    });
+    carousel.addEventListener('touchstart', event => { stop(); touchStartX = event.touches[0].clientX; }, { passive:true });
+    carousel.addEventListener('touchend', event => {
+      const distance = event.changedTouches[0].clientX - touchStartX;
+      if (distance > 45) show(current - 1);
+      if (distance < -45) show(current + 1);
+      start();
+    }, { passive:true });
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+
+    show(0);
+    updatePauseButton();
+    start();
   })();
 </script>
 
