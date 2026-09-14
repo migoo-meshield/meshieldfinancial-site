@@ -140,84 +140,6 @@
     .workshop-banner p { color: rgba(255,255,255,.68); font-size: .95rem; margin: 0; }
     .workshop-banner-cta { position: relative; flex-shrink: 0; }
     @media (max-width: 700px) { .workshop-banner { flex-direction: column; text-align: center; padding: 40px 28px; } }
-
-    /* Home refresh: guided service finder, social proof, compact trust and process */
-    .proof-strip { background:var(--white); padding:34px 0; border-bottom:1px solid var(--border-soft); }
-    .proof-strip-inner { display:grid; grid-template-columns:auto 1fr auto; gap:24px; align-items:center; }
-    .proof-stars { color:#9a7415; font-size:1.05rem; letter-spacing:.12em; white-space:nowrap; }
-    .proof-quote { color:var(--navy); font-family:var(--font-display); font-size:1.08rem; line-height:1.45; }
-    .proof-quote small { display:block; margin-top:5px; color:var(--text-light); font-family:var(--font-body); font-size:.76rem; }
-    .proof-link { color:#735b12; font-size:.82rem; font-weight:800; white-space:nowrap; }
-
-    .service-finder-section { padding:88px 0; background:linear-gradient(180deg,var(--offwhite),#fff); }
-    .service-finder { max-width:960px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:24px; box-shadow:var(--shadow-lg); overflow:hidden; }
-    .finder-top { padding:40px 42px 28px; background:linear-gradient(135deg,var(--navy),#172d58); color:#fff; }
-    .finder-top h2 { color:#fff; margin:7px 0 10px; }
-    .finder-top p { color:rgba(255,255,255,.72); margin:0; }
-    .finder-progress { display:flex; gap:8px; margin-top:24px; }
-    .finder-progress span { height:4px; flex:1; border-radius:99px; background:rgba(255,255,255,.18); transition:background .25s ease,transform .25s ease; }
-    .finder-progress span.active { background:var(--gold); transform:scaleY(1.4); }
-    .finder-body { padding:38px 42px 42px; }
-    .finder-step { display:none; animation:finderIn .35s var(--ease) both; }
-    .finder-step.active { display:block; }
-    .finder-question { margin-bottom:22px; color:var(--navy); font-size:1.22rem; }
-    .finder-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .finder-option { display:flex; align-items:center; gap:14px; width:100%; min-height:76px; padding:16px 18px; border:1px solid rgba(11,28,58,.12); border-radius:14px; background:#fff; color:var(--navy); font:700 .92rem var(--font-body); text-align:left; cursor:pointer; transition:transform .22s var(--ease),border-color .22s,box-shadow .22s,background .22s; }
-    .finder-option:hover,.finder-option:focus-visible { transform:translateY(-3px); border-color:var(--gold); box-shadow:var(--shadow); outline:none; background:var(--offwhite); }
-    .finder-option-icon { display:grid; place-items:center; width:42px; height:42px; flex:0 0 42px; border-radius:50%; background:var(--gold-soft); color:#735b12; font-size:1.15rem; }
-    .finder-result { padding:28px; border-radius:16px; background:var(--offwhite); border:1px solid var(--border); }
-    .finder-result h3 { margin:8px 0 10px; color:var(--navy); }
-    .finder-result p { margin-bottom:22px; }
-    .finder-result-actions { display:flex; gap:12px; flex-wrap:wrap; }
-    .finder-restart { margin-top:18px; border:0; background:none; color:#735b12; font:800 .8rem var(--font-body); cursor:pointer; text-decoration:underline; }
-    @keyframes finderIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
-
-    .trust-compact { padding:88px 0; background:#fff; }
-    .trust-compact-grid { display:grid; grid-template-columns:.85fr 1.15fr; gap:58px; align-items:center; }
-    .trust-person { position:relative; }
-    .trust-person img { width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:20px; box-shadow:var(--shadow-lg); }
-    .trust-person-card { position:absolute; left:18px; right:18px; bottom:18px; padding:18px; border-radius:14px; background:rgba(11,28,58,.92); backdrop-filter:blur(12px); color:#fff; }
-    .trust-person-card strong { display:block; font-family:var(--font-display); }
-    .trust-person-card span { display:block; color:rgba(255,255,255,.68); font-size:.75rem; margin-top:3px; }
-    .trust-points { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:28px 0; }
-    .trust-point { padding:20px 16px; border:1px solid var(--border-soft); border-radius:14px; background:var(--offwhite); transition:transform .22s var(--ease),box-shadow .22s; }
-    .trust-point:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
-    .trust-point strong { display:block; color:var(--navy); margin-bottom:5px; }
-    .trust-point span { color:var(--text-light); font-size:.78rem; line-height:1.45; }
-    .trust-quote { padding-left:18px; border-left:3px solid var(--gold); color:var(--navy); font-family:var(--font-display); font-size:1.12rem; }
-
-    .process-section { padding:88px 0; background:var(--navy); }
-    .process-section .section-header h2 { color:#fff; }
-    .process-section .section-header p { color:rgba(255,255,255,.65); }
-    .process-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; counter-reset:steps; }
-    .process-card { position:relative; padding:30px 26px; border:1px solid rgba(255,255,255,.12); border-radius:16px; background:rgba(255,255,255,.055); transition:transform .25s var(--ease),background .25s,border-color .25s; }
-    .process-card:hover { transform:translateY(-5px); background:rgba(255,255,255,.09); border-color:rgba(201,168,76,.5); }
-    .process-number { width:40px; height:40px; display:grid; place-items:center; border-radius:50%; background:var(--gold); color:var(--navy); font-family:var(--font-display); font-weight:800; margin-bottom:18px; }
-    .process-card h3 { color:#fff; margin-bottom:8px; }
-    .process-card p { color:rgba(255,255,255,.62); font-size:.9rem; margin:0; }
-    .mobile-action-dock { display:none; }
-
-    @media (max-width:820px) {
-      .proof-strip-inner { grid-template-columns:1fr; gap:9px; text-align:center; }
-      .finder-top,.finder-body { padding-left:24px; padding-right:24px; }
-      .trust-compact-grid { grid-template-columns:1fr; gap:36px; }
-      .trust-person { max-width:430px; margin:0 auto; }
-      .process-grid { grid-template-columns:1fr; }
-    }
-    @media (max-width:600px) {
-      .service-finder-section,.trust-compact,.process-section { padding:64px 0; }
-      .service-finder { border-radius:18px; }
-      .finder-top { padding-top:30px; }
-      .finder-body { padding-top:28px; }
-      .finder-options { grid-template-columns:1fr; }
-      .trust-points { grid-template-columns:1fr; }
-      .mobile-action-dock { display:block; position:fixed; left:14px; right:82px; bottom:max(14px,env(safe-area-inset-bottom)); z-index:87; transition:opacity .2s ease,transform .2s ease; }
-      .mobile-action-dock.is-hidden { opacity:0; pointer-events:none; transform:translateY(12px); }
-      .mobile-action-dock a { display:block; padding:12px 16px; border-radius:999px; background:var(--gold); color:var(--navy); box-shadow:0 10px 28px rgba(11,28,58,.25); text-align:center; font-size:.78rem; font-weight:800; }
-    }
-    @media (prefers-reduced-motion:reduce) {
-      .finder-step,.finder-option,.trust-point,.process-card { animation:none!important; transition:none!important; }
-    }
   </style>
   <link rel="canonical" href="https://meshieldfinancial.com/"/>
   <meta property="og:type" content="website"/>
@@ -325,9 +247,9 @@
       <p data-en>Insurance, tax preparation, and immigration forms filing — all under one roof. We serve Florida families and small businesses in English and Haitian Creole.</p>
       <p data-ht>Asirans, preparasyon taks, ak ranpli fòmilè imigrasyon — tout sou yon sèl do. Nou sèvi fanmi Florid ak ti biznis yo an Anglè ak Kreyòl Ayisyen.</p>
       <div class="hero-ctas">
-        <a href="#service-finder" class="btn btn-gold">
-          <span data-en>Tell Us What You Need</span>
-          <span data-ht>Di Nou Ki Èd Ou Bezwen</span>
+        <a href="/contact" class="btn btn-gold">
+          <span data-en>Get a Free Quote</span>
+          <span data-ht>Jwenn yon Estimasyon Gratis</span>
         </a>
         <a href="/services" class="btn btn-outline">
           <span data-en>Our Services</span>
@@ -391,77 +313,7 @@
   </div>
 </section>
 
-<section class="proof-strip" aria-label="Client testimonial">
-  <div class="container proof-strip-inner">
-    <div class="proof-stars" aria-label="5 stars">★★★★★</div>
-    <div class="proof-quote">
-      “Mwen renmen sèvis la. Mesye Miguelson pran swen pou li eksplike m tout bagay nèt.”
-      <small>— David E. · Client testimonial</small>
-    </div>
-    <a class="proof-link" href="https://g.page/r/CaF7fP4t8WEjEBM/review" target="_blank" rel="noopener">
-      <span data-en>Leave a Google Review →</span><span data-ht>Kite yon Review sou Google →</span>
-    </a>
-  </div>
-</section>
-
-<section class="service-finder-section" id="service-finder">
-  <div class="container">
-    <div class="service-finder reveal">
-      <div class="finder-top">
-        <div class="eyebrow" data-en>YOUR NEXT STEP</div><div class="eyebrow" data-ht>PWOCHEN ETAP OU</div>
-        <h2 id="finder-title" data-en>What can we help you with?</h2>
-        <h2 data-ht>Ki sèvis ou bezwen?</h2>
-        <p data-en>Answer three quick questions and we’ll point you in the right direction.</p>
-        <p data-ht>Reponn twa ti kesyon epi n ap montre w bon direksyon an.</p>
-        <div class="finder-progress" aria-hidden="true"><span class="active"></span><span></span><span></span></div>
-      </div>
-      <div class="finder-body" aria-live="polite">
-        <div class="finder-step active" data-step="1">
-          <h3 class="finder-question" data-en>1. What do you want help with?</h3>
-          <h3 class="finder-question" data-ht>1. Ak kisa ou bezwen èd?</h3>
-          <div class="finder-options">
-            <button class="finder-option" type="button" data-service="insurance"><span class="finder-option-icon">♡</span><span data-en>Protect my family</span><span data-ht>Pwoteje fanmi mwen</span></button>
-            <button class="finder-option" type="button" data-service="tax"><span class="finder-option-icon">✓</span><span data-en>Prepare my taxes</span><span data-ht>Prepare taks mwen</span></button>
-            <button class="finder-option" type="button" data-service="immigration"><span class="finder-option-icon">▤</span><span data-en>Immigration paperwork</span><span data-ht>Papye imigrasyon</span></button>
-            <button class="finder-option" type="button" data-service="business"><span class="finder-option-icon">◇</span><span data-en>Start or maintain a business</span><span data-ht>Kòmanse oswa jere yon biznis</span></button>
-            <button class="finder-option" type="button" data-service="banking"><span class="finder-option-icon">↗</span><span data-en>Build a long-term strategy</span><span data-ht>Bati yon estrateji alontèm</span></button>
-          </div>
-        </div>
-        <div class="finder-step" data-step="2">
-          <h3 class="finder-question" data-en>2. Who is this service for?</h3>
-          <h3 class="finder-question" data-ht>2. Pou kiyès sèvis sa a ye?</h3>
-          <div class="finder-options">
-            <button class="finder-option" type="button" data-audience="self"><span class="finder-option-icon">●</span><span data-en>Me</span><span data-ht>Pou mwen</span></button>
-            <button class="finder-option" type="button" data-audience="family"><span class="finder-option-icon">♡</span><span data-en>My family</span><span data-ht>Pou fanmi mwen</span></button>
-            <button class="finder-option" type="button" data-audience="business"><span class="finder-option-icon">◇</span><span data-en>My business</span><span data-ht>Pou biznis mwen</span></button>
-          </div>
-        </div>
-        <div class="finder-step" data-step="3">
-          <h3 class="finder-question" data-en>3. What would you like to do next?</h3>
-          <h3 class="finder-question" data-ht>3. Kisa ou ta renmen fè apre sa?</h3>
-          <div class="finder-options">
-            <button class="finder-option" type="button" data-ready="learn"><span class="finder-option-icon">i</span><span data-en>Learn about my options</span><span data-ht>Aprann sou opsyon mwen yo</span></button>
-            <button class="finder-option" type="button" data-ready="talk"><span class="finder-option-icon">↗</span><span data-en>Talk with Miguelson</span><span data-ht>Pale ak Miguelson</span></button>
-          </div>
-        </div>
-        <div class="finder-step" data-step="result">
-          <div class="finder-result">
-            <div class="eyebrow" data-en>YOUR RECOMMENDED NEXT STEP</div><div class="eyebrow" data-ht>PWOCHEN ETAP NOU REKÒMANDE</div>
-            <h3 id="finder-result-title"></h3>
-            <p id="finder-result-copy"></p>
-            <div class="finder-result-actions">
-              <a id="finder-primary" class="btn btn-gold" href="/book"></a>
-              <a id="finder-secondary" class="btn btn-navy" href="/book"><span data-en>Book Free Consultation</span><span data-ht>Rezève Konsiltasyon Gratis</span></a>
-            </div>
-          </div>
-          <button class="finder-restart" type="button"><span data-en>Start over</span><span data-ht>Rekòmanse</span></button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="positioning-section section-white reveal" hidden>
+<section class="positioning-section section-white reveal">
   <div class="container">
     <div class="positioning-tagline" data-en>Community Advocate First. <em>Insurance &amp; Tax Professional Second.</em></div>
     <div class="positioning-tagline" data-ht>Defansè Kominote Anvan Tout Bagay. <em>Pwofesyonèl Asirans &amp; Taks Dezyèmman.</em></div>
@@ -489,7 +341,7 @@
   </div>
 </section>
 
-<section class="section reveal" hidden>
+<section class="section reveal">
   <div class="container">
     <div class="dual-cta-grid">
       <a href="/contact" class="dual-cta-card" style="background-image:url('https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=900&q=75');">
@@ -512,7 +364,7 @@
   </div>
 </section>
 
-<section class="section section-white" hidden>
+<section class="section section-white">
   <div class="container">
     <div class="section-header reveal">
       <div class="eyebrow" data-en>WHAT WE DO</div>
@@ -590,52 +442,7 @@
   </div>
 </section>
 
-<section class="trust-compact">
-  <div class="container trust-compact-grid">
-    <div class="trust-person reveal">
-      <img src="miguelson-headshot.jpeg" alt="Miguelson Etienne, Founder of ME Shield Financial Services"/>
-      <div class="trust-person-card">
-        <strong>Miguelson Etienne</strong>
-        <span data-en>Your bilingual insurance, tax and filing specialist</span>
-        <span data-ht>Espesyalis bileng ou pou asirans, taks ak dokiman</span>
-      </div>
-    </div>
-    <div class="reveal">
-      <div class="eyebrow" data-en>WHY ME SHIELD</div><div class="eyebrow" data-ht>POUKISA ME SHIELD</div>
-      <h2 data-en>One trusted specialist. Clear guidance in your language.</h2>
-      <h2 data-ht>Yon espesyalis ou fè konfyans. Konsèy klè nan lang ou.</h2>
-      <span class="gold-rule"></span>
-      <p data-en>You work directly with Miguelson from the first conversation through every renewal, return, filing and follow-up—without a call center or a rotating list of representatives.</p>
-      <p data-ht>Ou travay dirèkteman ak Miguelson depi premye konvèsasyon an rive nan chak renouvèlman, deklarasyon, dokiman ak swivi—san sant apèl oswa reprezantan k ap chanje.</p>
-      <div class="trust-points">
-        <div class="trust-point"><strong data-en>Personal</strong><strong data-ht>Pèsonèl</strong><span data-en>Advice shaped around your real situation.</span><span data-ht>Konsèy ki adapte ak vrè sitiyasyon ou.</span></div>
-        <div class="trust-point"><strong data-en>Bilingual</strong><strong data-ht>Bileng</strong><span data-en>English or Kreyòl, from day one.</span><span data-ht>Anglè oswa Kreyòl, depi premye jou a.</span></div>
-        <div class="trust-point"><strong data-en>Connected</strong><strong data-ht>Konekte</strong><span data-en>Insurance, tax and filings under one roof.</span><span data-ht>Asirans, taks ak dokiman yon sèl kote.</span></div>
-      </div>
-      <div class="trust-quote" data-en>“You’re not just a policy number—you’re part of the family.”</div>
-      <div class="trust-quote" data-ht>“Ou pa jis yon nimewo polis—ou se yon pati nan fanmi an.”</div>
-    </div>
-  </div>
-</section>
-
-<section class="process-section">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="eyebrow" data-en>HOW IT WORKS</div><div class="eyebrow" data-ht>KIJAN SA MACHE</div>
-      <h2 id="process-title" data-en>Simple steps. No pressure. Clear answers.</h2>
-      <h2 data-ht>Etap senp. San presyon. Repons klè.</h2>
-      <p data-en>We make it easy to understand your options and move forward with confidence.</p>
-      <p data-ht>Nou rann li fasil pou konprann opsyon ou yo epi avanse ak konfyans.</p>
-    </div>
-    <div class="process-grid reveal-stagger reveal">
-      <div class="process-card stagger-item"><div class="process-number">1</div><h3 data-en>Choose your need</h3><h3 data-ht>Chwazi bezwen ou</h3><p data-en>Use the quick guide above or select a service.</p><p data-ht>Sèvi ak gid rapid la oswa chwazi yon sèvis.</p></div>
-      <div class="process-card stagger-item"><div class="process-number">2</div><h3 data-en>Talk with Miguelson</h3><h3 data-ht>Pale ak Miguelson</h3><p data-en>Meet in English or Kreyòl and ask every question.</p><p data-ht>Rankontre an Anglè oswa Kreyòl epi poze tout kesyon ou.</p></div>
-      <div class="process-card stagger-item"><div class="process-number">3</div><h3 data-en>Get a clear next step</h3><h3 data-ht>Resevwa yon etap klè</h3><p data-en>Leave with transparent options and a practical plan.</p><p data-ht>Soti ak opsyon transparan ak yon plan pratik.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" hidden>
+<section class="section">
   <div class="container">
     <div class="why-grid reveal">
       <div class="why-left">
@@ -702,7 +509,7 @@
   </div>
 </section>
 
-<section class="philosophy-section reveal" hidden>
+<section class="philosophy-section reveal">
   <div class="container">
     <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;" data-en>OUR PHILOSOPHY</div>
     <div class="eyebrow" style="font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;" data-ht>FILOZOFI NOU</div>
@@ -713,7 +520,7 @@
   </div>
 </section>
 
-<section class="section section-white reveal" hidden>
+<section class="section section-white reveal">
   <div class="container">
     <div class="section-header">
       <div class="eyebrow" data-en>OUR PROMISE</div>
@@ -836,12 +643,8 @@
   </div>
 </footer>
 
-<div class="mobile-action-dock">
-  <a href="#service-finder"><span data-en>Tell Us What You Need</span><span data-ht>Di Nou Ki Èd Ou Bezwen</span></a>
-</div>
-
 <script src="/marketing-source.js?v=20260914a-attribution" defer></script>
-<script src="/shared.js?v=20260914-home-refresh-1"></script>
+<script src="/shared.js?v=20260904-reviews-2"></script>
 <script>
   (function() {
     const track = document.getElementById('slider-track');
@@ -894,101 +697,6 @@
 
     updatePlayButton();
     startAuto();
-  })();
-</script>
-
-<script>
-  (function () {
-    const finder = document.getElementById('service-finder');
-    if (!finder) return;
-
-    const dock = document.querySelector('.mobile-action-dock');
-    if (dock && 'IntersectionObserver' in window) {
-      new IntersectionObserver(entries => {
-        dock.classList.toggle('is-hidden', entries.some(entry => entry.isIntersecting));
-      }, { threshold: .08 }).observe(finder);
-    }
-
-    const state = { service: '', audience: '', ready: '' };
-    const routes = {
-      insurance: '/insurance',
-      tax: '/tax-preparation',
-      immigration: '/immigration-forms',
-      business: '/business-filing',
-      banking: '/infinite-banking'
-    };
-    const content = {
-      insurance: {
-        en: ['Insurance guidance for your needs', 'Compare practical protection options for you, your family or your business—with a clear explanation before you decide.'],
-        ht: ['Konsèy asirans pou bezwen ou', 'Konpare opsyon pwoteksyon ki pratik pou ou, fanmi ou oswa biznis ou—ak yon eksplikasyon klè anvan ou deside.']
-      },
-      tax: {
-        en: ['Tax preparation with clear answers', 'Get organized, understand your return and identify the right next step for individual or small-business taxes.'],
-        ht: ['Preparasyon taks ak repons klè', 'Òganize dokiman ou, konprann deklarasyon ou epi idantifye bon etap pou taks pèsonèl oswa ti biznis.']
-      },
-      immigration: {
-        en: ['Careful immigration forms support', 'Get document-preparation help and a clear checklist for the filing you are working on. This service is not legal advice.'],
-        ht: ['Sipò ak swen pou fòm imigrasyon', 'Jwenn èd pou prepare dokiman ak yon lis klè pou demach w ap fè a. Sèvis sa a pa konsèy legal.']
-      },
-      business: {
-        en: ['Start or maintain your business', 'Get help with LLC, EIN, DBA and recurring business filings—explained one step at a time.'],
-        ht: ['Kòmanse oswa kenbe biznis ou ajou', 'Jwenn èd ak LLC, EIN, DBA ak depo biznis regilye—eksplike yon etap alafwa.']
-      },
-      banking: {
-        en: ['Explore a long-term financial strategy', 'Learn how properly designed life insurance may support cash value, access and legacy goals before deciding whether it fits you.'],
-        ht: ['Eksplore yon estrateji finansye alontèm', 'Aprann kijan yon asirans lavi byen estriktire ka sipòte valè kach, aksè ak eritaj anvan ou deside si li bon pou ou.']
-      }
-    };
-
-    const steps = Array.from(finder.querySelectorAll('.finder-step'));
-    const bars = Array.from(finder.querySelectorAll('.finder-progress span'));
-    const showStep = (step) => {
-      steps.forEach(el => el.classList.toggle('active', el.dataset.step === String(step)));
-      const progress = step === 'result' ? 3 : Number(step);
-      bars.forEach((bar, index) => bar.classList.toggle('active', index < progress));
-    };
-    const language = () => document.body.classList.contains('lang-ht') ? 'ht' : 'en';
-    const renderResult = () => {
-      if (!state.service) return;
-      const lang = language();
-      const [title, copy] = content[state.service][lang];
-      const primary = finder.querySelector('#finder-primary');
-      const secondary = finder.querySelector('#finder-secondary');
-      finder.querySelector('#finder-result-title').textContent = title;
-      finder.querySelector('#finder-result-copy').textContent = copy;
-      if (state.ready === 'talk') {
-        primary.href = '/book';
-        primary.textContent = lang === 'ht' ? 'Rezève Kounye A →' : 'Book Now →';
-        secondary.href = routes[state.service];
-        secondary.innerHTML = lang === 'ht' ? 'Aprann Plis' : 'Learn More';
-      } else {
-        primary.href = routes[state.service];
-        primary.textContent = lang === 'ht' ? 'Gade Sèvis La →' : 'Explore This Service →';
-        secondary.href = '/book';
-        secondary.innerHTML = lang === 'ht' ? 'Rezève Konsiltasyon Gratis' : 'Book Free Consultation';
-      }
-    };
-
-    finder.querySelectorAll('[data-service]').forEach(button => button.addEventListener('click', () => {
-      state.service = button.dataset.service;
-      showStep(2);
-    }));
-    finder.querySelectorAll('[data-audience]').forEach(button => button.addEventListener('click', () => {
-      state.audience = button.dataset.audience;
-      showStep(3);
-    }));
-    finder.querySelectorAll('[data-ready]').forEach(button => button.addEventListener('click', () => {
-      state.ready = button.dataset.ready;
-      renderResult();
-      showStep('result');
-    }));
-    finder.querySelector('.finder-restart').addEventListener('click', () => {
-      state.service = ''; state.audience = ''; state.ready = '';
-      showStep(1);
-    });
-    document.addEventListener('click', event => {
-      if (event.target.closest('.lang-btn')) setTimeout(renderResult, 0);
-    });
   })();
 </script>
 

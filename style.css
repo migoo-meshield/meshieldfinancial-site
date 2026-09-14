@@ -735,6 +735,8 @@ body.lang-en [data-ht] { display: none !important; }
 }
 .nav-scrim.show { opacity: 1; pointer-events: auto; }
 body.menu-open { overflow: hidden; }
+.pwa-install { position:fixed; left:18px; bottom:18px; z-index:88; border:1px solid rgba(201,168,76,.7); background:var(--navy); color:var(--gold); border-radius:999px; padding:11px 16px; box-shadow:var(--shadow-lg); font-weight:700; cursor:pointer; }
+.pwa-install[hidden] { display:none; }
 
 /* ── Page transitions ── */
 .page-fade {

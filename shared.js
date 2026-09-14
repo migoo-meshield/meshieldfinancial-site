@@ -17,7 +17,7 @@ function initSharedHeader() {
       .site-header-spacer{width:100%;height:var(--site-header-height,110px);}
       .site-header-shell .nav-intake-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:9px 18px!important;border:1px solid #c9a84c!important;border-radius:999px!important;background:transparent!important;color:#c9a84c!important;font-size:.82rem!important;font-weight:800!important;text-decoration:none!important;white-space:nowrap!important;}
       .site-header-shell .nav-intake-btn:hover{background:#c9a84c!important;color:#0b1d3a!important;}
-      .pwa-menu-button{display:block;width:100%;padding:12px 16px;border:1px solid rgba(201,168,76,.55);border-radius:10px;background:rgba(201,168,76,.1);color:#c9a84c;font:800 .82rem Inter,Arial,sans-serif;text-align:left;cursor:pointer;}
+      .pwa-install{position:fixed!important;left:18px!important;bottom:18px!important;z-index:1280!important;border:1px solid rgba(201,168,76,.8)!important;background:#0b1d3a!important;color:#c9a84c!important;border-radius:999px!important;padding:11px 16px!important;box-shadow:0 12px 30px rgba(11,29,58,.28)!important;font:700 .78rem Inter,Arial,sans-serif!important;cursor:pointer!important;}
       .shared-footer{background:#0b1d3a!important;color:rgba(255,255,255,.68)!important;padding:58px 0 28px!important;border-top:1px solid rgba(255,255,255,.08)!important;font-family:Inter,Arial,sans-serif!important;font-size:16px!important;line-height:1.6!important;}
       .shared-footer *{box-sizing:border-box!important;}
       .shared-footer .shared-footer-inner{width:min(1120px,calc(100% - 40px))!important;margin:0 auto!important;}
@@ -490,48 +490,31 @@ function initPWA() {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   }
   let installPrompt;
-  let menuButton;
-  const addInstallToMenu = () => {
-    if (menuButton) return menuButton;
-    const links = document.getElementById('nav-links');
-    if (!links) return null;
-    const item = document.createElement('li');
-    item.className = 'mobile-book-item pwa-menu-item';
-    menuButton = document.createElement('button');
-    menuButton.type = 'button';
-    menuButton.className = 'pwa-menu-button';
-    menuButton.innerHTML = '<span data-en>Install ME Shield App</span><span data-ht>Enstale App ME Shield La</span>';
-    item.appendChild(menuButton);
-    links.appendChild(item);
-    setSiteLang(document.body.classList.contains('lang-ht') ? 'ht' : 'en', false);
-    return menuButton;
-  };
-  const promptInstall = async () => {
+  const install = document.createElement('button');
+  install.className = 'pwa-install';
+  install.hidden = true;
+  install.innerHTML = '<span data-en>Install ME Shield</span><span data-ht>Enstale ME Shield</span>';
+  document.body.appendChild(install);
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    installPrompt = event;
+    install.hidden = false;
+  });
+  install.addEventListener('click', async () => {
     if (installPrompt) {
       installPrompt.prompt();
       await installPrompt.userChoice;
       installPrompt = null;
-      const item = menuButton && menuButton.closest('li');
-      if (item) item.remove();
-      menuButton = null;
+      install.hidden = true;
       return;
     }
     if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
       alert(document.body.classList.contains('lang-ht') ? 'Sou iPhone: peze Share, epi chwazi Add to Home Screen.' : 'On iPhone: tap Share, then choose Add to Home Screen.');
     }
-  };
-  window.addEventListener('beforeinstallprompt', event => {
-    event.preventDefault();
-    installPrompt = event;
-    const button = addInstallToMenu();
-    if (button) button.addEventListener('click', promptInstall, { once: true });
   });
   const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
   const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-  if (ios && !standalone) {
-    const button = addInstallToMenu();
-    if (button) button.addEventListener('click', promptInstall);
-  }
+  if (ios && !standalone) install.hidden = false;
 }
 
 /* ── Article trust signals + page structured data ── */
@@ -698,6 +681,7 @@ function initGoogleReviewSection() {
 document.addEventListener('DOMContentLoaded', () => {
   initSharedFooter();
   initSharedHeader();
+  initGoogleReviewSection();
   initAccessibility();
   initCleanUrls();
   initLang();
