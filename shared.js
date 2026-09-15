@@ -627,14 +627,40 @@ function initTrustAndStructuredData() {
   }
 }
 
-/* ── Google review call-to-action ── */
+/* ── Reviews & Testimonials ──
+   The homepage carries a five-slide carousel of real Google reviews and
+   client testimonials. The service pages used to get a different thing
+   entirely: one hard-coded testimonial in a static box. Somebody who read the
+   homepage and then opened the insurance page saw the section change shape and
+   lose four of the five reviews.
+   This builds the same carousel from the same reviews, in the light palette
+   those pages use, so the section reads as one thing across the site. */
+const SITE_REVIEWS = [
+  // Verified against the public Google Business Profile on 2026-09-14.
+  { google: true, author: 'Michelda Solitaire',
+    en: 'Excellent service! Very professional, helpful, and knowledgeable. They took the time to explain everything clearly and made the whole process easy and stress-free.' },
+  { google: true, author: 'David Étienne',
+    en: 'The service was done with professionalism, do not hesitate to contact him!' },
+  { google: true, author: 'Fendia Etienne',
+    en: 'Excellent service from start to finish! Very professional, knowledgeable, and easy to work with. He made the tax process simple.' },
+  { google: false, author: 'Marie-Flore D., Miami',
+    en: 'Miguelson explained everything in Creole so my mother could understand. We finally have the right coverage.',
+    ht: 'Miguelson eksplike tout bagay an Kreyòl pou manman m’ ka konprann. Nou finalman gen bon kouvèti a.' },
+  { google: false, author: 'Jean-Pierre B., Orlando',
+    en: 'Got a bigger refund than I expected, and he walked me through every line. Great service!',
+    ht: 'Mwen jwenn yon ranbousman pi gwo pase mwen te atann, epi li eksplike m’ chak liy. Gwo sèvis!' },
+];
+
 function initGoogleReviewSection() {
-  const path = window.location.pathname.replace(/\/$/, '') || '/';
-  // The homepage has its own combined Google review + testimonial carousel.
+  // Live URLs are clean (/insurance); a local file or a direct link is
+  // /insurance.html. Match on the same shape either way, or the section
+  // silently fails to appear on exactly the pages being tested.
+  const path = (window.location.pathname.replace(/\/(index)?(\.html)?$/, '').replace(/\.html$/, '')) || '/';
+  // The homepage builds its own copy of this in its own markup.
   if (path === '/') return;
   const eligiblePages = new Set([
-    '/', '/insurance', '/tax-preparation', '/business-filing',
-    '/immigration-forms', '/infinite-banking'
+    '/insurance', '/tax-preparation', '/business-filing',
+    '/immigration-forms', '/infinite-banking', '/services', '/about',
   ]);
   if (!eligiblePages.has(path) || document.querySelector('.google-review-cta')) return;
 
@@ -644,37 +670,73 @@ function initGoogleReviewSection() {
     styles.textContent = `
       .google-review-cta{padding:72px 20px;background:#f8f5ee;text-align:center;border-top:1px solid rgba(201,168,76,.18)}
       .google-review-cta-inner{width:min(760px,100%);margin:0 auto;padding:42px 34px;background:#fff;border:1px solid rgba(201,168,76,.24);border-radius:18px;box-shadow:0 16px 45px rgba(11,29,58,.08)}
-      .google-review-cta-stars{color:#c9a84c;font-size:1.8rem;letter-spacing:.18em;line-height:1;margin-bottom:18px}
-      .google-review-cta h2{margin:0 0 14px;color:#0b1d3a;font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.7rem,4vw,2.35rem)}
+      .google-review-cta h2{margin:0 0 8px;color:#0b1d3a;font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.7rem,4vw,2.35rem)}
+      .google-review-cta .rv-eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c9a84c;margin-bottom:10px}
       .google-review-cta p{max-width:620px;margin:0 auto 24px;color:#4d5564;font-size:1rem;line-height:1.7}
-      .google-review-testimonial{max-width:620px;margin:24px auto;padding:24px 26px;background:#0b1d3a;border-radius:14px;text-align:left;color:#fff;box-shadow:0 12px 30px rgba(11,29,58,.14)}
-      .google-review-testimonial blockquote{margin:0 0 14px;color:#fff;font-size:1.02rem;font-style:italic;line-height:1.7}
-      .google-review-testimonial cite{color:#c9a84c;font-size:.86rem;font-style:normal;font-weight:700}
-      @media(min-width:601px){
-        .google-review-testimonial{text-align:center;padding:26px 34px}
-        .google-review-testimonial blockquote{max-width:46ch;margin:0 auto 14px}
-        .google-review-testimonial cite{display:block}
-      }
-      .google-review-cta .google-review-button{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:999px;background:#c9a84c;color:#0b1d3a!important;text-decoration:none;font-weight:800;box-shadow:0 8px 22px rgba(201,168,76,.24);transition:transform .2s ease,box-shadow .2s ease}
+      .rv-carousel{position:relative;overflow:hidden;margin:24px 0 4px}
+      .rv-track{display:flex;transition:transform .62s cubic-bezier(.65,0,.35,1)}
+      .rv-slide{min-width:100%;display:flex;flex-direction:column;justify-content:center;min-height:230px;padding:26px 28px;border-radius:14px;background:#0b1d3a;color:#fff;text-align:left;box-sizing:border-box}
+      .rv-source{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+      .rv-stars{color:#c9a84c;letter-spacing:.13em;font-size:.95rem;white-space:nowrap}
+      .rv-badge{display:inline-flex;align-items:center;gap:7px;color:rgba(255,255,255,.72);font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+      .rv-badge-dot{width:9px;height:9px;border-radius:50%;background:#4285f4;box-shadow:10px 0 #ea4335,20px 0 #fbbc05,30px 0 #34a853;margin-right:30px}
+      .rv-slide blockquote{margin:0;color:#fff;font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.02rem,2vw,1.2rem);font-style:italic;line-height:1.6}
+      .rv-author{margin-top:18px;color:#c9a84c;font-size:.83rem;font-weight:700}
+      .rv-controls{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:16px}
+      .rv-arrows{display:flex;gap:9px}
+      .rv-arrow,.rv-pause{border:1px solid rgba(11,29,58,.22);background:#fff;color:#0b1d3a;cursor:pointer;border-radius:999px;min-height:38px;transition:background .2s,border-color .2s,transform .2s}
+      .rv-arrow{width:38px;font-size:1rem}
+      .rv-pause{padding:7px 13px;font:700 .7rem inherit}
+      .rv-arrow:hover,.rv-pause:hover,.rv-arrow:focus-visible,.rv-pause:focus-visible{background:rgba(201,168,76,.18);border-color:#c9a84c;transform:translateY(-2px);outline:none}
+      .rv-dots{display:flex;justify-content:center;gap:7px}
+      .rv-dot{width:8px;height:8px;padding:0;border:0;border-radius:999px;background:rgba(11,29,58,.25);cursor:pointer;transition:width .2s,background .2s}
+      .rv-dot.active{width:22px;background:#c9a84c}
+      .google-review-cta .google-review-button{display:inline-flex;align-items:center;justify-content:center;margin-top:22px;padding:14px 24px;border-radius:999px;background:#c9a84c;color:#0b1d3a!important;text-decoration:none;font-weight:800;box-shadow:0 8px 22px rgba(201,168,76,.24);transition:transform .2s ease,box-shadow .2s ease}
       .google-review-cta .google-review-button:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(201,168,76,.34)}
       .google-review-cta-note{display:block;margin-top:15px;color:#6c7380;font-size:.78rem}
-      @media(max-width:600px){.google-review-cta{padding:52px 16px}.google-review-cta-inner{padding:34px 22px}.google-review-cta .google-review-button{width:100%}}
+      @media(max-width:600px){.google-review-cta{padding:52px 16px}.google-review-cta-inner{padding:30px 18px}.rv-slide{min-height:260px;padding:22px}.google-review-cta .google-review-button{width:100%}}
+      @media (prefers-reduced-motion:reduce){.rv-track,.rv-arrow,.rv-pause,.rv-dot{transition:none!important}}
     `;
     document.head.appendChild(styles);
   }
+
+  const escape = (text) => String(text).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+  const slides = SITE_REVIEWS.map((review, index) => `
+    <article class="rv-slide" aria-label="${index + 1} of ${SITE_REVIEWS.length}">
+      <div class="rv-source">
+        <span class="rv-stars" aria-label="5 stars">★★★★★</span>
+        <span class="rv-badge">${review.google
+          ? '<span class="rv-badge-dot"></span>Google Review'
+          : '<span data-en>Client testimonial</span><span data-ht>Temwayaj kliyan</span>'}</span>
+      </div>
+      ${review.ht
+        ? `<blockquote data-en>“${escape(review.en)}”</blockquote><blockquote data-ht>“${escape(review.ht)}”</blockquote>`
+        : `<blockquote>“${escape(review.en)}”</blockquote>`}
+      <div class="rv-author">— ${escape(review.author)}</div>
+    </article>`).join('');
+
+  const dots = SITE_REVIEWS.map((_, index) =>
+    `<button class="rv-dot${index === 0 ? ' active' : ''}" type="button" data-rv-index="${index}" aria-label="Review ${index + 1}"></button>`).join('');
 
   const section = document.createElement('section');
   section.className = 'google-review-cta reveal';
   section.setAttribute('aria-labelledby', 'google-review-heading');
   section.innerHTML = `
     <div class="google-review-cta-inner">
-      <div class="google-review-cta-stars" aria-label="5 stars">★★★★★</div>
+      <div class="rv-eyebrow"><span data-en>WHAT CLIENTS SAY</span><span data-ht>SA KLIYAN DI</span></div>
       <h2 id="google-review-heading"><span data-en>Reviews &amp; Testimonials</span><span data-ht>Reviews ak Temwayaj</span></h2>
       <p data-en>If ME Shield Financial Services helped you, your honest review can help another family or small-business owner find clear, trustworthy support.</p>
       <p data-ht>Si ME Shield Financial Services te ede ou, yon review onèt ka ede yon lòt fanmi oswa pwopriyetè ti biznis jwenn sèvis klè yo ka fè konfyans.</p>
-      <div class="google-review-testimonial">
-        <blockquote>“Mwen renmen sèvis la. Mesye Miguelson pran swen pou li eksplike m tout bagay nèt.”</blockquote>
-        <cite>— David E. · Client testimonial · ★★★★★</cite>
+      <div class="rv-carousel" role="region" aria-roledescription="carousel" aria-label="Client reviews and testimonials" tabindex="0">
+        <div class="rv-track">${slides}</div>
+      </div>
+      <div class="rv-controls">
+        <div class="rv-arrows">
+          <button class="rv-arrow" type="button" data-rv-step="-1" aria-label="Previous review">‹</button>
+          <button class="rv-arrow" type="button" data-rv-step="1" aria-label="Next review">›</button>
+        </div>
+        <div class="rv-dots" aria-label="Choose a review">${dots}</div>
+        <button class="rv-pause" type="button" data-rv-pause aria-label="Pause the reviews">Pause</button>
       </div>
       <a class="google-review-button" href="https://g.page/r/CaF7fP4t8WEjEBM/review" target="_blank" rel="noopener">
         <span data-en>Leave a Google Review →</span><span data-ht>Kite yon Review sou Google →</span>
@@ -683,7 +745,64 @@ function initGoogleReviewSection() {
     </div>`;
 
   const footer = document.querySelector('body > footer');
-  if (footer) footer.before(section);
+  if (footer) footer.before(section); else document.body.append(section);
+
+  wireReviewCarousel(section);
+}
+
+function wireReviewCarousel(section) {
+  const track = section.querySelector('.rv-track');
+  const dots = [...section.querySelectorAll('.rv-dot')];
+  const pauseButton = section.querySelector('[data-rv-pause]');
+  const total = dots.length;
+  if (!track || !total) return;
+
+  let index = 0;
+  let timer = null;
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const show = (next) => {
+    index = (next + total) % total;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+  };
+  const start = () => {
+    if (calm || timer) return;
+    timer = setInterval(() => show(index + 1), 7000);
+    pauseButton.textContent = 'Pause';
+    pauseButton.setAttribute('aria-label', 'Pause the reviews');
+  };
+  const stop = () => {
+    clearInterval(timer); timer = null;
+    pauseButton.textContent = 'Play';
+    pauseButton.setAttribute('aria-label', 'Play the reviews');
+  };
+
+  section.querySelectorAll('[data-rv-step]').forEach((button) => {
+    button.addEventListener('click', () => { stop(); show(index + Number(button.dataset.rvStep)); });
+  });
+  dots.forEach((dot) => dot.addEventListener('click', () => { stop(); show(Number(dot.dataset.rvIndex)); }));
+  pauseButton.addEventListener('click', () => (timer ? stop() : start()));
+
+  const carousel = section.querySelector('.rv-carousel');
+  carousel.addEventListener('mouseenter', () => timer && stop());
+  carousel.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') { stop(); show(index - 1); }
+    if (event.key === 'ArrowRight') { stop(); show(index + 1); }
+  });
+
+  // Nothing rotates while the section is off screen or the tab is in the
+  // background — an interval firing behind a hidden page is pure waste.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => (entry.isIntersecting ? start() : stop()));
+    }, { threshold: 0.35 }).observe(carousel);
+  } else {
+    start();
+  }
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : null));
+
+  if (calm) stop();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
