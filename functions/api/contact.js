@@ -43,6 +43,8 @@
  */
 
 
+import { recordFailedLead, deliveryFailureReason } from './_failed-leads.js';
+
 // ===========================================================================
 // CONFIGURATION — safe to edit
 // ===========================================================================
@@ -317,6 +319,23 @@ async function handleIntake(request, env) {
     // form can show a real message instead of always saying "Thank you!".
     // -----------------------------------------------------------------------
     if (!ok) {
+      // This form keeps no KV backup copy of its own, so this write is the
+      // only thing standing between a real lead and nothing at all.
+      await recordFailedLead(env, {
+        name: `${first_name} ${last_name}`.trim(),
+        email: email,
+        phone: phone,
+        service: rawService,
+        reason: deliveryFailureReason(env),
+        source: "contact_form",
+        state: state,
+        language: language,
+        message: message,
+        pageUrl: clean(body.page_url, 300),
+        country: request.headers.get("CF-IPCountry") || "",
+        submissionId: payload.submission_id
+      });
+
       return json({ ok: false, error: "delivery_failed" }, 502, cors);
     }
 

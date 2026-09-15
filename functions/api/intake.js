@@ -43,6 +43,8 @@
  */
 
 
+import { recordFailedLead, deliveryFailureReason } from './_failed-leads.js';
+
 // ===========================================================================
 // CONFIGURATION — safe to edit
 // ===========================================================================
@@ -425,6 +427,26 @@ async function handleIntake(request, env) {
         submission_id: payload.submission_id,
         delivered_to: null
       });
+
+      // The lead is real, it passed every check, and it is about to be lost.
+      // Put it somewhere a human can find it before telling the visitor we
+      // could not take it.
+      await recordFailedLead(env, {
+        name: `${first_name} ${last_name}`.trim(),
+        email: email,
+        phone: phone,
+        service: rawService,
+        reason: deliveryFailureReason(env),
+        source: "connect_form",
+        state: state,
+        language: language,
+        message: message,
+        pageUrl: clean(body.page_url, 300),
+        country: request.headers.get("CF-IPCountry") || "",
+        submissionId: payload.submission_id,
+        backupId: leadBackup ? leadBackup.id : ""
+      });
+
       return json({
         ok: false,
         error: "delivery_failed",
