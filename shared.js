@@ -805,6 +805,177 @@ function wireReviewCarousel(section) {
   if (calm) stop();
 }
 
+
+/* ── Sticky consultation CTA ──
+   The client form sits on one page. Anyone reading an article, a service page
+   or the homepage had nothing reminding them it exists, and no route to it
+   short of finding the nav. This carries the offer with them.
+
+   The restraint is the point. It waits until a screen and a half has been
+   read, so it reads as an offer rather than an interruption; it is dismissible
+   and the dismissal is remembered for a week; and it never appears on the
+   pages where it would be noise — the contact page itself, the booking page,
+   and the legal pages, where a sales bar over a privacy policy looks careless.
+   It also steps the chat bubble and the back-to-top button up while it shows,
+   so nothing ends up stacked on top of anything else. */
+const CTA_DISMISSED_KEY = 'meshield-cta-dismissed';
+const CTA_QUIET_DAYS = 7;
+const CTA_HIDDEN_PAGES = new Set([
+  '/contact', '/book', '/privacy', '/terms', '/accessibility', '/404',
+]);
+// The same destination as the header's "Client Form" button. marketing-source.js
+// watches for links to the client portal and tags them with the visitor's
+// first-touch campaign, including ones added after load like this one — so a
+// lead that arrives through the bar is still attributed to where it came from.
+const CTA_FORM_URL = 'https://clientportal.meshieldfinancial.com/public-intake';
+
+/* The five service pages carry their own inline stylesheet and never link
+   style.css — and those are precisely the pages this offer belongs on. So the
+   component brings its own styles, the way the review section does, and works
+   the same on all forty-four pages. Colours are written out rather than taken
+   from custom properties for the same reason. */
+function injectCtaStyles() {
+  if (document.getElementById('cta-bar-styles')) return;
+  const style = document.createElement('style');
+  style.id = 'cta-bar-styles';
+  style.textContent = `
+    .cta-bar{position:fixed;left:0;right:0;bottom:0;z-index:95;display:flex;align-items:center;justify-content:center;gap:20px;
+      /* iPhone home-indicator strip: without this the button sits under it. */
+      padding:13px 58px calc(13px + env(safe-area-inset-bottom,0px)) 22px;
+      background:linear-gradient(180deg,#122348 0%,#0B1C3A 100%);border-top:1px solid rgba(201,168,76,.45);
+      box-shadow:0 -10px 34px rgba(11,28,58,.32);transform:translateY(115%);transition:transform .45s cubic-bezier(.22,1,.36,1);
+      font-family:'Inter',system-ui,sans-serif;box-sizing:border-box}
+    .cta-bar *{box-sizing:border-box}
+    .cta-bar.is-open{transform:translateY(0)}
+    .cta-bar-text{color:#fff;font-size:.95rem;line-height:1.45;margin:0}
+    .cta-bar-text strong{display:block;font-family:'Playfair Display',Georgia,serif;font-size:1.06rem;font-weight:700;color:#fff}
+    .cta-bar-text>span{color:rgba(255,255,255,.72);font-size:.84rem}
+    .cta-bar-btn{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      padding:14px 26px;border-radius:999px;background:#C9A84C;color:#0B1C3A!important;font-weight:800;font-size:.92rem;
+      text-decoration:none;white-space:nowrap;box-shadow:0 8px 22px rgba(201,168,76,.32);
+      transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+    .cta-bar-btn:hover,.cta-bar-btn:focus-visible{background:#E2C97A;transform:translateY(-2px);
+      box-shadow:0 12px 28px rgba(201,168,76,.42);outline:none}
+    /* A gold ring that breathes twice on arrival, then stops. Motion that never
+       stops stops being noticed and starts being irritating. */
+    @keyframes cta-pulse{0%,100%{box-shadow:0 8px 22px rgba(201,168,76,.32),0 0 0 0 rgba(201,168,76,.5)}
+      50%{box-shadow:0 8px 22px rgba(201,168,76,.32),0 0 0 12px rgba(201,168,76,0)}}
+    .cta-bar.is-open .cta-bar-btn{animation:cta-pulse 2s ease-out .5s 2}
+    .cta-bar-close{position:absolute;top:50%;right:14px;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.75);cursor:pointer;
+      font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;
+      transition:background .2s ease,color .2s ease}
+    .cta-bar-close:hover,.cta-bar-close:focus-visible{background:rgba(255,255,255,.18);color:#fff;outline:none}
+    /* Nothing may sit on top of the bar or be trapped under it. */
+    body.cta-open .back-to-top{bottom:calc(var(--cta-h,68px) + 20px + env(safe-area-inset-bottom,0px))}
+    body.cta-open .msc-bubble{bottom:calc(var(--cta-h,68px) + 16px + env(safe-area-inset-bottom,0px))!important}
+    body.cta-open .msc-tooltip,body.cta-open .msc-window{bottom:calc(var(--cta-h,68px) + 84px + env(safe-area-inset-bottom,0px))!important}
+    /* The iOS "Install ME Shield" prompt sits bottom-left and landed straight
+       across the button on an iPhone. It is pinned by the shared header's own
+       style block, where every declaration carries !important — so moving it
+       needs the same weight, not more specificity. */
+    body.cta-open .pwa-install{bottom:calc(var(--cta-h,68px) + 14px + env(safe-area-inset-bottom,0px))!important}
+    /* Phones: the sentence shortens and the button takes the full width — a
+       narrow tap target beside two lines of text is a miss waiting to happen. */
+    @media (max-width:700px){
+      .cta-bar{flex-direction:column;align-items:stretch;gap:10px;text-align:center;
+        padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px))}
+      .cta-bar-text{padding-right:34px}
+      .cta-bar-text strong{font-size:1rem}
+      /* The second sentence is a nicety on a laptop and a third of the screen
+         on a phone. The headline and the button carry the offer on their own. */
+      .cta-bar-text>span{display:none}
+      .cta-bar-btn{width:100%;padding:15px 20px}
+      .cta-bar-close{top:12px;transform:none;right:12px}
+    }
+    /* One quiet nudge towards the form for someone who has just been sent here,
+       so the journey ends looking at the thing it was for. */
+    .contact-form-wrap{position:relative}
+    @keyframes form-attention{0%{box-shadow:0 0 0 0 rgba(201,168,76,.55)}100%{box-shadow:0 0 0 18px rgba(201,168,76,0)}}
+    .contact-form-wrap.form-attention::after{content:'';position:absolute;inset:-14px;border-radius:14px;
+      pointer-events:none;animation:form-attention 1.5s ease-out 2}
+    @media (prefers-reduced-motion:reduce){
+      .cta-bar{transition:none}
+      .cta-bar.is-open .cta-bar-btn,.contact-form-wrap.form-attention::after{animation:none}
+    }`;
+  document.head.appendChild(style);
+}
+
+function initStickyCta() {
+  const path = (window.location.pathname.replace(/\/(index)?(\.html)?$/, '').replace(/\.html$/, '')) || '/';
+  injectCtaStyles();
+  if (CTA_HIDDEN_PAGES.has(path)) { highlightContactForm(path); return; }
+  if (document.querySelector('.cta-bar')) return;
+
+  try {
+    const until = Number(localStorage.getItem(CTA_DISMISSED_KEY) || 0);
+    if (until && Date.now() < until) return;
+  } catch (_) { /* private browsing — show it, that is the safe way to be wrong */ }
+
+  const bar = document.createElement('aside');
+  bar.className = 'cta-bar';
+  bar.setAttribute('aria-label', 'Free consultation');
+  bar.innerHTML = `
+    <div class="cta-bar-text">
+      <strong><span data-en>Ready to start? Complete the Client Form.</span><span data-ht>Pare pou kòmanse? Ranpli Fòm Kliyan an.</span></strong>
+      <span data-en>A few minutes, and the consultation is free — in English or Haitian Creole.</span>
+      <span data-ht>Kèk minit, epi konsiltasyon an gratis — an Anglè oswa an Kreyòl.</span>
+    </div>
+    <a class="cta-bar-btn" href="${CTA_FORM_URL}">
+      <span data-en>Open the Client Form</span><span data-ht>Louvri Fòm Kliyan an</span>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 4l-1.4 1.4L16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8z"/></svg>
+    </a>
+    <button class="cta-bar-close" type="button" aria-label="Close">&times;</button>`;
+  document.body.appendChild(bar);
+  // Measure the bar rather than guessing: the text wraps differently in Creole
+  // and on a narrow screen, and a guessed height leaves the chat bubble either
+  // overlapping it or floating in mid-air.
+  const setHeight = () => document.documentElement.style.setProperty('--cta-h', Math.ceil(bar.offsetHeight) + 'px');
+  setHeight();
+  window.addEventListener('resize', setHeight, { passive: true });
+
+  const open = () => { bar.classList.add('is-open'); document.body.classList.add('cta-open'); };
+  const close = () => {
+    bar.classList.remove('is-open');
+    document.body.classList.remove('cta-open');
+    try { localStorage.setItem(CTA_DISMISSED_KEY, String(Date.now() + CTA_QUIET_DAYS * 864e5)); } catch (_) {}
+    setTimeout(() => bar.remove(), 500);
+  };
+
+  bar.querySelector('.cta-bar-close').addEventListener('click', close);
+  // Following the offer is not a dismissal, but the bar should not ride along
+  // to the page it just sent you to.
+  bar.querySelector('.cta-bar-btn').addEventListener('click', () => document.body.classList.remove('cta-open'));
+
+  // A screen and a half of reading, or the bottom third of a short page —
+  // whichever comes first, so a short page is not left without it.
+  const trigger = Math.min(window.innerHeight * 1.4, Math.max(400, document.body.scrollHeight * 0.3));
+  let shown = false;
+  const check = () => {
+    if (shown || window.scrollY < trigger) return;
+    shown = true; open();
+    window.removeEventListener('scroll', check);
+  };
+  window.addEventListener('scroll', check, { passive: true });
+  check();
+}
+
+/* One quiet nudge towards the form for someone who has just been sent here,
+   so the journey ends looking at the thing it was for. */
+function highlightContactForm(path) {
+  if (path !== '/contact') return;
+  const form = document.querySelector('.contact-form-wrap');
+  if (!form || !('IntersectionObserver' in window)) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      form.classList.add('form-attention');
+      obs.disconnect();
+    });
+  }, { threshold: 0.25 });
+  obs.observe(form);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initSharedFooter();
   initSharedHeader();
@@ -817,6 +988,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initActiveNav();
   initReveal();
   initBackToTop();
+  initStickyCta();
   initFooterYear();
   initLegalLinks();
   initCleanUrls(); // normalize legal links injected above
