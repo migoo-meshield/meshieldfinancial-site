@@ -806,166 +806,166 @@ function wireReviewCarousel(section) {
 }
 
 
-/* ── Sticky consultation CTA ──
-   The client form sits on one page. Anyone reading an article, a service page
-   or the homepage had nothing reminding them it exists, and no route to it
-   short of finding the nav. This carries the offer with them.
+/* ── Client Form bubble ──
+   The Client Form sat in the header and nowhere else. Someone reading an
+   article or a service page got no reminder it existed, and on a phone the
+   only route back to it was up through the hamburger.
 
-   The restraint is the point. It waits until a screen and a half has been
-   read, so it reads as an offer rather than an interruption; it is dismissible
-   and the dismissal is remembered for a week; and it never appears on the
-   pages where it would be noise — the contact page itself, the booking page,
-   and the legal pages, where a sales bar over a privacy policy looks careless.
-   It also steps the chat bubble and the back-to-top button up while it shows,
-   so nothing ends up stacked on top of anything else. */
-const CTA_DISMISSED_KEY = 'meshield-cta-dismissed';
-const CTA_QUIET_DAYS = 7;
-const CTA_HIDDEN_PAGES = new Set([
-  '/contact', '/book', '/privacy', '/terms', '/accessibility', '/404',
-]);
-// The same destination as the header's "Client Form" button. marketing-source.js
-// watches for links to the client portal and tags them with the visitor's
-// first-touch campaign, including ones added after load like this one — so a
-// lead that arrives through the bar is still attributed to where it came from.
-const CTA_FORM_URL = 'https://clientportal.meshieldfinancial.com/public-intake';
+   The first attempt at this was a banner across the bottom of the page. It
+   worked, and it read as an advert, which is the one thing a financial
+   services site cannot afford. So it is built as a sibling of the chat
+   bubble instead: the same shape, the same navy, the same short wave a few
+   seconds after the page settles and then now and then, the same small label
+   that appears once and fades. A visitor already understands that corner of
+   the screen as "things here help me", not "things here are selling to me".
 
-/* The five service pages carry their own inline stylesheet and never link
-   style.css — and those are precisely the pages this offer belongs on. So the
-   component brings its own styles, the way the review section does, and works
-   the same on all forty-four pages. Colours are written out rather than taken
-   from custom properties for the same reason. */
-function injectCtaStyles() {
-  if (document.getElementById('cta-bar-styles')) return;
+   It sits bottom-left, opposite the chat, so the two never crowd each other. */
+const FORM_URL = 'https://clientportal.meshieldfinancial.com/public-intake';
+const FORM_HIDDEN_PAGES = new Set(['/book', '/privacy', '/terms', '/accessibility', '/404']);
+
+function injectFormBubbleStyles() {
+  if (document.getElementById('form-bubble-styles')) return;
   const style = document.createElement('style');
-  style.id = 'cta-bar-styles';
+  style.id = 'form-bubble-styles';
+  // Written out rather than taken from custom properties: the five service
+  // pages carry their own inline stylesheet and never link style.css.
   style.textContent = `
-    .cta-bar{position:fixed;left:0;right:0;bottom:0;z-index:95;display:flex;align-items:center;justify-content:center;gap:20px;
-      /* iPhone home-indicator strip: without this the button sits under it. */
-      padding:13px 58px calc(13px + env(safe-area-inset-bottom,0px)) 22px;
-      background:linear-gradient(180deg,#122348 0%,#0B1C3A 100%);border-top:1px solid rgba(201,168,76,.45);
-      box-shadow:0 -10px 34px rgba(11,28,58,.32);transform:translateY(115%);transition:transform .45s cubic-bezier(.22,1,.36,1);
-      font-family:'Inter',system-ui,sans-serif;box-sizing:border-box}
-    .cta-bar *{box-sizing:border-box}
-    .cta-bar.is-open{transform:translateY(0)}
-    .cta-bar-text{color:#fff;font-size:.95rem;line-height:1.45;margin:0}
-    .cta-bar-text strong{display:block;font-family:'Playfair Display',Georgia,serif;font-size:1.06rem;font-weight:700;color:#fff}
-    .cta-bar-text>span{color:rgba(255,255,255,.72);font-size:.84rem}
-    .cta-bar-btn{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;gap:9px;
-      padding:14px 26px;border-radius:999px;background:#C9A84C;color:#0B1C3A!important;font-weight:800;font-size:.92rem;
-      text-decoration:none;white-space:nowrap;box-shadow:0 8px 22px rgba(201,168,76,.32);
-      transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
-    .cta-bar-btn:hover,.cta-bar-btn:focus-visible{background:#E2C97A;transform:translateY(-2px);
-      box-shadow:0 12px 28px rgba(201,168,76,.42);outline:none}
-    /* A gold ring that breathes twice on arrival, then stops. Motion that never
-       stops stops being noticed and starts being irritating. */
-    @keyframes cta-pulse{0%,100%{box-shadow:0 8px 22px rgba(201,168,76,.32),0 0 0 0 rgba(201,168,76,.5)}
-      50%{box-shadow:0 8px 22px rgba(201,168,76,.32),0 0 0 12px rgba(201,168,76,0)}}
-    .cta-bar.is-open .cta-bar-btn{animation:cta-pulse 2s ease-out .5s 2}
-    .cta-bar-close{position:absolute;top:50%;right:14px;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;
-      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.75);cursor:pointer;
-      font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;
-      transition:background .2s ease,color .2s ease}
-    .cta-bar-close:hover,.cta-bar-close:focus-visible{background:rgba(255,255,255,.18);color:#fff;outline:none}
-    /* Nothing may sit on top of the bar or be trapped under it. */
-    body.cta-open .back-to-top{bottom:calc(var(--cta-h,68px) + 20px + env(safe-area-inset-bottom,0px))}
-    body.cta-open .msc-bubble{bottom:calc(var(--cta-h,68px) + 16px + env(safe-area-inset-bottom,0px))!important}
-    body.cta-open .msc-tooltip,body.cta-open .msc-window{bottom:calc(var(--cta-h,68px) + 84px + env(safe-area-inset-bottom,0px))!important}
-    /* The iOS "Install ME Shield" prompt sits bottom-left and landed straight
-       across the button on an iPhone. It is pinned by the shared header's own
-       style block, where every declaration carries !important — so moving it
-       needs the same weight, not more specificity. */
-    body.cta-open .pwa-install{bottom:calc(var(--cta-h,68px) + 14px + env(safe-area-inset-bottom,0px))!important}
-    /* Phones: the sentence shortens and the button takes the full width — a
-       narrow tap target beside two lines of text is a miss waiting to happen. */
-    @media (max-width:700px){
-      .cta-bar{flex-direction:column;align-items:stretch;gap:10px;text-align:center;
-        padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px))}
-      .cta-bar-text{padding-right:34px}
-      .cta-bar-text strong{font-size:1rem}
-      /* The second sentence is a nicety on a laptop and a third of the screen
-         on a phone. The headline and the button carry the offer on their own. */
-      .cta-bar-text>span{display:none}
-      .cta-bar-btn{width:100%;padding:15px 20px}
-      .cta-bar-close{top:12px;transform:none;right:12px}
-    }
-    /* One quiet nudge towards the form for someone who has just been sent here,
-       so the journey ends looking at the thing it was for. */
+    .mef-bubble{position:fixed;bottom:22px;left:20px;width:58px;height:58px;border-radius:50%;
+      background:#0B1F3A;box-shadow:0 4px 16px rgba(11,31,58,.3);display:flex;align-items:center;justify-content:center;
+      cursor:pointer;border:none;padding:0;z-index:999996;transition:transform .2s ease;
+      -webkit-tap-highlight-color:transparent}
+    .mef-bubble:hover{transform:scale(1.05)}
+    .mef-bubble svg{width:28px;height:28px}
+    .mef-bubble .mef-badge{position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;background:#C9A14A;
+      border:2px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .mef-bubble .mef-badge svg{width:9px;height:9px}
+    /* The same wave as the chat bubble — a nudge and a tilt, not a jitter —
+       with the ring pulsing once behind it so it reads from the corner of the
+       eye. It stops for good once the form has been opened. */
+    @keyframes mef-wave{
+      0%,60%,100%{transform:translateY(0) rotate(0)}
+      8%{transform:translateY(-9px) rotate(-9deg)}
+      16%{transform:translateY(0) rotate(8deg)}
+      24%{transform:translateY(-5px) rotate(-6deg)}
+      32%{transform:translateY(0) rotate(5deg)}
+      40%{transform:translateY(-2px) rotate(0)}}
+    @keyframes mef-ring{
+      0%{box-shadow:0 0 0 0 rgba(201,161,74,.55),0 4px 16px rgba(11,31,58,.3)}
+      70%{box-shadow:0 0 0 16px rgba(201,161,74,0),0 4px 16px rgba(11,31,58,.3)}
+      100%{box-shadow:0 0 0 0 rgba(201,161,74,0),0 4px 16px rgba(11,31,58,.3)}}
+    .mef-bubble.mef-waving{animation:mef-wave 2.2s ease-in-out,mef-ring 2.2s ease-out}
+    .mef-bubble:hover,.mef-bubble:focus-visible{animation:none}
+    @media (prefers-reduced-motion:reduce){.mef-bubble.mef-waving{animation:none}}
+    .mef-label{position:fixed;bottom:90px;left:20px;max-width:210px;background:#fff;color:#0B1F3A;
+      padding:10px 14px;border-radius:12px;font:600 12.5px/1.4 'Inter',system-ui,sans-serif;
+      box-shadow:0 6px 20px rgba(11,31,58,.18);z-index:999995;opacity:0;transform:translateY(8px);
+      pointer-events:none;transition:opacity .4s ease,transform .4s ease;text-decoration:none}
+    .mef-label.mef-show{opacity:1;transform:translateY(0);pointer-events:auto;cursor:pointer}
+    .mef-label::after{content:'';position:absolute;bottom:-6px;left:24px;width:12px;height:12px;background:#fff;
+      transform:rotate(45deg);box-shadow:3px 3px 6px rgba(11,31,58,.06)}
+    /* The iOS install pill also lives bottom-left; it steps above the bubble. */
+    body.mef-present .pwa-install{bottom:calc(92px + env(safe-area-inset-bottom,0px))!important}
+    /* One quiet nudge towards the message form on the contact page itself. */
     .contact-form-wrap{position:relative}
     @keyframes form-attention{0%{box-shadow:0 0 0 0 rgba(201,168,76,.55)}100%{box-shadow:0 0 0 18px rgba(201,168,76,0)}}
     .contact-form-wrap.form-attention::after{content:'';position:absolute;inset:-14px;border-radius:14px;
       pointer-events:none;animation:form-attention 1.5s ease-out 2}
-    @media (prefers-reduced-motion:reduce){
-      .cta-bar{transition:none}
-      .cta-bar.is-open .cta-bar-btn,.contact-form-wrap.form-attention::after{animation:none}
+    @media (prefers-reduced-motion:reduce){.contact-form-wrap.form-attention::after{animation:none}}
+    @media (max-width:640px){
+      .mef-bubble{bottom:18px;left:16px;width:52px;height:52px}
+      .mef-bubble svg{width:25px;height:25px}
+      /* The chat has a label of its own in the opposite corner. On a narrow
+         screen two of them meet in the middle and clip each other, so this one
+         keeps to its half. */
+      .mef-label{bottom:80px;left:16px;max-width:min(190px,calc(50vw - 24px))}
+      body.mef-present .pwa-install{bottom:calc(82px + env(safe-area-inset-bottom,0px))!important}
     }`;
   document.head.appendChild(style);
 }
 
-function initStickyCta() {
+function initFormBubble() {
   const path = (window.location.pathname.replace(/\/(index)?(\.html)?$/, '').replace(/\.html$/, '')) || '/';
-  injectCtaStyles();
-  if (CTA_HIDDEN_PAGES.has(path)) { highlightContactForm(path); return; }
-  if (document.querySelector('.cta-bar')) return;
+  highlightContactForm(path);
+  if (FORM_HIDDEN_PAGES.has(path) || document.querySelector('.mef-bubble')) return;
+  injectFormBubbleStyles();
 
-  try {
-    const until = Number(localStorage.getItem(CTA_DISMISSED_KEY) || 0);
-    if (until && Date.now() < until) return;
-  } catch (_) { /* private browsing — show it, that is the safe way to be wrong */ }
+  const en = 'Start your Client Form';
+  const ht = 'Ranpli Fòm Kliyan an';
+  const isCreole = () => document.body.classList.contains('lang-ht');
 
-  const bar = document.createElement('aside');
-  bar.className = 'cta-bar';
-  bar.setAttribute('aria-label', 'Free consultation');
-  bar.innerHTML = `
-    <div class="cta-bar-text">
-      <strong><span data-en>Ready to start? Complete the Client Form.</span><span data-ht>Pare pou kòmanse? Ranpli Fòm Kliyan an.</span></strong>
-      <span data-en>A few minutes, and the consultation is free — in English or Haitian Creole.</span>
-      <span data-ht>Kèk minit, epi konsiltasyon an gratis — an Anglè oswa an Kreyòl.</span>
-    </div>
-    <a class="cta-bar-btn" href="${CTA_FORM_URL}">
-      <span data-en>Open the Client Form</span><span data-ht>Louvri Fòm Kliyan an</span>
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 4l-1.4 1.4L16.2 11H4v2h12.2l-5.6 5.6L12 20l8-8z"/></svg>
-    </a>
-    <button class="cta-bar-close" type="button" aria-label="Close">&times;</button>`;
-  document.body.appendChild(bar);
-  // Measure the bar rather than guessing: the text wraps differently in Creole
-  // and on a narrow screen, and a guessed height leaves the chat bubble either
-  // overlapping it or floating in mid-air.
-  const setHeight = () => document.documentElement.style.setProperty('--cta-h', Math.ceil(bar.offsetHeight) + 'px');
-  setHeight();
-  window.addEventListener('resize', setHeight, { passive: true });
+  const bubble = document.createElement('a');
+  bubble.className = 'mef-bubble';
+  bubble.href = FORM_URL;
+  bubble.setAttribute('aria-label', en);
+  bubble.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="#C9A14A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/>
+      <path d="M14 2v5h5"/><path d="M9 12h6"/><path d="M9 16h4"/>
+    </svg>
+    <span class="mef-badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0B1F3A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </span>`;
+  document.body.appendChild(bubble);
+  document.body.classList.add('mef-present');
 
-  const open = () => { bar.classList.add('is-open'); document.body.classList.add('cta-open'); };
-  const close = () => {
-    bar.classList.remove('is-open');
-    document.body.classList.remove('cta-open');
-    try { localStorage.setItem(CTA_DISMISSED_KEY, String(Date.now() + CTA_QUIET_DAYS * 864e5)); } catch (_) {}
-    setTimeout(() => bar.remove(), 500);
+  const label = document.createElement('a');
+  label.className = 'mef-label';
+  label.href = FORM_URL;
+  label.innerHTML = `<span data-en>${en} \u{1F4DD}</span><span data-ht>${ht} \u{1F4DD}</span>`;
+  document.body.appendChild(label);
+
+  const setLabels = () => bubble.setAttribute('aria-label', isCreole() ? ht : en);
+  setLabels();
+  new MutationObserver(setLabels).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  // Waves a few seconds after the page settles, then every 45 seconds, so
+  // someone who is reading and hesitating sees it without being pestered.
+  // Once they have opened the form, this visitor is done being nudged.
+  let waveTimer = null;
+  const wave = () => {
+    bubble.classList.remove('mef-waving');
+    void bubble.offsetWidth;            // restart the animation
+    bubble.classList.add('mef-waving');
   };
-
-  bar.querySelector('.cta-bar-close').addEventListener('click', close);
-  // Following the offer is not a dismissal, but the bar should not ride along
-  // to the page it just sent you to.
-  bar.querySelector('.cta-bar-btn').addEventListener('click', () => document.body.classList.remove('cta-open'));
-
-  // A screen and a half of reading, or the bottom third of a short page —
-  // whichever comes first, so a short page is not left without it.
-  const trigger = Math.min(window.innerHeight * 1.4, Math.max(400, document.body.scrollHeight * 0.3));
-  let shown = false;
-  const check = () => {
-    if (shown || window.scrollY < trigger) return;
-    shown = true; open();
-    window.removeEventListener('scroll', check);
+  const stopWaving = () => {
+    clearInterval(waveTimer); waveTimer = null;
+    bubble.classList.remove('mef-waving');
+    label.classList.remove('mef-show');
+    try { sessionStorage.setItem('mef-opened', '1'); } catch (_) {}
   };
-  window.addEventListener('scroll', check, { passive: true });
-  check();
+  bubble.addEventListener('animationend', () => bubble.classList.remove('mef-waving'));
+
+  let opened = false;
+  try { opened = Boolean(sessionStorage.getItem('mef-opened')); } catch (_) {}
+  if (!opened) {
+    // Offset from the chat bubble's own 4.5s so the two corners never move at
+    // the same moment, which would read as the page twitching.
+    setTimeout(wave, 7000);
+    waveTimer = setInterval(wave, 45000);
+    let labelShown = false;
+    try { labelShown = Boolean(sessionStorage.getItem('mef-label-shown')); } catch (_) {}
+    if (!labelShown) {
+      // The chat's own label runs from 3s to 9s. This one waits for that to
+      // clear: two speech bubbles on screen at once is a shop window, not an
+      // offer of help.
+      setTimeout(() => {
+        label.classList.add('mef-show');
+        try { sessionStorage.setItem('mef-label-shown', '1'); } catch (_) {}
+      }, 10000);
+      setTimeout(() => label.classList.remove('mef-show'), 17500);
+    }
+  }
+  bubble.addEventListener('click', stopWaving);
+  label.addEventListener('click', stopWaving);
 }
 
-/* One quiet nudge towards the form for someone who has just been sent here,
-   so the journey ends looking at the thing it was for. */
+/* One quiet nudge towards the message form for someone who lands on the
+   contact page, so the journey ends looking at the thing it was for. */
 function highlightContactForm(path) {
   if (path !== '/contact') return;
   const form = document.querySelector('.contact-form-wrap');
   if (!form || !('IntersectionObserver' in window)) return;
+  if (!document.getElementById('form-bubble-styles')) injectFormBubbleStyles();
   const obs = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
@@ -988,7 +988,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initActiveNav();
   initReveal();
   initBackToTop();
-  initStickyCta();
+  initFormBubble();
   initFooterYear();
   initLegalLinks();
   initCleanUrls(); // normalize legal links injected above
