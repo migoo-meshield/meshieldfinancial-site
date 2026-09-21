@@ -192,10 +192,6 @@ async function handleIntake(request, env) {
     if (!first_name)          missing.push("first_name");
     if (!email)               missing.push("email");
     if (!phone)               missing.push("phone");
-    // The Connect card is the only form that posts here, and every field on it
-    // is required. Checking it here too means a blank one cannot be slipped
-    // past by anyone who skips the page's own JavaScript.
-    if (!dateOfBirth)         missing.push("date_of_birth");
     if (!rawService)          missing.push("service");
     if (!state)               missing.push("state");
     if (body.consent !== true) missing.push("consent");
@@ -624,7 +620,6 @@ function fieldMessage(field) {
     phone: "Enter your phone number.",
     service: "Choose the service you need.",
     state: "Choose your state.",
-    date_of_birth: "Enter your date of birth.",
     consent: "Check the consent box so ME Shield can contact you."
   };
   return messages[field] || "Complete this required field.";
