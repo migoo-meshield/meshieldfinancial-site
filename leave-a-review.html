@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="/style.css?v=20260810-2"/>
   <style>
     .review-card{max-width:560px;margin:0 auto;background:var(--white);border-radius:12px;padding:48px 44px;box-shadow:var(--shadow-lg);border:1px solid rgba(201,168,76,.1);text-align:center;}
-    .review-card h1{color:var(--navy);margin-bottom:10px;}
+    .review-card h1,.review-card .review-heading{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.15;color:var(--navy);margin:0 0 10px;}
     .review-card p{margin-bottom:0;}
     .review-stars{font-size:2rem;color:var(--gold);letter-spacing:6px;margin:18px 0;}
     .review-note{font-size:.82rem;color:rgba(11,29,58,.55);margin-top:24px;}
@@ -89,7 +89,7 @@
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
       <h1 data-en>Thank You for Being a Client</h1>
-      <h1 data-ht>Mèsi Paske Ou Se Yon Kliyan</h1>
+      <div data-ht class="review-heading" role="heading" aria-level="1">Mèsi Paske Ou Se Yon Kliyan</div>
       <p data-en>If ME Shield Financial Services has helped you, a quick review on Google helps other Haitian families and neighbors in Florida find honest, trustworthy help too. It only takes a minute.</p>
       <p data-ht>Si ME Shield Financial Services te ede ou, yon ti revizyon sou Google ap ede lòt fanmi ayisyen ak vwazen nan Florid jwenn èd onèt tou. Sa pran sèlman yon minit.</p>
       <a class="btn btn-gold" style="margin-top:26px;display:inline-block;" href="https://g.page/r/CaF7fP4t8WEjEBM/review" target="_blank" rel="noopener">
