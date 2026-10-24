@@ -1,6 +1,7 @@
 import contextlib
 import io
 import json
+import re
 import shutil
 import sys
 import tempfile
@@ -74,6 +75,60 @@ class PublicationRules(unittest.TestCase):
             self.assertGreaterEqual(len(schema['citation']),1)
             self.assertIn(a['title']['ht'],page)
             self.assertGreaterEqual(len(a['sections']),5)
+
+    def test_publishing_marks_the_new_article_as_latest(self):
+        self.reset_schedule(); self.run_at('2026-10-24T09:00:00-04:00')
+        slug = self.initial[0]['slug']
+        text = (self.root / 'blog.html').read_text()
+        new_card = re.search(r'<article class="([^"]*)"[^>]*>(?:(?!</article>).)*?href="/'+re.escape(slug)+r'"', text, re.S)
+        self.assertIsNotNone(new_card)
+        classes = new_card.group(1).split()
+        self.assertIn('featured', classes)
+        self.assertIn('latest-post', classes)
+        self.assertIn('Latest', new_card.group(0))
+
+    def _inject_card(self, classes, category):
+        # A self-contained fixture card, independent of whatever blog.html's
+        # hand-authored content happens to contain at the time the test
+        # runs — these tests prove demote_latest()'s own behavior, not
+        # anything about the site's current articles.
+        blog = self.root / 'blog.html'
+        marker = '<div class="blog-grid reveal" id="blog-grid">'
+        fixture = (f'<article class="{classes}" data-category="{category}">'
+                   '<div class="blog-card-body"><div class="blog-meta">'
+                   '<span class="latest-badge" data-en>Latest</span>'
+                   '<span class="latest-badge" data-ht>Pi Resan</span>'
+                   '</div><h3 data-en>Fixture</h3></div></article>')
+        blog.write_text(blog.read_text().replace(marker, marker + '\n' + fixture, 1))
+
+    def test_publishing_demotes_the_previous_sitewide_latest(self):
+        self.reset_schedule()
+        other_category = next(c for c in publisher.CATEGORIES if c != self.initial[0]['category'])
+        self._inject_card('blog-card featured latest-post', other_category)
+
+        self.run_at('2026-10-24T09:00:00-04:00')
+        text_after = (self.root / 'blog.html').read_text()
+        # Only one card may carry the "featured latest-post" combination at a time.
+        self.assertEqual(len(re.findall(r'class="[^"]*\bfeatured\b[^"]*\blatest-post\b[^"]*"', text_after)), 1)
+        demoted = re.search(r'<article class="([^"]*)" data-category="'+other_category+r'">', text_after)
+        self.assertNotIn('featured', demoted.group(1).split())
+        self.assertNotIn('latest-post', demoted.group(1).split())
+
+    def test_publishing_demotes_the_previous_latest_in_the_same_category(self):
+        self.reset_schedule()
+        category = self.initial[0]['category']
+        self._inject_card('blog-card latest-post', category)
+
+        self.run_at('2026-10-24T09:00:00-04:00')
+        text_after = (self.root / 'blog.html').read_text()
+        latest_post_cards_in_category = [
+            m.group(1) for m in re.finditer(r'<article class="([^"]*)" data-category="'+category+r'"[^>]*>', text_after)
+            if 'latest-post' in m.group(1).split()
+        ]
+        # Exactly the new article's own card — the fixture must have lost
+        # latest-post, or two cards would both claim to be this category's
+        # latest at once.
+        self.assertEqual(len(latest_post_cards_in_category), 1)
 
     def test_schedule_has_two_per_category_and_dst(self):
         from collections import Counter

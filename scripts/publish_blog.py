@@ -66,9 +66,35 @@ def render_article(a):
 </article></div></section></main>{footer}<script src="/shared.js"></script><script src="/chatbot-widget.js"></script></body></html>'''
 
 def card(a):
+    # The freshly published article is always the new sitewide "Latest" —
+    # featured (full-width hero layout) and bordered, same treatment the
+    # hand-authored hero card had. demote_latest() strips that off
+    # whichever card held it before, so there's only ever one at a time.
     ce,ch,image=CATEGORIES[a['category']]
-    return f'''<article class="blog-card" data-category="{a['category']}" data-published="{a['published_at']}">
-<div class="blog-card-thumb" style="background-image:url('{image}');background-size:cover;background-position:center;"></div><div class="blog-card-body"><div class="blog-meta">{both('span',ce,ch,'class="blog-tag"')}<time class="blog-date" datetime="{a['published_at']}">{a['published_at'][:10]}</time></div>{both('h3',esc(a['title']['en']),esc(a['title']['ht']))}{both('p',esc(a['description']['en']),esc(a['description']['ht']))}{both('a','Read full article →','Li atik konplè a →',f'href="/{a["slug"]}" class="blog-read-more"')}</div></article>'''
+    badge=both('span','Latest','Pi Resan','class="latest-badge"')
+    return f'''<article class="blog-card featured latest-post" data-category="{a['category']}" data-published="{a['published_at']}">
+<div class="blog-card-thumb" style="background-image:url('{image}');background-size:cover;background-position:center;"></div><div class="blog-card-body"><div class="blog-meta">{badge}{both('span',ce,ch,'class="blog-tag"')}<time class="blog-date" datetime="{a['published_at']}">{a['published_at'][:10]}</time></div>{both('h3',esc(a['title']['en']),esc(a['title']['ht']))}{both('p',esc(a['description']['en']),esc(a['description']['ht']))}{both('a','Read full article →','Li atik konplè a →',f'href="/{a["slug"]}" class="blog-read-more"')}</div></article>'''
+
+# Strips the "Latest" treatment (featured hero layout, gold border, badge)
+# off whichever card currently carries it, so publishing a new article
+# never leaves two cards both marked "Latest" — the previous sitewide
+# hero, and the previous latest article in the new one's own category
+# (if that's a different card), since the new article is about to claim
+# both of those spots.
+ARTICLE_RE=re.compile(r'<article class="([^"]+)" data-category="([^"]+)"((?:\s+data-[\w-]+="[^"]*")*)>(.*?)</article>',re.S)
+BADGE_RE=re.compile(r'\s*<span class="latest-badge"[^>]*>.*?</span>\s*<span class="latest-badge"[^>]*>.*?</span>',re.S)
+
+def demote_latest(text,new_category):
+    def repl(m):
+        classes,cat,extra,body=m.group(1),m.group(2),m.group(3),m.group(4)
+        tokens=classes.split()
+        is_sitewide_hero='featured' in tokens and 'latest-post' in tokens
+        is_same_category_latest='latest-post' in tokens and 'featured' not in tokens and cat==new_category
+        if not (is_sitewide_hero or is_same_category_latest): return m.group(0)
+        tokens=[t for t in tokens if t not in ('featured','latest-post')]
+        body=BADGE_RE.sub('',body,count=1)
+        return f'<article class="{" ".join(tokens)}" data-category="{cat}"{extra}>{body}</article>'
+    return ARTICLE_RE.sub(repl,text)
 
 # Preserve the existing feed: backfilling old cards could trigger a client-email backlog.
 def update_rss(a):
@@ -98,6 +124,7 @@ def main():
     page=render_article(a); path.write_text(page)
     blog=ROOT/'blog.html'; text=blog.read_text(); marker='<div class="blog-grid reveal" id="blog-grid">'
     if marker not in text: raise SystemExit('Blog insertion marker missing')
+    text=demote_latest(text,a['category'])
     text=text.replace(marker,marker+'\n'+card(a),1); blog.write_text(text)
     sitemap=ROOT/'sitemap.xml'; xml=sitemap.read_text(); url=ORIGIN+'/'+a['slug']
     if f'<loc>{url}</loc>' not in xml: xml=xml.replace('</urlset>',f'  <url><loc>{url}</loc><lastmod>{a["published_at"][:10]}</lastmod></url>\n</urlset>')
