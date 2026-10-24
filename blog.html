@@ -212,6 +212,8 @@
     </div>
 
     <div class="blog-grid reveal" id="blog-grid">
+<article class="blog-card" data-category="insurance" data-published="2026-10-24T07:00:19-04:00">
+<div class="blog-card-thumb" style="background-image:url('article-homeowners-renters.jpg');background-size:cover;background-position:center;"></div><div class="blog-card-body"><div class="blog-meta"><span data-en class="blog-tag">Insurance</span><span data-ht class="blog-tag">Asirans</span><time class="blog-date" datetime="2026-10-24T07:00:19-04:00">2026-10-24</time></div><h3 data-en >Home Insurance Coverage A to F: A Florida Guide With Real-Life Examples</h3><h3 data-ht >Kouvèti A rive F nan Asirans Kay: Yon Gid Florid ak Egzanp Klè</h3><p data-en >Understand the main home insurance coverages, deductibles, optional endorsements and exclusions before comparing your next quote.</p><p data-ht >Konprann prensipal kouvèti asirans kay yo, dediktib yo, opsyon siplemantè ak esklizyon yo anvan ou konpare pwochen quote ou.</p><a data-en href="/home-insurance-coverages-a-to-f-florida" class="blog-read-more">Read full article →</a><a data-ht href="/home-insurance-coverages-a-to-f-florida" class="blog-read-more">Li atik konplè a →</a></div></article>
 
       <article class="blog-card featured latest-post" data-category="insurance">
         <div class="blog-card-thumb" style="background-image:url('article-umbrella-flood.jpg');background-size:cover;background-position:center;"></div>
@@ -713,12 +715,12 @@
         <p data-ht>Konsèy taks, aktualize asirans, enfòmasyon sou Infinite Banking, ak resous kominote — livrezon an Anglè oswa Kreyòl. Pa gen spam, dezabòne nenpòt ki lè.</p>
       </div>
       <div>
-        <iframe name="nl_hidden_iframe" style="display:none;"></iframe>
-        <form id="nl-real-form" method="POST" target="nl_hidden_iframe"
+        
+        <form id="nl-real-form" method="POST"
           action="https://d95daacd.sibforms.com/serve/MUIFAJsWsW2wj0VrBlCGqvlLuVpkJwxGXtpQjn0E2YWT-7EbSJi5Zqkik0ZsHliFQAlHhrQcmY9hK1eC3-KwDh0aHdDNnbfCAJmcJt83Ezie3AVhw5dLryV7YoF1LTtlx0xEmptLA1pJH4mz-Ezvbzfsz0vb8FoULgOLb4RaYZVrWGBFYLEhVD93SGRb91S6bcaWftCoUwWoRcuXNw=="
           onsubmit="return handleNLSubmit(event)">
           <div class="newsletter-form" id="nl-form">
-            <input type="email" id="nl-email" name="EMAIL" placeholder="your@email.com" required/>
+            <input type="email" id="nl-email" aria-label="Email address / Adrès imel" name="EMAIL" placeholder="your@email.com" required/>
             <button class="btn btn-gold" type="submit">
               <span data-en>Subscribe</span>
               <span data-ht>Abòne</span>
@@ -728,8 +730,8 @@
           <input type="hidden" name="locale" value="en"/>
           <input type="hidden" name="html_type" value="simple"/>
         </form>
-        <div id="nl-success" style="display:none;color:var(--gold);font-weight:600;font-size:.92rem;margin-top:8px;" data-en><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> You're subscribed! Welcome to the ME Shield community.</div>
-        <div id="nl-success-ht" style="display:none;color:var(--gold);font-weight:600;font-size:.92rem;margin-top:8px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:-2px;display:inline-block;"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Ou abòne! Byenveni nan kominote ME Shield la.</div>
+        <p style="font-size:.8rem;margin-top:12px;" data-en>Continue to the secure subscription form to confirm your request. Your subscription is confirmed by Brevo, not by this page.</p>
+        <p style="font-size:.8rem;margin-top:12px;" data-ht>Kontinye nan fòm abònman sekirize a pou konfime demann ou. Se Brevo ki konfime abònman an, se pa paj sa a.</p>
       </div>
     </div>
 
@@ -876,14 +878,7 @@ function escapeUpdatesHtml(str) {
       e.preventDefault();
       return false;
     }
-    setTimeout(() => {
-      document.getElementById('nl-form').style.display = 'none';
-      if (lang === 'ht') {
-        document.getElementById('nl-success-ht').style.display = 'block';
-      } else {
-        document.getElementById('nl-success').style.display = 'block';
-      }
-    }, 500);
+    // Brevo displays the real provider response; never claim success on a timer.
     return true;
   }
 </script>

@@ -1,0 +1,44 @@
+name: Publish scheduled blog article
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-blog.yml'
+      - 'scripts/publish_blog.py'
+      - 'scripts/test_blog_publisher.py'
+  schedule:
+    # Check both offsets to cover Florida daylight and standard time.
+    - cron: '17 13,14 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: scheduled-blog-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Verify publication rules
+        run: python3 -m unittest discover -s scripts -p 'test_blog_publisher.py'
+      - name: Publish at most one due article
+        run: python3 scripts/publish_blog.py
+      - name: Validate website
+        run: python3 scripts/validate_site.py
+      - name: Commit publication for the existing Cloudflare Pages integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- '*.html' rss.xml sitemap.xml .github/editorial
+          if git diff --cached --quiet; then
+            echo 'No article due; no change.'
+            exit 0
+          fi
+          git commit -m 'Publish next scheduled ME Shield blog article'
+          git push origin HEAD:main
