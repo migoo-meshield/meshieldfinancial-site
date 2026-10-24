@@ -70,24 +70,16 @@ def card(a):
     return f'''<article class="blog-card" data-category="{a['category']}" data-published="{a['published_at']}">
 <div class="blog-card-thumb" style="background-image:url('{image}');background-size:cover;background-position:center;"></div><div class="blog-card-body"><div class="blog-meta">{both('span',ce,ch,'class="blog-tag"')}<time class="blog-date" datetime="{a['published_at']}">{a['published_at'][:10]}</time></div>{both('h3',esc(a['title']['en']),esc(a['title']['ht']))}{both('p',esc(a['description']['en']),esc(a['description']['ht']))}{both('a','Read full article →','Li atik konplè a →',f'href="/{a["slug"]}" class="blog-read-more"')}</div></article>'''
 
-# Repair the feed from the public cards only; do not expose scheduled articles.
-def rebuild_rss():
-    path=ROOT/'rss.xml'; old=ET.parse(path).getroot()
-    old_dates={i.findtext('link'):i.findtext('pubDate') for i in old.findall('./channel/item')}
-    root=ET.Element('rss',version='2.0'); chan=ET.SubElement(root,'channel')
-    for k,v in [('title','ME Shield Financial Services Blog'),('link',ORIGIN+'/blog'),('description','Practical bilingual insurance, tax, document preparation and community education.'),('language','en-us')]: ET.SubElement(chan,k).text=v
-    for block in re.findall(r'<article\b.*?</article>',(ROOT/'blog.html').read_text(),re.S):
-        link=re.search(r'href="(/[^"#]+)"',block)
-        if not link: continue
-        title=re.search(r'<h3\s+data-en[^>]*>(.*?)</h3>',block,re.S)
-        desc=re.search(r'<p\s+data-en[^>]*>(.*?)</p>',block,re.S)
-        if not title: continue
-        url=ORIGIN+link.group(1); item=ET.SubElement(chan,'item')
-        for k,v in [('title',html.unescape(re.sub('<[^>]+>','',title.group(1)))),('link',url),('guid',url),('description',html.unescape(re.sub('<[^>]+>','',desc.group(1))) if desc else '')]: ET.SubElement(item,k).text=v
-        stamp=re.search(r'data-published="([^"]+)"',block)
-        date=format_datetime(datetime.fromisoformat(stamp.group(1)).astimezone(timezone.utc),usegmt=True) if stamp else old_dates.get(url)
-        if date: ET.SubElement(item,'pubDate').text=date
-    ET.indent(root); path.write_bytes(b'<?xml version="1.0" encoding="UTF-8"?>\n'+ET.tostring(root,encoding='utf-8')+b'\n')
+# Preserve the existing feed: backfilling old cards could trigger a client-email backlog.
+def update_rss(a):
+    path=ROOT/'rss.xml'; root=ET.parse(path).getroot(); chan=root.find('channel')
+    url=ORIGIN+'/'+a['slug']
+    for old in list(chan.findall('item')):
+        if old.findtext('guid')==url or old.findtext('link')==url: chan.remove(old)
+    item=ET.Element('item')
+    for k,v in [('title',a['title']['en']),('link',url),('guid',url),('description',a['description']['en']),('pubDate',format_datetime(datetime.fromisoformat(a['published_at']).astimezone(timezone.utc),usegmt=True))]: ET.SubElement(item,k).text=v
+    first=next((i for i,x in enumerate(chan) if x.tag=='item'),len(chan));chan.insert(first,item)
+    ET.indent(root);path.write_bytes(b'<?xml version="1.0" encoding="UTF-8"?>\n'+ET.tostring(root,encoding='utf-8')+b'\n')
 
 def main():
     parser=argparse.ArgumentParser(); parser.add_argument('--now',help='ISO timestamp, for reproducible tests'); parser.add_argument('--dry-run',action='store_true'); args=parser.parse_args()
@@ -113,7 +105,7 @@ def main():
     share=ROOT/'.github/editorial/sharing'; share.mkdir(exist_ok=True)
     payload={'article_url':url,'published_at':a['published_at'],'google_business_profile':{'status':'prepared_not_posted','button':'LEARN_MORE','url':url+'?utm_source=google&utm_medium=organic&utm_campaign=blog','copy':a['gbp']},'client_email':{'status':'not_sent_automation_unverified','subject':a['title'],'intro':a['description'],'url':url,'sender':'info@meshieldfinancial.com','audience':'Confirmed opted-in subscribers only; honor unsubscribes; use the existing verified automation only.'}}
     (share/(a['slug']+'.json')).write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
-    QUEUE.write_text(json.dumps(articles,ensure_ascii=False,indent=2)+'\n'); rebuild_rss()
+    QUEUE.write_text(json.dumps(articles,ensure_ascii=False,indent=2)+'\n'); update_rss(a)
     print('Published one article: '+url)
 
 if __name__=='__main__': main()

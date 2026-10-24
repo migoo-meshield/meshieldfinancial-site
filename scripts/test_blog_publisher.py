@@ -34,11 +34,19 @@ class PublicationRules(unittest.TestCase):
         for a in self.initial:
             text=re.sub(r'<article\b[^>]*>.*?</article>',lambda m: '' if 'href="/'+a['slug']+'"' in m.group() else m.group(),text,flags=re.S)
         blog.write_text(text)
+        tree=publisher.ET.parse(self.root/'rss.xml');chan=tree.getroot().find('channel')
+        queued={publisher.ORIGIN+'/'+a['slug'] for a in self.initial}
+        for item in list(chan.findall('item')):
+            if item.findtext('link') in queued: chan.remove(item)
+        tree.write(self.root/'rss.xml',encoding='utf-8',xml_declaration=True)
     def test_no_early_release(self):
         self.reset_schedule(); self.run_at('2026-10-24T08:59:00-04:00')
         self.assertFalse((self.root/(self.initial[0]['slug']+'.html')).exists())
     def test_one_release_and_idempotency(self):
-        self.reset_schedule();self.run_at('2026-10-24T09:00:00-04:00')
+        self.reset_schedule()
+        previous_items=len(publisher.ET.parse(self.root/'rss.xml').findall('./channel/item'))
+        self.run_at('2026-10-24T09:00:00-04:00')
+        self.assertEqual(len(publisher.ET.parse(self.root/'rss.xml').findall('./channel/item')),previous_items+1)
         page=self.root/(self.initial[0]['slug']+'.html')
         self.assertTrue(page.exists());before=page.read_bytes()
         self.run_at('2026-10-24T10:00:00-04:00');self.assertEqual(page.read_bytes(),before)
