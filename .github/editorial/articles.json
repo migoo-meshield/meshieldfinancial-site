@@ -238,11 +238,12 @@
     ],
     "source_checked": "2026-10-24",
     "publish_at": "2026-10-27T09:00:00-04:00",
-    "status": "scheduled",
+    "status": "published",
     "gbp": {
       "en": "Self-Employed? A Monthly Recordkeeping Routine That Makes Tax Season Easier. A practical system for organizing income, receipts, business mileage and questions for your tax preparer. Read the guide from ME Shield Financial Services.",
       "ht": "Ou Travay pou Tèt Ou? Yon Woutin Dosye Chak Mwa pou Fasilite Sezon Taks. Yon sistèm pratik pou òganize revni, resi, kilomèt biznis ak kestyon pou preparatè taks ou. Li gid ME Shield Financial Services la."
-    }
+    },
+    "published_at": "2026-10-27T09:47:02-04:00"
   },
   {
     "slug": "uscis-document-translations-organize-file",
