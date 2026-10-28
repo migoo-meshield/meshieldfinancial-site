@@ -643,12 +643,10 @@ const SITE_REVIEWS = [
     en: 'Had a great experience with ME Shield Financial Services. They were professional, helpful, and made the insurance process easy to understand. They did a great job helping me find the right coverage. I highly recommend them!' },
   { google: true, author: 'Fendia Etienne',
     en: 'Excellent service from start to finish! Very professional, knowledgeable, and easy to work with. He made the tax process simple and took the time to explain everything clearly. He also offers great insurance options for life, car, and home. If you’re looking for someone trustworthy and reliable for your tax or insurance needs, I highly recommend him!' },
-  { google: false, author: 'Marie-Flore D., Miami',
-    en: 'Miguelson explained everything in Creole so my mother could understand. We finally have the right coverage.',
-    ht: 'Miguelson eksplike tout bagay an Kreyòl pou manman m’ ka konprann. Nou finalman gen bon kouvèti a.' },
-  { google: false, author: 'Jean-Pierre B., Orlando',
-    en: 'Got a bigger refund than I expected, and he walked me through every line. Great service!',
-    ht: 'Mwen jwenn yon ranbousman pi gwo pase mwen te atann, epi li eksplike m’ chak liy. Gwo sèvis!' },
+  // No longer among the business's current 5 Google reviews, so kept here
+  // as a client testimonial instead of a Google-badged review.
+  { google: false, author: 'David Étienne',
+    en: 'The service was done with professionalism, do not hesitate to contact him!' },
 ];
 
 function initGoogleReviewSection() {
