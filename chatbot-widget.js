@@ -264,9 +264,19 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
     bubble.setAttribute("aria-expanded", win.classList.contains("msc-open") ? "true" : "false");
     if (win.classList.contains("msc-open")) {
       stopWaving();
-      try { sessionStorage.setItem("msc-opened", "1"); } catch (e) {}
-      // Count this open — fire and forget, never blocks or breaks the chat.
-      fetch("/api/track-chat-open", { method: "POST" }).catch(() => {});
+      // Count once per visit, not once per click. Before this, closing and
+      // reopening the widget during the same visit added 1 to the dashboard
+      // counter every single time — so "chatbot opens" was really counting
+      // clicks, not visitors who opened it.
+      let alreadyCountedThisVisit = false;
+      try {
+        alreadyCountedThisVisit = sessionStorage.getItem("msc-opened") === "1";
+        sessionStorage.setItem("msc-opened", "1");
+      } catch (e) {}
+      if (!alreadyCountedThisVisit) {
+        // Fire and forget, never blocks or breaks the chat.
+        fetch("/api/track-chat-open", { method: "POST" }).catch(() => {});
+      }
     }
   });
   closeBtn.addEventListener("click", () => {
