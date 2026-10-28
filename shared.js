@@ -636,13 +636,13 @@ function initTrustAndStructuredData() {
    This builds the same carousel from the same reviews, in the light palette
    those pages use, so the section reads as one thing across the site. */
 const SITE_REVIEWS = [
-  // Verified against the public Google Business Profile on 2026-09-14.
-  { google: true, author: 'Michelda Solitaire',
-    en: 'Excellent service! Very professional, helpful, and knowledgeable. They took the time to explain everything clearly and made the whole process easy and stress-free.' },
-  { google: true, author: 'David Étienne',
-    en: 'The service was done with professionalism, do not hesitate to contact him!' },
+  // Verified against the public Google Business Profile on 2026-10-28.
+  { google: true, author: 'Shépha Ciné',
+    en: 'My experience with ME Shield Financial Services has been truly excellent. I have been very satisfied and I sincerely recommend them to you; you won’t regret it. For the second time, it was a 10/10.' },
+  { google: true, author: 'James Sonor',
+    en: 'Had a great experience with ME Shield Financial Services. They were professional, helpful, and made the insurance process easy to understand. They did a great job helping me find the right coverage. I highly recommend them!' },
   { google: true, author: 'Fendia Etienne',
-    en: 'Excellent service from start to finish! Very professional, knowledgeable, and easy to work with. He made the tax process simple.' },
+    en: 'Excellent service from start to finish! Very professional, knowledgeable, and easy to work with. He made the tax process simple and took the time to explain everything clearly. He also offers great insurance options for life, car, and home. If you’re looking for someone trustworthy and reliable for your tax or insurance needs, I highly recommend him!' },
   { google: false, author: 'Marie-Flore D., Miami',
     en: 'Miguelson explained everything in Creole so my mother could understand. We finally have the right coverage.',
     ht: 'Miguelson eksplike tout bagay an Kreyòl pou manman m’ ka konprann. Nou finalman gen bon kouvèti a.' },
