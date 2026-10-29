@@ -40,6 +40,17 @@ class PublicationRules(unittest.TestCase):
         for item in list(chan.findall('item')):
             if item.findtext('link') in queued: chan.remove(item)
         tree.write(self.root/'rss.xml',encoding='utf-8',xml_declaration=True)
+        # Reset sitemap entries for queued fixtures as well: the real site may
+        # already contain articles published before this isolated test run.
+        sitemap = self.root / 'sitemap.xml'
+        sitemap_tree = publisher.ET.parse(sitemap)
+        sitemap_root = sitemap_tree.getroot()
+        ns = {'sm': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+        for entry in list(sitemap_root):
+            loc = entry.find('sm:loc', ns)
+            if loc is not None and loc.text in queued:
+                sitemap_root.remove(entry)
+        sitemap_tree.write(sitemap, encoding='utf-8', xml_declaration=True)
     def test_no_early_release(self):
         self.reset_schedule(); self.run_at('2026-10-24T08:59:00-04:00')
         self.assertFalse((self.root/(self.initial[0]['slug']+'.html')).exists())
