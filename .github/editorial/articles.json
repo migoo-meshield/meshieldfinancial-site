@@ -324,11 +324,12 @@
     ],
     "source_checked": "2026-10-24",
     "publish_at": "2026-10-30T09:00:00-04:00",
-    "status": "scheduled",
+    "status": "published",
     "gbp": {
       "en": "USCIS Documents and Translations: Organize the File Before You Submit. How to organize identity records, complete translations and a final document check without confusing document assistance with legal advice. Read the guide from ME Shield Financial Services.",
       "ht": "Dokiman USCIS ak Tradiksyon: Òganize Dosye a Anvan Ou Soumèt Li. Kijan pou òganize pyès idantite, tradiksyon konplè ak yon dènye verifikasyon san konfonn asistans dokiman ak konsèy legal. Li gid ME Shield Financial Services la."
-    }
+    },
+    "published_at": "2026-10-30T09:48:04-04:00"
   },
   {
     "slug": "florida-small-business-renewal-calendar",
