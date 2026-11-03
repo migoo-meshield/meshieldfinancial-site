@@ -240,6 +240,8 @@ function initLang() {
   const saved = localStorage.getItem('me-shield-lang') || 'en';
   setSiteLang(saved, false);
 }
+/* Pages across the site call setLang('en'|'ht') from onclick handlers; keep that name wired to the real implementation. */
+window.setLang = (lang) => setSiteLang(lang);
 function setSiteLang(lang, save = true) {
   document.body.classList.remove('lang-en', 'lang-ht');
   document.body.classList.add('lang-' + lang);
