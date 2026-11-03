@@ -39,6 +39,9 @@
     .intro-video-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 74px; height: 74px; border-radius: 50%; border: none; background: var(--gold); color: var(--navy); font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,.35); transition: transform .2s var(--ease), background .2s; z-index: 2; }
     .intro-video-play:hover { transform: translate(-50%,-50%) scale(1.07); background: var(--gold-light); }
     .intro-video-play.playing { opacity: 0; pointer-events: none; }
+    .intro-video-toggle { position: absolute; left: 18px; bottom: 18px; width: 40px; height: 40px; border-radius: 50%; border: none; background: rgba(11,28,58,.6); backdrop-filter: blur(4px); color: var(--white); display: none; align-items: center; justify-content: center; cursor: pointer; z-index: 3; transition: background .2s; }
+    .intro-video-toggle:hover { background: rgba(11,28,58,.8); }
+    .intro-video-toggle.show { display: flex; }
     .intro-video-badge { position: absolute; top: 18px; left: 18px; background: rgba(11,28,58,.55); backdrop-filter: blur(4px); color: var(--white); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 7px 14px; border-radius: var(--radius-pill); z-index: 2; }
     .intro-video-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,255,255,.18); z-index: 2; }
     .intro-video-progress-bar { height: 100%; width: 0%; background: var(--gold); transition: width .15s linear; }
@@ -334,12 +337,16 @@
       <div class="intro-video-visual" id="intro-video-visual">
         <div class="intro-video-badge" data-en>ME SHIELD FINANCIAL SERVICES</div>
         <div class="intro-video-badge" data-ht>ME SHIELD FINANCIAL SERVICES</div>
-        <div class="intro-video-slide active" style="background-image:url('intro-video-1-handshake.jpg');"></div>
-        <div class="intro-video-slide" style="background-image:url('intro-video-2-family.jpg');"></div>
-        <div class="intro-video-slide" style="background-image:url('intro-video-3-documents.jpg');"></div>
+        <div class="intro-video-slide active" data-bg="intro-video-1-handshake.jpg"></div>
+        <div class="intro-video-slide" data-bg="intro-video-2-family.jpg"></div>
+        <div class="intro-video-slide" data-bg="intro-video-3-documents.jpg"></div>
         <div class="intro-video-scrim"></div>
         <button class="intro-video-play" id="intro-video-play" type="button" aria-label="Play introduction">
           <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" style="margin-left:3px;"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="intro-video-toggle" id="intro-video-toggle" type="button" aria-label="Pause">
+          <svg class="icon-pause" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          <svg class="icon-play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="display:none;"><path d="M8 5v14l11-7z"/></svg>
         </button>
         <div class="intro-video-progress"><div class="intro-video-progress-bar" id="intro-video-progress-bar"></div></div>
       </div>
@@ -925,13 +932,18 @@
 
 <script>
   (function () {
+    const card = document.querySelector('.intro-video-card');
     const audio = document.getElementById('intro-video-audio');
     const playBtn = document.getElementById('intro-video-play');
+    const toggleBtn = document.getElementById('intro-video-toggle');
     const replayBtn = document.getElementById('intro-video-replay');
     const progressBar = document.getElementById('intro-video-progress-bar');
     const captionEl = document.getElementById('intro-video-caption');
     const slides = document.querySelectorAll('#intro-video-visual .intro-video-slide');
-    if (!audio || !playBtn || !slides.length) return;
+    if (!card || !audio || !playBtn || !slides.length) return;
+
+    const togglePauseIcon = toggleBtn.querySelector('.icon-pause');
+    const togglePlayIcon = toggleBtn.querySelector('.icon-play');
 
     const cues = [
       { t: 0,    img: 0, en: 'At ME Shield Financial Services, we help individuals and families protect what matters, and build what’s next.', ht: 'Nan ME Shield Financial Services, nou ede endividyòl ak fanmi pwoteje sa ki enpòtan, epi bati sa k ap vini an.' },
@@ -953,6 +965,24 @@
     }
     function setCaption(text) { captionEl.textContent = text; }
 
+    // Lazy-load the slide images only once this section is about to be visible,
+    // instead of downloading all three up front on every homepage visit.
+    let imagesLoaded = false;
+    function loadImages() {
+      if (imagesLoaded) return;
+      imagesLoaded = true;
+      slides.forEach((s) => {
+        const bg = s.getAttribute('data-bg');
+        if (bg) { s.style.backgroundImage = "url('" + bg + "')"; s.removeAttribute('data-bg'); }
+      });
+    }
+
+    function setToggleIcon(playing) {
+      togglePauseIcon.style.display = playing ? '' : 'none';
+      togglePlayIcon.style.display = playing ? 'none' : '';
+      toggleBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    }
+
     let currentCueIndex = -1;
     audio.addEventListener('timeupdate', () => {
       if (!audio.duration) return;
@@ -966,22 +996,50 @@
       }
     });
 
-    function playIntro() {
-      audio.currentTime = 0;
-      currentCueIndex = -1;
-      showSlide(0);
-      audio.play().catch(() => {});
+    function playIntro(fromStart) {
+      loadImages();
+      if (fromStart) { audio.currentTime = 0; currentCueIndex = -1; showSlide(0); }
+      const p = audio.play();
+      if (p && p.catch) p.catch(() => { playBtn.classList.remove('playing'); });
       playBtn.classList.add('playing');
       replayBtn.style.display = 'none';
+      toggleBtn.classList.add('show');
+      setToggleIcon(true);
     }
-    playBtn.addEventListener('click', playIntro);
-    replayBtn.addEventListener('click', playIntro);
+    playBtn.addEventListener('click', () => playIntro(true));
+    replayBtn.addEventListener('click', () => playIntro(true));
+    toggleBtn.addEventListener('click', () => {
+      if (audio.paused) { playIntro(false); }
+      else { audio.pause(); setToggleIcon(false); }
+    });
     audio.addEventListener('ended', () => {
       playBtn.classList.remove('playing');
+      toggleBtn.classList.remove('show');
       replayBtn.style.display = '';
       setCaption(isHt() ? 'Peze play pou tande ankò.' : 'Press play to hear it again.');
       progressBar.style.width = '0%';
     });
+
+    // Try a quiet autoplay once the player scrolls near view; browsers that
+    // block unprompted audio simply leave the big Play button as the fallback.
+    let autoplayTried = false;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting || autoplayTried) return;
+        autoplayTried = true;
+        observer.disconnect();
+        loadImages();
+        const p = audio.play();
+        if (p && p.then) {
+          p.then(() => {
+            playBtn.classList.add('playing');
+            toggleBtn.classList.add('show');
+            setToggleIcon(true);
+          }).catch(() => { /* autoplay blocked — Play button stays as the fallback */ });
+        }
+      });
+    }, { threshold: 0.4 });
+    observer.observe(card);
   })();
 </script>
 
