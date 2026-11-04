@@ -290,6 +290,9 @@ function initHamburger() {
     document.body.appendChild(scrim);
   }
 
+  const servicesItem = links.querySelector('.nav-dropdown');
+  const servicesLink = servicesItem && servicesItem.querySelector(':scope > a');
+
   function closeMenu() {
     links.classList.remove('open');
     btn.classList.remove('active');
@@ -297,6 +300,7 @@ function initHamburger() {
     btn.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('menu-open');
     btn.setAttribute('aria-label', 'Open navigation menu');
+    if (servicesItem) servicesItem.classList.remove('open');
   }
   function openMenu() {
     links.classList.add('open');
@@ -311,7 +315,26 @@ function initHamburger() {
     links.classList.contains('open') ? closeMenu() : openMenu();
   });
   scrim.addEventListener('click', closeMenu);
-  links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // On mobile the menu used to dump Services' 5 sub-links inline, making it
+  // one long undifferentiated list. Tapping "Services" now expands/collapses
+  // them instead — every other link still closes the whole menu as before.
+  // Desktop is untouched: its dropdown already opens on hover, and this
+  // handler only acts below the 900px breakpoint where the off-canvas menu
+  // itself is active.
+  if (servicesLink && servicesItem) {
+    servicesLink.addEventListener('click', (e) => {
+      if (window.innerWidth > 900) return;
+      e.preventDefault();
+      e.stopPropagation();
+      servicesItem.classList.toggle('open');
+      servicesLink.setAttribute('aria-expanded', servicesItem.classList.contains('open') ? 'true' : 'false');
+    });
+  }
+  links.querySelectorAll('a').forEach(a => {
+    if (a === servicesLink) return;
+    a.addEventListener('click', closeMenu);
+  });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMenu(); });
 }

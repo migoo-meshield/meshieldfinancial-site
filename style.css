@@ -708,9 +708,24 @@ body.lang-en [data-ht] { display: none !important; }
   .nav-links .mobile-book-link { display: block; background: var(--gold); color: var(--navy); text-align: center; font-weight: 800; border-radius: var(--radius-pill); padding: 13px 18px; }
   .nav-links .mobile-book-item:not(.mobile-intake-item) .mobile-book-link { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
 
+  /* Services used to always show its 5 sub-links inline, turning the menu
+     into one long undifferentiated list of 13 links. It's now a collapsed
+     group you tap open — same tap-reliability constraints as above apply
+     (no blur), toggled in JS by adding/removing .open on .nav-dropdown. */
+  .nav-dropdown { width: 100%; }
+  .nav-dropdown > a {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .nav-dropdown > a::after {
+    display: inline-block; width: 7px; height: 7px; margin: 0;
+    border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg); transition: transform .25s var(--ease); opacity: .7; flex-shrink: 0;
+  }
+  .nav-dropdown.open > a::after { transform: rotate(225deg); }
   .nav-dropdown-menu {
-    position: static; display: block; box-shadow: none; border: none;
-    padding: 0 0 0 16px; margin: 0; min-width: 0;
+    position: static; display: none; box-shadow: none; border: none;
+    padding: 2px 0 8px; margin: 0; min-width: 0;
+    text-align: center;
     /* Overrides the .glass-effect version of this rule further down this
        file, which sets background+blur with !important — that version is
        meant for the desktop hover dropdown and was leaking onto mobile,
@@ -719,7 +734,16 @@ body.lang-en [data-ht] { display: none !important; }
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
-  .nav-dropdown > a::after { display: none; }
+  /* The desktop hover/focus-within rule further up this file also matches
+     here (tapping the link focuses it) and would otherwise force the
+     sub-links open from a tap alone, then keep them open after a second tap
+     collapses .open since focus doesn't move away. Neutralize it at the
+     same specificity, then let .open (declared after, so it wins the tie)
+     be the only thing driving visibility on mobile. */
+  .nav-dropdown:hover .nav-dropdown-menu,
+  .nav-dropdown:focus-within .nav-dropdown-menu { display: none; }
+  .nav-dropdown.open .nav-dropdown-menu { display: block; }
+  .nav-dropdown-menu li a { font-size: .82rem; color: rgba(255,255,255,.62); }
 
   .nav-inner { gap: 8px; }
   .nav-logo { min-width: 0; gap: 8px; }
