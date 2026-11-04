@@ -105,6 +105,7 @@ function initSharedHeader() {
             </ul>
           </li>
           <li><a href="/blog"><span data-en>Blog</span><span data-ht>Blòg</span></a></li>
+          <li><a href="/book"><span data-en>Book</span><span data-ht>Rezève</span></a></li>
           <li><a href="/faq">FAQ</a></li>
           <li><a href="/contact"><span data-en>Contact</span><span data-ht>Kontakte</span></a></li>
         </ul>
