@@ -69,6 +69,24 @@
   var source = capture();
   window.meshieldMarketingSource = function () { return read() || {}; };
 
+  /* Count the read, once per page load, only on article pages (every blog
+     post has .article-body). Tells the team portal how many people read
+     each article in total, and — when the visit arrived through a tagged
+     link — which source/campaign brought them. No cookie, no identity. */
+  if (document.querySelector('.article-body')) {
+    try {
+      fetch('/api/track-article-read', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          path: location.pathname,
+          source: source && source.utm_source,
+          campaign: source && source.utm_campaign,
+        }),
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   /* Carry the tag across to the client portal, which is a different site and
      would otherwise lose it completely. */
   function tagPortalLinks() {
