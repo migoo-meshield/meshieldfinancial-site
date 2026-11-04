@@ -11,7 +11,8 @@
     }
   },
   "client_email": {
-    "status": "not_sent_automation_unverified",
+    "status": "draft_created",
+    "brevo_campaign_id": 100,
     "subject": {
       "en": "A Florida Small-Business Renewal Calendar You Can Actually Maintain",
       "ht": "Yon Kalandriye Renouvèlman Biznis Florid Ou Ka Kenbe Ajou"
