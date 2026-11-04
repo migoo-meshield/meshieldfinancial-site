@@ -353,7 +353,15 @@
         config: {"layout":"month_view"},
         calLink: "me-shield-financial-services/15min",
       });
-      Cal.ns["15min"]("ui", {"hideEventTypeDetails": false, "layout": "month_view"});
+      // Left on its defaults, the embed is Cal.com's own blue/black — the one
+      // thing on the page that doesn't read as ME Shield. These CSS vars pull
+      // it onto the site's navy/gold palette instead.
+      Cal.ns["15min"]("ui", {
+        "hideEventTypeDetails": false, "layout": "month_view", "theme": "light",
+        "cssVarsPerTheme": { "light": {
+          "cal-brand": "#C9A84C", "cal-brand-emphasis": "#B3932E", "cal-brand-text": "#0B1C3A",
+        } },
+      });
 
       // Hide the "loading" card the moment Cal.com's iframe actually appears,
       // so a blocked or slow embed never leaves a blank white box behind.
