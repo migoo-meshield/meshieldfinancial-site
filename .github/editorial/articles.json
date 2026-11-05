@@ -496,11 +496,12 @@
     ],
     "source_checked": "2026-10-24",
     "publish_at": "2026-11-05T09:00:00-05:00",
-    "status": "scheduled",
+    "status": "published",
     "gbp": {
       "en": "Before Infinite Banking: How to Read a Whole Life Illustration. Learn to separate premiums, cash surrender value, death benefits and non-guaranteed projections. Read the guide from ME Shield Financial Services.",
       "ht": "Anvan Bank Enfini: Kijan pou Li yon Ilistrasyon Asirans Lavi Antye. Aprann separe prim, valè racha, benefis lanmò ak pwojeksyon ki pa garanti. Li gid ME Shield Financial Services la."
-    }
+    },
+    "published_at": "2026-11-05T15:39:03-05:00"
   },
   {
     "slug": "sinking-funds-for-predictable-bills",
