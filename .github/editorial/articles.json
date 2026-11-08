@@ -574,11 +574,12 @@
     ],
     "source_checked": "2026-10-24",
     "publish_at": "2026-11-08T09:00:00-05:00",
-    "status": "scheduled",
+    "status": "published",
     "gbp": {
       "en": "Predictable Bills Are Not Emergencies: Build a Simple Sinking Fund. A practical way to set money aside for annual bills while keeping emergency savings separate. Read the guide from ME Shield Financial Services.",
       "ht": "Fakti Ou Prevwa Pa Ijans: Prepare Yon Fon pou Yo. Yon fason pratik pou mete lajan sou kote pou fakti anyèl san melanje li ak epay ijans. Li gid ME Shield Financial Services la."
-    }
+    },
+    "published_at": "2026-11-08T13:21:00-05:00"
   },
   {
     "slug": "sending-money-haiti-compare-total-cost",
