@@ -7,8 +7,9 @@ on:
       - 'scripts/publish_blog.py'
       - 'scripts/test_blog_publisher.py'
   schedule:
-    # Check both offsets to cover Florida daylight and standard time.
-    - cron: '17 13,14 * * *'
+    # Target 9:00 AM America/New_York year-round. The publisher itself
+    # checks publish_at, so the non-matching UTC run exits without changes.
+    - cron: '0 13,14 * * *'
   workflow_dispatch:
 permissions:
   contents: write
