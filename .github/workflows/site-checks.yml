@@ -1,0 +1,23 @@
+name: Website Checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.github/editorial/**'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test scheduled publisher
+        run: python3 -m unittest discover -s scripts -p 'test_blog_publisher.py'
+      - name: Validate website
+        run: python3 scripts/validate_site.py
