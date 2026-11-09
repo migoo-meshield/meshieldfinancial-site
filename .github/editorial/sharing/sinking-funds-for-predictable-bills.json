@@ -11,7 +11,8 @@
     }
   },
   "client_email": {
-    "status": "not_sent_automation_unverified",
+    "status": "draft_created",
+    "brevo_campaign_id": 106,
     "subject": {
       "en": "Predictable Bills Are Not Emergencies: Build a Simple Sinking Fund",
       "ht": "Fakti Ou Prevwa Pa Ijans: Prepare Yon Fon pou Yo"
