@@ -656,11 +656,12 @@
     ],
     "source_checked": "2026-10-24",
     "publish_at": "2026-11-11T09:00:00-05:00",
-    "status": "scheduled",
+    "status": "published",
     "gbp": {
       "en": "Sending Money to Family in Haiti: Compare the Total Cost. Look beyond the advertised transfer fee and compare what your family will actually receive. Read the guide from ME Shield Financial Services.",
       "ht": "Voye Lajan Bay Fanmi Ayiti: Konpare Pri Total la. Pa gade sèlman frè yo fè reklam lan: konpare sa fanmi ou ap resevwa toutbon. Li gid ME Shield Financial Services la."
-    }
+    },
+    "published_at": "2026-11-11T14:55:15-05:00"
   },
   {
     "slug": "compare-home-insurance-quotes-florida",
