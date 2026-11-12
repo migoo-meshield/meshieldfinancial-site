@@ -11,7 +11,7 @@
     }
   },
   "client_email": {
-    "status": "draft_created",
+    "status": "scheduled_auto_send",
     "subject": {
       "en": "Sending Money to Family in Haiti: Compare the Total Cost",
       "ht": "Voye Lajan Bay Fanmi Ayiti: Konpare Pri Total la"
@@ -23,6 +23,7 @@
     "url": "https://meshieldfinancial.com/sending-money-haiti-compare-total-cost",
     "sender": "info@meshieldfinancial.com",
     "audience": "Confirmed opted-in subscribers only; honor unsubscribes; use the existing verified automation only.",
-    "brevo_campaign_id": 108
+    "brevo_campaign_id": 108,
+    "scheduled_send_at": "2026-11-13T09:00:00-05:00"
   }
 }
