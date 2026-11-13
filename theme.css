@@ -49,3 +49,12 @@ html[data-theme="dark"] .filter-btn.active, html[data-theme="dark"] .faq-tab.act
 html[data-theme="dark"] .msc-tooltip { color:#edf2fa!important; }
 html[data-theme="dark"] .google-review-cta p { color:#c0ccdc; }
 html[data-theme="dark"] :is(h1,h2,h3,h4,div,p,span,small,strong,label)[style*="color:var(--navy)"] { color:#edf2fa!important; }
+
+/* ── Design polish (from the unslop audit) ─────────────────────────────
+   Gold used as TEXT on a light surface is only 2.3:1, so those spots use a
+   darker gold ink (about 6:1). On dark surfaces, and in dark theme, text
+   keeps the bright gold. */
+:root { --gold-ink: #7A5E0E; }
+html[data-theme="dark"] { --gold-ink: #E2C97A; }
+html:not([data-theme="dark"]) :is(.blog-read-more, .svc2-link, .aph-cred-t, .acf-title, .calc-section .eyebrow, section.pad#calculator .eyebrow, .services-section .eyebrow, .contact-form-wrap a:not([class*="btn"]), .service-card a, .positioning-tagline em, .philosophy-quote .gold-word, .promise-item strong, .svcinfo-links a, .google-review-cta-inner .eyebrow, .google-review-cta-inner span.eyebrow, .google-review-cta .eyebrow, .section-white .eyebrow[style*="color:var(--gold)"]) { color: var(--gold-ink) !important; }
+html:not([data-theme="dark"]) :is(.blog-read-more, .svc2-link, .service-card a, .svcinfo-links a):hover { color: var(--navy) !important; }

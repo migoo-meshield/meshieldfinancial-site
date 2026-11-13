@@ -17,9 +17,14 @@
   <style>
     .home-hero { background: var(--navy); padding: 96px 0 80px; position: relative; overflow: hidden; }
     .hero-logo-watermark { position: absolute; top: 50%; right: -60px; transform: translateY(-50%); width: 560px; max-width: 60vw; opacity: .06; z-index: 0; pointer-events: none; }
-    .home-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 70% at 75% 50%, rgba(201,168,76,.09) 0%, transparent 65%); }
     .home-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); }
+    .hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 64px; align-items: center; }
     .hero-content { position: relative; max-width: 640px; }
+    .hero-portrait { margin: 0; }
+    .hero-portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4/5; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-lg); }
+    .hero-portrait figcaption { margin-top: 14px; font-size: .82rem; line-height: 1.5; color: rgba(255,255,255,.7); }
+    .hero-portrait figcaption strong { display: block; color: var(--white); font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; }
+    @media (max-width: 960px) { .hero-layout { display: block; } .hero-portrait { display: none; } }
     .hero-content h1, .hero-content .hero-h-style { color: var(--white); margin-bottom: 22px; }
     .hero-content h1 em, .hero-content .hero-h-style em { color: var(--gold); font-style: normal; }
     .hero-content p { color: rgba(255,255,255,.72); font-size: 1.08rem; margin-bottom: 36px; max-width: 520px; }
@@ -51,7 +56,8 @@
     .intro-video-replay:hover { border-color: var(--gold); color: var(--gold); }
     @media (max-width: 640px) { .intro-video-caption-row { flex-direction: column; align-items: flex-start; } }
     .trust-bar { background: var(--white); padding: 22px 0; border-bottom: 1px solid rgba(201,168,76,.15); }
-    .trust-bar-inner { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; }
+    .trust-bar .container { max-width: 1360px; }
+    .trust-bar-inner { display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
     .trust-item { display: flex; align-items: center; gap: 10px; font-size: .85rem; font-weight: 600; color: var(--text-dark); }
     .trust-item .icon { color: var(--gold); font-weight: 700; font-size: 1rem; }
     @media (max-width: 900px) {
@@ -307,8 +313,8 @@
 </div>
 
 <section class="home-hero">
-  <img class="hero-logo-watermark" src="logo.png" alt="ME Shield Financial Services logo"/>
   <div class="container" style="position:relative;z-index:1;">
+    <div class="hero-layout">
     <div class="hero-content">
       <h1 data-en class="hero-h-style">One Specialist for Your <em>Insurance, Taxes</em> and Filings</h1>
       <div data-ht class="hero-h-style" role="heading" aria-level="1">Yon Sèl Espesyalis Pou <em>Asirans, Taks</em> ak Depo Ou</div>
@@ -324,6 +330,15 @@
           <span data-ht>Sèvis Nou Yo</span>
         </a>
       </div>
+    </div>
+    <figure class="hero-portrait">
+      <img src="miguelson-headshot.jpeg" width="380" height="475" alt="Miguelson Etienne, Licensed Insurance Consultant and IRS PTIN-registered tax preparer"/>
+      <figcaption>
+        <strong>Miguelson Etienne</strong>
+        <span data-en>Insurance licensed in FL, MA &amp; NJ · IRS PTIN active</span>
+        <span data-ht>Lisansye pou asirans nan FL, MA &amp; NJ · PTIN IRS aktif</span>
+      </figcaption>
+    </figure>
     </div>
   </div>
 </section>
@@ -561,16 +576,16 @@
         <div class="dual-cta-card-body">
           <h3 data-en>I Want to Protect My Family &amp; Finances</h3>
           <h3 data-ht>Mwen Vle Pwoteje Fanmi &amp; Finans Mwen</h3>
-          <span class="btn btn-gold" data-en>Start Here →</span>
-          <span class="btn btn-gold" data-ht>Kòmanse Isit La →</span>
+          <span class="btn btn-gold" data-en>Explore coverage →</span>
+          <span class="btn btn-gold" data-ht>Gade kouvèti yo →</span>
         </div>
       </a>
       <a href="/immigration-forms" class="dual-cta-card" style="background-image:url('/slider-immigration.jpg');">
         <div class="dual-cta-card-body">
           <h3 data-en>I Need Help With Paperwork &amp; Filing</h3>
           <h3 data-ht>Mwen Bezwen Èd Ak Papye &amp; Depo</h3>
-          <span class="btn btn-gold" data-en>Start Here →</span>
-          <span class="btn btn-gold" data-ht>Kòmanse Isit La →</span>
+          <span class="btn btn-gold" data-en>Start my paperwork →</span>
+          <span class="btn btn-gold" data-ht>Kòmanse papye m →</span>
         </div>
       </a>
     </div>
@@ -702,17 +717,17 @@
       </div>
       <div class="promise-list">
         <div class="promise-item">
-          <strong data-en>Clarity.</strong><strong data-ht>Klate.</strong>
+          <strong data-en>Clarity</strong><strong data-ht>Klate</strong>
           <p data-en>Plain answers in the language you're comfortable in, including what the fine print says.</p>
           <p data-ht>Repons klè nan lang ou alèz, ansanm ak sa ti lèt yo di.</p>
         </div>
         <div class="promise-item">
-          <strong data-en>Consistency.</strong><strong data-ht>Konsistans.</strong>
+          <strong data-en>Consistency</strong><strong data-ht>Konsistans</strong>
           <p data-en>The same specialist from your first call through every renewal, filing, and follow-up.</p>
           <p data-ht>Menm espesyalis depi premye apèl ou jiska chak renouvèlman, depo, ak swivi.</p>
         </div>
         <div class="promise-item">
-          <strong data-en>Fair, Transparent Pricing.</strong><strong data-ht>Pri Jis, Transparan.</strong>
+          <strong data-en>Fair, Transparent Pricing</strong><strong data-ht>Pri Jis, Transparan</strong>
           <p data-en>Flat-rate quotes with no hidden fees — you know the cost before you commit.</p>
           <p data-ht>Estimasyon pri fiks san frè kache — ou konnen pri a anvan ou angaje.</p>
         </div>

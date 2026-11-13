@@ -167,7 +167,7 @@ const CONTACT_PHONE_LINK = "tel:+14072672652";
 
   const wrapper = document.createElement("div");
   wrapper.innerHTML = `
-    <div class="msc-tooltip" id="mscTooltip">Need help? Chat with us 💬</div>
+    <div class="msc-tooltip" id="mscTooltip">Need help? Chat with us</div>
     <button class="msc-bubble" id="mscBubble" type="button" aria-label="Open chat" aria-expanded="false" aria-controls="mscWindow">
       ${AVATAR_ICON}
       <div class="msc-badge" aria-hidden="true">${checkBadge}</div>

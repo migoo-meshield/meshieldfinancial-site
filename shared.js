@@ -15,8 +15,8 @@ function initSharedHeader() {
       .site-header-shell{position:fixed;top:0;left:0;right:0;z-index:1300;width:100%;}
       .site-header-shell .navbar{position:relative!important;top:auto!important;width:100%;}
       .site-header-spacer{width:100%;height:var(--site-header-height,110px);}
-      .site-header-shell .nav-intake-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:9px 18px!important;border:1px solid #c9a84c!important;border-radius:999px!important;background:transparent!important;color:#c9a84c!important;font-size:.82rem!important;font-weight:800!important;text-decoration:none!important;white-space:nowrap!important;}
-      .site-header-shell .nav-intake-btn:hover{background:#c9a84c!important;color:#0b1d3a!important;}
+      .site-header-shell .nav-intake-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:9px 8px!important;border:1px solid transparent!important;border-radius:999px!important;background:transparent!important;color:#c9a84c!important;font-size:.82rem!important;font-weight:600!important;text-decoration:none!important;white-space:nowrap!important;}
+      .site-header-shell .nav-intake-btn:hover{background:transparent!important;color:#e2c97a!important;text-decoration:underline!important;}
       .pwa-install{position:fixed!important;left:18px!important;bottom:18px!important;z-index:1280!important;border:1px solid rgba(201,168,76,.8)!important;background:#0b1d3a!important;color:#c9a84c!important;border-radius:999px!important;padding:11px 16px!important;box-shadow:0 12px 30px rgba(11,29,58,.28)!important;font:700 .78rem Inter,Arial,sans-serif!important;cursor:pointer!important;}
       .shared-footer{background:#0b1d3a!important;color:rgba(255,255,255,.68)!important;padding:58px 0 28px!important;border-top:1px solid rgba(255,255,255,.08)!important;font-family:Inter,Arial,sans-serif!important;font-size:16px!important;line-height:1.6!important;}
       .shared-footer *{box-sizing:border-box!important;}
@@ -693,7 +693,7 @@ function initGoogleReviewSection() {
       .google-review-cta{padding:72px 20px;background:#f8f5ee;text-align:center;border-top:1px solid rgba(201,168,76,.18)}
       .google-review-cta-inner{width:min(760px,100%);margin:0 auto;padding:42px 34px;background:#fff;border:1px solid rgba(201,168,76,.24);border-radius:18px;box-shadow:0 16px 45px rgba(11,29,58,.08)}
       .google-review-cta h2{margin:0 0 8px;color:#0b1d3a;font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.7rem,4vw,2.35rem)}
-      .google-review-cta .rv-eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c9a84c;margin-bottom:10px}
+      .google-review-cta .rv-eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7a5e0e;margin-bottom:10px}html[data-theme="dark"] .google-review-cta .rv-eyebrow{color:#e2c97a}
       .google-review-cta p{max-width:620px;margin:0 auto 24px;color:#4d5564;font-size:1rem;line-height:1.7}
       .rv-carousel{position:relative;overflow:hidden;margin:24px 0 4px}
       .rv-track{display:flex;transition:transform .62s cubic-bezier(.65,0,.35,1)}
