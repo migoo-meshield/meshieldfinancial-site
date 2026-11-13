@@ -20,11 +20,14 @@
     .home-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); }
     .hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 64px; align-items: center; }
     .hero-content { position: relative; max-width: 640px; }
-    .hero-portrait { margin: 0; }
-    .hero-portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4/5; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-lg); }
-    .hero-portrait figcaption { margin-top: 14px; font-size: .82rem; line-height: 1.5; color: rgba(255,255,255,.7); }
-    .hero-portrait figcaption strong { display: block; color: var(--white); font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; }
-    @media (max-width: 960px) { .hero-layout { display: block; } .hero-portrait { display: none; } }
+    .hero-creds { border: 1px solid rgba(201,168,76,.35); border-radius: 16px; padding: 28px 28px 8px; background: rgba(255,255,255,.03); }
+    .hero-creds-title { font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .hero-creds dl { margin: 0; }
+    .hero-creds dl > div { padding: 16px 0; border-top: 1px solid rgba(255,255,255,.1); }
+    .hero-creds dl > div:first-child { border-top: 0; }
+    .hero-creds dt { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+    .hero-creds dd { margin: 0; font-size: .9rem; color: rgba(255,255,255,.72); }
+    @media (max-width: 960px) { .hero-layout { display: block; } .hero-creds { display: none; } }
     .hero-content h1, .hero-content .hero-h-style { color: var(--white); margin-bottom: 22px; }
     .hero-content h1 em, .hero-content .hero-h-style em { color: var(--gold); font-style: normal; }
     .hero-content p { color: rgba(255,255,255,.72); font-size: 1.08rem; margin-bottom: 36px; max-width: 520px; }
@@ -331,14 +334,15 @@
         </a>
       </div>
     </div>
-    <figure class="hero-portrait">
-      <img src="miguelson-headshot.jpeg" width="380" height="475" alt="Miguelson Etienne, Licensed Insurance Consultant and IRS PTIN-registered tax preparer"/>
-      <figcaption>
-        <strong>Miguelson Etienne</strong>
-        <span data-en>Insurance licensed in FL, MA &amp; NJ · IRS PTIN active</span>
-        <span data-ht>Lisansye pou asirans nan FL, MA &amp; NJ · PTIN IRS aktif</span>
-      </figcaption>
-    </figure>
+    <aside class="hero-creds" aria-label="Licenses and credentials">
+      <div class="hero-creds-title"><span data-en>Licenses and credentials</span><span data-ht>Lisans ak kalifikasyon</span></div>
+      <dl>
+        <div><dt data-en>Insurance</dt><dt data-ht>Asirans</dt><dd data-en>Florida · Massachusetts · New Jersey</dd><dd data-ht>Florid · Massachusetts · New Jersey</dd></div>
+        <div><dt data-en>Tax preparation</dt><dt data-ht>Preparasyon taks</dt><dd data-en>IRS PTIN active · clients in any state</dd><dd data-ht>PTIN IRS aktif · kliyan nan nenpòt eta</dd></div>
+        <div><dt data-en>Immigration forms filing</dt><dt data-ht>Ranpli fòmilè imigrasyon</dt><dd data-en>Document preparation · all 50 states</dd><dd data-ht>Preparasyon dokiman · tout 50 eta</dd></div>
+        <div><dt data-en>Languages</dt><dt data-ht>Lang</dt><dd data-en>English · Kreyòl Ayisyen</dd><dd data-ht>Anglè · Kreyòl Ayisyen</dd></div>
+      </dl>
+    </aside>
     </div>
   </div>
 </section>
@@ -418,7 +422,7 @@
         </a>
         <a class="img-slide" href="/business-filing" style="background-image:url('slider-business.jpg');"><div class="img-slide-caption"><div class="eyebrow-slide" data-en>BUSINESS FILING</div><div class="eyebrow-slide" data-ht>DEPO BIZNIS</div><h3 data-en>LLC, EIN and DBA Filings</h3><h3 data-ht>Depo LLC, EIN ak DBA</h3><p data-en>Formation papers, EIN applications, DBA registration and annual reports. Document preparation only.</p><p data-ht>Dokiman fòmasyon, aplikasyon EIN, enskripsyon DBA ak rapò anyèl. Preparasyon dokiman sèlman.</p></div></a>
         <a class="img-slide" href="/infinite-banking" style="background-image:url('slider-ibc.jpg');"><div class="img-slide-caption"><div class="eyebrow-slide" data-en>INFINITE BANKING</div><div class="eyebrow-slide" data-ht>BANK ENFINI</div><h3 data-en>Learn How Infinite Banking Works</h3><h3 data-ht>Aprann Kijan Bank Enfini Fonksyone</h3><p data-en>An educational look at a specially designed whole life policy. Educational content only, not financial advice.</p><p data-ht>Yon gade edikatif sou yon polis lavi antye ki fèt espesyalman. Kontni edikatif sèlman, se pa konsèy finansye.</p></div></a>
-        <a class="img-slide" href="/book" style="background-image:url('/slider-business.jpg');background-position:center 38%;"><div class="img-slide-caption"><div class="eyebrow-slide" data-en>FREE CONSULTATION</div><div class="eyebrow-slide" data-ht>KONSILTASYON GRATIS</div><h3 data-en>Book a Free Consultation</h3><h3 data-ht>Rezève yon Konsiltasyon Gratis</h3><p data-en>Tell us what you are dealing with. No pressure, in English or Kreyòl.</p><p data-ht>Di nou ak kisa w ap fè fas. San presyon, an Anglè oswa Kreyòl.</p></div></a>
+        <a class="img-slide" href="/book" style="background-image:url('/article-infinite-banking-guide.jpg');background-position:center 40%;"><div class="img-slide-caption"><div class="eyebrow-slide" data-en>FREE CONSULTATION</div><div class="eyebrow-slide" data-ht>KONSILTASYON GRATIS</div><h3 data-en>Book a Free Consultation</h3><h3 data-ht>Rezève yon Konsiltasyon Gratis</h3><p data-en>Tell us what you are dealing with. No pressure, in English or Kreyòl.</p><p data-ht>Di nou ak kisa w ap fè fas. San presyon, an Anglè oswa Kreyòl.</p></div></a>
       </div>
       <button class="slider-arrow prev" id="slider-prev" aria-label="Previous">‹</button>
       <button class="slider-arrow next" id="slider-next" aria-label="Next">›</button>
