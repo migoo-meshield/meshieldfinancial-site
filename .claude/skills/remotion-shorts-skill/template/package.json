@@ -8,14 +8,14 @@
     "render": "node render.mjs"
   },
   "dependencies": {
-    "@remotion/bundler": "4.0.536",
-    "@remotion/cli": "4.0.536",
-    "@remotion/fonts": "4.0.536",
-    "@remotion/layout-utils": "4.0.536",
-    "@remotion/renderer": "4.0.536",
+    "@remotion/bundler": "4.0.543",
+    "@remotion/cli": "4.0.543",
+    "@remotion/fonts": "4.0.543",
+    "@remotion/layout-utils": "4.0.543",
+    "@remotion/renderer": "4.0.543",
     "react": "19.1.1",
     "react-dom": "19.1.1",
-    "remotion": "4.0.536"
+    "remotion": "4.0.543"
   },
   "devDependencies": {
     "@types/react": "19.1.12",
