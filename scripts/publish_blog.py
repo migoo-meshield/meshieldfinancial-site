@@ -50,7 +50,7 @@ def render_article(a):
 .article-toc{{background:var(--offwhite);padding:24px;border-radius:8px;margin:24px 0}} .article-toc a{{line-height:1.8}} .article-toc a[data-en],.article-toc a[data-ht]{{display:inline}}
 .article-body section{{scroll-margin-top:100px}} .article-sources li{{overflow-wrap:anywhere}} .article-date{{color:rgba(255,255,255,.85)}}
 .article-body .article-disclaimer-box p{{font-size:.88rem}} .share-row{{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0}}
-</style></head><body>{nav}
+</style><link rel="stylesheet" href="/theme.css?v=20261113"><script src="/theme.js?v=20261113"></script></head><body>{nav}
 <main id="main-content"><header class="article-hero"><div class="container"><div class="article-meta">{both('span',esc(cat_en),esc(cat_ht),'class="article-tag"')}<time class="article-date" datetime="{published}">{date}</time></div>
 {both('h1',esc(a['title']['en']),esc(a['title']['ht']))}
 {both('p',esc(a['description']['en']),esc(a['description']['ht']),'style="color:white"')}

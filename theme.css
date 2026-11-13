@@ -1,0 +1,51 @@
+/* Keep navy/gold brand colors stable; theme surfaces and readable text separately. */
+:root { color-scheme: light; }
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --offwhite:#0c1423; --cream:#101c2e; --glass:#15243a;
+  --text-dark:#edf2fa; --text-mid:#c0ccdc; --text-light:#a9b8cc;
+  --ink:#edf2fa; --muted:#b1bfd1; --gold-text:#e2c97a;
+  --gold-dim:#302b20; --line:#38465a; --glass-border:#38465a;
+  --border-soft:#38465a;
+}
+#theme-toggle {
+  position:fixed;left:18px;bottom:80px;z-index:1500;
+  display:flex;align-items:center;justify-content:center;
+  width:44px;height:44px;padding:0;border:1px solid #c9a84c;
+  border-radius:50%;background:#0b1d3a;color:#e2c97a;
+  font:26px/1 system-ui,sans-serif;cursor:pointer;
+  box-shadow:0 3px 16px #0004;touch-action:manipulation;
+}
+#theme-toggle:hover { background:#17304b; }
+#theme-toggle:focus-visible { outline:3px solid #e2c97a;outline-offset:3px; }
+@media(max-width:600px) { #theme-toggle { left:12px;bottom:calc(80px + env(safe-area-inset-bottom,0px)); } }
+@media print { #theme-toggle { display:none!important; } }
+html[data-theme="dark"] body { background:#0c1423;color:#edf2fa; }
+html[data-theme="dark"] :is(h1,h2,h3,h4,h5,h6) { color:#edf2fa; }
+html[data-theme="dark"] :is(.section-white,.trust-bar,.card,.modal-box,.modal-content,.legal-shell,.legal-card,.panel,.svc,.login-card,.resource-card,.support-card,.term-card,.glossary-card) { background-color:#15243a;color:#edf2fa; }
+html[data-theme="dark"] :is(.section-header h2,.service-card h3,.why-item h3,.trust-item,.modal-close,.tabs-nav button:hover,.panel h2,.svc strong,.repeater-title,.section-title,.section-head strong,.login-title) { color:#edf2fa; }
+html[data-theme="dark"] :is(input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]),select,textarea) { background-color:#101c2e!important;color:#edf2fa!important;border-color:#52627a; }
+html[data-theme="dark"] :is(input,textarea)::placeholder { color:#a9b8cc; }
+html[data-theme="dark"] :is(.repeater-block,.upload-box,.conditional-field,.other-answer,.sources-box) { background-color:#192a40!important; }
+html[data-theme="dark"] :is(.notice,.badge-detailed,.add-repeater-btn) { background-color:#302b20;color:#e2c97a; }
+html[data-theme="dark"] .notice strong { color:#e2c97a; }
+html[data-theme="dark"] :is(.section-head em,.field em,.legal-nav a) { color:#bdcce0; }
+html[data-theme="dark"] :is(.msg-error,.remove-repeater-btn,.field.invalid>span:first-child) { color:#ff9e96; }
+html[data-theme="dark"] :is(.msg-success,.inv-paid) { color:#8ce0af; }
+html[data-theme="dark"] :is(.activity-badge,.repeater-entry-heading,.eyebrow) { color:#e2c97a; }
+/* Gold call-to-action bands keep dark lettering for contrast. */
+html[data-theme="dark"] .cta-band :is(h1,h2,h3,p) { color:#0b1c3a; }
+html[data-theme="dark"] :is(.btn-gold,.submit,.lang-btn.active,.profile-tab-btn.active,.btn-pay) { color:#0b1d3a; }
+/* Service pages, articles, booking, and other pages with local palettes. */
+html[data-theme="dark"] { --text:#edf2fa; --text2:#c0ccdc; --gray:#b1bfd1; }
+html[data-theme="dark"] :is(.article-trust-card,.msc-tooltip,.google-review-cta-inner,.filter-btn,.blog-card,.appt-type,.calendar-box,.pad,.calc-section,.calculator-contact-cta,.svc2,.cta-section,.contact-form-wrap,.faq-tab,.accordion-item,.services-section,.svc-card,.review-card,.article-body,.disclaimer,.author-box,#insurance,#immigration-forms) { background-color:#15243a; color:#edf2fa; }
+html[data-theme="dark"] .google-review-cta { background-color:#101c2e; }
+html[data-theme="dark"] :is(.accent-card,.sec-p,.fl,.svc2-desc,.aph-cred-item,.accordion-question,.positioning-tagline,.philosophy-quote,.svcinfo-quote,.svcinfo-disclaimer,.svcinfo-intro,.svcinfo-outro,.cs-label-text.active,.form-label,#cov-val,.svc-desc,.svc-link,.acf-item,.cs-lbl.active,.callout-label,.author-name,.author-bio) { color:#d8e3f2; }
+html[data-theme="dark"] :is(.article-body,.article-trust-card,.legal-shell,.legal-card) :is(p,li,small,strong,a,em,th,td) { color:#c0ccdc; }
+html[data-theme="dark"] :is(.article-body,.legal-shell,.legal-card) :is(h1,h2,h3,h4) { color:#edf2fa!important; }
+html[data-theme="dark"] :is(.article-body,.legal-shell,.legal-card) td { background-color:#15243a!important; }
+html[data-theme="dark"] :is(.article-body,.legal-shell,.legal-card) th { background-color:#101c2e!important; }
+html[data-theme="dark"] .filter-btn.active, html[data-theme="dark"] .faq-tab.active { background-color:#c9a84c;color:#0b1d3a; }
+html[data-theme="dark"] .msc-tooltip { color:#edf2fa!important; }
+html[data-theme="dark"] .google-review-cta p { color:#c0ccdc; }
+html[data-theme="dark"] :is(h1,h2,h3,h4,div,p,span,small,strong,label)[style*="color:var(--navy)"] { color:#edf2fa!important; }
