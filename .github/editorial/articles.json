@@ -742,11 +742,12 @@
     ],
     "source_checked": "2026-10-24",
     "publish_at": "2026-11-14T09:00:00-05:00",
-    "status": "scheduled",
+    "status": "published",
     "gbp": {
       "en": "How to Compare Two Home Insurance Quotes Without Losing Important Coverage. Use the same limits, deductibles and settlement terms before deciding which home quote offers better value. Read the guide from ME Shield Financial Services.",
       "ht": "Kijan pou Konpare De Quote Asirans Kay San Pèdi Pwoteksyon Enpòtan. Itilize menm limit, dediktib ak kondisyon peman pou deside ki quote kay ki bay plis valè. Li gid ME Shield Financial Services la."
-    }
+    },
+    "published_at": "2026-11-14T13:35:22-05:00"
   },
   {
     "slug": "estimated-taxes-self-employed-cash-flow",
