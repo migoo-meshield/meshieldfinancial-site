@@ -41,6 +41,7 @@ The required disclaimers may still say "not an attorney" and "not legal advice".
 ## Required on every piece
 
 - **Social posts and captions:** end with "Want to learn more? Connect with me here: connect.meshieldfinancial.com" (or a close variant Migoo approved). Never name a platform ("follow us on Instagram"); hashtags are fine.
+  - Kreyòl version, approved by Migoo on 2026-11-14: "Vle aprann plis? Konekte avè m isit la: connect.meshieldfinancial.com".
 - **Anything about Infinite Banking:** include "Educational content only, not financial advice." Never imply guaranteed growth, tax-free income or a quick fix. Policy loans accrue interest and reduce the death benefit if not repaid.
 - **Immigration:** say "forms filing" or "document preparation". Never promise an outcome or a processing time.
 - **Tax:** never promise a refund amount, "every deduction" or "maximize your refund".
