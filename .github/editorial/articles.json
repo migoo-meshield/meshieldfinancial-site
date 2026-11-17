@@ -828,11 +828,12 @@
     ],
     "source_checked": "2026-10-24",
     "publish_at": "2026-11-17T09:00:00-05:00",
-    "status": "scheduled",
+    "status": "published",
     "gbp": {
       "en": "Estimated Taxes for Self-Employed Workers: Plan Before the Bill Arrives. Understand why business income may need tax payments during the year and how to plan the cash flow. Read the guide from ME Shield Financial Services.",
       "ht": "Taks Estime pou Travayè Endepandan: Prepare Anvan Fakti a Rive. Konprann poukisa revni biznis ka mande peman taks pandan ane a ak kijan pou prepare lajan an. Li gid ME Shield Financial Services la."
-    }
+    },
+    "published_at": "2026-11-17T16:26:26-05:00"
   },
   {
     "slug": "uscis-receipt-notices-case-status-safely",
