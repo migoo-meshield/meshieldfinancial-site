@@ -238,7 +238,13 @@ function initCleanUrls() {
 
 /* ── Language Switcher ── */
 function initLang() {
-  const saved = localStorage.getItem('me-shield-lang') || 'en';
+  // A link may ask for a language (?lang=ht), for example from the client portal's Blog page. That choice is also remembered.
+  let requested = '';
+  try { requested = new URLSearchParams(location.search).get('lang') || ''; } catch (_) { /* no query string */ }
+  if (requested === 'ht' || requested === 'en') {
+    try { localStorage.setItem('me-shield-lang', requested); } catch (_) { /* storage blocked: still applies for this page */ }
+  }
+  const saved = (requested === 'ht' || requested === 'en') ? requested : (localStorage.getItem('me-shield-lang') || 'en');
   setSiteLang(saved, false);
 }
 /* Pages across the site call setLang('en'|'ht') from onclick handlers; keep that name wired to the real implementation. */
