@@ -69,8 +69,10 @@ def main():
         if html_file.name not in {"404.html"}:
             if len(parser.canonicals) != 1:
                 errors.append(f"{html_file.name}: expected one canonical, found {len(parser.canonicals)}")
-            elif not parser.canonicals[0].startswith(CANONICAL_ORIGIN):
-                errors.append(f"{html_file.name}: invalid canonical: {parser.canonicals[0]}")
+            else:
+                expected = CANONICAL_ORIGIN + "/" + ("" if html_file.stem == "index" else html_file.stem)
+                if parser.canonicals[0] != expected:
+                    errors.append(f"{html_file.name}: expected canonical {expected}, found {parser.canonicals[0]}")
         for raw_jsonld in parser.jsonld:
             try:
                 json.loads(raw_jsonld)
@@ -80,8 +82,10 @@ def main():
     sitemap = ElementTree.parse(ROOT / "sitemap.xml")
     ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     sitemap_urls = [loc.text for loc in sitemap.findall("sm:url/sm:loc", ns)]
+    if len(sitemap_urls) != len(set(sitemap_urls)):
+        errors.append("sitemap.xml: duplicate URLs")
     for url in sitemap_urls:
-        if not url.startswith(CANONICAL_ORIGIN + "/"):
+        if not url or not url.startswith(CANONICAL_ORIGIN + "/") or url != CANONICAL_ORIGIN + urlparse(url).path:
             errors.append(f"sitemap.xml: non-canonical origin: {url}")
             continue
         relative = url[len(CANONICAL_ORIGIN):].lstrip("/")
