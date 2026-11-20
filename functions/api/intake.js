@@ -402,7 +402,8 @@ async function handleIntake(request, env) {
       try {
         await fetch("https://clientportal.meshieldfinancial.com/api/log-referral", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          // The client portal checks this shared secret, so only this Worker can write referrals.
+          headers: { "Content-Type": "application/json", ...(env.REFERRAL_LOG_SECRET ? { "X-Referral-Secret": env.REFERRAL_LOG_SECRET } : {}) },
           body: JSON.stringify({
             code: referredBy,
             lead_name: `${first_name} ${last_name}`.trim(),
