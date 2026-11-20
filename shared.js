@@ -227,13 +227,6 @@ function initCleanUrls() {
       // Ignore malformed/non-navigation href values.
     }
   });
-
-  if (!document.querySelector('link[rel="canonical"]')) {
-    const canonical = document.createElement('link');
-    canonical.rel = 'canonical';
-    canonical.href = window.location.origin + cleanPath(window.location.pathname);
-    document.head.appendChild(canonical);
-  }
 }
 
 /* ── Language Switcher ── */
