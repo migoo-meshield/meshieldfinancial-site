@@ -1000,11 +1000,12 @@
     ],
     "source_checked": "2026-10-24",
     "publish_at": "2026-11-23T09:00:00-05:00",
-    "status": "scheduled",
+    "status": "published",
     "gbp": {
       "en": "LLC, DBA and EIN: Three Different Things a New Business Owner Should Understand. Separate your legal entity, public business name and federal tax identifier before filing. Read the guide from ME Shield Financial Services.",
       "ht": "LLC, DBA ak EIN: Twa Bagay Diferan yon Nouvo Mèt Biznis Dwe Konprann. Separe antite legal, non piblik biznis ak nimewo taks federal ou anvan ou depoze. Li gid ME Shield Financial Services la."
-    }
+    },
+    "published_at": "2026-11-23T13:54:53-05:00"
   },
   {
     "slug": "life-insurance-policy-loans-costs-risks",
