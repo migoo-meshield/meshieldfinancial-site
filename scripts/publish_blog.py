@@ -130,7 +130,8 @@ def main():
     if f'<loc>{url}</loc>' not in xml: xml=xml.replace('</urlset>',f'  <url><loc>{url}</loc><lastmod>{a["published_at"][:10]}</lastmod></url>\n</urlset>')
     sitemap.write_text(xml)
     share=ROOT/'.github/editorial/sharing'; share.mkdir(exist_ok=True)
-    payload={'article_url':url,'published_at':a['published_at'],'google_business_profile':{'status':'prepared_not_posted','button':'LEARN_MORE','url':url+'?utm_source=google&utm_medium=organic&utm_campaign=blog','copy':a['gbp']},'client_email':{'status':'not_sent_automation_unverified','subject':a['title'],'intro':a['description'],'url':url,'sender':'info@meshieldfinancial.com','audience':'Confirmed opted-in subscribers only; honor unsubscribes; use the existing verified automation only.'}}
+    image_url=ORIGIN+'/'+CATEGORIES[a['category']][2]
+    payload={'article_url':url,'published_at':a['published_at'],'google_business_profile':{'status':'prepared_not_posted','button':'LEARN_MORE','url':url+'?utm_source=google&utm_medium=organic&utm_campaign=blog','image_url':image_url,'copy':a['gbp']},'client_email':{'status':'not_sent_automation_unverified','subject':a['title'],'intro':a['description'],'url':url,'sender':'info@meshieldfinancial.com','audience':'Confirmed opted-in subscribers only; honor unsubscribes; use the existing verified automation only.'}}
     (share/(a['slug']+'.json')).write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
     QUEUE.write_text(json.dumps(articles,ensure_ascii=False,indent=2)+'\n'); update_rss(a)
     print('Published one article: '+url)
