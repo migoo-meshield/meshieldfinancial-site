@@ -8,7 +8,8 @@
     "copy": {
       "en": "Your USCIS Receipt Notice: Track the Case Without Sharing Private Information. Keep receipt notices organized, use official case-status tools and recognize when you need authorized legal help. Read the guide from ME Shield Financial Services.",
       "ht": "Resi USCIS Ou: Swiv Dosye a San Pataje Enfòmasyon Prive. Òganize avi resi yo, itilize zouti estati ofisyèl epi rekonèt lè ou bezwen èd legal otorize. Li gid ME Shield Financial Services la."
-    }
+    },
+    "image_url": "https://meshieldfinancial.com/article-immigration-forms.jpg"
   },
   "client_email": {
     "status": "scheduled_auto_send",
