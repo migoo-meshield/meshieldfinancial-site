@@ -85,6 +85,8 @@ class PublicationRules(unittest.TestCase):
             self.assertEqual(schema['@type'],'BlogPosting')
             self.assertGreaterEqual(len(schema['citation']),1)
             self.assertIn(a['title']['ht'],page)
+            self.assertEqual(len(re.findall(r'<h1\b', page)), 1)
+            self.assertRegex(page, r'<div data-ht class="hero-h-style" role="heading" aria-level="1">[^<]+</div>')
             self.assertGreaterEqual(len(a['sections']),5)
 
     def test_publishing_marks_the_new_article_as_latest(self):

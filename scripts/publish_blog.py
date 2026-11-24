@@ -19,6 +19,9 @@ def esc(s): return html.escape(s, quote=True)
 def both(tag, en, ht, attrs=''):
     return f'<{tag} data-en {attrs}>{en}</{tag}><{tag} data-ht {attrs}>{ht}</{tag}>'
 
+def article_headline(en, ht):
+    return f'<h1 data-en>{en}</h1><div data-ht class="hero-h-style" role="heading" aria-level="1">{ht}</div>'
+
 def render_article(a):
     template = (ROOT / 'homeowners-renters-insurance-florida-guide.html').read_text()
     nav = re.search(r'<nav\b.*?</nav>', template, re.S).group()
@@ -52,7 +55,7 @@ def render_article(a):
 .article-body .article-disclaimer-box p{{font-size:.88rem}} .share-row{{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0}}
 </style><link rel="stylesheet" href="/theme.css?v=20261113"><script src="/theme.js?v=20261113"></script></head><body>{nav}
 <main id="main-content"><header class="article-hero"><div class="container"><div class="article-meta">{both('span',esc(cat_en),esc(cat_ht),'class="article-tag"')}<time class="article-date" datetime="{published}">{date}</time></div>
-{both('h1',esc(a['title']['en']),esc(a['title']['ht']))}
+{article_headline(esc(a['title']['en']),esc(a['title']['ht']))}
 {both('p',esc(a['description']['en']),esc(a['description']['ht']),'style="color:white"')}
 <p style="color:white">ME Shield Financial Services · {minutes} min</p></div></header>
 <section class="section section-white"><div class="container"><article class="article-body">
