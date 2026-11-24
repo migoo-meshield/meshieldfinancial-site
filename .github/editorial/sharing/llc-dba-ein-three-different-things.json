@@ -12,7 +12,7 @@
     }
   },
   "client_email": {
-    "status": "not_sent_automation_unverified",
+    "status": "scheduled_auto_send",
     "subject": {
       "en": "LLC, DBA and EIN: Three Different Things a New Business Owner Should Understand",
       "ht": "LLC, DBA ak EIN: Twa Bagay Diferan yon Nouvo Mèt Biznis Dwe Konprann"
@@ -23,6 +23,8 @@
     },
     "url": "https://meshieldfinancial.com/llc-dba-ein-three-different-things",
     "sender": "info@meshieldfinancial.com",
-    "audience": "Confirmed opted-in subscribers only; honor unsubscribes; use the existing verified automation only."
+    "audience": "Confirmed opted-in subscribers only; honor unsubscribes; use the existing verified automation only.",
+    "brevo_campaign_id": 117,
+    "scheduled_send_at": "2026-11-25T09:00:00-05:00"
   }
 }
