@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parent.parent
 QUEUE = ROOT / '.github/editorial/articles.json'
 ORIGIN = 'https://meshieldfinancial.com'
-CATEGORIES = {'insurance':('Insurance','Asirans','article-homeowners-renters.jpg'), 'tax':('Tax Tips','Konsèy Taks','article-tax-prep.jpg'), 'immigration':('Immigration','Imigrasyon','article-immigration-forms.jpg'), 'business':('Business Filing','Depo Biznis','article-business-filing.jpg'), 'ibc':('Infinite Banking','Bank Enfini','article-infinite-banking-guide.jpg'), 'finance':('Financial Education','Edikasyon Finansye','article-hurricane-prep.jpg'), 'community':('Community','Kominote','article-haitian-money-habits.jpg')}
+CATEGORIES = {'insurance':('Insurance','Asirans','article-homeowners-renters.jpg'), 'tax':('Tax Tips','Konsèy Taks','article-tax-prep.jpg'), 'immigration':('Immigration','Imigrasyon','article-immigration-documents.jpg'), 'business':('Business Filing','Depo Biznis','article-business-filing.jpg'), 'ibc':('Infinite Banking','Bank Enfini','article-infinite-banking-guide.jpg'), 'finance':('Financial Education','Edikasyon Finansye','article-hurricane-prep.jpg'), 'community':('Community','Kominote','article-haitian-money-habits.jpg')}
 
 def esc(s): return html.escape(s, quote=True)
 def both(tag, en, ht, attrs=''):
