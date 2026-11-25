@@ -40,6 +40,8 @@ def render_article(a):
     disclaimer_en='Original educational content by ME Shield Financial Services, informed by the public sources listed below. It paraphrases general guidance and does not reproduce an agency publication or imply agency endorsement. Examples are hypothetical, not actual client cases. General education only; not personalized insurance, investment, tax or legal advice. Insurance depends on the issued policy, exclusions, limits and insurer assessment. Tax and immigration rules can change. Immigration services are document preparation assistance only; consult an immigration attorney or authorized accredited representative for legal advice.'
     disclaimer_ht='Kontni edikatif orijinal ME Shield Financial Services, ki sèvi ak sous piblik ki anba yo. Li reformile enfòmasyon jeneral; li pa repwodui yon piblikasyon ajans ni li pa vle di ajans lan apwouve nou. Egzanp yo ipotetik, yo pa dosye kliyan reyèl. Edikasyon jeneral sèlman; se pa konsèy asirans, envestisman, taks oswa legal pèsonalize. Asirans depann de polis yo emèt la, esklizyon, limit ak evalyasyon konpayi an. Règ taks ak imigrasyon ka chanje. Sèvis imigrasyon se asistans preparasyon dokiman sèlman; konsilte yon avoka imigrasyon oswa reprezantan akredite otorize pou konsèy legal.'
     schema={'@context':'https://schema.org','@type':'BlogPosting','headline':a['title']['en'],'description':a['description']['en'],'datePublished':published,'dateModified':published,'mainEntityOfPage':url,'image':ORIGIN+'/'+image,'inLanguage':['en','ht'],'author':{'@type':'Organization','name':'ME Shield Financial Services','url':ORIGIN},'publisher':{'@type':'Organization','name':'ME Shield Financial Services','logo':{'@type':'ImageObject','url':ORIGIN+'/logo.png'}},'citation':[s['url'] for s in a['sources']]}
+    # Computed here: Python before 3.12 does not allow a backslash inside an f-string expression.
+    schema_json=json.dumps(schema,ensure_ascii=False).replace('<','\\u003c')
     return f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(a['title']['en'])} — ME Shield Financial Services</title>
@@ -47,7 +49,7 @@ def render_article(a):
 <link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/style.css?v=20260901-1">
 <meta property="og:type" content="article"><meta property="og:title" content="{esc(a['title']['en'])}"><meta property="og:description" content="{esc(a['description']['en'])}"><meta property="og:url" content="{url}"><meta property="og:image" content="{ORIGIN}/{image}">
 <meta property="article:published_time" content="{published}"><meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{json.dumps(schema,ensure_ascii=False).replace('<','\\u003c')}</script>
+<script type="application/ld+json">{schema_json}</script>
 <style>{base_style}
 .article-hero{{background-image:url('/{image}')}}
 .article-toc{{background:var(--offwhite);padding:24px;border-radius:8px;margin:24px 0}} .article-toc a{{line-height:1.8}} .article-toc a[data-en],.article-toc a[data-ht]{{display:inline}}
