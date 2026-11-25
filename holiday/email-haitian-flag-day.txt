@@ -21,6 +21,7 @@
 <tr><td style="padding:16px 30px 24px 30px;background:#0b1c3a;color:#d8e2f2;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.5;">
 ME Shield Financial Services · Apopka, FL 32712 · (407) 267-2652<br>
 Educational content only, not financial advice.<br>
+Photo: “Haiti flag” by Victor Chapa, <a href="https://creativecommons.org/licenses/by/2.0/" style="color:#f3e4b5;">CC BY 2.0</a> (cropped).<br>
 <a href="{{ unsubscribe }}" style="color:#f3e4b5;">Unsubscribe</a>
 </td></tr>
 </table></td></tr></table></body></html>
