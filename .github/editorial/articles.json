@@ -1086,11 +1086,12 @@
     ],
     "source_checked": "2026-10-24",
     "publish_at": "2026-11-26T09:00:00-05:00",
-    "status": "scheduled",
+    "status": "published",
     "gbp": {
       "en": "Life Insurance Policy Loans: Interest, Repayment and the Risks to Understand. Understand what borrowing against cash value means before using a policy loan in an Infinite Banking strategy. Read the guide from ME Shield Financial Services.",
       "ht": "Prè sou Polis Asirans Lavi: Enterè, Ranbousman ak Risk pou Konprann. Konprann sa prete sou valè kach vle di anvan ou itilize yon prè polis nan yon estrateji Bank Enfini. Li gid ME Shield Financial Services la."
-    }
+    },
+    "published_at": "2026-11-26T17:00:35-05:00"
   },
   {
     "slug": "annual-family-financial-checkup",
