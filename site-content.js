@@ -21,29 +21,33 @@
     if (!/^\d{4}-\d{2}-\d{2}$/.test(String(holiday.until || '')) || today > holiday.until) return;
     const anchor = document.querySelector('.home-hero');
     if (!anchor || !holiday.greeting) return;
+    // The whole photo is shown, never cropped: it keeps its 2:1 shape, as wide as the screen up to 640px, centred on navy.
     const band = document.createElement('section');
     band.id = 'site-holiday';
     band.setAttribute('aria-label', 'Holiday greeting');
-    band.style.cssText = 'position:relative;background:#0b1d3a;color:#fff;overflow:hidden;text-align:center;';
+    band.style.cssText = 'background:#0b1d3a;color:#fff;display:flex;justify-content:center;';
+    const frame = document.createElement('div');
+    frame.style.cssText = 'position:relative;width:100%;max-width:640px;aspect-ratio:2 / 1;';
     const img = document.createElement('img');
     img.src = holiday.image; img.alt = holiday.alt || ''; img.width = 1200; img.height = 600;
-    img.style.cssText = 'display:block;width:100%;height:150px;object-fit:cover;opacity:.55;';
+    img.style.cssText = 'display:block;width:100%;height:100%;object-fit:contain;';
     const text = document.createElement('div');
-    text.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 16px;text-shadow:0 2px 12px rgba(0,0,0,.6);';
+    text.style.cssText = 'position:absolute;left:0;right:0;bottom:0;padding:28px 16px 12px;text-align:center;background:linear-gradient(to top,rgba(7,19,42,.85),rgba(7,19,42,0));';
     for (const [attr, value] of [['data-en', holiday.greeting.en], ['data-ht', holiday.greeting.ht]]) {
       const line = document.createElement('div');
       line.setAttribute(attr, '');
-      line.style.cssText = 'font-family:var(--font-display,Georgia,serif);font-size:clamp(1.3rem,4vw,2rem);font-weight:700;';
+      line.style.cssText = 'font-family:var(--font-display,Georgia,serif);font-size:clamp(1.15rem,4vw,1.7rem);font-weight:700;text-shadow:0 2px 10px rgba(0,0,0,.6);';
       line.textContent = String(value || '');
       text.append(line);
     }
-    band.append(img, text);
+    frame.append(img, text);
     if (holiday.credit) {
       const credit = document.createElement('div');
-      credit.style.cssText = 'position:absolute;right:10px;bottom:4px;font-size:.68rem;color:rgba(255,255,255,.8);';
+      credit.style.cssText = 'position:absolute;right:8px;top:6px;font-size:.66rem;color:rgba(255,255,255,.85);text-shadow:0 1px 4px rgba(0,0,0,.7);';
       credit.textContent = String(holiday.credit).slice(0, 80);
-      band.append(credit);
+      frame.append(credit);
     }
+    band.append(frame);
     anchor.before(band);
   }
 
