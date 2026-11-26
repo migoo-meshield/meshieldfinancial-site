@@ -49,9 +49,6 @@ All from Pexels (Pexels License, free for commercial use, no credit required) un
 | presidents-day.jpg | Statue of Abraham Lincoln (Pexels 15805496) | pexels.com/photo/15805496/ |
 | presidents-day-2.jpg | Lincoln Memorial at night (Pexels 11732276) | pexels.com/photo/11732276/ |
 | presidents-day-3.jpg | The monument of Abraham Lincoln in Washington DC (Pexels 7017151) | pexels.com/photo/7017151/ |
-| womens-day.jpg | Group of women standing close to each other (Pexels 7951918) | pexels.com/photo/7951918/ |
-| womens-day-2.jpg | A group photo of women (Pexels 7952093) | pexels.com/photo/7952093/ |
-| womens-day-3.jpg | Woman hugging her child while holding tulips (Pexels 4149006) | pexels.com/photo/4149006/ |
 | easter.jpg | Eggs on a basket (Pexels 3979243) | pexels.com/photo/3979243/ |
 | easter-2.jpg | Pastel colored eggs in a carton (Pexels 6897556) | pexels.com/photo/6897556/ |
 | easter-3.jpg | Painted eggs with assorted colors (Pexels 6827025) | pexels.com/photo/6827025/ |
@@ -64,6 +61,3 @@ All from Pexels (Pexels License, free for commercial use, no credit required) un
 | vertieres-day.jpg | Aerial view of a neighborhood in Haiti (Pexels 2898214) | pexels.com/photo/2898214/ |
 | vertieres-day-2.jpg | Cottages on stilts off the coast of Haiti (Pexels 5045910) | pexels.com/photo/5045910/ |
 | vertieres-day-3.jpg | Scenic view of a tropical beach (Pexels 16747502) | pexels.com/photo/16747502/ |
-| mens-day.jpg | Group of men enjoying a casual outdoor gathering (Pexels 32068135) | pexels.com/photo/32068135/ |
-| mens-day-2.jpg | Three men standing while laughing (Pexels 1049317) | pexels.com/photo/1049317/ |
-| mens-day-3.jpg | Friends posing for a group photo (Pexels 1429881) | pexels.com/photo/1429881/ |
