@@ -173,6 +173,10 @@ async function handleIntake(request, env) {
     if (!rawService)          missing.push("service");
     if (!state)               missing.push("state");
     if (body.consent !== true) missing.push("consent");
+    const smsTransactional = body.sms_consent?.transactional === true;
+    const smsMarketing = body.sms_consent?.marketing === true;
+    const wantsSms = smsTransactional || smsMarketing;
+    if (wantsSms && !/^(?:1)?\d{10}$/.test(phone.replace(/\D/g, ""))) missing.push("sms_phone");
 
     if (missing.length > 0) {
       return json({ ok: false, error: "missing_fields", fields: missing }, 400, cors);
@@ -233,6 +237,13 @@ async function handleIntake(request, env) {
         at: now
       },
 
+      sms_consent: {
+        transactional: smsTransactional,
+        marketing: smsMarketing,
+        at: wantsSms ? now : null,
+        disclosure_version: wantsSms ? '2026-11-28' : null
+      },
+
       gate: {
         state_allowed: state_allowed,
         requires_license: needsLicense,
@@ -276,7 +287,7 @@ async function handleIntake(request, env) {
     // send the lead straight to Brevo the old way instead. You never lose a
     // lead because an automation was down.
     // -----------------------------------------------------------------------
-    if (!ok && env.BREVO_FALLBACK_URL) {
+    if (!ok && !wantsSms && env.BREVO_FALLBACK_URL) {
       try {
         await sendToBrevo(env.BREVO_FALLBACK_URL, payload);
         deliveredTo = "brevo_fallback";
@@ -430,11 +441,6 @@ async function sendToBrevo(brevoUrl, payload) {
   params.append("FIRSTNAME", payload.client.first_name);
   params.append("LASTNAME", payload.client.last_name);
 
-  if (payload.client.phone) {
-    const digits = payload.client.phone.replace(/\D/g, "");
-    params.append("SMS__COUNTRY_CODE", "+1");
-    params.append("SMS", digits.length === 10 ? "1" + digits : digits);
-  }
 
   params.append("SERVICE_INTERESTED", payload.payload.service_raw);
   params.append("LANG_PREF", payload.client.language);
