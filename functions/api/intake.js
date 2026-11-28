@@ -341,6 +341,8 @@ async function handleIntake(request, env) {
         at: now
       },
 
+      sms_consent: readSmsConsent(body, now),
+
       gate: {
         state_allowed: state_allowed,
         requires_license: needsLicense,
@@ -381,7 +383,7 @@ async function handleIntake(request, env) {
     // -----------------------------------------------------------------------
     if (!ok && env.BREVO_FALLBACK_URL) {
       try {
-        await sendToBrevo(env.BREVO_FALLBACK_URL, payload);
+        await sendToBrevo(env.BREVO_FALLBACK_URL, payload, origin !== "https://connect.meshieldfinancial.com" && !body.sms_consent);
         deliveredTo = "brevo_fallback";
         ok = true;
       } catch (err) {
@@ -485,6 +487,18 @@ function leadBackupNamespace(env) {
   return env.LEAD_BACKUP_KV || env.CHATBOT_STATS || null;
 }
 
+function readSmsConsent(body, at) {
+  const transactional = body.sms_consent?.transactional === true;
+  const marketing = body.sms_consent?.marketing === true;
+  const optedIn = transactional || marketing;
+  return {
+    transactional,
+    marketing,
+    at: optedIn ? at : null,
+    disclosure_version: optedIn ? "connect-2026-11-28" : null
+  };
+}
+
 async function saveLeadBackup(env, body, request) {
   const namespace = leadBackupNamespace(env);
   const backupId = `MES-B-${new Date().toISOString().replace(/\D/g, "").slice(0, 14)}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
@@ -510,6 +524,7 @@ async function saveLeadBackup(env, body, request) {
       service: clean(body.service, 40),
       message: clean(body.message, 2000),
       consent: body.consent === true,
+      sms_consent: readSmsConsent(body, now),
       page_url: clean(body.page_url, 300),
       country: request.headers.get("CF-IPCountry") || ""
     },
@@ -671,13 +686,13 @@ function buildCorsHeaders(origin) {
  * The fallback path. Sends the lead to Brevo using exactly the same field
  * names your contact.html already uses, so nothing in Brevo has to change.
  */
-async function sendToBrevo(brevoUrl, payload) {
+async function sendToBrevo(brevoUrl, payload, includeLegacySms) {
   const params = new URLSearchParams();
   params.append("EMAIL", payload.client.email);
   params.append("FIRSTNAME", payload.client.first_name);
   params.append("LASTNAME", payload.client.last_name);
 
-  if (payload.client.phone) {
+  if (includeLegacySms && payload.client.phone) {
     const digits = payload.client.phone.replace(/\D/g, "");
     params.append("SMS__COUNTRY_CODE", "+1");
     params.append("SMS", digits.length === 10 ? "1" + digits : digits);
