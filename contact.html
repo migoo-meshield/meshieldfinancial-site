@@ -319,7 +319,21 @@
           <div class="form-group">
             <label data-en>Phone Number</label>
             <label data-ht>Nimewo Telefòn</label>
-            <input type="tel" id="phone" placeholder="(305) 000-0000"/>
+            <input type="tel" id="phone" placeholder="(305) 000-0000" aria-describedby="sms-disclosure"/>
+            <div id="sms-disclosure">
+              <p data-en>Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help. Your mobile information will not be sold or shared with third parties.</p>
+              <p data-ht>Kantite mesaj yo ka varye. Frè pou mesaj ak done ka aplike. Reponn STOP pou anile oswa HELP pou èd. Nou p ap vann ni pataje enfòmasyon mobil ou ak lòt konpayi.</p>
+            </div>
+            <div class="consent-box">
+              <input type="checkbox" id="sms-transactional"/>
+              <label for="sms-transactional"><span data-en>I agree to receive automated service texts from ME Shield Financial Services about my appointments and requests.</span><span data-ht>Mwen dakò resevwa mesaj tèks otomatik ME Shield Financial Services sou randevou ak demann mwen yo.</span></label>
+            </div>
+            <div class="consent-box">
+              <input type="checkbox" id="sms-marketing"/>
+              <label for="sms-marketing"><span data-en>I agree to receive automated marketing texts from ME Shield Financial Services about promotions and business updates.</span><span data-ht>Mwen dakò resevwa mesaj tèks maketing otomatik ME Shield Financial Services sou pwomosyon ak nouvèl biznis la.</span></label>
+            </div>
+            <p data-en>SMS consent is optional and is not a condition of purchase. See our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
+            <p data-ht>Konsantman pou SMS se chwa ou. Ou ka achte sèvis san ou pa dakò resevwa SMS. Gade <a href="/privacy">Règleman Konfidansyalite</a> ak <a href="/terms">Kondisyon</a> nou yo.</p>
           </div>
 
           <!-- ═══ ADDED: State — required by the Licensing Gate ═══ -->
@@ -424,8 +438,8 @@
           <div class="consent-box">
             <input type="checkbox" id="consent"/>
             <label for="consent">
-              <span data-en>I agree that ME Shield Financial Services may contact me by phone, text message, or email about my request. Message and data rates may apply. I can withdraw my consent at any time.</span>
-              <span data-ht>Mwen dakò pou ME Shield Financial Services kontakte m pa telefòn, mesaj tèks, oswa imel konsènan demann mwen an. Frè mesaj ak done ka aplike. Mwen ka retire konsantman mwen nenpòt lè.</span>
+              <span data-en>I agree that ME Shield Financial Services may contact me by phone call or email about my request. I can withdraw my consent at any time.</span>
+              <span data-ht>Mwen dakò pou ME Shield Financial Services kontakte m pa apèl telefòn oswa imel konsènan demann mwen an. Mwen ka retire konsantman mwen nenpòt lè.</span>
             </label>
           </div>
           <p style="font-size:.78rem;margin:-10px 0 18px;color:var(--text-light);" data-en>Do not send Social Security numbers or sensitive documents here. See our <a href="/privacy">Privacy Policy</a>.</p>
@@ -660,6 +674,8 @@
     document.getElementById('state').value = '';
     document.getElementById('lang-pref').value = 'english';
     document.getElementById('consent').checked = false;
+    document.getElementById('sms-transactional').checked = false;
+    document.getElementById('sms-marketing').checked = false;
   }
 
   /**
@@ -691,6 +707,11 @@
     const langPref = document.getElementById('lang-pref').value;
     const message  = document.getElementById('message').value.trim();
     const consent  = document.getElementById('consent').checked;
+    const smsConsent = {
+      transactional: document.getElementById('sms-transactional').checked,
+      marketing: document.getElementById('sms-marketing').checked
+    };
+    const wantsSms = smsConsent.transactional || smsConsent.marketing;
     const honeypot = document.getElementById('company_website').value;
 
     const ht = currentLang() === 'ht';
@@ -715,6 +736,11 @@
       return;
     }
 
+    if (wantsSms && !/^(?:1)?\d{10}$/.test(phone.replace(/\D/g, ''))) {
+      alert(ht ? 'Antre yon nimewo telefòn ameriken ki valab pou resevwa SMS.' : 'Enter a valid US phone number to receive texts.');
+      return;
+    }
+
     setBusy(true);
 
     // ── Attempt 1: the Worker (normal path) ──────────────────────────────
@@ -732,6 +758,7 @@
           language:   langPref,
           message:    message,
           consent:    true,
+          sms_consent: smsConsent,
           company_website: '',
           page_url:   window.location.href,
           // Where this visitor actually came from, captured on their first
@@ -759,17 +786,18 @@
       // Fall through to the last-resort path below.
     }
 
+    if (wantsSms) {
+      showError();
+      setBusy(false);
+      return;
+    }
+
     // ── Attempt 2: last resort — straight to Brevo, the original way ─────
     try {
       const params = new URLSearchParams();
       params.append('EMAIL', email);
       params.append('FIRSTNAME', fname);
       params.append('LASTNAME', lname);
-      if (phone) {
-        const digits = phone.replace(/\D/g, '');
-        params.append('SMS__COUNTRY_CODE', '+1');
-        params.append('SMS', digits.length === 10 ? '1' + digits : digits);
-      }
       params.append('SERVICE_INTERESTED', service);
       params.append('LANG_PREF', langPref);
       params.append('STATE', state);
