@@ -9,7 +9,7 @@
 // ============================================================
 const AI_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"; // a well-established, reliable model
 const MAX_REPLY_LENGTH = 400; // roughly how long a reply can be
-const SUPPORT_EMAIL = "meshieldservices@gmail.com";
+const SUPPORT_EMAIL = "info@meshieldfinancial.com";
 const SUPPORT_PHONE = "(407) 267-2652";
 const BLOG_BASE_URL = "https://www.meshieldfinancial.com/";
 
