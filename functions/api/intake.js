@@ -455,7 +455,7 @@ async function handleIntake(request, env) {
         retryable: true,
         support: {
           phone: "+14072672652",
-          email: "meshieldservices@gmail.com"
+          email: "info@meshieldfinancial.com"
         },
         ...backupReceipt(leadBackup)
       }, 502, cors);
